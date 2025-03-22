@@ -220,24 +220,116 @@ setup_trade_caravan_travel_plan_effect = {
 	# $FROM_NODE$ = Starting trade node
 	# $TO_NODE$ = Destination trade node
 	# $CARAVAN_LEADER$ = Character leading the caravan (optional)
-	# First determine if we have a caravan leader specified
+	# $TRADE_GOODS$ = Optional list of goods being transported
+	# $CARAVAN_SIZE$ = Optional size of caravan (small, medium, large)
+	# $RETURN_TRIP$ = Whether to create a return journey (default: yes)
+	# Save source and destination nodes for reference
+	$FROM_NODE$.county = {
+		save_scope_as = from_county
+	}
+	$TO_NODE$.county = {
+		save_scope_as = to_county
+	}
+	# Determine caravan size if not specified
+	if = {
+		limit = {
+			NOT = {
+				exists = $CARAVAN_SIZE$
+			}
+		}
+		# Default to medium caravan
+		save_temporary_scope_value_as = {
+			name = temp_caravan_size
+			value = "medium"
+		}
+	}
+	else = {
+		save_temporary_scope_value_as = {
+			name = temp_caravan_size
+			value = $CARAVAN_SIZE$
+		}
+	}
+	# Determine if return trip is needed
+	if = {
+		limit = {
+			NOT = {
+				exists = $RETURN_TRIP$
+			}
+		}
+		# Default to yes for return trip
+		save_temporary_scope_value_as = {
+			name = temp_return_trip
+			value = yes
+		}
+	}
+	else = {
+		save_temporary_scope_value_as = {
+			name = temp_return_trip
+			value = $RETURN_TRIP$
+		}
+	}
+	# Check if we need to identify trade goods
+	if = {
+		limit = {
+			NOT = {
+				exists = $TRADE_GOODS$
+			}
+		}
+		# Auto-determine goods based on source county (to be expanded later with actual trade goods system)
+		scope:from_county = {
+			if = {
+				limit = {
+					OR = {
+						terrain = desert_mountains
+						terrain = steppe
+					}
+				}
+				save_temporary_scope_value_as = {
+					name = temp_trade_goods
+					value = "silk"
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						terrain = jungle
+						terrain = desert
+					}
+				}
+				save_temporary_scope_value_as = {
+					name = temp_trade_goods
+					value = "spices"
+				}
+			}
+			else = {
+				save_temporary_scope_value_as = {
+					name = temp_trade_goods
+					value = "general_goods"
+				}
+			}
+		}
+	}
+	else = {
+		save_temporary_scope_value_as = {
+			name = temp_trade_goods
+			value = $TRADE_GOODS$
+		}
+	}
+	# Determine if we have a caravan leader specified or need to generate one
 	if = {
 		limit = {
 			exists = $CARAVAN_LEADER$
 		}
-		# Use the character as caravan leader
+		# Use the provided character as caravan leader
 		$CARAVAN_LEADER$ = {
-			create_travel_plan = {
-				target = $TO_NODE$.county.barony
-				on_arrival = trade_caravan_arrival_on_action
-			}
+			save_scope_as = caravan_leader
 		}
 	}
 	else = {
 		# Generate a random merchant character to lead caravan
 		$FROM_NODE$.county.holder = {
 			create_character = {
-				name = "RANDOM_TRADER_NAME"				# Using a simple name placeholder
+				name = "RANDOM_TRADER_NAME"				# Using a placeholder name
 				faith = this.faith
 				culture = this.culture
 				age = {
@@ -253,11 +345,192 @@ setup_trade_caravan_travel_plan_effect = {
 				save_scope_as = caravan_leader
 			}
 		}
-		# Use the generated character as caravan leader
-		scope:caravan_leader = {
-			create_travel_plan = {
-				target = $TO_NODE$.county.barony
-				on_arrival = trade_caravan_arrival_on_action
+	}
+	# Now set up travel plan using existing travel system
+	scope:caravan_leader = {
+		# Set up variables to track caravan information
+		set_variable = {
+			name = caravan_origin_node
+			value = $FROM_NODE$.id
+		}
+		set_variable = {
+			name = caravan_destination_node
+			value = $TO_NODE$.id
+		}
+		set_variable = {
+			name = caravan_goods
+			value = scope:temp_trade_goods
+		}
+		set_variable = {
+			name = caravan_size
+			value = scope:temp_caravan_size
+		}
+		# Create special caravan travel plan using base game travel system
+		start_travel_plan = {
+			origin = scope:from_county.barony			# Start at source county's main barony
+			destination = scope:to_county.barony			# End at destination county's main barony
+			# Use travel system on_action hooks
+			on_start_on_action = on_trade_caravan_departure
+			on_arrival_on_action = on_trade_caravan_arrival
+			# Integrate with standard travel events where appropriate
+			include_in_travel_events = {
+				types = {
+					travel_events
+					trade_travel_events
+				}
+			}
+			# Set appropriate travel plan properties
+			return_trip = scope:temp_return_trip
+			# Use existing travel speed modifiers based on connection type
+			travel_speed_modifier = {
+				if = {
+					limit = {
+						scope:from_county = {
+							var:trade_route_to_[Scope.to_county.GetID]_connection_type = "sea"
+						}
+					}
+					# Sea travel is faster
+					add = 0.25
+				}
+				else_if = {
+					limit = {
+						scope:from_county = {
+							var:trade_route_to_[Scope.to_county.GetID]_connection_type = "river"
+						}
+					}
+					# River travel is slightly faster
+					add = 0.15
+				}
+				else = {
+					# Land travel can be affected by terrain
+					if = {
+						limit = {
+							OR = {
+								scope:from_county = {
+									terrain = mountains
+								}
+								scope:to_county = {
+									terrain = mountains
+								}
+							}
+						}
+						# Mountains slow travel
+						add = -0.2
+					}
+					else_if = {
+						limit = {
+							OR = {
+								scope:from_county = {
+									terrain = desert
+								}
+								scope:to_county = {
+									terrain = desert
+								}
+							}
+						}
+						# Desert slows travel
+						add = -0.15
+					}
+				}
+				# Caravan size affects speed
+				if = {
+					limit = {
+						var:caravan_size = "large"
+					}
+					# Large caravans move slower
+					add = -0.1
+				}
+				else_if = {
+					limit = {
+						var:caravan_size = "small"
+					}
+					# Small caravans move faster
+					add = 0.1
+				}
+			}
+			# Travel modifiers for caravan based on route type and goods
+			travel_safety_modifier = {
+				# Base modifier
+				value = 0
+				# Route type affects safety
+				if = {
+					limit = {
+						scope:from_county = {
+							var:trade_route_to_[Scope.to_county.GetID]_connection_type = "sea"
+						}
+					}
+					# Sea travel is less safe
+					add = -0.15
+				}
+				# Valuable goods are less safe to transport
+				if = {
+					limit = {
+						OR = {
+							var:caravan_goods = "silk"
+							var:caravan_goods = "spices"
+							var:caravan_goods = "jewels"
+						}
+					}
+					add = -0.1
+				}
+				# Large caravans are safer
+				if = {
+					limit = {
+						var:caravan_size = "large"
+					}
+					add = 0.15
+				}
+				else_if = {
+					limit = {
+						var:caravan_size = "small"
+					}
+					add = -0.1
+				}
+			}
+		}
+	}
+	# Set up caravan arrival on_action with potential rewards
+	scope:caravan_leader = {
+		set_variable = {
+			name = caravan_value
+			value = 10			# Base value
+		}
+		# Modify value based on goods
+		if = {
+			limit = {
+				var:caravan_goods = "silk"
+			}
+			change_variable = {
+				name = caravan_value
+				add = 15
+			}
+		}
+		else_if = {
+			limit = {
+				var:caravan_goods = "spices"
+			}
+			change_variable = {
+				name = caravan_value
+				add = 12
+			}
+		}
+		# Modify value based on caravan size
+		if = {
+			limit = {
+				var:caravan_size = "large"
+			}
+			change_variable = {
+				name = caravan_value
+				multiply = 1.5
+			}
+		}
+		else_if = {
+			limit = {
+				var:caravan_size = "small"
+			}
+			change_variable = {
+				name = caravan_value
+				multiply = 0.6
 			}
 		}
 	}
