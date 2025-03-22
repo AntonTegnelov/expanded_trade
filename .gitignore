@@ -1,0 +1,46 @@
+# Crusader Kings III mod-specific
+*.log
+game_data/
+*.mod.original
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and editor files
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*.swo
+*~
+.vs/
+*.sublime-*
+*.code-workspace
+
+# User-specific files
+.cursor/
+user_data/
+saves/
+
+# Documentation generation
+docs/_build/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.bak
+
+# Build artifacts
+build/
+dist/
+*.zip
+
+# Debug files
+debug.txt
+debug_*.log 
