@@ -1,0 +1,71 @@
+l_english:
+ # County Prosperity Modifiers
+ low_trade_prosperity:0 "Low Trade Prosperity"
+ low_trade_prosperity_desc:0 "This county is experiencing the beginnings of trade prosperity, bringing modest improvements to development and taxation."
+ 
+ medium_trade_prosperity:0 "Medium Trade Prosperity"
+ medium_trade_prosperity_desc:0 "This county has established trade connections, bringing notable improvements to development, taxation, and construction."
+ 
+ high_trade_prosperity:0 "High Trade Prosperity"
+ high_trade_prosperity_desc:0 "This county is experiencing substantial trade prosperity, significantly boosting development, taxation, and making construction faster and cheaper."
+ 
+ # Disruption Modifiers
+ plundered_trade_goods:0 "Plundered Trade Goods"
+ plundered_trade_goods_desc:0 "Merchants and trade goods have been plundered in this county, severely hampering economic development and angering local inhabitants."
+ 
+ forced_trade_taxation:0 "Forced Trade Taxation"
+ forced_trade_taxation_desc:0 "Heavy-handed taxation of merchants is reducing the flow of trade and displeasing local inhabitants."
+ 
+ foreign_trade_taxation:0 "Foreign Trade Taxation"
+ foreign_trade_taxation_desc:0 "Foreign powers are taxing merchants traveling to or from this county, slightly reducing trade prosperity."
+ 
+ smuggling_crackdown:0 "Smuggling Crackdown"
+ smuggling_crackdown_desc:0 "A severe crackdown on smuggling is disrupting all trade in this county, significantly harming the local economy and angering inhabitants."
+ 
+ increased_trade_taxation:0 "Increased Trade Taxation"
+ increased_trade_taxation_desc:0 "Increased taxation on trade is hampering economic growth and displeasing local inhabitants."
+ 
+ # Positive Trade Modifiers
+ welcoming_trade_policy:0 "Welcoming Trade Policy"
+ welcoming_trade_policy_desc:0 "This county has implemented policies welcoming merchants, improving economic growth and pleasing local inhabitants."
+ 
+ permanent_trade_relations:0 "Permanent Trade Relations"
+ permanent_trade_relations_desc:0 "This county has established permanent trade relations with foreign merchants, significantly boosting the local economy and pleasing inhabitants."
+ 
+ flourishing_trade_node:0 "Flourishing Trade Node"
+ flourishing_trade_node_desc:0 "This county hosts a flourishing trade node, substantially improving the local economy and making inhabitants very happy."
+ 
+ silk_road_trade_center:0 "Silk Road Trade Center"
+ silk_road_trade_center_desc:0 "This county is a major center on the Silk Road, bringing enormous economic benefits and making inhabitants exceptionally pleased."
+ 
+ overtaxed_merchants:0 "Overtaxed Merchants"
+ overtaxed_merchants_desc:0 "Merchants in this county are being overtaxed, slightly reducing tax income and displeasing local inhabitants."
+ 
+ # Character Modifiers
+ trade_redirected:0 "Trade Redirected"
+ trade_redirected_desc:0 "This character has successfully redirected trade through their realm, slightly increasing their income."
+ 
+ smuggling_network:0 "Smuggling Network"
+ smuggling_network_desc:0 "This character maintains a network of smugglers, increasing their intrigue and providing additional income."
+ 
+ trade_network_controller:0 "Trade Network Controller"
+ trade_network_controller_desc:0 "This character controls a significant trade network, substantially increasing their income and prestige."
+ 
+ silk_road_controller:0 "Silk Road Controller"
+ silk_road_controller_desc:0 "This character controls a major section of the Silk Road, providing substantial income and prestige."
+ 
+ merchant_guild_patron:0 "Merchant Guild Patron"
+ merchant_guild_patron_desc:0 "This character is a patron of merchant guilds, improving their stewardship, increasing income, and improving vassal opinion."
+ 
+ foreign_trade_connections:0 "Foreign Trade Connections"
+ foreign_trade_connections_desc:0 "This character has established connections with foreign merchants, improving diplomacy and slightly increasing income and prestige."
+ 
+ trade_league_member:0 "Trade League Member"
+ trade_league_member_desc:0 "This character is a member of a trade league, improving diplomacy and stewardship while increasing income and prestige."
+ 
+ trade_league_leader:0 "Trade League Leader"
+ trade_league_leader_desc:0 "This character leads a trade league, substantially improving diplomacy and stewardship while significantly increasing income and prestige."
+ 
+ # Lifestyle Focus
+ trade_focus:0 "Trade Focus"
+ trade_focus_desc:0 "This character is focused on developing trade, substantially improving stewardship, lifestyle experience gain, and income." 

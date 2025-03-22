@@ -3,6 +3,11 @@
 game_data/
 *.mod.original
 
+# project specific
+TODO.md
+docs/api/**
+docs/base_game/**
+
 # Operating system files
 .DS_Store
 Thumbs.db
