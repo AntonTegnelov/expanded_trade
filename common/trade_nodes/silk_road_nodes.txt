@@ -8,7 +8,8 @@ trade_node = {
 	county = 256	# Placeholder ID - will need to be replaced with actual county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 15
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -18,7 +19,8 @@ trade_node = {
 	county = 257	# Placeholder ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 10
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -28,7 +30,8 @@ trade_node = {
 	county = 258	# Placeholder ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 12
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 # Central Asian Nodes
@@ -39,7 +42,8 @@ trade_node = {
 	county = 441	# Using Samarkand county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 20
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -49,7 +53,8 @@ trade_node = {
 	county = 440	# Using Bukhara county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 18
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -59,7 +64,8 @@ trade_node = {
 	county = 450	# Placeholder ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 15
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 # Persian Nodes
@@ -70,7 +76,8 @@ trade_node = {
 	county = 451	# Placeholder ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 14
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -80,7 +87,8 @@ trade_node = {
 	county = 661	# Using Rayy county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 16
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 # Middle Eastern Nodes
@@ -91,7 +99,8 @@ trade_node = {
 	county = 720	# Using Baghdad county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 25
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -101,7 +110,8 @@ trade_node = {
 	county = 714	# Using Mosul county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 15
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 # Levantine Nodes
@@ -112,7 +122,8 @@ trade_node = {
 	county = 768	# Using Aleppo county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 18
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 trade_node = {
@@ -122,7 +133,8 @@ trade_node = {
 	county = 771	# Using Antioch county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 20
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
 
 # European Nodes
@@ -133,5 +145,6 @@ trade_node = {
 	county = 746	# Using Constantinople county ID
 	# Controller is the owner of the county
 	controller = scope:county.holder
-	base_value = 30
+	# Use development-based value calculation instead of static value
+	value = trade_node_base_value
 }
