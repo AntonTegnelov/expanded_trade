@@ -1,9 +1,9 @@
 version="1.9.5"
 tags={
-	"Economy"
+	"Events"
+    "Culture"
+    "Decisions"
 	"Gameplay"
-	"Historical"
-	"Trade"
 }
 name="Expanded Trade"
 supported_version="1.9.*"

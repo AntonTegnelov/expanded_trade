@@ -1,0 +1,86 @@
+trade_route = {
+	id = "silk_road_main"
+	name = "silk_road_name"
+	# Main Silk Road nodes from China to Europe
+	nodes = {
+		xian_node		# Chang'an/Xi'an - Starting point in China
+		dunhuang_node		# Dunhuang - Western China gateway
+		kashgar_node		# Kashgar - Entry to Central Asia
+		samarkand_node		# Samarkand - Central Asian hub
+		bukhara_node		# Bukhara - Major trading center
+		merv_node		# Merv - Persian trade city
+		nishapur_node		# Nishapur - Northeastern Persian hub
+		rayy_node		# Rayy/Tehran - Northwest Persian center
+		baghdad_node		# Baghdad - Middle Eastern hub
+		mosul_node		# Mosul - Northern Mesopotamia
+		aleppo_node		# Aleppo - Syrian trade center
+		antioch_node		# Antioch - Mediterranean gateway
+		constantinople_node		# Constantinople - European gateway
+	}
+	# Land route connections between nodes
+	land_routes = {
+		{
+			from = xian_node
+			to = dunhuang_node
+		}
+		{
+			from = dunhuang_node
+			to = kashgar_node
+		}
+		{
+			from = kashgar_node
+			to = samarkand_node
+		}
+		{
+			from = samarkand_node
+			to = bukhara_node
+		}
+		{
+			from = bukhara_node
+			to = merv_node
+		}
+		{
+			from = merv_node
+			to = nishapur_node
+		}
+		{
+			from = nishapur_node
+			to = rayy_node
+		}
+		{
+			from = rayy_node
+			to = baghdad_node
+		}
+		{
+			from = baghdad_node
+			to = mosul_node
+		}
+		{
+			from = mosul_node
+			to = aleppo_node
+		}
+		{
+			from = aleppo_node
+			to = antioch_node
+		}
+		{
+			from = antioch_node
+			to = constantinople_node
+		}
+	}
+	# Alternative sea route from Baghdad to Constantinople
+	sea_routes = {
+		{
+			from = baghdad_node
+			to = constantinople_node
+		}
+	}
+	# Historical description
+	desc = "silk_road_desc"
+	# Status flags - initially active
+	is_active = yes
+	# Base trade flow capacity
+	base_flow_capacity = 10
+	# Basic route properties
+	traversal_time = 30	# Average days to traverse between nodes
+}

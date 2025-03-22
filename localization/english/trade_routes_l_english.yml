@@ -1,0 +1,18 @@
+l_english:
+ silk_road_name:0 "The Silk Road"
+ silk_road_desc:0 "The ancient network of trade routes connecting East and West, named for the lucrative silk trade that began during the Han dynasty. The route spans from Chang'an (modern Xi'an) in China to Constantinople, facilitating not just commerce but also cultural exchange and diplomatic relations between civilizations."
+ 
+ # Node Names
+ xian_node:0 "Chang'an"
+ dunhuang_node:0 "Dunhuang"
+ kashgar_node:0 "Kashgar"
+ samarkand_node:0 "Samarkand"
+ bukhara_node:0 "Bukhara"
+ merv_node:0 "Merv"
+ nishapur_node:0 "Nishapur"
+ rayy_node:0 "Rayy"
+ baghdad_node:0 "Baghdad"
+ mosul_node:0 "Mosul"
+ aleppo_node:0 "Aleppo"
+ antioch_node:0 "Antioch"
+ constantinople_node:0 "Constantinople" 
