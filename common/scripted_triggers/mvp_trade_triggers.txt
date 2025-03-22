@@ -32,3 +32,30 @@ is_on_silk_road_trigger = {
 		}
 	}
 }
+
+# Checks if a county produces a specific trade good
+has_trade_good_trigger = {
+	# $TRADE_GOOD$ = ID of the trade good to check for
+	# If a specific trade good is provided, check for that
+	OR = {
+		# County has the specific trade good flag
+		has_county_flag = produces_$TRADE_GOOD$
+		# County terrain matches production requirements
+		AND = {
+			# The check works with a scope to the county
+			$TRADE_GOOD$ = {
+				# Check if county terrain matches any of the production terrain types
+				any_in_list = {
+					variable = production_terrain
+					this = {
+						root = {
+							terrain = $VALUE$
+						}
+					}
+				}
+			}
+		}
+		# County has a building that produces this good
+		has_building = $TRADE_GOOD$_production
+	}
+}
