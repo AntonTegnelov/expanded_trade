@@ -101,3 +101,75 @@ setup_silk_road_effect = {
 		}
 	}
 }
+
+# Calculates basic trade income for a character based on their counties with trade routes
+# Scope: Character
+calculate_basic_trade_income_effect = {
+	# Save character scope for reference
+	save_scope_as = trade_ruler
+	# Initialize trade income variable
+	set_variable = {
+		name = trade_income
+		value = 0
+	}
+	# Check each county owned by this character for trade activity
+	every_sub_realm_county = {
+		# If county is on a trade route
+		if = {
+			limit = {
+				has_county_flag = on_silk_road
+			}
+			# Add base income contribution from this trade county
+			scope:trade_ruler = {
+				change_variable = {
+					name = trade_income
+					add = 0.1					# Base income per trade county
+				}
+			}
+			# Add development-based bonus
+			scope:trade_ruler = {
+				change_variable = {
+					name = trade_income
+					add = this.development_level
+					multiply = 0.01					# 1% of development level
+				}
+			}
+			# Add modifier based on trade buildings in this county
+			if = {
+				limit = {
+					any_county_holding = {
+						exists = building:market_square_01
+					}
+				}
+				scope:trade_ruler = {
+					change_variable = {
+						name = trade_income
+						add = 0.05						# Bonus for market square
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_county_holding = {
+						exists = building:trading_post_01
+					}
+				}
+				scope:trade_ruler = {
+					change_variable = {
+						name = trade_income
+						add = 0.1						# Bonus for trading post
+					}
+				}
+			}
+		}
+	}
+	# Apply stewardship bonus
+	change_variable = {
+		name = trade_income
+		multiply = stewardship
+		divide = 10		# 10% per point of stewardship
+	}
+	# Apply final income (can be used by other effects or directly added to treasury)
+	# This effect just calculates the value but doesn't apply it directly
+	# Actual money transfer would be done by calling systems
+}
