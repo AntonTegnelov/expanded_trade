@@ -1,0 +1,103 @@
+# MVP Trade Effects
+# Core effects for basic trade operations
+# These are simplified implementations for the MVP release
+# Sets up the Silk Road with initial configuration
+setup_silk_road_effect = {
+	# This effect should be run at the global scope
+	# It will flag counties on the Silk Road and set up trade nodes
+	# First, ensure the trade route exists
+	if = {
+		limit = {
+			NOT = {
+				exists = silk_road_main
+			}
+		}
+		# Create the Silk Road trade route
+		create_trade_route = {
+			id = silk_road_main
+			name = "silk_road_name"
+			is_active = yes
+			is_disrupted = no
+			base_flow_capacity = 10
+		}
+	}
+	# Set up Silk Road node counties
+	# Each node county gets the appropriate flag
+	# Note: Node county IDs need to be mapped to actual game counties
+	every_county = {
+		# Xian/Chang'an region
+		if = {
+			limit = {
+				county_id = 256				# Placeholder for actual county ID
+			}
+			set_county_flag = on_silk_road
+			create_trade_node = {
+				id = xian_node
+				name = "xian_node"
+				controller = this.holder
+			}
+		}
+		# Dunhuang region
+		else_if = {
+			limit = {
+				county_id = 257				# Placeholder for actual county ID
+			}
+			set_county_flag = on_silk_road
+			create_trade_node = {
+				id = dunhuang_node
+				name = "dunhuang_node"
+				controller = this.holder
+			}
+		}
+		# Add flags for counties on the main Silk Road route between nodes
+		else_if = {
+			limit = {
+				OR = {
+					# Counties between Xian and Dunhuang
+					AND = {
+						county_id = 260						# Placeholder for actual county ID
+						county_id = 261						# Placeholder for actual county ID
+						county_id = 262						# Placeholder for actual county ID
+					}
+					# Counties between Dunhuang and Kashgar
+					AND = {
+						county_id = 263						# Placeholder for actual county ID
+						county_id = 264						# Placeholder for actual county ID
+					}
+					# Other counties along the route would be listed here
+				}
+			}
+			set_county_flag = on_silk_road
+		}
+	}
+	# Create connections between nodes
+	# This defines the actual route paths
+	set_trade_route_connection = {
+		from = xian_node
+		to = dunhuang_node
+		type = land
+	}
+	set_trade_route_connection = {
+		from = dunhuang_node
+		to = kashgar_node
+		type = land
+	}
+	# Additional connections would be defined here
+	# Initialize base prosperity for major nodes
+	every_county = {
+		limit = {
+			any_trade_node = {
+				OR = {
+					node_id = samarkand_node
+					node_id = bukhara_node
+					node_id = baghdad_node
+					node_id = constantinople_node
+				}
+			}
+		}
+		add_county_modifier = {
+			modifier = low_trade_prosperity
+			months = 120			# Initial 10 year duration
+		}
+	}
+}

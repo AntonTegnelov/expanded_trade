@@ -83,8 +83,8 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Trade Effects and Actions** - Core effects for basic trade operations
 
-  - [ ] Create `common/scripted_effects/mvp_trade_effects.txt` for essential actions
-    - [ ] Implement `setup_silk_road_effect` for initial configuration
+  - [x] Create `common/scripted_effects/mvp_trade_effects.txt` for essential actions
+    - [x] Implement `setup_silk_road_effect` for initial configuration
     - [ ] Create `calculate_basic_trade_income_effect` for financial impact
     - [ ] Add `apply_trade_prosperity_effect` for county modifiers
     - [ ] Implement `disrupt_trade_route_effect` for war impacts
