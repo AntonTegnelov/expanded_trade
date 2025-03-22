@@ -59,3 +59,37 @@ has_trade_good_trigger = {
 		has_building = $TRADE_GOOD$_production
 	}
 }
+
+# Checks if a county has a specific level of trade prosperity
+has_trade_prosperity_trigger = {
+	# $LEVEL$ = Optional prosperity level to check for (low, medium, high)
+	# If no level is specified, checks for any prosperity
+	OR = {
+		# Check for any prosperity if no level specified
+		AND = {
+			NOT = {
+				is_variable_set = $LEVEL$
+			}
+			OR = {
+				has_modifier = low_trade_prosperity
+				has_modifier = medium_trade_prosperity
+				has_modifier = high_trade_prosperity
+			}
+		}
+		# Check for low prosperity
+		AND = {
+			$LEVEL$ = low
+			has_modifier = low_trade_prosperity
+		}
+		# Check for medium prosperity
+		AND = {
+			$LEVEL$ = medium
+			has_modifier = medium_trade_prosperity
+		}
+		# Check for high prosperity
+		AND = {
+			$LEVEL$ = high
+			has_modifier = high_trade_prosperity
+		}
+	}
+}
