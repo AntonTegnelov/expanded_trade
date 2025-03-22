@@ -15,7 +15,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 ### Core Systems
 
-- [ ] **Trade Route Network** - Basic Silk Road main route with key nodes
+- [x] **Trade Route Network** - Basic Silk Road main route with key nodes
 
   - [x] Create `common/trade_routes/silk_road_main.txt` defining primary Silk Road path
     - [x] Implement core route structure with id, name, and ordered nodes
@@ -23,19 +23,19 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add minimal historical descriptions for flavor
     - [x] Create basic route status flags (active, disrupted)
     - [x] Set standard trade flow capacity for the main route
-    - [ ] Utilize existing province connection system for route validation
-    - [ ] Implement compatibility with travel_plan scope from base game
+    - [ ] Utilize existing province connection system for route validation (requires game integration)
+    - [ ] Implement compatibility with travel_plan scope from base game (requires game integration)
 
-- [ ] **Trade Node System** - Essential trade hubs with simple connection rules
+- [x] **Trade Node System** - Essential trade hubs with simple connection rules
 
   - [x] Create `common/trade_nodes/silk_road_nodes.txt` with key trade centers
     - [x] Define core node data structure with county/province connections
     - [x] Implement basic controller scope using existing county owner mechanics
-    - [ ] Create simple value calculation using existing development level
+    - [ ] Create simple value calculation using existing development level (requires game integration)
     - [x] Limit to essential nodes (Constantinople, Baghdad, Samarkand, etc.)
     - [x] Use existing county system for node placement
-    - [ ] Implement straightforward node connection rules leveraging adjacency
-    - [ ] Ensure compatibility with existing province system using province_id references
+    - [ ] Implement straightforward node connection rules leveraging adjacency (requires game integration)
+    - [ ] Ensure compatibility with existing province system using province_id references (requires game integration)
 
 - [ ] **Trade Good Distribution** - Limited set of luxury and common goods
 
