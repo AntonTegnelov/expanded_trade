@@ -54,6 +54,11 @@ establish_trade_node_decision = {
 		}
 		# Cost to establish
 		add_gold = -300
+		# Trigger event to handle node establishment
+		trigger_event = {
+			id = trade_decision_events.0100
+			days = 1
+		}
 	}
 	ai_will_do = {
 		base = 50

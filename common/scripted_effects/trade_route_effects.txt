@@ -598,3 +598,121 @@ update_trade_node_controller_effect = {
 		}
 	}
 }
+
+# Sets up connections between trade nodes based on county adjacency
+setup_trade_node_connections_effect = {
+	# Create connections between trade nodes based on county adjacency
+	# This is run once at game start and when new trade nodes are established
+	# Get all trade nodes
+	every_in_list = {
+		list = global_trade_nodes_list
+		save_scope_as = current_node
+		# For each node, check other nodes for potential connections
+		every_in_list = {
+			list = global_trade_nodes_list
+			limit = {
+				NOT = {
+					this = scope:current_node
+				}				# Skip self-connections
+			}
+			save_scope_as = target_node
+			# Check if the counties are connected
+			scope:current_node.county = {
+				save_scope_as = from_county
+			}
+			scope:target_node.county = {
+				save_scope_as = to_county
+			}
+			# Use the existing validation effect to check and establish connection
+			validate_trade_route_connection_effect = {
+				FROM_COUNTY = scope:from_county
+				TO_COUNTY = scope:to_county
+			}
+			# If connection is valid, add connection to the trade node list
+			if = {
+				limit = {
+					scope:from_county = {
+						has_variable = trade_route_to_scope:to_county_valid
+						var:trade_route_to_scope:to_county_valid = yes
+					}
+				}
+				# Record connection type in trade node variables
+				scope:current_node = {
+					set_variable = {
+						name = connected_to_node_$target_node$
+						value = yes
+					}
+					# Store connection type (land, sea, river)
+					if = {
+						limit = {
+							scope:from_county = {
+								var:trade_route_to_scope:to_county_connection_type = "land"
+							}
+						}
+						set_variable = {
+							name = connection_type_to_$target_node$
+							value = "land"
+						}
+					}
+					else_if = {
+						limit = {
+							scope:from_county = {
+								var:trade_route_to_scope:to_county_connection_type = "sea"
+							}
+						}
+						set_variable = {
+							name = connection_type_to_$target_node$
+							value = "sea"
+						}
+					}
+					else_if = {
+						limit = {
+							scope:from_county = {
+								var:trade_route_to_scope:to_county_connection_type = "river"
+							}
+						}
+						set_variable = {
+							name = connection_type_to_$target_node$
+							value = "river"
+						}
+					}
+					# Store connection efficiency
+					set_variable = {
+						name = connection_efficiency_to_$target_node$
+						value = scope:from_county.var:trade_route_to_scope:to_county_efficiency
+					}
+				}
+				# Log connection for debugging
+				log = "[Trade System] Connected trade node [scope:current_node.GetID] to [scope:target_node.GetID] via [scope:from_county.var:trade_route_to_scope:to_county_connection_type]"
+			}
+		}
+		# Ensure node doesn't exceed maximum connections
+		if = {
+			limit = {
+				# Count variables with connected_to_node prefix
+				count_variables = {
+					name = connected_to_node_
+					count > max_trade_node_connections
+				}
+			}
+			# Remove excess connections, prioritizing keeping the most efficient ones
+			ordered_variable = {
+				name = connection_efficiency_to_
+				order_by = value
+				count = max_trade_node_connections
+				# Keep only the top max_trade_node_connections connections
+				# Prune the rest by removing their variables
+				min_value = 0
+				max_to_remove = 100				# Safe upper limit
+				every_removed = {
+					scope:current_node = {
+						remove_variable = connected_to_node_$PREV$
+						remove_variable = connection_type_to_$PREV$
+						remove_variable = connection_efficiency_to_$PREV$
+					}
+					log = "[Trade System] Removed excess connection from [scope:current_node.GetID] to [$PREV$.GetID]"
+				}
+			}
+		}
+	}
+}

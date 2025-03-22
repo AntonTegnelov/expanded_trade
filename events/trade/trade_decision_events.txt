@@ -686,3 +686,71 @@ trade_decision_events.0013 = {
 		}
 	}
 }
+
+# Establish Trade Node follow-up event
+trade_decision_events.0100 = {
+	type = character_event
+	title = trade_decision_events.0100.t
+	desc = trade_decision_events.0100.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = founding_ruler
+		# Get selected county
+		saved_temporary_scope_list = {
+			name = potential_trade_node_counties
+			random_in_list = {
+				save_scope_as = node_county
+			}
+		}
+		# Generate unique ID for the node based on county name
+		scope:node_county = {
+			set_variable = {
+				name = node_id
+				value = this.name
+				years = 100				# Effectively permanent
+			}
+		}
+	}
+	# Confirm establishment of trade node
+	option = {
+		name = trade_decision_events.0100.a
+		# Create the trade node and add to global list
+		scope:node_county = {
+			# Set up the node variables
+			set_variable = {
+				name = trade_node_controller
+				value = scope:founding_ruler
+				years = 100				# Effectively permanent
+			}
+			# Add to global list of trade nodes
+			add_to_global_variable_list = {
+				name = global_trade_nodes_list
+				target = this
+			}
+			# Mark the county as active trade route
+			set_county_flag = on_active_trade_route
+			# Add initial prosperity
+			set_variable = {
+				name = trade_prosperity_level
+				value = 1
+			}
+			# Add trade center modifier
+			add_county_modifier = {
+				modifier = established_trade_center
+				years = 100				# Effectively permanent
+			}
+			# Save as new node for the on_action
+			save_scope_as = new_node
+		}
+		# Prestige for establishing a trade center
+		add_prestige = 200
+		# Trigger trade node established on_action
+		trigger_on_action = {
+			on_action = on_trade_node_established
+		}
+	}
+}

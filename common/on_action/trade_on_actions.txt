@@ -190,3 +190,33 @@ on_holding_building_constructed = {
 		}
 	}
 }
+
+# Game start setup for trade system
+on_game_start_trade_setup = {
+	effect = {
+		# Initialize trade node connections based on adjacency
+		setup_trade_node_connections_effect = {
+		}
+		# Log the initialization
+		log = "[Trade System] Initialized trade node connections at game start"
+	}
+}
+
+# Hook into the game start
+on_game_start = {
+	on_actions = {
+		on_game_start_trade_setup
+	}
+}
+
+# New trade node established
+on_trade_node_established = {
+	# scope:new_node is the newly established trade node
+	effect = {
+		# Refresh all trade node connections
+		setup_trade_node_connections_effect = {
+		}
+		# Log the update
+		log = "[Trade System] Updated trade node connections after establishing new node [scope:new_node.GetID]"
+	}
+}

@@ -34,7 +34,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Create simple value calculation using existing development level (requires game integration)
     - [x] Limit to essential nodes (Constantinople, Baghdad, Samarkand, etc.)
     - [x] Use existing county system for node placement
-    - [ ] Implement straightforward node connection rules leveraging adjacency (requires game integration)
+    - [x] Implement straightforward node connection rules leveraging adjacency (requires game integration)
     - [ ] Ensure compatibility with existing province system using province_id references (requires game integration)
 
 - [ ] **Trade Good Distribution** - Limited set of luxury and common goods
