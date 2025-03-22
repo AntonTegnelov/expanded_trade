@@ -6,7 +6,7 @@
 - [x] Create `common/` folder for game rules and systems
 - [x] Create `events/` folder for event scripts
 - [x] Create `localization/english/` folder for text
-- [ ] Create `gfx/` folder for images and icons
+- [x] Create `gfx/` folder for images and icons
 - [ ] Create `gui/` folder for UI elements
 
 ## 1A. MVP Features
