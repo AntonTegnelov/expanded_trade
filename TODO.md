@@ -19,7 +19,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
   - [x] Create `common/trade_routes/silk_road_main.txt` defining primary Silk Road path
     - [x] Implement core route structure with id, name, and ordered nodes
-    - [ ] Define essential land_routes and sea_routes connections between adjacent nodes
+    - [x] Define essential land_routes and sea_routes connections between adjacent nodes
     - [ ] Add minimal historical descriptions for flavor
     - [ ] Create basic route status flags (active, disrupted)
     - [ ] Set standard trade flow capacity for the main route
