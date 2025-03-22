@@ -3,7 +3,7 @@
 ## 1. Initial Setup
 
 - [x] Create `descriptor.mod` file with mod name, supported version, and tags
-- [ ] Create `common/` folder for game rules and systems
+- [x] Create `common/` folder for game rules and systems
 - [ ] Create `events/` folder for event scripts
 - [ ] Create `localization/english/` folder for text
 - [ ] Create `gfx/` folder for images and icons
