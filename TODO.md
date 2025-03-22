@@ -30,7 +30,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
   - [x] Create `common/trade_nodes/silk_road_nodes.txt` with key trade centers
     - [x] Define core node data structure with county/province connections
-    - [ ] Implement basic controller scope using existing county owner mechanics
+    - [x] Implement basic controller scope using existing county owner mechanics
     - [ ] Create simple value calculation using existing development level
     - [ ] Limit to essential nodes (Constantinople, Baghdad, Samarkand, etc.)
     - [ ] Use existing county system for node placement
