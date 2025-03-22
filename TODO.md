@@ -59,16 +59,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Use existing scope system for efficient calculation
     - [x] Ensure compatibility with GetValue and ScriptValue API
 
-- [ ] **Trade Prosperity Effects** - Basic development and income bonuses
+- [x] **Trade Prosperity Effects** - Basic development and income bonuses
 
-  - [ ] Create `common/modifiers/trade_prosperity_modifiers.txt` for county effects
-    - [ ] Implement tiered prosperity levels (low, medium, high)
-    - [ ] Create basic development_growth_factor modifiers (0.1, 0.2, 0.3)
-    - [ ] Add simple tax_mult and monthly_income modifiers
-    - [ ] Implement monthly_county_control_contribution for trade-active counties
-    - [ ] Use existing modifier system for application
-    - [ ] Ensure compatibility with development system using development_growth_factor
-    - [ ] Create hooks with county scope for scripted triggers
+  - [x] Create `common/modifiers/trade_prosperity_modifiers.txt` for county effects
+    - [x] Implement tiered prosperity levels (low, medium, high)
+    - [x] Create basic development_growth_factor modifiers (0.1, 0.2, 0.3)
+    - [x] Add simple tax_mult and monthly_income modifiers
+    - [x] Implement monthly_county_control_contribution for trade-active counties
+    - [x] Use existing modifier system for application
+    - [x] Ensure compatibility with development system using development_growth_factor
+    - [x] Create hooks with county scope for scripted triggers
 
 - [ ] **Trade Triggers and Conditions** - Essential checks for trade functionality
 
