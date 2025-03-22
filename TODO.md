@@ -39,7 +39,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Trade Good Distribution** - Limited set of luxury and common goods
 
-  - [ ] Create `common/trade_goods/mvp_trade_goods.txt` with basic goods
+  - [x] Create `common/trade_goods/mvp_trade_goods.txt` with basic goods
     - [ ] Implement core good categories (luxury, common) with minimal types
     - [ ] Define basic production rules based on vanilla terrain types
     - [ ] Create simple consumption rules using existing character scope
