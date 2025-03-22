@@ -89,7 +89,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add `apply_trade_prosperity_effect` for county modifiers
     - [x] Implement `disrupt_trade_route_effect` for war impacts
     - [x] Follow standard effect format with clear scope expectations
-    - [ ] Use existing county and character scope manipulation
+    - [x] Use existing county and character scope manipulation
     - [ ] Ensure compatibility with modifier application system
 
 - [ ] **On-Action Hooks** - Minimal integration with game events
