@@ -1,0 +1,34 @@
+# MVP Trade Triggers
+# These scripted triggers provide essential checks for trade functionality
+# Basic version focused on Silk Road trade and minimal economy
+# Checks if a county is on the Silk Road
+is_on_silk_road_trigger = {
+	# County can be directly on the route or close enough to benefit
+	OR = {
+		# Direct Silk Road county (has the flag)
+		has_county_flag = on_silk_road
+		# County is within trading distance of a Silk Road node
+		any_neighboring_county = {
+			has_county_flag = on_silk_road
+		}
+		# County has a silk road trade node
+		any_trade_node = {
+			OR = {
+				# Exact node matching
+				node_id = xian_node
+				node_id = dunhuang_node
+				node_id = kashgar_node
+				node_id = samarkand_node
+				node_id = bukhara_node
+				node_id = merv_node
+				node_id = nishapur_node
+				node_id = rayy_node
+				node_id = baghdad_node
+				node_id = mosul_node
+				node_id = aleppo_node
+				node_id = antioch_node
+				node_id = constantinople_node
+			}
+		}
+	}
+}
