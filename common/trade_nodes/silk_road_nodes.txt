@@ -6,6 +6,7 @@ trade_node = {
 	name = "xian_node"
 	# Chang'an/Xi'an - Starting point in China
 	county = 256	# Placeholder ID - will need to be replaced with actual county ID
+	province = 256	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -17,6 +18,7 @@ trade_node = {
 	name = "dunhuang_node"
 	# Dunhuang - Western China gateway
 	county = 257	# Placeholder ID
+	province = 257	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -28,6 +30,7 @@ trade_node = {
 	name = "kashgar_node"
 	# Kashgar - Entry to Central Asia
 	county = 258	# Placeholder ID
+	province = 258	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -40,6 +43,7 @@ trade_node = {
 	name = "samarkand_node"
 	# Samarkand - Central Asian hub
 	county = 441	# Using Samarkand county ID
+	province = 441	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -51,6 +55,7 @@ trade_node = {
 	name = "bukhara_node"
 	# Bukhara - Major trading center
 	county = 440	# Using Bukhara county ID
+	province = 440	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -62,6 +67,7 @@ trade_node = {
 	name = "merv_node"
 	# Merv - Persian trade city
 	county = 450	# Placeholder ID
+	province = 450	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -74,6 +80,7 @@ trade_node = {
 	name = "nishapur_node"
 	# Nishapur - Northeastern Persian hub
 	county = 451	# Placeholder ID
+	province = 451	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -85,6 +92,7 @@ trade_node = {
 	name = "rayy_node"
 	# Rayy/Tehran - Northwest Persian center
 	county = 661	# Using Rayy county ID
+	province = 661	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -97,6 +105,7 @@ trade_node = {
 	name = "baghdad_node"
 	# Baghdad - Middle Eastern hub
 	county = 720	# Using Baghdad county ID
+	province = 720	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -108,6 +117,7 @@ trade_node = {
 	name = "mosul_node"
 	# Mosul - Northern Mesopotamia
 	county = 714	# Using Mosul county ID
+	province = 714	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -120,6 +130,7 @@ trade_node = {
 	name = "aleppo_node"
 	# Aleppo - Syrian trade center
 	county = 768	# Using Aleppo county ID
+	province = 768	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -131,6 +142,7 @@ trade_node = {
 	name = "antioch_node"
 	# Antioch - Mediterranean gateway
 	county = 771	# Using Antioch county ID
+	province = 771	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -143,6 +155,7 @@ trade_node = {
 	name = "constantinople_node"
 	# Constantinople - European gateway
 	county = 746	# Using Constantinople county ID
+	province = 746	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
