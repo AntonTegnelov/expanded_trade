@@ -1,0 +1,123 @@
+# Trade Values
+# These script values are used for trade calculations
+# Base trade prosperity levels
+low_trade_prosperity = 1
+medium_trade_prosperity = 3
+high_trade_prosperity = 5
+# Trade route flow capacities
+standard_trade_flow = 10
+large_trade_flow = 15
+major_trade_flow = 20
+# Trade node values
+trade_node_base_value = {
+	# Base value calculation based on development
+	value = scope:county.development_level
+	# Bonus for coastal provinces (access to sea trade)
+	if = {
+		limit = {
+			scope:county = {
+				has_county_flag = coastal_county
+			}
+		}
+		add = 2
+	}
+	# Bonus for river provinces (river trade)
+	if = {
+		limit = {
+			scope:county = {
+				has_river = yes
+			}
+		}
+		add = 1
+	}
+	# Penalty for disrupted routes
+	if = {
+		limit = {
+			scope:county = {
+				has_county_flag = on_disrupted_trade_route
+			}
+		}
+		subtract = 2
+	}
+	# Ensure value doesn't go below minimum
+	min = 1
+}
+
+# Trade prosperity impact on development
+trade_prosperity_development_growth = {
+	# Base value is small
+	value = 0.05
+	# If county has medium trade prosperity
+	if = {
+		limit = {
+			scope:county = {
+				var:trade_prosperity_level >= medium_trade_prosperity
+			}
+		}
+		add = 0.05
+	}
+	# If county has high trade prosperity
+	if = {
+		limit = {
+			scope:county = {
+				var:trade_prosperity_level >= high_trade_prosperity
+			}
+		}
+		add = 0.1
+	}
+}
+
+# Income from trade for rulers
+ruler_trade_income = {
+	# Base value from trade prosperity
+	value = scope:ruler.domain_size
+	multiply = 0.01
+	# Bonus based on stewardship skill
+	add = scope:ruler.stewardship
+	multiply = 0.02
+	# Bonus for controlling trade nodes
+	if = {
+		limit = {
+			scope:ruler = {
+				any_held_title = {
+					tier = county
+					is_on_valid_trade_route_trigger = yes
+				}
+			}
+		}
+		multiply = 1.2
+	}
+}
+
+# Trade connection value between nodes
+trade_connection_value = {
+	# $FROM_NODE$ = Source trade node
+	# $TO_NODE$ = Destination trade node
+	# Base value is the average of the two nodes' values
+	value = $FROM_NODE$.base_value
+	add = $TO_NODE$.base_value
+	divide = 2
+	# Penalty for sea routes (more expensive/risky)
+	if = {
+		limit = {
+			$FROM_NODE$.county = {
+				has_variable = trade_route_to_$TO_NODE$.county_sea_route
+			}
+		}
+		multiply = 0.8
+	}
+	# Penalty for disrupted connection
+	if = {
+		limit = {
+			OR = {
+				$FROM_NODE$.county = {
+					has_county_flag = on_disrupted_trade_route
+				}
+				$TO_NODE$.county = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+		}
+		multiply = 0.5
+	}
+}

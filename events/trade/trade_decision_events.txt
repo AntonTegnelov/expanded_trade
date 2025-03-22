@@ -1,0 +1,688 @@
+namespace = trade_decision_events
+# Invest in Trade Route follow-up event
+trade_decision_events.0001 = {
+	type = character_event
+	title = trade_decision_events.0001.t
+	desc = trade_decision_events.0001.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = investor_ruler
+		# Get selected county
+		saved_temporary_scope_list = {
+			name = trade_route_counties
+			random_in_list = {
+				save_scope_as = invested_county
+			}
+		}
+	}
+	# Improve infrastructure
+	option = {
+		name = trade_decision_events.0001.a
+		scope:invested_county = {
+			# Boost development slightly
+			change_development = {
+				add = 0.5
+			}
+			# Improve county control
+			add_county_control_progress = medium_impact
+			# Increase trade capacity
+			change_variable = {
+				name = trade_flow_capacity
+				add = 1
+			}
+		}
+	}
+	# Attract merchants
+	option = {
+		name = trade_decision_events.0001.b
+		scope:invested_county = {
+			# Increase prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 1
+			}
+			# Add modifier
+			add_county_modifier = {
+				modifier = welcoming_trade_policy
+				years = 5
+			}
+		}
+		# Return some of the investment
+		add_gold = 25
+	}
+	# Improve security
+	option = {
+		name = trade_decision_events.0001.c
+		scope:invested_county = {
+			# Mark as protected trade route
+			set_county_flag = protected_trade_route
+			# Better control
+			add_county_control_progress = major_impact
+			# And prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 0.5
+			}
+		}
+		# Get prestige for protection
+		add_prestige = 50
+	}
+}
+
+# Trade League invitation
+trade_decision_events.0002 = {
+	type = character_event
+	title = trade_decision_events.0002.t
+	desc = trade_decision_events.0002.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = invited_ruler
+		# Get league founder
+		save_event_scope_as = {
+			name = league_founder
+			scope = scope:event_creator
+		}
+	}
+	# Accept invitation
+	option = {
+		name = trade_decision_events.0002.a
+		# Join league
+		add_character_modifier = {
+			modifier = trade_league_member
+			years = 20
+		}
+		# Economic benefits
+		add_gold = 50
+		# And good relations
+		add_opinion = {
+			target = scope:league_founder
+			modifier = trade_league_member_opinion
+			opinion = 15
+		}
+		# Notify founder
+		scope:league_founder = {
+			trigger_event = {
+				id = trade_decision_events.0005
+				days = 1
+			}
+		}
+	}
+	# Decline invitation
+	option = {
+		name = trade_decision_events.0002.b
+		# Small opinion hit
+		add_opinion = {
+			target = scope:league_founder
+			modifier = declined_trade_offer
+			opinion = -5
+		}
+	}
+	# Counter-offer own league
+	option = {
+		name = trade_decision_events.0002.c
+		trigger = {
+			tier >= tier_duchy
+			prestige >= 1000
+			gold >= 500
+		}
+		# Form own league
+		add_character_modifier = {
+			modifier = trade_league_leader
+			years = 20
+		}
+		# Cost to form
+		add_gold = -500
+		add_prestige = 500
+		# But potential rivalry
+		add_opinion = {
+			target = scope:league_founder
+			modifier = trade_league_rival
+			opinion = -10
+		}
+		# Notify founder of rejection and rivalry
+		scope:league_founder = {
+			trigger_event = {
+				id = trade_decision_events.0006
+				days = 1
+			}
+		}
+	}
+}
+
+# Merchant Guild sponsor event
+trade_decision_events.0003 = {
+	type = character_event
+	title = trade_decision_events.0003.t
+	desc = trade_decision_events.0003.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_content
+	}
+	immediate = {
+		save_scope_as = guild_patron
+	}
+	# Guild brings trade goods
+	option = {
+		name = trade_decision_events.0003.a
+		# Get wealth
+		add_gold = {
+			value = 50
+			multiply = stewardship
+			divide = 10
+		}
+	}
+	# Guild brings foreign contacts
+	option = {
+		name = trade_decision_events.0003.b
+		# Add foreign trade modifier if don't have it
+		if = {
+			limit = {
+				NOT = {
+					has_character_modifier = foreign_trade_connections
+				}
+			}
+			add_character_modifier = {
+				modifier = foreign_trade_connections
+				years = 10
+			}
+		}
+		else = {
+			# Otherwise get prestige
+			add_prestige = 100
+		}
+	}
+	# Guild expands influence
+	option = {
+		name = trade_decision_events.0003.c
+		# Help county trade
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+			}
+			# Add permanent trade relations
+			add_county_modifier = {
+				modifier = permanent_trade_relations
+				years = 10
+			}
+			# And boost prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 1
+			}
+			# Save for reference
+			save_scope_as = guild_influence_county
+		}
+	}
+}
+
+# Foreign Trade Relations follow-up
+trade_decision_events.0004 = {
+	type = character_event
+	title = trade_decision_events.0004.t
+	desc = trade_decision_events.0004.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = trade_initiator
+		# Get selected partner
+		saved_temporary_scope_list = {
+			name = potential_trade_partners
+			random_in_list = {
+				save_scope_as = trade_partner
+			}
+		}
+	}
+	# Send diplomatic mission
+	option = {
+		name = trade_decision_events.0004.a
+		# Notify partner about trade offer
+		scope:trade_partner = {
+			trigger_event = {
+				id = trade_decision_events.0007
+				days = {
+					5
+					10
+				}
+			}
+		}
+	}
+}
+
+# League member joined notification
+trade_decision_events.0005 = {
+	type = character_event
+	title = trade_decision_events.0005.t
+	desc = trade_decision_events.0005.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_content
+	}
+	immediate = {
+		save_scope_as = league_leader
+		# Get new member
+		save_event_scope_as = {
+			name = new_member
+			scope = scope:event_creator
+		}
+	}
+	# Welcome to the league
+	option = {
+		name = trade_decision_events.0005.a
+		# Good relations
+		add_opinion = {
+			target = scope:new_member
+			modifier = trade_league_member_opinion
+			opinion = 15
+		}
+		# League grows stronger
+		add_prestige = 50
+	}
+}
+
+# League rival notification
+trade_decision_events.0006 = {
+	type = character_event
+	title = trade_decision_events.0006.t
+	desc = trade_decision_events.0006.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	immediate = {
+		save_scope_as = league_leader
+		# Get rival
+		save_event_scope_as = {
+			name = league_rival
+			scope = scope:event_creator
+		}
+	}
+	# Accept rivalry
+	option = {
+		name = trade_decision_events.0006.a
+		# Bad relations
+		add_opinion = {
+			target = scope:league_rival
+			modifier = trade_league_rival
+			opinion = -10
+		}
+	}
+	# Attempt to mend relations
+	option = {
+		name = trade_decision_events.0006.b
+		# Cost prestige
+		add_prestige = -100
+		# But better relations
+		add_opinion = {
+			target = scope:league_rival
+			modifier = attempted_reconciliation
+			opinion = 5
+		}
+		# Notify rival
+		scope:league_rival = {
+			trigger_event = {
+				id = trade_decision_events.0008
+				days = 1
+			}
+		}
+	}
+}
+
+# Foreign Trade Offer received
+trade_decision_events.0007 = {
+	type = character_event
+	title = trade_decision_events.0007.t
+	desc = trade_decision_events.0007.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = trade_offer_recipient
+		# Get initiator
+		save_event_scope_as = {
+			name = trade_initiator
+			scope = scope:event_creator
+		}
+	}
+	# Accept offer
+	option = {
+		name = trade_decision_events.0007.a
+		# Both get trade connections
+		add_character_modifier = {
+			modifier = foreign_trade_connections
+			years = 10
+		}
+		# Add opinion
+		add_opinion = {
+			target = scope:trade_initiator
+			modifier = trade_agreement
+			opinion = 15
+		}
+		# Notify initiator
+		scope:trade_initiator = {
+			trigger_event = {
+				id = trade_decision_events.0009
+				days = 1
+			}
+		}
+	}
+	# Reject offer
+	option = {
+		name = trade_decision_events.0007.b
+		# Slight opinion hit
+		add_opinion = {
+			target = scope:trade_initiator
+			modifier = declined_trade_offer
+			opinion = -5
+		}
+		# Notify initiator
+		scope:trade_initiator = {
+			trigger_event = {
+				id = trade_decision_events.0010
+				days = 1
+			}
+		}
+	}
+	# Counter with demands
+	option = {
+		name = trade_decision_events.0007.c
+		# Notify initiator about counter-offer
+		scope:trade_initiator = {
+			trigger_event = {
+				id = trade_decision_events.0011
+				days = 1
+			}
+		}
+	}
+}
+
+# Reconciliation offer received
+trade_decision_events.0008 = {
+	type = character_event
+	title = trade_decision_events.0008.t
+	desc = trade_decision_events.0008.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = rival_league_leader
+		# Get initiator
+		save_event_scope_as = {
+			name = peace_initiator
+			scope = scope:event_creator
+		}
+	}
+	# Accept reconciliation
+	option = {
+		name = trade_decision_events.0008.a
+		# Remove rivalry
+		remove_opinion = {
+			target = scope:peace_initiator
+			modifier = trade_league_rival
+		}
+		# Add positive opinion
+		add_opinion = {
+			target = scope:peace_initiator
+			modifier = trade_cooperation
+			opinion = 10
+		}
+		# Get prestige
+		add_prestige = 50
+	}
+	# Reject reconciliation
+	option = {
+		name = trade_decision_events.0008.b
+		# Worsen relations further
+		add_opinion = {
+			target = scope:peace_initiator
+			modifier = rejected_peace_offer
+			opinion = -10
+		}
+	}
+}
+
+# Trade agreement accepted
+trade_decision_events.0009 = {
+	type = character_event
+	title = trade_decision_events.0009.t
+	desc = trade_decision_events.0009.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_content
+	}
+	immediate = {
+		save_scope_as = trade_initiator
+		# Get partner
+		save_event_scope_as = {
+			name = trade_partner
+			scope = scope:event_creator
+		}
+		# Get modifier if don't have it
+		if = {
+			limit = {
+				NOT = {
+					has_character_modifier = foreign_trade_connections
+				}
+			}
+			add_character_modifier = {
+				modifier = foreign_trade_connections
+				years = 10
+			}
+		}
+		# Add opinion
+		add_opinion = {
+			target = scope:trade_partner
+			modifier = trade_agreement
+			opinion = 15
+		}
+	}
+	# Celebrate success
+	option = {
+		name = trade_decision_events.0009.a
+		# Get income
+		add_gold = 50
+		# And prestige
+		add_prestige = 50
+	}
+}
+
+# Trade agreement rejected
+trade_decision_events.0010 = {
+	type = character_event
+	title = trade_decision_events.0010.t
+	desc = trade_decision_events.0010.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	immediate = {
+		save_scope_as = trade_initiator
+		# Get rejector
+		save_event_scope_as = {
+			name = trade_rejector
+			scope = scope:event_creator
+		}
+		# Add opinion
+		add_opinion = {
+			target = scope:trade_rejector
+			modifier = declined_trade_offer
+			opinion = -5
+		}
+	}
+	# Accept rejection
+	option = {
+		name = trade_decision_events.0010.a
+		# Small stress
+		add_stress = minor_stress_gain
+	}
+	# Try again later
+	option = {
+		name = trade_decision_events.0010.b
+		# Flag for later attempt
+		add_character_flag = {
+			flag = retry_trade_offer
+			years = 1
+		}
+	}
+}
+
+# Trade counter-offer received
+trade_decision_events.0011 = {
+	type = character_event
+	title = trade_decision_events.0011.t
+	desc = trade_decision_events.0011.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = trade_initiator
+		# Get counter-offer sender
+		save_event_scope_as = {
+			name = counter_offer_sender
+			scope = scope:event_creator
+		}
+	}
+	# Accept counter-offer (pay gold)
+	option = {
+		name = trade_decision_events.0011.a
+		# Pay more
+		add_gold = -100
+		# But get the trade connection
+		add_character_modifier = {
+			modifier = foreign_trade_connections
+			years = 10
+		}
+		# And decent relations
+		add_opinion = {
+			target = scope:counter_offer_sender
+			modifier = trade_agreement
+			opinion = 10
+		}
+		# Notify counter-offer sender
+		scope:counter_offer_sender = {
+			trigger_event = {
+				id = trade_decision_events.0012
+				days = 1
+			}
+		}
+	}
+	# Reject counter-offer
+	option = {
+		name = trade_decision_events.0011.b
+		# Opinion hit
+		add_opinion = {
+			target = scope:counter_offer_sender
+			modifier = rejected_counter_offer
+			opinion = -10
+		}
+		# Notify counter-offer sender
+		scope:counter_offer_sender = {
+			trigger_event = {
+				id = trade_decision_events.0013
+				days = 1
+			}
+		}
+	}
+}
+
+# Counter-offer accepted
+trade_decision_events.0012 = {
+	type = character_event
+	title = trade_decision_events.0012.t
+	desc = trade_decision_events.0012.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_content
+	}
+	immediate = {
+		save_scope_as = counter_offer_sender
+		# Get accepter
+		save_event_scope_as = {
+			name = counter_offer_accepter
+			scope = scope:event_creator
+		}
+		# Get trade connection
+		add_character_modifier = {
+			modifier = foreign_trade_connections
+			years = 10
+		}
+		# And good relations
+		add_opinion = {
+			target = scope:counter_offer_accepter
+			modifier = trade_agreement
+			opinion = 10
+		}
+	}
+	# Take the gold
+	option = {
+		name = trade_decision_events.0012.a
+		# Get payment
+		add_gold = 100
+	}
+}
+
+# Counter-offer rejected
+trade_decision_events.0013 = {
+	type = character_event
+	title = trade_decision_events.0013.t
+	desc = trade_decision_events.0013.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	immediate = {
+		save_scope_as = counter_offer_sender
+		# Get rejector
+		save_event_scope_as = {
+			name = counter_offer_rejector
+			scope = scope:event_creator
+		}
+		# Bad relations
+		add_opinion = {
+			target = scope:counter_offer_rejector
+			modifier = rejected_counter_offer
+			opinion = -10
+		}
+	}
+	# Accept rejection
+	option = {
+		name = trade_decision_events.0013.a
+		# Stress
+		add_stress = minor_stress_gain
+	}
+	# Feel slighted
+	option = {
+		name = trade_decision_events.0013.b
+		# More stress
+		add_stress = medium_stress_gain
+		# But remember this
+		add_character_flag = {
+			flag = trade_negotiation_grudge
+			years = 10
+		}
+	}
+}

@@ -1,0 +1,448 @@
+namespace = trade_disruption_events
+# Trade disruption notification for county holder
+trade_disruption_events.0001 = {
+	type = character_event
+	title = trade_disruption_events.0001.t
+	desc = trade_disruption_events.0001.desc
+	theme = war
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	immediate = {
+		save_scope_as = disruption_ruler
+		# Find disrupted county
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_disrupted_trade_route
+			}
+			save_scope_as = disrupted_county
+		}
+	}
+	option = {
+		name = trade_disruption_events.0001.a
+		# Sad
+		add_stress = minor_stress_gain
+		# Economic loss
+		add_gold = -10
+		# Decrease prosperity
+		scope:disrupted_county = {
+			change_variable = {
+				name = trade_prosperity_level
+				subtract = 1
+			}
+			# Ensure it doesn't go below 0
+			if = {
+				limit = {
+					var:trade_prosperity_level < 0
+				}
+				set_variable = {
+					name = trade_prosperity_level
+					value = 0
+				}
+			}
+		}
+	}
+	# Try to redirect trade
+	option = {
+		name = trade_disruption_events.0001.b
+		trigger = {
+			stewardship >= 8
+		}
+		# Try to redirect trade to minimize losses
+		random = {
+			chance = 25
+			add_character_modifier = {
+				modifier = trade_redirected
+				years = 2
+			}
+			scope:disrupted_county = {
+				set_county_flag = trade_partially_redirected
+			}
+		}
+		# Still lose some gold
+		add_gold = -5
+	}
+	# Invest to protect trade
+	option = {
+		name = trade_disruption_events.0001.c
+		# Cost gold
+		add_gold = -20
+		# But potentially restore trade faster
+		scope:disrupted_county = {
+			trigger_event = {
+				id = trade_disruption_events.0003
+				days = {
+					30
+					60
+				}
+			}
+		}
+	}
+}
+
+# Trade disruption notification for occupier
+trade_disruption_events.0002 = {
+	type = character_event
+	title = trade_disruption_events.0002.t
+	desc = trade_disruption_events.0002.desc
+	theme = war
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	immediate = {
+		save_scope_as = occupier_ruler
+		# Find occupied county
+		random_occupied_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_disrupted_trade_route
+			}
+			save_scope_as = occupied_county
+		}
+	}
+	# Plunder trade goods
+	option = {
+		name = trade_disruption_events.0002.a
+		# Gain gold from plundering
+		add_gold = {
+			value = 15
+			multiply = scope:occupied_county.development_level
+			divide = 10
+		}
+		# But county suffers more
+		scope:occupied_county = {
+			add_county_modifier = {
+				modifier = plundered_trade_goods
+				years = 3
+			}
+		}
+	}
+	# Impose trade tax
+	option = {
+		name = trade_disruption_events.0002.b
+		# Smaller immediate gain
+		add_gold = {
+			value = 8
+			multiply = scope:occupied_county.development_level
+			divide = 10
+		}
+		# But sustainable income
+		scope:occupied_county = {
+			add_county_modifier = {
+				modifier = forced_trade_taxation
+				years = 1
+			}
+		}
+		# Monthly income from trade tax
+		add_character_flag = {
+			flag = collecting_trade_tax
+			years = 1
+		}
+	}
+	# Allow trade to continue for a fee
+	option = {
+		name = trade_disruption_events.0002.c
+		trigger = {
+			stewardship >= 8
+		}
+		# Immediate gain
+		add_gold = {
+			value = 10
+			multiply = scope:occupied_county.development_level
+			divide = 10
+		}
+		# And county recovers some trade
+		scope:occupied_county = {
+			set_county_flag = trade_partially_restored
+			remove_county_flag = on_disrupted_trade_route
+			set_county_flag = on_taxed_trade_route
+			# But with foreign taxation
+			add_county_modifier = {
+				modifier = foreign_trade_taxation
+				years = 1
+			}
+		}
+		# And holder gets notification
+		scope:occupied_county.holder = {
+			trigger_event = {
+				id = trade_disruption_events.0004
+				days = 1
+			}
+		}
+	}
+}
+
+# Trade recovery attempt (hidden, triggered from 0001.c)
+trade_disruption_events.0003 = {
+	type = county_event
+	hidden = yes
+	immediate = {
+		# 50% chance to restore trade
+		random = {
+			chance = 50
+			remove_county_flag = on_disrupted_trade_route
+			set_county_flag = on_active_trade_route
+			# Prosperity boost for recovery
+			change_variable = {
+				name = trade_prosperity_level
+				add = 0.5
+			}
+			# Notify holder
+			holder = {
+				trigger_event = {
+					id = trade_disruption_events.0005
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# Notification about taxed trade route (from 0002.c)
+trade_disruption_events.0004 = {
+	type = character_event
+	title = trade_disruption_events.0004.t
+	desc = trade_disruption_events.0004.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = taxed_trade_ruler
+		# Find taxed county
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_taxed_trade_route
+			}
+			save_scope_as = taxed_county
+		}
+		# Find occupier
+		scope:taxed_county.occupier = {
+			save_scope_as = taxing_ruler
+		}
+	}
+	# Accept taxed trade
+	option = {
+		name = trade_disruption_events.0004.a
+		# Still get some trade income
+		add_gold = {
+			value = scope:taxed_county.development_level
+			multiply = 0.5
+		}
+	}
+	# Try to smuggle goods
+	option = {
+		name = trade_disruption_events.0004.b
+		trigger = {
+			intrigue >= 8
+		}
+		# Chance to get more income through smuggling
+		random = {
+			chance = 25
+			add_gold = {
+				value = scope:taxed_county.development_level
+				multiply = 1.5
+			}
+			add_character_modifier = {
+				modifier = smuggling_network
+				years = 2
+			}
+		}
+		# But risk retaliation if caught
+		random = {
+			chance = 25
+			# Occupier gets upset
+			scope:taxing_ruler = {
+				trigger_event = {
+					id = trade_disruption_events.0006
+					days = {
+						10
+						20
+					}
+				}
+			}
+		}
+	}
+}
+
+# Trade recovery notification (from 0003)
+trade_disruption_events.0005 = {
+	type = character_event
+	title = trade_disruption_events.0005.t
+	desc = trade_disruption_events.0005.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_content
+	}
+	immediate = {
+		save_scope_as = recovery_ruler
+		# Find recovered county
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
+				var:trade_prosperity_level > 0
+			}
+			save_scope_as = recovered_county
+		}
+	}
+	# Celebrate trade recovery
+	option = {
+		name = trade_disruption_events.0005.a
+		# Get gold from restored trade
+		add_gold = {
+			value = scope:recovered_county.var:trade_prosperity_level
+			multiply = 5
+		}
+		# Potential development boost
+		scope:recovered_county = {
+			random = {
+				chance = 25
+				change_development = {
+					add = 0.5
+				}
+			}
+		}
+	}
+}
+
+# Smuggling discovered (from 0004.b)
+trade_disruption_events.0006 = {
+	type = character_event
+	title = trade_disruption_events.0006.t
+	desc = trade_disruption_events.0006.desc
+	theme = intrigue
+	left_portrait = {
+		character = root
+		animation = anger
+	}
+	immediate = {
+		save_scope_as = occupier_ruler
+		# Find the smuggler
+		random_character = {
+			limit = {
+				has_character_modifier = smuggling_network
+				exists = primary_title
+				any_held_title = {
+					tier = county
+					has_county_flag = on_taxed_trade_route
+					occupier = root
+				}
+			}
+			save_scope_as = smuggler_ruler
+			# Find the county
+			random_held_title = {
+				limit = {
+					tier = county
+					has_county_flag = on_taxed_trade_route
+					occupier = scope:occupier_ruler
+				}
+				save_scope_as = smuggling_county
+			}
+		}
+	}
+	# Punish the smugglers
+	option = {
+		name = trade_disruption_events.0006.a
+		# Take harsh measures
+		scope:smuggling_county = {
+			remove_county_flag = on_taxed_trade_route
+			set_county_flag = on_disrupted_trade_route
+			add_county_modifier = {
+				modifier = smuggling_crackdown
+				years = 2
+			}
+		}
+		# Notify the smuggler
+		scope:smuggler_ruler = {
+			trigger_event = {
+				id = trade_disruption_events.0007
+				days = 1
+			}
+		}
+	}
+	# Increase the tax
+	option = {
+		name = trade_disruption_events.0006.b
+		# More income from higher tax
+		add_gold = {
+			value = scope:smuggling_county.development_level
+			multiply = 0.5
+		}
+		# But county suffers
+		scope:smuggling_county = {
+			add_county_modifier = {
+				modifier = increased_trade_taxation
+				years = 1
+			}
+		}
+		# Notify the smuggler
+		scope:smuggler_ruler = {
+			trigger_event = {
+				id = trade_disruption_events.0008
+				days = 1
+			}
+		}
+	}
+}
+
+# Smuggling crackdown notification (from 0006.a)
+trade_disruption_events.0007 = {
+	type = character_event
+	title = trade_disruption_events.0007.t
+	desc = trade_disruption_events.0007.desc
+	theme = intrigue
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	immediate = {
+		save_scope_as = caught_smuggler
+		# Remove smuggling modifier
+		remove_character_modifier = smuggling_network
+	}
+	# Accept punishment
+	option = {
+		name = trade_disruption_events.0007.a
+		# Lose gold
+		add_gold = -20
+		# And stress
+		add_stress = medium_stress_gain
+	}
+}
+
+# Increased taxation notification (from 0006.b)
+trade_disruption_events.0008 = {
+	type = character_event
+	title = trade_disruption_events.0008.t
+	desc = trade_disruption_events.0008.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = taxed_smuggler
+	}
+	# Pay the higher tax
+	option = {
+		name = trade_disruption_events.0008.a
+		# Lose more gold
+		add_gold = -15
+	}
+	# Stop smuggling
+	option = {
+		name = trade_disruption_events.0008.b
+		# Remove smuggling network
+		remove_character_modifier = smuggling_network
+	}
+}

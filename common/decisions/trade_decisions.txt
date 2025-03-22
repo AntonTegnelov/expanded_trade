@@ -1,0 +1,389 @@
+# Trade Decisions
+# Decisions related to the expanded trade system
+# Establish Trade Node
+establish_trade_node_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_realm_prosperity.dds"
+	major = yes
+	desc = establish_trade_node_decision_desc
+	selection_tooltip = establish_trade_node_decision_tooltip
+	is_shown = {
+		is_ruler = yes
+		realm_size >= 10
+		gold >= 300
+		any_held_title = {
+			tier = county
+			NOT = {
+				any_in_list = {
+					list = global_trade_nodes_list
+					county = this
+				}
+			}
+			OR = {
+				has_county_modifier = permanent_trade_relations
+				development_level >= 20
+				is_coastal = yes
+				has_river = yes
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = establish_trade_node_decision_effect_tooltip
+		# Create county selection list
+		every_held_title = {
+			limit = {
+				tier = county
+				NOT = {
+					any_in_list = {
+						list = global_trade_nodes_list
+						county = this
+					}
+				}
+				OR = {
+					has_county_modifier = permanent_trade_relations
+					development_level >= 20
+					is_coastal = yes
+					has_river = yes
+				}
+			}
+			add_to_temporary_list = potential_trade_node_counties
+		}
+		# Select county for trade node
+		open_view_data = {
+			view = character_interaction_selection_view
+			is_from_interaction = no
+		}
+		# Cost to establish
+		add_gold = -300
+	}
+	ai_will_do = {
+		base = 50
+		# Higher for stewardship rulers
+		modifier = {
+			factor = 1.5
+			stewardship >= 12
+		}
+		# Higher for wealth-focused rulers
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		# More likely for wealthy rulers
+		modifier = {
+			factor = 2
+			gold > 1000
+		}
+		# Less likely for poor rulers
+		modifier = {
+			factor = 0.5
+			gold < 500
+		}
+		# Higher for trade-focused rulers
+		modifier = {
+			factor = 2
+			has_character_modifier = merchant_guild_patron
+		}
+	}
+}
+
+# Invest in Trade Route
+invest_in_trade_route_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_gift.dds"
+	major = no
+	desc = invest_in_trade_route_decision_desc
+	selection_tooltip = invest_in_trade_route_decision_tooltip
+	cost = {
+		gold = 100
+	}
+	is_shown = {
+		is_ruler = yes
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+		}
+	}
+	effect = {
+		custom_tooltip = invest_in_trade_route_decision_effect_tooltip
+		# Create county selection list
+		every_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+			}
+			add_to_temporary_list = trade_route_counties
+		}
+		# Select county to invest in
+		open_view_data = {
+			view = character_interaction_selection_view
+			is_from_interaction = no
+		}
+		# Effects set in follow-up event
+		trigger_event = {
+			id = trade_decision_events.0001
+			days = 1
+		}
+	}
+	ai_will_do = {
+		base = 30
+		# Higher for wealthy rulers
+		modifier = {
+			factor = 1.5
+			gold > 500
+		}
+		# Higher for stewardship rulers
+		modifier = {
+			factor = 1.5
+			stewardship >= 10
+		}
+		# Higher for trade-focused rulers
+		modifier = {
+			factor = 2
+			has_character_modifier = merchant_guild_patron
+		}
+		# Less likely for poor rulers
+		modifier = {
+			factor = 0.1
+			gold < 200
+		}
+	}
+}
+
+# Form Trade League
+form_trade_league_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_form_alliance.dds"
+	major = yes
+	desc = form_trade_league_decision_desc
+	selection_tooltip = form_trade_league_decision_tooltip
+	is_shown = {
+		is_ruler = yes
+		tier >= tier_duchy
+		prestige >= 1000
+		gold >= 500
+		any_held_title = {
+			tier = county
+			any_in_list = {
+				list = global_trade_nodes_list
+				county = this
+			}
+		}
+		NOT = {
+			has_character_modifier = trade_league_leader
+		}
+		NOT = {
+			has_character_modifier = trade_league_member
+		}
+	}
+	effect = {
+		custom_tooltip = form_trade_league_decision_effect_tooltip
+		# Form league
+		add_character_modifier = {
+			modifier = trade_league_leader
+			years = 20
+		}
+		# Cost to form
+		add_gold = -500
+		add_prestige = 500
+		# Notify potential members
+		every_independent_ruler = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				tier >= tier_count
+				any_held_title = {
+					tier = county
+					any_in_list = {
+						list = global_trade_nodes_list
+						county = this
+					}
+				}
+				opinion = {
+					target = root
+					value >= 0
+				}
+			}
+			trigger_event = {
+				id = trade_decision_events.0002
+				days = {
+					5
+					30
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		base = 20
+		# Higher for high stewardship
+		modifier = {
+			factor = 2
+			stewardship >= 15
+		}
+		# Higher for trade-focused rulers
+		modifier = {
+			factor = 2
+			has_character_modifier = merchant_guild_patron
+		}
+		# Higher for ambitious
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		# Higher for higher tier rulers
+		modifier = {
+			factor = 1.5
+			tier >= tier_king
+		}
+	}
+}
+
+# Sponsor Merchant Guild
+sponsor_merchant_guild_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_diplomacy_lifestyle.dds"
+	major = no
+	desc = sponsor_merchant_guild_decision_desc
+	selection_tooltip = sponsor_merchant_guild_decision_tooltip
+	cost = {
+		gold = 150
+	}
+	is_shown = {
+		is_ruler = yes
+		tier >= tier_count
+		NOT = {
+			has_character_modifier = merchant_guild_patron
+		}
+	}
+	effect = {
+		custom_tooltip = sponsor_merchant_guild_decision_effect_tooltip
+		# Become patron
+		add_character_modifier = {
+			modifier = merchant_guild_patron
+			years = 10
+		}
+		# Benefits to trade counties
+		every_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+			}
+			# Boost prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 0.5
+			}
+			# And development
+			random = {
+				chance = 50
+				change_development = {
+					add = 0.5
+				}
+			}
+		}
+		# Follow-up events
+		trigger_event = {
+			id = trade_decision_events.0003
+			days = {
+				60
+				180
+			}
+		}
+	}
+	ai_will_do = {
+		base = 40
+		# Higher for stewardship rulers
+		modifier = {
+			factor = 1.5
+			stewardship >= 10
+		}
+		# Higher for trade counties
+		modifier = {
+			factor = {
+				value = 1.1
+				multiply = county_trade_count
+			}
+		}
+		# Higher for wealthy rulers
+		modifier = {
+			factor = 1.5
+			gold > 300
+		}
+		# Much less likely for poor rulers
+		modifier = {
+			factor = 0.2
+			gold < 200
+		}
+	}
+}
+
+# Establish Foreign Trade Relations
+establish_foreign_trade_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_foreign_affairs.dds"
+	major = no
+	desc = establish_foreign_trade_decision_desc
+	selection_tooltip = establish_foreign_trade_decision_tooltip
+	cost = {
+		gold = 150
+		prestige = 100
+	}
+	is_shown = {
+		is_ruler = yes
+		tier >= tier_count
+		NOT = {
+			has_character_modifier = foreign_trade_connections
+		}
+	}
+	effect = {
+		custom_tooltip = establish_foreign_trade_decision_effect_tooltip
+		# Create target ruler selection list
+		every_independent_ruler = {
+			limit = {
+				NOT = {
+					this = root
+				}
+				tier >= tier_count
+				NOT = {
+					is_at_war_with = root
+				}
+				any_held_title = {
+					tier = county
+					any_in_list = {
+						list = global_trade_nodes_list
+						county = this
+					}
+				}
+			}
+			add_to_temporary_list = potential_trade_partners
+		}
+		# Select trading partner
+		open_view_data = {
+			view = character_interaction_selection_view
+			is_from_interaction = no
+		}
+		# Effects set in follow-up event
+		trigger_event = {
+			id = trade_decision_events.0004
+			days = 1
+		}
+	}
+	ai_will_do = {
+		base = 30
+		# Higher for diplomacy rulers
+		modifier = {
+			factor = 1.5
+			diplomacy >= 12
+		}
+		# Higher for wealthy rulers
+		modifier = {
+			factor = 1.5
+			gold > 300
+		}
+		# Higher for rulers with trade modifiers
+		modifier = {
+			factor = 2
+			has_character_modifier = merchant_guild_patron
+		}
+		# Less likely for poor rulers
+		modifier = {
+			factor = 0.2
+			gold < 200
+		}
+	}
+}

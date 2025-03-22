@@ -1,0 +1,173 @@
+# Trade Rules
+# Defines rules for how trade functions in the game
+# Maximum number of trade nodes per major river
+max_river_nodes = {
+	value = 5
+}
+
+# Maximum number of trade nodes per sea zone
+max_sea_nodes = {
+	value = 7
+}
+
+# Minimum distance between trade nodes (in counties)
+min_trade_node_distance = {
+	value = 3
+}
+
+# Maximum number of connections per trade node
+max_trade_node_connections = {
+	value = 5
+}
+
+# Base value for trade routes
+base_trade_route_value = {
+	value = 10
+}
+
+# Modifier for coastal trade routes
+coastal_trade_route_modifier = {
+	value = 1.5
+}
+
+# Modifier for river trade routes
+river_trade_route_modifier = {
+	value = 1.25
+}
+
+# Modifier for land trade routes
+land_trade_route_modifier = {
+	value = 0.8
+}
+
+# Maximum prosperity level from trade
+max_trade_prosperity_level = {
+	value = 3
+}
+
+# Maximum number of active trade routes per county
+max_trade_routes_per_county = {
+	value = 3
+}
+
+# Trade income percentage for route controller
+trade_controller_income_share = {
+	value = 0.15
+}
+
+# Trade income percentage for county holder
+trade_county_holder_income_share = {
+	value = 0.1
+}
+
+# Base chance for trader events
+base_trader_event_chance = {
+	value = 15
+}
+
+# Development growth from high trade prosperity
+high_trade_prosperity_development_bonus = {
+	value = 0.2
+}
+
+# Development growth from medium trade prosperity
+medium_trade_prosperity_development_bonus = {
+	value = 0.1
+}
+
+# Development growth from low trade prosperity
+low_trade_prosperity_development_bonus = {
+	value = 0.05
+}
+
+# Trade flow penalty from hostile territory
+hostile_territory_trade_penalty = {
+	value = 0.5
+}
+
+# Additional income for silk road counties
+silk_road_trade_bonus = {
+	value = 1.25
+}
+
+# Chance of disruption from raiding
+raiding_trade_disruption_chance = {
+	value = 75
+}
+
+# Duration of trade disruption from raiding (in months)
+raiding_trade_disruption_duration = {
+	value = 12
+}
+
+# Building bonus multipliers for trade
+market_trade_bonus = {
+	value = 1.1
+}
+
+trading_post_trade_bonus = {
+	value = 1.15
+}
+
+guild_hall_trade_bonus = {
+	value = 1.2
+}
+
+caravanserai_trade_bonus = {
+	value = 1.25
+}
+
+# Income boost from stewardship skill
+stewardship_trade_income_boost_per_point = {
+	value = 0.02
+}
+
+# Income boost cap from stewardship (at 20 stewardship)
+max_stewardship_trade_boost = {
+	value = 0.4
+}
+
+# Tax income percentage from trade
+trade_tax_percentage = {
+	value = 0.05
+}
+
+# Maximum number of merchant characters per ruler
+max_merchants_per_ruler = {
+	value = 3
+}
+
+# Chance of generating special trade goods at node
+special_trade_goods_chance = {
+	value = 10
+}
+
+# Value multiplier for special trade goods
+special_trade_goods_value_multiplier = {
+	value = 2.5
+}
+
+# Duration of special trade goods availability (in months)
+special_trade_goods_duration = {
+	value = 24
+}
+
+# Trade depletion chance for overused routes
+trade_route_depletion_chance = {
+	value = 5
+}
+
+# Trade route recovery time (in months)
+trade_route_recovery_time = {
+	value = 36
+}
+
+# Trade prosperity decay per month without active routes
+trade_prosperity_decay_rate = {
+	value = 0.1
+}
+
+# Trade prosperity growth per month with active routes
+trade_prosperity_growth_rate = {
+	value = 0.05
+}

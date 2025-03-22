@@ -1,0 +1,105 @@
+# Trade Route Triggers
+# These scripted triggers help validate trade routes and nodes
+# Checks if a county is on a valid trade route
+is_on_valid_trade_route_trigger = {
+	# Check if the county has the trade route flag
+	OR = {
+		has_county_flag = on_active_trade_route
+		has_county_flag = on_disrupted_trade_route
+	}
+}
+
+# Checks if a county has a connection to another county via a trade route
+has_trade_route_connection_trigger = {
+	# $TARGET_COUNTY$ = County to check connection with
+	OR = {
+		# Direct connection via valid route
+		has_variable = trade_route_to_$TARGET_COUNTY$_valid
+		var:trade_route_to_$TARGET_COUNTY$_valid = yes
+		# Connection through another node (simplified for MVP)
+		AND = {
+			is_on_valid_trade_route_trigger = yes
+			$TARGET_COUNTY$ = {
+				is_on_valid_trade_route_trigger = yes
+			}
+		}
+	}
+}
+
+# Checks if a county has a specified trade node
+has_trade_node_trigger = {
+	# $NODE_ID$ = ID of the trade node to check for
+	exists = $NODE_ID$
+	$NODE_ID$ = {
+		county = root
+	}
+}
+
+# Checks if a province can be used as a trade route province based on terrain
+province_valid_for_trade_route_trigger = {
+	# The following terrain types are suitable for land trade routes
+	OR = {
+		terrain = plains
+		terrain = farmlands
+		terrain = forest
+		terrain = hills
+		terrain = mountains
+		terrain = desert
+		terrain = drylands
+		terrain = steppe
+		terrain = oasis
+	}
+}
+
+# Checks if a county is suitable for a trade node
+county_valid_for_trade_node_trigger = {
+	# Trade nodes should typically be in developed or strategic provinces
+	OR = {
+		# County has significant development
+		development_level >= 10
+		# County is a capital
+		is_county_capital = yes
+		# County is at a strategic location
+		OR = {
+			# Coastal counties with ports
+			has_county_flag = coastal_county
+			# Counties at river crossings
+			has_river = yes
+			# Counties at mountain passes
+			terrain = mountains
+			# Counties with significant urban development
+			has_building = city_01
+			has_building = city_02
+		}
+	}
+}
+
+# Checks if a trade route is currently disrupted
+is_trade_route_disrupted_trigger = {
+	# $ROUTE_ID$ = ID of the trade route to check
+	$ROUTE_ID$ = {
+		is_disrupted = yes
+	}
+}
+
+# Checks if a character controls a trade node
+character_controls_trade_node_trigger = {
+	# $NODE_ID$ = ID of the trade node to check
+	$NODE_ID$ = {
+		OR = {
+			controller = root
+			var:controller = root
+		}
+	}
+}
+
+# Checks if a trade node has a valuable good for trading
+trade_node_has_valuable_goods_trigger = {
+	# $NODE_ID$ = ID of the trade node to check
+	# For MVP, we use development level as a proxy for valuable goods
+	$NODE_ID$ = {
+		county = {
+			development_level >= medium_value
+		}
+	}
+}

@@ -1,0 +1,253 @@
+namespace = trade_monthly_events
+# Prosperity change event
+trade_monthly_events.0001 = {
+	type = character_event
+	title = trade_monthly_events.0001.t
+	desc = trade_monthly_events.0001.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	trigger = {
+		is_ruler = yes
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+			var:trade_prosperity_level > prev.var:trade_prosperity_level
+		}
+	}
+	immediate = {
+		save_scope_as = prosperity_change_ruler
+		# Find county with increased prosperity
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+				var:trade_prosperity_level > root.var:trade_prosperity_level
+			}
+			save_scope_as = prosperity_county
+			# Store prosperity level for reference
+			set_variable = {
+				name = prev_prosperity_level
+				value = root.var:trade_prosperity_level
+			}
+			# Set prosperity level for ruler
+			root = {
+				set_variable = {
+					name = trade_prosperity_level
+					value = scope:prosperity_county.var:trade_prosperity_level
+				}
+			}
+		}
+	}
+	option = {
+		name = trade_monthly_events.0001.a
+		# Add tax from prosperity
+		add_gold = {
+			value = {
+				value = scope:prosperity_county.var:trade_prosperity_level
+				multiply = 2.5
+			}
+		}
+		# Boost county control
+		scope:prosperity_county = {
+			add_county_control_progress = medium_impact
+		}
+	}
+}
+
+# Trade flow event
+trade_monthly_events.0002 = {
+	type = character_event
+	title = trade_monthly_events.0002.t
+	desc = trade_monthly_events.0002.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	trigger = {
+		is_ruler = yes
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+			NOT = {
+				has_county_flag = disrupted_trade_flow
+			}
+			var:trade_flow_capacity >= 3
+		}
+	}
+	immediate = {
+		save_scope_as = trade_flow_ruler
+		# Find county with high trade flow
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+				NOT = {
+					has_county_flag = disrupted_trade_flow
+				}
+				var:trade_flow_capacity >= 3
+			}
+			save_scope_as = trade_flow_county
+		}
+	}
+	option = {
+		name = trade_monthly_events.0002.a
+		# Add income from trade flow
+		add_gold = {
+			value = {
+				value = scope:trade_flow_county.var:trade_flow_capacity
+				multiply = 1.5
+			}
+		}
+		# Chance to increase development from trade
+		scope:trade_flow_county = {
+			trigger_event = {
+				id = trade_monthly_events.0005
+				days = {
+					5
+					10
+				}
+			}
+		}
+	}
+}
+
+# Random merchant arrival event
+trade_monthly_events.0003 = {
+	type = character_event
+	title = trade_monthly_events.0003.t
+	desc = trade_monthly_events.0003.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	trigger = {
+		is_ruler = yes
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+			var:trade_prosperity_level >= 2
+		}
+	}
+	weight_multiplier = {
+		base = 5
+		# More likely for rulers with high stewardship
+		modifier = {
+			factor = 1.5
+			stewardship >= 12
+		}
+		# More likely for rulers with trade focus
+		modifier = {
+			factor = 2
+			has_focus = focus_stewardship
+		}
+	}
+	immediate = {
+		save_scope_as = merchant_arrival_ruler
+		# Find county for merchant arrival
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+				var:trade_prosperity_level >= 2
+			}
+			save_scope_as = merchant_arrival_county
+		}
+	}
+	# Foreign merchant arrives with goods
+	option = {
+		name = trade_monthly_events.0003.a
+		# Tax the merchant
+		add_gold = {
+			value = {
+				value = scope:merchant_arrival_county.var:trade_prosperity_level
+				multiply = 5
+			}
+		}
+		# But reduce county opinion
+		scope:merchant_arrival_county = {
+			add_county_modifier = {
+				modifier = overtaxed_merchants
+				years = 2
+			}
+		}
+	}
+	# Welcome the merchant
+	option = {
+		name = trade_monthly_events.0003.b
+		# Small tax
+		add_gold = {
+			value = {
+				value = scope:merchant_arrival_county.var:trade_prosperity_level
+				multiply = 2
+			}
+		}
+		# Boost prosperity
+		scope:merchant_arrival_county = {
+			change_variable = {
+				name = trade_prosperity_level
+				add = 0.1
+			}
+			# And boost county opinion
+			add_county_modifier = {
+				modifier = welcoming_trade_policy
+				years = 3
+			}
+		}
+	}
+	# Establish permanent trading relations
+	option = {
+		name = trade_monthly_events.0003.c
+		# Small immediate gain
+		add_gold = {
+			value = {
+				value = scope:merchant_arrival_county.var:trade_prosperity_level
+				multiply = 1
+			}
+		}
+		# But long term benefits
+		scope:merchant_arrival_county = {
+			add_county_modifier = {
+				modifier = permanent_trade_relations
+				years = 5
+			}
+		}
+		# And chance for development
+		random = {
+			chance = 25
+			scope:merchant_arrival_county = {
+				change_development = {
+					add = 1
+				}
+			}
+		}
+	}
+}
+
+# Trade development boost event (hidden, triggered from 0002)
+trade_monthly_events.0005 = {
+	type = county_event
+	hidden = yes
+	immediate = {
+		# 33% chance to increase development
+		random = {
+			chance = 33
+			change_development = {
+				add = 0.5
+			}
+			root.holder = {
+				send_interface_message = {
+					type = county_development_gain_message
+					title = trade_development_gain_title
+					desc = trade_development_gain_desc
+					left_icon = root
+					add_gold = 0
+				}
+			}
+		}
+	}
+}

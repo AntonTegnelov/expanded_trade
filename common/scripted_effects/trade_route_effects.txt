@@ -1,0 +1,190 @@
+# Trade Route Effects
+# These scripted effects handle trade route validation and travel plan compatibility
+# Validates if two counties are properly connected for trade
+validate_trade_route_connection_effect = {
+	# $FROM_COUNTY$ = First county
+	# $TO_COUNTY$ = Second county
+	# Check if the counties are adjacent
+	if = {
+		limit = {
+			$FROM_COUNTY$ = {
+				is_adjacent_to_county = $TO_COUNTY$
+			}
+		}
+		# Counties are adjacent - connection is valid
+		$FROM_COUNTY$ = {
+			set_variable = {
+				name = trade_route_to_$TO_COUNTY$_valid
+				value = yes
+			}
+		}
+		$TO_COUNTY$ = {
+			set_variable = {
+				name = trade_route_to_$FROM_COUNTY$_valid
+				value = yes
+			}
+		}
+	}
+	else = {
+		# Counties are not adjacent - check if they are connected by sea
+		if = {
+			limit = {
+				$FROM_COUNTY$ = {
+					has_county_flag = coastal_county
+				}
+				$TO_COUNTY$ = {
+					has_county_flag = coastal_county
+				}
+				# In a more complex implementation, we'd check actual sea zones
+				# For MVP we'll assume coastal counties have sea connections
+			}
+			# Counties are connected by sea - connection is valid
+			$FROM_COUNTY$ = {
+				set_variable = {
+					name = trade_route_to_$TO_COUNTY$_valid
+					value = yes
+				}
+				set_variable = {
+					name = trade_route_to_$TO_COUNTY$_sea_route
+					value = yes
+				}
+			}
+			$TO_COUNTY$ = {
+				set_variable = {
+					name = trade_route_to_$FROM_COUNTY$_valid
+					value = yes
+				}
+				set_variable = {
+					name = trade_route_to_$FROM_COUNTY$_sea_route
+					value = yes
+				}
+			}
+		}
+		else = {
+			# Counties are not connected - connection is invalid
+			$FROM_COUNTY$ = {
+				set_variable = {
+					name = trade_route_to_$TO_COUNTY$_valid
+					value = no
+				}
+			}
+			$TO_COUNTY$ = {
+				set_variable = {
+					name = trade_route_to_$FROM_COUNTY$_valid
+					value = no
+				}
+			}
+		}
+	}
+}
+
+# Sets up travel plan compatibility for trade caravans
+setup_trade_caravan_travel_plan_effect = {
+	# $FROM_NODE$ = Starting trade node
+	# $TO_NODE$ = Destination trade node
+	# $CARAVAN_LEADER$ = Character leading the caravan (optional)
+	# First determine if we have a caravan leader specified
+	if = {
+		limit = {
+			exists = $CARAVAN_LEADER$
+		}
+		# Use the character as caravan leader
+		$CARAVAN_LEADER$ = {
+			create_travel_plan = {
+				target = $TO_NODE$.county.barony
+				on_arrival = trade_caravan_arrival_on_action
+			}
+		}
+	}
+	else = {
+		# Generate a random merchant character to lead caravan
+		$FROM_NODE$.county.holder = {
+			create_character = {
+				name = "RANDOM_TRADER_NAME"				# Using a simple name placeholder
+				faith = this.faith
+				culture = this.culture
+				age = {
+					min = 25
+					max = 55
+				}
+				trait = gregarious
+				traits = {
+					diligent
+					shrewd
+				}
+				employer = this
+				save_scope_as = caravan_leader
+			}
+		}
+		# Use the generated character as caravan leader
+		scope:caravan_leader = {
+			create_travel_plan = {
+				target = $TO_NODE$.county.barony
+				on_arrival = trade_caravan_arrival_on_action
+			}
+		}
+	}
+}
+
+# Calculates trade prosperity based on county development
+calculate_trade_prosperity_effect = {
+	# $COUNTY$ = County to calculate prosperity for
+	# Trade prosperity is based on development level and trade route status
+	$COUNTY$ = {
+		# Base value from development
+		set_variable = {
+			name = trade_prosperity_level
+			value = development_level
+		}
+		# Bonus if on active trade route
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			change_variable = {
+				name = trade_prosperity_level
+				add = 2
+			}
+		}
+		# Penalty if trade route is disrupted
+		if = {
+			limit = {
+				has_county_flag = on_disrupted_trade_route
+			}
+			change_variable = {
+				name = trade_prosperity_level
+				subtract = 1
+			}
+		}
+		# Ensure prosperity level doesn't go negative
+		if = {
+			limit = {
+				var:trade_prosperity_level < 0
+			}
+			set_variable = {
+				name = trade_prosperity_level
+				value = 0
+			}
+		}
+	}
+}
+
+# Update trade node controller based on county owner
+update_trade_node_controller_effect = {
+	# $NODE_ID$ = ID of the trade node to update
+	# Find the trade node's county and update controller
+	every_county = {
+		limit = {
+			$NODE_ID$ = {
+				county = this
+			}
+		}
+		# Set the controller to the county holder
+		$NODE_ID$ = {
+			set_variable = {
+				name = controller
+				value = root.holder
+			}
+		}
+	}
+}
