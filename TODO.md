@@ -37,16 +37,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement straightforward node connection rules leveraging adjacency (requires game integration)
     - [x] Ensure compatibility with existing province system using province_id references (requires game integration)
 
-- [ ] **Trade Good Distribution** - Limited set of luxury and common goods
+- [x] **Trade Good Distribution** - Limited set of luxury and common goods
 
   - [x] Create `common/trade_goods/mvp_trade_goods.txt` with basic goods
-    - [ ] Implement core good categories (luxury, common) with minimal types
-    - [ ] Define basic production rules based on vanilla terrain types
-    - [ ] Create simple consumption rules using existing character scope
-    - [ ] Limit to essential goods (silk, spices, fur, metals, etc.)
-    - [ ] Leverage existing terrain and building systems for production placement
-    - [ ] Use vanilla localization for luxury goods where available
-    - [ ] Ensure compatibility with county terrain_type checks for production
+    - [x] Implement core good categories (luxury, common) with minimal types
+    - [x] Define basic production rules based on vanilla terrain types
+    - [x] Create simple consumption rules using existing character scope
+    - [x] Limit to essential goods (silk, spices, fur, metals, etc.)
+    - [x] Leverage existing terrain and building systems for production placement
+    - [x] Use vanilla localization for luxury goods where available
+    - [x] Ensure compatibility with county terrain_type checks for production
 
 - [ ] **Trade Flow Calculation** - Simple monthly calculations without advanced modifiers
 
