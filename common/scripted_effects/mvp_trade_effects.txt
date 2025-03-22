@@ -244,3 +244,82 @@ apply_trade_prosperity_effect = {
 		}
 	}
 }
+
+# Disrupts a trade route section due to war impacts
+# Scope: County
+disrupt_trade_route_effect = {
+	# Mark county as having a disrupted trade route
+	if = {
+		limit = {
+			has_county_flag = on_silk_road
+		}
+		# Set disruption flag
+		set_county_flag = on_disrupted_trade_route
+		# Clear active route flag if present
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			remove_county_flag = on_active_trade_route
+		}
+		# Apply disruption modifier
+		add_county_modifier = {
+			modifier = trade_route_disrupted
+			years = 2
+		}
+		# Reduce trade prosperity if present
+		if = {
+			limit = {
+				has_modifier = high_trade_prosperity
+			}
+			remove_modifier = high_trade_prosperity
+			add_county_modifier = {
+				modifier = medium_trade_prosperity
+				years = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_modifier = medium_trade_prosperity
+			}
+			remove_modifier = medium_trade_prosperity
+			add_county_modifier = {
+				modifier = low_trade_prosperity
+				years = 1
+			}
+		}
+		else_if = {
+			limit = {
+				has_modifier = low_trade_prosperity
+			}
+			remove_modifier = low_trade_prosperity
+		}
+		# Notify holder of the disruption if this is a player
+		holder = {
+			if = {
+				limit = {
+					is_ai = no
+				}
+				send_interface_message = {
+					type = county_event_bad
+					title = trade_route_disruption_title
+					desc = trade_route_disruption_desc
+				}
+			}
+		}
+		# Propagate disruption to connected counties
+		# This creates a regional effect but limits the cascade
+		every_neighboring_county = {
+			limit = {
+				has_county_flag = on_silk_road
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+			random = {
+				chance = 50				# 50% chance to propagate disruption
+				disrupt_trade_route_effect = yes
+			}
+		}
+	}
+}

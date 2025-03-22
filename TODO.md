@@ -87,7 +87,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement `setup_silk_road_effect` for initial configuration
     - [x] Create `calculate_basic_trade_income_effect` for financial impact
     - [x] Add `apply_trade_prosperity_effect` for county modifiers
-    - [ ] Implement `disrupt_trade_route_effect` for war impacts
+    - [x] Implement `disrupt_trade_route_effect` for war impacts
     - [ ] Follow standard effect format with clear scope expectations
     - [ ] Use existing county and character scope manipulation
     - [ ] Ensure compatibility with modifier application system
