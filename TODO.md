@@ -7,7 +7,7 @@
 - [x] Create `events/` folder for event scripts
 - [x] Create `localization/english/` folder for text
 - [x] Create `gfx/` folder for images and icons
-- [ ] Create `gui/` folder for UI elements
+- [x] Create `gui/` folder for UI elements
 
 ## 1A. MVP Features
 
