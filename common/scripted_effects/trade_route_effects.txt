@@ -613,7 +613,8 @@ setup_trade_node_connections_effect = {
 			limit = {
 				NOT = {
 					this = scope:current_node
-				}				# Skip self-connections
+				}
+				# Skip self-connections
 			}
 			save_scope_as = target_node
 			# Check if the counties are connected
