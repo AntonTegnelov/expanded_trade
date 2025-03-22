@@ -173,3 +173,74 @@ calculate_basic_trade_income_effect = {
 	# This effect just calculates the value but doesn't apply it directly
 	# Actual money transfer would be done by calling systems
 }
+
+# Applies appropriate trade prosperity modifier to a county based on its prosperity level
+# Scope: County
+apply_trade_prosperity_effect = {
+	# Check current prosperity level (using flags or variables)
+	# We're implementing a simplified version for MVP
+	# Clear any existing prosperity modifiers first
+	remove_modifier = low_trade_prosperity
+	remove_modifier = medium_trade_prosperity
+	remove_modifier = high_trade_prosperity
+	# High trade prosperity (counties with trade buildings and on major routes)
+	if = {
+		limit = {
+			OR = {
+				# County has both market and trading post
+				AND = {
+					any_county_holding = {
+						exists = building:market_square_01
+					}
+					any_county_holding = {
+						exists = building:trading_post_01
+					}
+				}
+				# County is a major trade center
+				has_county_flag = trade_center
+				# County has high development and is on trade route
+				AND = {
+					development_level >= 20
+					has_county_flag = on_silk_road
+				}
+			}
+		}
+		add_county_modifier = {
+			modifier = high_trade_prosperity
+			years = 5
+		}
+	}
+	# Medium trade prosperity
+	else_if = {
+		limit = {
+			OR = {
+				# County has at least one trade building
+				any_county_holding = {
+					exists = building:market_square_01
+				}
+				any_county_holding = {
+					exists = building:trading_post_01
+				}
+				# County has moderate development and is on trade route
+				AND = {
+					development_level >= 10
+					has_county_flag = on_silk_road
+				}
+			}
+		}
+		add_county_modifier = {
+			modifier = medium_trade_prosperity
+			years = 3
+		}
+	}
+	# Low trade prosperity (basic counties on trade routes)
+	else_if = {
+		limit = {
+			has_county_flag = on_silk_road
+		}
+		add_county_modifier = {
+			modifier = low_trade_prosperity
+			years = 2
+		}
+	}
+}
