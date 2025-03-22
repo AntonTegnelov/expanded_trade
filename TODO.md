@@ -33,7 +33,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement basic controller scope using existing county owner mechanics
     - [ ] Create simple value calculation using existing development level
     - [x] Limit to essential nodes (Constantinople, Baghdad, Samarkand, etc.)
-    - [ ] Use existing county system for node placement
+    - [x] Use existing county system for node placement
     - [ ] Implement straightforward node connection rules leveraging adjacency
     - [ ] Ensure compatibility with existing province system using province_id references
 
