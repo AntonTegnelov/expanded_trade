@@ -1,0 +1,111 @@
+# Silk Road Trade Nodes
+# These represent the major trade hubs along the Silk Road
+# Eastern Nodes
+trade_node = {
+	id = "xian_node"
+	name = "xian_node"
+	# Chang'an/Xi'an - Starting point in China
+	county = 256	# Placeholder ID - will need to be replaced with actual county ID
+	base_value = 15
+}
+
+trade_node = {
+	id = "dunhuang_node"
+	name = "dunhuang_node"
+	# Dunhuang - Western China gateway
+	county = 257	# Placeholder ID
+	base_value = 10
+}
+
+trade_node = {
+	id = "kashgar_node"
+	name = "kashgar_node"
+	# Kashgar - Entry to Central Asia
+	county = 258	# Placeholder ID
+	base_value = 12
+}
+
+# Central Asian Nodes
+trade_node = {
+	id = "samarkand_node"
+	name = "samarkand_node"
+	# Samarkand - Central Asian hub
+	county = 441	# Using Samarkand county ID
+	base_value = 20
+}
+
+trade_node = {
+	id = "bukhara_node"
+	name = "bukhara_node"
+	# Bukhara - Major trading center
+	county = 440	# Using Bukhara county ID
+	base_value = 18
+}
+
+trade_node = {
+	id = "merv_node"
+	name = "merv_node"
+	# Merv - Persian trade city
+	county = 450	# Placeholder ID
+	base_value = 15
+}
+
+# Persian Nodes
+trade_node = {
+	id = "nishapur_node"
+	name = "nishapur_node"
+	# Nishapur - Northeastern Persian hub
+	county = 451	# Placeholder ID
+	base_value = 14
+}
+
+trade_node = {
+	id = "rayy_node"
+	name = "rayy_node"
+	# Rayy/Tehran - Northwest Persian center
+	county = 661	# Using Rayy county ID
+	base_value = 16
+}
+
+# Middle Eastern Nodes
+trade_node = {
+	id = "baghdad_node"
+	name = "baghdad_node"
+	# Baghdad - Middle Eastern hub
+	county = 720	# Using Baghdad county ID
+	base_value = 25
+}
+
+trade_node = {
+	id = "mosul_node"
+	name = "mosul_node"
+	# Mosul - Northern Mesopotamia
+	county = 714	# Using Mosul county ID
+	base_value = 15
+}
+
+# Levantine Nodes
+trade_node = {
+	id = "aleppo_node"
+	name = "aleppo_node"
+	# Aleppo - Syrian trade center
+	county = 768	# Using Aleppo county ID
+	base_value = 18
+}
+
+trade_node = {
+	id = "antioch_node"
+	name = "antioch_node"
+	# Antioch - Mediterranean gateway
+	county = 771	# Using Antioch county ID
+	base_value = 20
+}
+
+# European Nodes
+trade_node = {
+	id = "constantinople_node"
+	name = "constantinople_node"
+	# Constantinople - European gateway
+	county = 746	# Using Constantinople county ID
+	base_value = 30
+}
