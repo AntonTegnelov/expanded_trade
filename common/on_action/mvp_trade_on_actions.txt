@@ -30,3 +30,20 @@ mvp_on_monthly_trade_pulse = {
 		# These would be simpler versions focused on core mechanics
 	}
 }
+
+# County occupation affects trade routes
+on_county_occupied = {
+	# Root is the county title
+	effect = {
+		# Check if county is on trade route
+		if = {
+			limit = {
+				has_county_flag = on_silk_road
+			}
+			# Apply trade route disruption effect
+			disrupt_trade_route_effect = yes
+			# Log for debugging
+			debug_log = "Trade route disrupted due to occupation in [ROOT.GetName]"
+		}
+	}
+}
