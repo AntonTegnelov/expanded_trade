@@ -81,7 +81,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Use existing county scope and terrain checks
     - [x] Leverage province adjacency system for route proximity checks
 
-- [ ] **Trade Effects and Actions** - Core effects for basic trade operations
+- [x] **Trade Effects and Actions** - Core effects for basic trade operations
 
   - [x] Create `common/scripted_effects/mvp_trade_effects.txt` for essential actions
     - [x] Implement `setup_silk_road_effect` for initial configuration
@@ -90,7 +90,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement `disrupt_trade_route_effect` for war impacts
     - [x] Follow standard effect format with clear scope expectations
     - [x] Use existing county and character scope manipulation
-    - [ ] Ensure compatibility with modifier application system
+    - [x] Ensure compatibility with modifier application system
 
 - [ ] **On-Action Hooks** - Minimal integration with game events
 
