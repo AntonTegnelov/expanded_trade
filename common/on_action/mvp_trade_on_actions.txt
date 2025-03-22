@@ -47,3 +47,41 @@ on_county_occupied = {
 		}
 	}
 }
+
+# Building construction affects trade
+on_holding_building_constructed = {
+	# Root is the holding
+	# scope:builder is the character who built it
+	effect = {
+		# Check if a trade-related building was constructed
+		if = {
+			limit = {
+				OR = {
+					exists = building:market_square_01
+					exists = building:trading_post_01
+				}
+			}
+			# Boost trade in the county
+			county = {
+				# Apply or upgrade trade prosperity
+				apply_trade_prosperity_effect = yes
+				# Flag county as being on active trade route if it's on the silk road
+				# but not already flagged
+				if = {
+					limit = {
+						has_county_flag = on_silk_road
+						NOT = {
+							has_county_flag = on_active_trade_route
+						}
+						NOT = {
+							has_county_flag = on_disrupted_trade_route
+						}
+					}
+					set_county_flag = on_active_trade_route
+				}
+				# Log for debugging
+				debug_log = "Trade building constructed in [ROOT.GetName]"
+			}
+		}
+	}
+}

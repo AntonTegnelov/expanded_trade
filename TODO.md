@@ -97,7 +97,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
   - [ ] Create `common/on_action/mvp_trade_on_actions.txt` for essential hooks
     - [x] Hook into `on_monthly_pulse` for trade calculations
     - [x] Add `on_county_occupied` for route disruption
-    - [ ] Implement `on_holding_building_constructed` for trade building effects
+    - [x] Implement `on_holding_building_constructed` for trade building effects
     - [ ] Create basic integration with `fp1_trade_events_random` if Northern Lords exists
     - [ ] Use standard on_action structure for compatibility
     - [ ] Implement basic event triggers for trade status changes
