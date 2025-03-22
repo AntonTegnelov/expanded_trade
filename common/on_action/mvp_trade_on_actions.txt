@@ -1,0 +1,32 @@
+# MVP Trade On Actions
+# These on_actions provide minimal integration with game events for the MVP
+# Simplified versions of the full trade on_actions
+# Hook into the standard on_monthly_pulse to run our trade calculations
+on_monthly_pulse = {
+	on_actions = {
+		mvp_on_monthly_trade_pulse
+	}
+}
+
+# Monthly pulse for trade calculations
+mvp_on_monthly_trade_pulse = {
+	# This is called by hooking into the on_monthly_pulse
+	effect = {
+		# Execute the simplified trade flow calculation
+		# This uses the MVP versions of the effects for better performance
+		calculate_basic_trade_income_effect = yes
+		# Update county prosperity based on trade route status
+		every_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_silk_road
+			}
+			# Apply trade prosperity effects to counties on the Silk Road
+			apply_trade_prosperity_effect = yes
+		}
+	}
+	events = {
+		# Add event references here when MVP trade events are implemented
+		# These would be simpler versions focused on core mechanics
+	}
+}
