@@ -48,16 +48,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Use vanilla localization for luxury goods where available
     - [x] Ensure compatibility with county terrain_type checks for production
 
-- [ ] **Trade Flow Calculation** - Simple monthly calculations without advanced modifiers
+- [x] **Trade Flow Calculation** - Simple monthly calculations without advanced modifiers
 
   - [x] Create `common/scripted_effects/trade_calculation_effects.txt` with core algorithms
-    - [ ] Implement simplified monthly flow calculation effect
-    - [ ] Create basic node value determination based on development and goods
-    - [ ] Add simple goods distribution that follows route connections
-    - [ ] Create route efficiency calculation based on county control
-    - [ ] Implement hooks into on_monthly_pulse for regular updates
-    - [ ] Use existing scope system for efficient calculation
-    - [ ] Ensure compatibility with GetValue and ScriptValue API
+    - [x] Implement simplified monthly flow calculation effect
+    - [x] Create basic node value determination based on development and goods
+    - [x] Add simple goods distribution that follows route connections
+    - [x] Create route efficiency calculation based on county control
+    - [x] Implement hooks into on_monthly_pulse for regular updates
+    - [x] Use existing scope system for efficient calculation
+    - [x] Ensure compatibility with GetValue and ScriptValue API
 
 - [ ] **Trade Prosperity Effects** - Basic development and income bonuses
 

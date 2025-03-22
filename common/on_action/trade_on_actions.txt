@@ -1,9 +1,18 @@
 # Trade On Actions
 # These on_actions trigger events related to trade
+# Hook into the standard on_monthly_pulse to run our trade calculations
+on_monthly_pulse = {
+	on_actions = {
+		on_monthly_trade_pulse
+	}
+}
+
 # Monthly pulse for trade calculations
 on_monthly_trade_pulse = {
 	# This is called by hooking into the on_monthly_pulse
 	effect = {
+		# Execute the main trade flow calculation
+		calculate_trade_flow_effect = yes
 		# Update trade route statuses
 		every_title = {
 			limit = {
@@ -50,13 +59,6 @@ on_monthly_trade_pulse = {
 		trade_monthly_events.0001		# Prosperity change events
 		trade_monthly_events.0002		# Trade flow events
 		trade_monthly_events.0003		# Random merchant arrival events
-	}
-}
-
-# Integration with on_monthly_pulse from base game
-on_monthly_pulse = {
-	on_actions = {
-		on_monthly_trade_pulse
 	}
 }
 
