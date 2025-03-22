@@ -93,3 +93,84 @@ has_trade_prosperity_trigger = {
 		}
 	}
 }
+
+# Checks if a holding can build a specific type of trade building
+can_build_trade_building_trigger = {
+	# $BUILDING_TYPE$ = Optional building type (market, trading_post, caravanserai)
+	# If no building type is specified, checks for any trade building
+	OR = {
+		# Basic requirements for any trade building
+		AND = {
+			NOT = {
+				is_variable_set = $BUILDING_TYPE$
+			}
+			# Basic requirements for trade buildings
+			OR = {
+				# City holding can build any trade building
+				holding_type = city_holding
+				# Castle holding can build trading posts and caravanserais
+				holding_type = castle_holding
+				# Tribal holding can build basic trading posts
+				holding_type = tribal_holding
+			}
+			# Generally need to be on or near a trade route
+			county = {
+				is_on_silk_road_trigger = yes
+			}
+		}
+		# Market Square - Only in cities with basic infrastructure
+		AND = {
+			$BUILDING_TYPE$ = market
+			# Only cities can have market squares
+			holding_type = city_holding
+			# Requires basic city development
+			has_building = city_01
+			# No terrain restrictions for markets
+		}
+		# Trading Post - Castle or tribal with trade route access
+		AND = {
+			$BUILDING_TYPE$ = trading_post
+			# Castle or tribal only
+			OR = {
+				holding_type = castle_holding
+				holding_type = tribal_holding
+			}
+			# Must be directly on a trade route
+			county = {
+				has_county_flag = on_silk_road
+			}
+		}
+		# Caravanserai - Castle or city on major routes in suitable terrain
+		AND = {
+			$BUILDING_TYPE$ = caravanserai
+			# Castle or city only
+			OR = {
+				holding_type = castle_holding
+				holding_type = city_holding
+			}
+			# Must be on a major route junction
+			county = {
+				any_trade_node = {
+					# Only key nodes qualify
+					OR = {
+						# Major junction nodes
+						node_id = samarkand_node
+						node_id = bukhara_node
+						node_id = baghdad_node
+						node_id = constantinople_node
+					}
+				}
+			}
+			# Terrain suitable for caravanserais
+			county = {
+				OR = {
+					terrain = desert
+					terrain = drylands
+					terrain = plains
+					terrain = steppe
+					terrain = desert_mountains
+				}
+			}
+		}
+	}
+}

@@ -76,7 +76,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement `is_on_silk_road_trigger` for county checks
     - [x] Create `has_trade_good_trigger` for production verification
     - [x] Add `has_trade_prosperity_trigger` with basic levels
-    - [ ] Implement `can_build_trade_building_trigger` for prerequisites
+    - [x] Implement `can_build_trade_building_trigger` for prerequisites
     - [ ] Ensure compatibility with standard trigger structure
     - [ ] Use existing county scope and terrain checks
     - [ ] Leverage province adjacency system for route proximity checks
