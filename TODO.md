@@ -21,7 +21,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement core route structure with id, name, and ordered nodes
     - [x] Define essential land_routes and sea_routes connections between adjacent nodes
     - [x] Add minimal historical descriptions for flavor
-    - [ ] Create basic route status flags (active, disrupted)
+    - [x] Create basic route status flags (active, disrupted)
     - [ ] Set standard trade flow capacity for the main route
     - [ ] Utilize existing province connection system for route validation
     - [ ] Implement compatibility with travel_plan scope from base game

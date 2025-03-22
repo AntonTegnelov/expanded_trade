@@ -77,8 +77,9 @@ trade_route = {
 	}
 	# Historical description
 	desc = "silk_road_desc"
-	# Status flags - initially active
+	# Status flags - initially active and not disrupted
 	is_active = yes
+	is_disrupted = no
 	# Base trade flow capacity
 	base_flow_capacity = 10
 	# Basic route properties
