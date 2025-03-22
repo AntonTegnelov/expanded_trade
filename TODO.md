@@ -50,7 +50,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Trade Flow Calculation** - Simple monthly calculations without advanced modifiers
 
-  - [ ] Create `common/scripted_effects/trade_calculation_effects.txt` with core algorithms
+  - [x] Create `common/scripted_effects/trade_calculation_effects.txt` with core algorithms
     - [ ] Implement simplified monthly flow calculation effect
     - [ ] Create basic node value determination based on development and goods
     - [ ] Add simple goods distribution that follows route connections

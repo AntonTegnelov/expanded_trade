@@ -1,0 +1,146 @@
+# Trade Calculation Effects
+# Core algorithms for calculating trade flow and prosperity
+# Main calculation effect run on monthly pulse
+# This orchestrates the flow calculations across the trade network
+calculate_trade_flow_effect = {
+	# This effect should be run at the global scope
+	# It will iterate through all trade routes and calculate flow
+	# Start by clearing previous month's values
+	every_trade_route = {
+		set_variable = {
+			name = trade_flow_value
+			value = 0
+		}
+	}
+	# Calculate base node values based on county development and goods
+	every_trade_node = {
+		calculate_node_base_value_effect = yes
+	}
+	# Calculate actual flow along each route
+	every_trade_route = {
+		calculate_route_flow_effect = yes
+	}
+	# Apply prosperity effects to counties with trade nodes
+	every_trade_node = {
+		apply_node_prosperity_effect = yes
+	}
+}
+
+# Calculates the base value of a trade node based on development and goods
+# Scope: Trade node
+calculate_node_base_value_effect = {
+	# Get county development as base value
+	save_scope_as = current_node
+	# Get the county for this node
+	scope:county = {
+		# Start with development-based value
+		set_variable = {
+			name = node_base_value
+			value = development_level
+		}
+		# Add multiplier based on any trade-boosting buildings
+		multiply_variable = {
+			name = node_base_value
+			value = 1			# Default multiplier, can be increased by buildings
+		}
+		# Check for trade goods produced in this county
+		# This would be expanded as the trade goods system is implemented
+		if = {
+			limit = {
+				OR = {
+					terrain = desert_mountains
+					terrain = steppe
+					terrain = mountains
+				}
+			}
+			# Add silk value
+			change_variable = {
+				name = node_base_value
+				add = 1				# Value for silk
+			}
+		}
+		# Transfer value back to the node scope
+		scope:current_node = {
+			set_variable = {
+				name = node_value
+				value = scope:county.var:node_base_value
+			}
+		}
+	}
+}
+
+# Calculates flow along a specific trade route
+# Scope: Trade route
+calculate_route_flow_effect = {
+	save_scope_as = current_route
+	# Initialize route flow value
+	set_variable = {
+		name = route_flow
+		value = 0
+	}
+	# Calculate base flow based on node values
+	# This would check each node along the route and add their contribution
+	every_in_list = {
+		list = nodes
+		save_scope_as = current_node
+		# Add node value to route flow
+		scope:current_route = {
+			change_variable = {
+				name = route_flow
+				add = scope:current_node.var:node_value
+			}
+		}
+	}
+	# Check for disruptions that could reduce flow
+	# This would be enhanced with county occupation checks
+	if = {
+		limit = {
+			has_route_disruption = yes
+		}
+		multiply_variable = {
+			name = route_flow
+			value = 0.5			# 50% reduction when disrupted
+		}
+	}
+	# Set the final trade flow value for this route
+	set_variable = {
+		name = trade_flow_value
+		value = var:route_flow
+	}
+}
+
+# Applies prosperity effects to a county with a trade node
+# Scope: Trade node
+apply_node_prosperity_effect = {
+	# Get county scope
+	scope:county = {
+		# Calculate prosperity level based on the node value
+		if = {
+			limit = {
+				scope:node.var:node_value >= 5				# High prosperity threshold
+			}
+			add_county_modifier = {
+				modifier = high_trade_prosperity
+				years = 1				# Refreshed monthly
+			}
+		}
+		else_if = {
+			limit = {
+				scope:node.var:node_value >= 3				# Medium prosperity threshold
+			}
+			add_county_modifier = {
+				modifier = medium_trade_prosperity
+				years = 1				# Refreshed monthly
+			}
+		}
+		else_if = {
+			limit = {
+				scope:node.var:node_value >= 1				# Low prosperity threshold
+			}
+			add_county_modifier = {
+				modifier = low_trade_prosperity
+				years = 1				# Refreshed monthly
+			}
+		}
+	}
+}
