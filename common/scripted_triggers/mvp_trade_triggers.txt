@@ -174,3 +174,109 @@ can_build_trade_building_trigger = {
 		}
 	}
 }
+
+# Checks if a county is close to a trade route using province adjacency
+is_near_trade_route_trigger = {
+	# $MAX_DISTANCE$ = Optional maximum distance to check (in provinces)
+	# If not provided, defaults to 2 provinces away
+	OR = {
+		# Direct check - county is on a trade route
+		is_on_silk_road_trigger = yes
+		# Province-based adjacency check using the adjacency data
+		OR = {
+			# If no distance is provided, check up to 2 provinces away
+			AND = {
+				NOT = {
+					is_variable_set = $MAX_DISTANCE$
+				}
+				# Check for adjacent provinces (1 step away)
+				any_neighboring_province = {
+					county = {
+						is_on_silk_road_trigger = yes
+					}
+				}
+				# Check for provinces 2 steps away
+				any_neighboring_province = {
+					any_neighboring_province = {
+						NOT = {
+							province_id = root.province_id
+						}						# Avoid checking the original
+						county = {
+							is_on_silk_road_trigger = yes
+						}
+					}
+				}
+			}
+			# If distance is 1, check only adjacent provinces
+			AND = {
+				$MAX_DISTANCE$ = 1
+				any_neighboring_province = {
+					county = {
+						is_on_silk_road_trigger = yes
+					}
+				}
+			}
+			# If distance is 2, check up to 2 provinces away
+			AND = {
+				$MAX_DISTANCE$ = 2
+				OR = {
+					# Check for adjacent provinces (1 step away)
+					any_neighboring_province = {
+						county = {
+							is_on_silk_road_trigger = yes
+						}
+					}
+					# Check for provinces 2 steps away
+					any_neighboring_province = {
+						any_neighboring_province = {
+							NOT = {
+								province_id = root.province_id
+							}							# Avoid checking the original
+							county = {
+								is_on_silk_road_trigger = yes
+							}
+						}
+					}
+				}
+			}
+			# If distance is 3, check up to 3 provinces away
+			AND = {
+				$MAX_DISTANCE$ = 3
+				OR = {
+					# Check for adjacent provinces (1 step away)
+					any_neighboring_province = {
+						county = {
+							is_on_silk_road_trigger = yes
+						}
+					}
+					# Check for provinces 2 steps away
+					any_neighboring_province = {
+						any_neighboring_province = {
+							NOT = {
+								province_id = root.province_id
+							}							# Avoid checking the original
+							county = {
+								is_on_silk_road_trigger = yes
+							}
+						}
+					}
+					# Check for provinces 3 steps away
+					any_neighboring_province = {
+						any_neighboring_province = {
+							any_neighboring_province = {
+								# Avoid checking the original or doubling back
+								NOR = {
+									province_id = root.province_id
+									province_id = prev.province_id
+								}
+								county = {
+									is_on_silk_road_trigger = yes
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

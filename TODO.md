@@ -70,7 +70,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Ensure compatibility with development system using development_growth_factor
     - [x] Create hooks with county scope for scripted triggers
 
-- [ ] **Trade Triggers and Conditions** - Essential checks for trade functionality
+- [x] **Trade Triggers and Conditions** - Essential checks for trade functionality
 
   - [x] Create `common/scripted_triggers/mvp_trade_triggers.txt` for basic conditions
     - [x] Implement `is_on_silk_road_trigger` for county checks
@@ -79,7 +79,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement `can_build_trade_building_trigger` for prerequisites
     - [x] Ensure compatibility with standard trigger structure
     - [x] Use existing county scope and terrain checks
-    - [ ] Leverage province adjacency system for route proximity checks
+    - [x] Leverage province adjacency system for route proximity checks
 
 - [ ] **Trade Effects and Actions** - Core effects for basic trade operations
 
