@@ -243,3 +243,60 @@ restore_trade_route_effect = {
 		set_county_flag = on_active_trade_route
 	}
 }
+
+# Generate a merchant character
+# Scope: Character (the one inviting the merchant)
+generate_merchant_character_effect = {
+	create_character = {
+		age = {
+			min = 25
+			max = 50
+		}
+		save_scope_as = merchant
+		culture = root.culture
+		faith = root.faith
+		employer = root
+		gender_female_chance = 20		# 20% chance to be female
+		# Merchants are good at stewardship
+		random_traits = {
+			traits = {
+				stewardship_education_1 = 10
+				stewardship_education_2 = 30
+				stewardship_education_3 = 40
+				stewardship_education_4 = 20
+			}
+		}
+		# Give them some appropriate traits (higher chance for the first two)
+		random_traits = {
+			traits = {
+				greedy = 40
+				ambitious = 40
+				diligent = 30
+				gregarious = 30
+				shrewd = 20
+				honest = 10
+				deceitful = 10
+				cynical = 10
+			}
+			amount = 2
+		}
+		# Add stewardship skill points
+		stewardship = {
+			value = 5
+			add = {
+				value = primary_education_tier
+				multiply = 2
+			}
+		}
+		# Add appropriate modifiers for merchants
+		add_character_modifier = {
+			modifier = merchant_advisor
+			years = 20
+		}
+		# Add merchant flag for future interactions
+		add_character_flag = {
+			flag = merchant_character
+			years = 100
+		}
+	}
+}

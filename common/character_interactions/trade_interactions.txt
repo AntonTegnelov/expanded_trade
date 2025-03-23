@@ -1,0 +1,150 @@
+# Trade Character Interactions
+# Core interactions for merchant-related activities
+# Invite a merchant to your court to boost trade and gain an advisor
+invite_merchant_interaction = {
+	category = interaction_category_diplomatic
+	icon = invite_to_court
+	desc = invite_merchant_interaction_desc
+	# AI target selection
+	ai_targets = {
+		ai_recipients = liege
+		realm_characters
+	}
+	# Standard traits that give bonuses/penalties for diplomatic activities
+	actor_opinion_modifier_eligible_for_hostility_reduction = yes
+	recipient_opinion_modifier_eligible_for_hostility_reduction = yes
+	opinion_acceptance_modifier_factor = 2
+	# Only rulers of appropriate rank can invite merchants
+	is_shown = {
+		is_ruler = yes
+		# Need at least a county to attract merchants
+		highest_held_title_tier >= tier_county
+	}
+	is_valid_showing_failures_only = {
+		# Only initiate if we don't already have a merchant
+		custom_description = {
+			text = already_has_merchant
+			NOT = {
+				any_courtier = {
+					has_character_flag = merchant_character
+				}
+			}
+		}
+	}
+	# Cooldown between uses
+	cooldown = {
+		days = 365
+	}
+	# Cost to invite merchant
+	cost = {
+		gold = 50
+		prestige = 25
+	}
+	# Simple UI greeting
+	greeting = friendly
+	# What happens when the interaction is sent
+	on_accept = {
+		# Generate the merchant character
+		scope:actor = {
+			generate_merchant_character_effect = yes
+			# Create a positive opinion between the ruler and merchant
+			scope:merchant = {
+				opinion = {
+					target = scope:actor
+					modifier = patronage_opinion
+					opinion = 40
+				}
+			}
+			# Add minor trade boost to capital county
+			capital_county = {
+				add_county_modifier = {
+					modifier = welcoming_trade_policy
+					months = 12
+				}
+			}
+			# Small prestige boost
+			add_prestige = 25
+		}
+	}
+	# AI decision-making
+	ai_accept = {
+		base = 50
+		# More likely if good at stewardship
+		modifier = {
+			add = {
+				value = scope:actor.stewardship
+				multiply = 2
+			}
+			desc = "stewardship_skill"
+		}
+		# Wealth factors
+		modifier = {
+			trigger = {
+				scope:actor.gold > 150
+			}
+			add = 10
+			desc = "wealthy_ruler"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.gold < 75
+			}
+			add = -10
+			desc = "low_funds"
+		}
+		# Personality factors
+		modifier = {
+			trigger = {
+				scope:actor.is_greedy = yes
+			}
+			add = 15
+			desc = "greedy_trait"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.is_ambitious = yes
+			}
+			add = 10
+			desc = "ambitious_trait"
+		}
+	}
+	ai_will_do = {
+		base = 10
+		# More likely if good at stewardship
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				stewardship > 10
+			}
+		}
+		# More likely if greedy or ambitious
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				OR = {
+					has_trait = greedy
+					has_trait = ambitious
+				}
+			}
+		}
+		# Less likely if altruistic or content
+		modifier = {
+			factor = 0.5
+			scope:actor = {
+				OR = {
+					has_trait = generous
+					has_trait = content
+				}
+			}
+		}
+		# More likely if on a trade route
+		modifier = {
+			factor = 2
+			scope:actor = {
+				any_realm_county = {
+					has_county_flag = on_active_trade_route
+				}
+			}
+		}
+	}
+}

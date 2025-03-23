@@ -267,3 +267,14 @@ trade_focus = {
 	monthly_character_income = 0.2
 	icon = money_bag
 }
+
+# Modifier for merchant advisors
+merchant_advisor = {
+	stewardship = 2
+	diplomacy = 1
+	monthly_lifestyle_xp_gain_mult = 0.1
+	monthly_prestige = 0.05
+	monthly_character_income = 0.1
+	court_grandeur_contribution_mult = 0.05
+	icon = money_bag
+}
