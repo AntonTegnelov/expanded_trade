@@ -19,9 +19,8 @@
 
 - [x] Verify custom scopes used throughout the mod
   - [x] Check if `every_trade_route` and `every_trade_node` are declared correctly
-  - [ ] Note: Replace custom scopes with `every_in_list` pattern using global variable lists
-- [ ] Ensure all variables are properly declared before use
-  - [ ] Verify variable operations (add, multiply, etc.) are valid
+- [x] Ensure all variables are properly declared before use
+  - [x] Verify variable operations (add, multiply, etc.) are valid
 
 ### 4. Flag Management
 
@@ -96,34 +95,3 @@
   - [ ] Add debug_tooltip to key triggers: `debug_tooltip = yes`
   - [ ] Log trigger evaluation: `debug_log = "Evaluating trigger: [TriggerName] for [ScopeInfo]"`
   - [ ] Log trigger results: `debug_log = "Trigger result: [TriggerName] = [Result]"`
-
-### 7.6 On-Actions
-
-- [ ] Add debug_log statements to `common/on_action/trade_on_actions.txt`
-  - [ ] Log on-action firing: `debug_log = "On-action fired: [OnActionName]"`
-  - [ ] Log event chains: `debug_log = "Starting event chain from on-action: [EventID]"`
-  - [ ] Log effect execution: `debug_log = "Executing effect from on-action: [EffectName]"`
-
-### 7.7 Events
-
-- [ ] Add debug_log statements to `events/trade/trade_monthly_events.txt`
-
-  - [ ] Log event triggers: `debug_log = "Event triggered: [EventID]"`
-  - [ ] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
-  - [ ] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
-
-- [ ] Add debug_log statements to `events/trade/silk_road_events.txt`
-
-  - [ ] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
-  - [ ] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
-  - [ ] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
-
-- [ ] Add debug_log statements to all other event files
-  - [ ] Follow the same pattern of logging triggers, scopes, and effects
-
-### 7.8 Trade Goods
-
-- [ ] Add debug_log statements to `common/trade_goods/trade_goods.txt`
-  - [ ] Log good initialization: `debug_log = "Initializing trade good: [GoodID]"`
-  - [ ] Log production rules: `debug_log = "Production rule for [GoodID]: [RuleDesc]"`
-  - [ ] Log good value changes: `debug_log = "Trade good value change: [GoodID] = [Value]"`

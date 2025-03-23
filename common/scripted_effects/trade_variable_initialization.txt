@@ -1,0 +1,175 @@
+# Trade Variable Initialization Effects
+# Effects to initialize all variables used in the trade system
+# This ensures all variables are properly declared before being used
+# Initialize county trade variables
+# Call this on game start and when counties are created
+initialize_county_trade_variables_effect = {
+	# $COUNTY$ = County to initialize variables for
+	$COUNTY$ = {
+		# If variable doesn't exist yet
+		if = {
+			limit = {
+				NOT = {
+					has_variable = trade_prosperity_level
+				}
+			}
+			set_variable = {
+				name = trade_prosperity_level
+				value = 0
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = trade_flow_capacity
+				}
+			}
+			set_variable = {
+				name = trade_flow_capacity
+				value = 0
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_variable = node_base_value
+				}
+			}
+			set_variable = {
+				name = node_base_value
+				value = 0
+			}
+		}
+	}
+}
+
+# Initialize character trade variables
+# Call this on game start and when new rulers take power
+initialize_character_trade_variables_effect = {
+	# If variable doesn't exist yet
+	if = {
+		limit = {
+			NOT = {
+				has_variable = trade_prosperity_level
+			}
+		}
+		set_variable = {
+			name = trade_prosperity_level
+			value = 0
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_variable = investment_success_chance
+			}
+		}
+		set_variable = {
+			name = investment_success_chance
+			value = 0
+		}
+	}
+}
+
+# Initialize global trade variables
+# Call this on game start
+initialize_global_trade_variables_effect = {
+	# If variable doesn't exist yet
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = global_trade_nodes_list
+			}
+		}
+		set_global_variable_list = {
+			name = global_trade_nodes_list
+			target = 0			# Empty list
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = global_trade_routes_list
+			}
+		}
+		set_global_variable_list = {
+			name = global_trade_routes_list
+			target = 0			# Empty list
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_global_variable = disrupted_silk_road_segments
+			}
+		}
+		set_global_variable = {
+			name = disrupted_silk_road_segments
+			value = 0
+		}
+	}
+}
+
+# Initialize trade node variables
+# Call this when a new trade node is created
+initialize_trade_node_variables_effect = {
+	# $NODE$ = Trade node to initialize
+	$NODE$ = {
+		# Node value
+		if = {
+			limit = {
+				NOT = {
+					has_variable = node_value
+				}
+			}
+			set_variable = {
+				name = node_value
+				value = 0
+			}
+		}
+		# Controller (should be a character)
+		if = {
+			limit = {
+				NOT = {
+					has_variable = controller
+				}
+			}
+			set_variable = {
+				name = controller
+				value = 0
+			}
+		}
+	}
+}
+
+# Initialize trade route variables
+# Call this when a new trade route is created
+initialize_trade_route_variables_effect = {
+	# $ROUTE$ = Trade route to initialize
+	$ROUTE$ = {
+		# Trade flow value
+		if = {
+			limit = {
+				NOT = {
+					has_variable = trade_flow_value
+				}
+			}
+			set_variable = {
+				name = trade_flow_value
+				value = 0
+			}
+		}
+		# Route flow calculation variable
+		if = {
+			limit = {
+				NOT = {
+					has_variable = route_flow
+				}
+			}
+			set_variable = {
+				name = route_flow
+				value = 0
+			}
+		}
+	}
+}
