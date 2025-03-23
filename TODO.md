@@ -174,15 +174,39 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] For MVP, use existing game icons (invite_to_court, alliance, and travel)
     - [x] Add appropriate tooltip localizations in `localization/english/trade_interactions_l_english.yml`
 
+- [ ] **Character Interaction Refactoring** - Replace direct control with character-driven interactions
+
+  - [x] Remove direct "Establish Trade Agreement" interaction
+
+    - [x] Adjust documentation explaining preference of indirect control over trade rather than direct control
+    - [x] remove existing interaction code
+    - [x] Update any dependent effects or events
+    - [x] Remove localization entries from trade_interactions_l_english.yml
+    - [x] Update tutorial text that references this interaction
+
+  - [ ] Implement "Host Foreign Merchants" character interaction
+    - [ ] Use category = diplomatic for proper UI placement
+    - [ ] Create invitation mechanism for foreign merchant characters
+    - [ ] Implement ongoing trade benefits that scale based on merchant skills
+    - [ ] Add events for cultural exchanges, conflicts, and relationships
+    - [ ] Create trait-based outcomes reflecting ruler personality
+    - [ ] Design opinion modifiers with foreign rulers based on treatment of their merchants
+    - [ ] Implement compatibility with vanilla interaction framework
+    - [ ] Create appropriate interaction icon
+    - [ ] Add localization in trade_interactions_l_english.yml
+
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
 
   - [ ] Create `common/decisions/trade_policy_decisions.txt` with basic policy options
-    - [ ] Implement "Set Trade Stance" decision for realm policy
-      - [ ] Create stances: Open (high flow, low tax), Balanced, Restrictive (low flow, high tax)
-      - [ ] Set is_shown = { is_ruler = yes has_realm_size_trigger = { trigger_value >= small } }
-      - [ ] Create decision effect to set realm trade policy variable
-      - [ ] Add appropriate cooldown = { days = 1825 } (5 years)
-      - [ ] Create ai_will_do calculations based on traits and economic situation
+    - [ ] Implement "Court Trade Focus" council task
+      - [ ] Create `common/council_tasks/trade_council_tasks.txt` for the Steward
+      - [ ] Design event chain reflecting character traits and culture
+      - [ ] Create different outcomes based on ruler traits (greedy, just, ambitious)
+      - [ ] Implement ongoing modifiers while task is active
+      - [ ] Add random events that can fire while task is assigned
+      - [ ] Use existing council task framework for compatibility
+      - [ ] Create appropriate task icon in gfx/interface/icons/council_tasks/
+      - [ ] Add localization in trade_council_tasks_l_english.yml
     - [ ] Design "Secure Trade Route" decision for protecting specific routes
       - [ ] Use is_shown that requires county on silk road and ruler control
       - [ ] Set cost = { gold = 250 prestige = 150 }
@@ -200,8 +224,8 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Add appropriate icons in `gfx/interface/icons/decisions/`
     - [ ] Implement localization in `localization/english/trade_decisions_l_english.yml`
 
-- [ ] **Silk Road Interface** - Basic map mode and information display
-  - [ ] Create `gui/trade_mapmode.gui` for Silk Road visualization
+- [ ] **Trade route Interface** - Basic map mode and information display
+  - [ ] Create `gui/trade_mapmode.gui` for trade route visualization
     - [ ] Implement basic map mode showing trade routes with different colors
     - [ ] Create map objects for trade nodes using existing map system
     - [ ] Design route visualization with three states (prosperous, normal, disrupted)

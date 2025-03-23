@@ -179,6 +179,9 @@ The mod requires the following systems:
    - Interactions with guild masters and merchant princes
    - Trade-specific hooks and favors that can be used in diplomacy
    - Trade-based casus belli for securing vital trade routes
+   - Emphasis on indirect control through characters rather than direct management of trade agreements
+   - Focus on character-driven gameplay that maintains CK3's role-playing elements
+   - Trade relationships form organically through character interactions rather than abstract mechanics
 
 3. **Trade Policy Decisions** - Lets players set realm-wide approaches to commerce
 
