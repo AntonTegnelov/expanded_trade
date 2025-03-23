@@ -754,3 +754,106 @@ trade_decision_events.0100 = {
 		}
 	}
 }
+
+# Secure Trade Route follow-up event
+trade_decision_events.0010 = {
+	type = character_event
+	title = trade_decision_events.0010.t
+	desc = trade_decision_events.0010.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = securing_ruler
+		# Get selected county
+		saved_temporary_scope_list = {
+			name = trade_route_counties
+			random_in_list = {
+				save_scope_as = secured_county
+			}
+		}
+	}
+	# Deploy guards and patrols
+	option = {
+		name = trade_decision_events.0010.a
+		scope:secured_county = {
+			# Restore trade if disrupted
+			if = {
+				limit = {
+					has_county_flag = on_disrupted_trade_route
+				}
+				restore_trade_route_effect = yes
+			}
+			# Improve county control
+			add_county_control_progress = major_impact
+			# Add protection modifier
+			add_county_modifier = {
+				modifier = protected_trade_route
+				years = 5
+			}
+			# Mark as protected trade route
+			set_county_flag = protected_trade_route
+		}
+		# Get prestige for protecting trade
+		add_prestige = 75
+	}
+	# Improve infrastructure
+	option = {
+		name = trade_decision_events.0010.b
+		scope:secured_county = {
+			# Restore trade if disrupted
+			if = {
+				limit = {
+					has_county_flag = on_disrupted_trade_route
+				}
+				restore_trade_route_effect = yes
+			}
+			# Improve development
+			change_development = {
+				add = 1
+			}
+			# Add infrastructure modifier
+			add_county_modifier = {
+				modifier = improved_trade_infrastructure
+				years = 5
+			}
+		}
+		# Get some gold back through increased trade flow
+		add_gold = 50
+	}
+	# Form merchant alliance
+	option = {
+		name = trade_decision_events.0010.c
+		trigger = {
+			diplomacy >= 10
+		}
+		scope:secured_county = {
+			# Restore trade if disrupted
+			if = {
+				limit = {
+					has_county_flag = on_disrupted_trade_route
+				}
+				restore_trade_route_effect = yes
+			}
+			# Add prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 1
+			}
+			# Add merchant alliance modifier
+			add_county_modifier = {
+				modifier = merchant_alliance
+				years = 10
+			}
+		}
+		# Apply merchant connections modifier to ruler
+		add_character_modifier = {
+			modifier = merchant_guild_patron
+			years = 5
+		}
+		# Get prestige for diplomatic solution
+		add_prestige = 100
+	}
+}

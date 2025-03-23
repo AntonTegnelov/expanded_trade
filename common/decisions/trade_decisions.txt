@@ -392,3 +392,92 @@ establish_foreign_trade_decision = {
 		}
 	}
 }
+
+# Secure Trade Route - protect a specific trade route from disruption
+secure_trade_route_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_military_march.dds"
+	major = no
+	desc = secure_trade_route_decision_desc
+	selection_tooltip = secure_trade_route_decision_tooltip
+	# Check if the ruler has a county on a silk road and controls it
+	is_shown = {
+		is_ruler = yes
+		any_realm_county = {
+			has_county_flag = on_silk_road
+		}
+	}
+	# Cost for securing trade route
+	cost = {
+		gold = 250
+		prestige = 150
+	}
+	# Time to complete the security measures
+	time_to_complete = {
+		days = 180
+	}
+	# Valid only when not at war
+	is_valid_showing_failures_only = {
+		# Cannot secure a route while at war
+		custom_description = {
+			text = cannot_secure_route_at_war
+			is_at_war = no
+		}
+	}
+	effect = {
+		custom_tooltip = secure_trade_route_decision_effect_tooltip
+		# Create county selection list
+		every_realm_county = {
+			limit = {
+				has_county_flag = on_silk_road
+			}
+			add_to_temporary_list = trade_route_counties
+		}
+		# Select county to secure
+		open_view_data = {
+			view = character_interaction_selection_view
+			is_from_interaction = no
+		}
+		# Trigger event to handle security measures
+		trigger_event = {
+			id = trade_decision_events.0010
+			days = 1
+		}
+	}
+	ai_will_do = {
+		base = 20
+		# More likely if county has high trade value
+		modifier = {
+			factor = {
+				value = 1.5
+				multiply = county_trade_value
+			}
+		}
+		# More likely if wealthy
+		modifier = {
+			factor = 2
+			gold > 500
+		}
+		# Less likely if poor
+		modifier = {
+			factor = 0.2
+			gold < 300
+		}
+		# More likely if has disrupted routes
+		modifier = {
+			factor = 3
+			any_realm_county = {
+				has_county_flag = on_disrupted_trade_route
+			}
+		}
+		# More likely if has prosperity
+		modifier = {
+			factor = 2
+			any_realm_county = {
+				OR = {
+					has_county_flag = trade_prosperity_medium
+					has_county_flag = trade_prosperity_high
+				}
+			}
+		}
+	}
+}

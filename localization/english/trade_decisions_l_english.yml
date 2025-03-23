@@ -1,0 +1,28 @@
+﻿l_english:
+ # Trade Decisions
+
+ # Secure Trade Route Decision
+ secure_trade_route_decision:0 "Secure Trade Route"
+ secure_trade_route_decision_desc:0 "Invest resources to protect and secure a trade route within your realm. This will reduce the risk of disruption, increase trade prosperity, and provide economic benefits."
+ secure_trade_route_decision_tooltip:0 "Secure a trade route in your realm to protect it from disruption and increase prosperity."
+ secure_trade_route_decision_effect_tooltip:0 "You will be able to choose a county on a trade route to secure."
+ cannot_secure_route_at_war:0 "Cannot secure a trade route while at war"
+
+
+ # Secure Trade Route Event
+ trade_decision_events.0010.t:0 "Securing the Trade Route"
+ trade_decision_events.0010.desc:0 "With your investment, you've taken steps to secure the trade route in your realm. There are several approaches available to ensure the route's safety and prosperity."
+ trade_decision_events.0010.a:0 "Deploy guards and patrols"
+ trade_decision_events.0010.b:0 "Improve the route's infrastructure"
+ trade_decision_events.0010.c:0 "Form an alliance with local merchants"
+
+ # Trade Security Modifiers
+ protected_trade_route:0 "Protected Trade Route"
+ protected_trade_route_desc:0 "This county's trade routes are well-protected by guards and patrols, improving control, development, and trade value."
+
+ improved_trade_infrastructure:0 "Improved Trade Infrastructure"
+ improved_trade_infrastructure_desc:0 "This county has excellent trade infrastructure, including bridges, roads, and caravanserais, boosting development and trade value."
+
+ merchant_alliance:0 "Merchant Alliance"
+ merchant_alliance_desc:0 "This county benefits from a formal alliance between the ruler and local merchant groups, significantly increasing tax income and trade value."
+

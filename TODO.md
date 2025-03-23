@@ -207,12 +207,12 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Use existing council task framework for compatibility
       - [x] Create appropriate task icon in gfx/interface/icons/council_tasks/
       - [x] Add localization in trade_council_tasks_l_english.yml
-    - [ ] Design "Secure Trade Route" decision for protecting specific routes
-      - [ ] Use is_shown that requires county on silk road and ruler control
-      - [ ] Set cost = { gold = 250 prestige = 150 }
-      - [ ] Create effects that reduce disruption chance and increase trade prosperity
-      - [ ] Add time_to_complete = { days = 180 } for balance
-      - [ ] Set ai_will_do based on county's trade value and realm wealth
+    - [x] Design "Secure Trade Route" decision for protecting specific routes
+      - [x] Use is_shown that requires county on silk road and ruler control
+      - [x] Set cost = { gold = 250 prestige = 150 }
+      - [x] Create effects that reduce disruption chance and increase trade prosperity
+      - [x] Add time_to_complete = { days = 180 } for balance
+      - [x] Set ai_will_do based on county's trade value and realm wealth
     - [ ] Create "Promote Luxury Goods" decision for increasing high-end goods
       - [ ] Add is_shown requiring specific goods production in realm
       - [ ] Set cost = { gold = 200 prestige = 100 }
