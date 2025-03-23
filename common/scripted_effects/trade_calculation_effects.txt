@@ -6,22 +6,30 @@ calculate_trade_flow_effect = {
 	# This effect should be run at the global scope
 	# It will iterate through all trade routes and calculate flow
 	# Start by clearing previous month's values
-	every_trade_route = {
+	every_in_list = {
+		list = global_trade_routes_list
+		save_scope_as = current_route
 		set_variable = {
 			name = trade_flow_value
 			value = 0
 		}
 	}
 	# Calculate base node values based on county development and goods
-	every_trade_node = {
+	every_in_list = {
+		list = global_trade_nodes_list
+		save_scope_as = current_node
 		calculate_node_base_value_effect = yes
 	}
 	# Calculate actual flow along each route
-	every_trade_route = {
+	every_in_list = {
+		list = global_trade_routes_list
+		save_scope_as = current_route
 		calculate_route_flow_effect = yes
 	}
 	# Apply prosperity effects to counties with trade nodes
-	every_trade_node = {
+	every_in_list = {
+		list = global_trade_nodes_list
+		save_scope_as = current_node
 		apply_node_prosperity_effect = yes
 	}
 }

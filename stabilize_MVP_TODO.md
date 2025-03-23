@@ -4,10 +4,9 @@
 
 ### 1. County ID References
 
-- [ ] Verify all county IDs in `common/trade_nodes/silk_road_nodes.txt`
-  - [ ] Replace placeholder IDs (256, 257, 258, etc.) with actual county IDs from CK3
-  - [ ] Confirm that all referenced counties exist in the base game
-  - \_Note: Some county IDs have been verified (Baghdad = 720, Aleppo = 768, etc.), but all need to be verified or altered to other existing provinces
+- [x] Verify all county IDs in `common/trade_nodes/silk_road_nodes.txt`
+  - [x] Replace placeholder IDs (256, 257, 258, etc.) with actual county IDs from CK3
+  - [x] Confirm that all referenced counties exist in the base game
 
 ### 2. Event Implementation
 
@@ -15,12 +14,12 @@
   - [x] Ensure `silk_road_events.0003` and other referenced events exist
   - [x] Validate event syntax and structure
   - [x] Fix any missing or improperly formatted events
-  - \_Note: Fixed issue where `trade_events.0100` was incorrectly placed in the wrong namespace file. Implemented missing events: `trade_events.0100`, `trade_events.0201`, `trade_events.0202`, and `trade_events.0203`
 
 ### 3. Scope and Variable Issues
 
-- [ ] Verify custom scopes used throughout the mod
-  - [ ] Check if `every_trade_route` and `every_trade_node` are declared correctly
+- [x] Verify custom scopes used throughout the mod
+  - [x] Check if `every_trade_route` and `every_trade_node` are declared correctly
+  - [ ] Note: Replace custom scopes with `every_in_list` pattern using global variable lists
 - [ ] Ensure all variables are properly declared before use
   - [ ] Verify variable operations (add, multiply, etc.) are valid
 
