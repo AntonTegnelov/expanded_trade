@@ -1,20 +1,20 @@
 l_english:
   # Foreign Merchant Events
   foreign_merchant.0001.t:0 "Foreign Merchants Arrive"
-  foreign_merchant.0001.desc:0 "Merchants from distant lands have arrived in your realm, bringing exotic goods, strange customs, and valuable connections. Their leader, [foreign_merchant.GetTitledFirstName], has established a small trading post in your capital and seeks your patronage.\n\nAs they settle in, you notice the impact they're already having on your realm. Local traders observe their methods curiously, while the common folk marvel at the exotic goods they've brought."
+  foreign_merchant.0001.desc:0 "Merchants from distant lands have arrived in your realm, bringing exotic goods, strange customs, and valuable connections. Their leader, [GetForeignMerchantTitledName], has established a small trading post in your capital and seeks your patronage.\n\nAs they settle in, you notice the impact they're already having on your realm. Local traders observe their methods curiously, while the common folk marvel at the exotic goods they've brought."
   foreign_merchant.0001.a:0 "We can learn much from their customs."
   foreign_merchant.0001.b:0 "Their trade connections will be valuable."
   foreign_merchant.0001.c:0 "Their strange ways cause tension."
   
   foreign_merchant.0002.t:0 "Cultural Exchange"
-  foreign_merchant.0002.desc:0 "Your patronage of [foreign_merchant.GetTitledFirstName] has brought more than just economic benefits. Through regular meetings and discussions, you've gained unique insights into distant lands and their customs.\n\nThe foreign merchant has shared knowledge of administrative methods, diplomatic protocols, and cultural traditions that could benefit your rule. Your court has become more cosmopolitan, with nobles and servants alike adopting certain foreign fashions and phrases."
+  foreign_merchant.0002.desc:0 "Your patronage of [GetForeignMerchantTitledName] has brought more than just economic benefits. Through regular meetings and discussions, you've gained unique insights into distant lands and their customs.\n\nThe foreign merchant has shared knowledge of administrative methods, diplomatic protocols, and cultural traditions that could benefit your rule. Your court has become more cosmopolitan, with nobles and servants alike adopting certain foreign fashions and phrases."
   foreign_merchant.0002.a:0 "Knowledge is as valuable as gold."
   
   foreign_merchant.0003.t:0 "Profitable Connections"
-  foreign_merchant.0003.desc:0 "The trade network established by [foreign_merchant.GetTitledFirstName] has proven exceptionally profitable. New routes connect your realm to distant markets, bringing luxury goods that fetch high prices and creating opportunities for local merchants.\n\nYour treasury has grown significantly, and your capital has become a bustling center of commerce. Merchants from neighboring realms now travel to your lands to access these valuable trade connections."
+  foreign_merchant.0003.desc:0 "The trade network established by [GetForeignMerchantTitledName] has proven exceptionally profitable. New routes connect your realm to distant markets, bringing luxury goods that fetch high prices and creating opportunities for local merchants.\n\nYour treasury has grown significantly, and your capital has become a bustling center of commerce. Merchants from neighboring realms now travel to your lands to access these valuable trade connections."
   foreign_merchant.0003.a:0 "A most profitable arrangement."
   
   foreign_merchant.0004.t:0 "Cultural Tensions"
-  foreign_merchant.0004.desc:0 "The presence of [foreign_merchant.GetTitledFirstName] and their foreign merchants has created tension in your realm. Local traders complain of unfair competition, while religious leaders disapprove of the strange customs and faiths these foreigners bring with them.\n\nComplaints have reached your court about their different manner of dress, unfamiliar religious practices, and supposedly underhanded business methods. Something must be done before these tensions escalate further."
+  foreign_merchant.0004.desc:0 "The presence of [GetForeignMerchantTitledName] and their foreign merchants has created tension in your realm. Local traders complain of unfair competition, while religious leaders disapprove of the strange customs and faiths these foreigners bring with them.\n\nComplaints have reached your court about their different manner of dress, unfamiliar religious practices, and supposedly underhanded business methods. Something must be done before these tensions escalate further."
   foreign_merchant.0004.a:0 "We must find a middle ground."
   foreign_merchant.0004.b:0 "They will adapt to our ways." 

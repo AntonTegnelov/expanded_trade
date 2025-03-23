@@ -1,0 +1,31 @@
+GetForeignMerchantName = {
+	type = character
+	text = {
+		trigger = {
+			exists = scope:foreign_merchant
+		}
+		localization_key = foreign_merchant_dynamic_name
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = foreign_merchant_static_name
+	}
+}
+
+GetForeignMerchantTitledName = {
+	type = character
+	text = {
+		trigger = {
+			exists = scope:foreign_merchant
+		}
+		localization_key = foreign_merchant_dynamic_titled_name
+	}
+	text = {
+		trigger = {
+			always = yes
+		}
+		localization_key = foreign_merchant_static_titled_name
+	}
+}

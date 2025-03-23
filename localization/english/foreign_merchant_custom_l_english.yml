@@ -1,0 +1,5 @@
+l_english:
+ foreign_merchant_dynamic_name:0 "$foreign_merchant.GetName$"
+ foreign_merchant_static_name:0 "Foreign Merchant"
+ foreign_merchant_dynamic_titled_name:0 "$foreign_merchant.GetTitledFirstName$"
+ foreign_merchant_static_titled_name:0 "the Foreign Merchant" 
