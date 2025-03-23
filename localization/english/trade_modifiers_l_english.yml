@@ -68,4 +68,11 @@ l_english:
  
  # Lifestyle Focus
  trade_focus:0 "Trade Focus"
- trade_focus_desc:0 "This character is focused on developing trade, substantially improving stewardship, lifestyle experience gain, and income." 
+ trade_focus_desc:0 "This character is focused on developing trade, substantially improving stewardship, lifestyle experience gain, and income."
+
+# Expedition Modifiers
+trade_expedition_boost:0 "Trade Expedition"
+trade_expedition_boost_desc:0 "A trade expedition has been sponsored from this county, significantly boosting tax income, development, and pleasing local inhabitants."
+
+improved_trade_flow:0 "Improved Trade Flow"
+improved_trade_flow_desc:0 "This county is experiencing improved trade flow due to a recent expedition, increasing trade value and boosting the local economy." 

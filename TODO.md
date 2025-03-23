@@ -164,7 +164,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Create "Sponsor Trade Expedition" interaction for increasing trade flow
       - [x] Use category = diplomatic for proper UI placement
       - [x] Set cost = { gold = 100 prestige = 50 }
-      - [ ] Create on_accept effect to improve trade flow on specific route
+      - [x] Create on_accept effect to improve trade flow on specific route
       - [ ] Add ai_will_do based on stewardship and ambitious trait
       - [ ] Create event chain for success/failure using random_events_weight system
     - [ ] Ensure compatibility with vanilla interaction framework

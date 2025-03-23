@@ -278,3 +278,19 @@ merchant_advisor = {
 	court_grandeur_contribution_mult = 0.05
 	icon = money_bag
 }
+
+# Expedition modifiers
+trade_expedition_boost = {
+	monthly_county_tax_modifier = 0.15
+	monthly_development_growth = 0.15
+	supply_limit = 1
+	icon = money_bag
+	county_opinion_add = 10
+}
+
+improved_trade_flow = {
+	county_trade_value_add = 2
+	monthly_county_tax_modifier = 0.1
+	monthly_development_growth = 0.1
+	icon = development
+}

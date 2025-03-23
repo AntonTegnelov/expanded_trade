@@ -368,4 +368,40 @@ sponsor_trade_expedition_interaction = {
 		gold = 100
 		prestige = 50
 	}
+	# Simple UI greeting
+	greeting = friendly
+	# Only rulers of appropriate rank can sponsor expeditions
+	is_shown = {
+		is_ruler = yes
+		# Need at least a county to sponsor expeditions
+		highest_held_title_tier >= tier_county
+		# Must have a county on a trade route
+		any_realm_county = {
+			has_county_flag = on_active_trade_route
+		}
+	}
+	# What happens when the interaction is accepted
+	on_accept = {
+		scope:actor = {
+			# Add trade boost to capital county
+			capital_county = {
+				add_county_modifier = {
+					modifier = trade_expedition_boost
+					years = 5
+				}
+			}
+			# Apply trade flow increase to a random trade route county
+			random_realm_county = {
+				limit = {
+					has_county_flag = on_active_trade_route
+				}
+				add_county_modifier = {
+					modifier = improved_trade_flow
+					years = 5
+				}
+			}
+			# Prestige boost
+			add_prestige = 75
+		}
+	}
 }
