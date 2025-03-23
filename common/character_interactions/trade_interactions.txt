@@ -402,6 +402,11 @@ sponsor_trade_expedition_interaction = {
 			}
 			# Prestige boost
 			add_prestige = 75
+			# Trigger the expedition event chain
+			trigger_event = {
+				id = trade_expedition.0001
+				days = 30
+			}
 		}
 	}
 	# How likely is the AI to initiate this

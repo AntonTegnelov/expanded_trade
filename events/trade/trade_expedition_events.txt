@@ -1,0 +1,97 @@
+namespace = trade_expedition
+# Base event for a trade expedition
+trade_expedition.0001 = {
+	type = character_event
+	title = trade_expedition.0001.t
+	desc = trade_expedition.0001.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = idle
+	}
+	# Simple outcome selection (success or failure)
+	immediate = {
+		random_list = {
+			70 = {
+				# Success
+				trigger = {
+					OR = {
+						stewardship > 8
+						has_trait = greedy
+					}
+				}
+				set_flag = trade_expedition_success
+			}
+			30 = {
+				# Failure
+				set_flag = trade_expedition_failure
+			}
+		}
+	}
+	option = {
+		name = trade_expedition.0001.a		# Continue the expedition
+		trigger = {
+			has_flag = trade_expedition_success
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = trade_expedition.0002				# Success event
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = trade_expedition.0001.b		# Continue the expedition
+		trigger = {
+			has_flag = trade_expedition_failure
+		}
+		hidden_effect = {
+			trigger_event = {
+				id = trade_expedition.0003				# Failure event
+				days = 7
+			}
+		}
+	}
+}
+
+# Success event
+trade_expedition.0002 = {
+	type = character_event
+	title = trade_expedition.0002.t
+	desc = trade_expedition.0002.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_happy
+	}
+	option = {
+		name = trade_expedition.0002.a		# Great success
+		add_gold = 50
+		add_prestige = 50
+		random_realm_county = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			add_county_modifier = {
+				modifier = flourishing_trade_node
+				years = 5
+			}
+		}
+	}
+}
+
+# Failure event
+trade_expedition.0003 = {
+	type = character_event
+	title = trade_expedition.0003.t
+	desc = trade_expedition.0003.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_sad
+	}
+	option = {
+		name = trade_expedition.0003.a		# Disappointing
+		add_prestige = -25
+	}
+}
