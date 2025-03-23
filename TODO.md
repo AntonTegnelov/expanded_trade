@@ -287,7 +287,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Use standard event system formatting and structure
     - [x] Create basic event images in `gfx/interface/illustrations/events/`
 
-- [ ] **Silk Road Events** - Limited set of events for the main trade route
+- [x] **Silk Road Events** - Limited set of events for the main trade route
 
   - [x] Design "Exotic Goods Discovery" event
     - [x] Trigger for counties directly on Silk Road main route
@@ -312,10 +312,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Present options for investing in route protection
     - [x] Create risk/reward decisions for military investment
     - [x] Add outcomes affecting county control and prosperity
-  - [ ] Use on_action hooks for key trigger points (occupation, peace treaty)
-  - [ ] Implement localization in `localization/english/silk_road_events_l_english.yml`
-  - [ ] Create Silk Road specific event pictures
-  - [ ] Ensure compatibility with Northern Lords if present
+    - [x] Use on_action hooks for key trigger points (occupation, peace treaty)
+    - [x] Implement localization in `localization/english/silk_road_events_l_english.yml`
+    - [ ] Create Silk Road specific event pictures
+    - [ ] Ensure compatibility with Northern Lords if present
 
 - [ ] **Basic Tutorial Elements** - Essential guidance for new players
   - [ ] Create `events/trade_tutorial.txt` for basic tutorial events

@@ -5,6 +5,7 @@ l_english:
  silk_road_events.0001.a:0 "These treasures will adorn my court!"
  silk_road_events.0001.b:0 "Perhaps we can negotiate a better price..."
  silk_road_events.0001.c:0 "We have no need for such foreign luxuries."
+ silk_road_events.dont_show_again:0 "Don't show Exotic Goods events again"
 
  # Bargaining follow-up event
  silk_road_events.0002.t:0 "The Art of Bargaining"

@@ -19,6 +19,9 @@ silk_road_events.0001 = {
 		NOT = {
 			has_character_flag = recent_exotic_goods_discovery
 		}
+		NOT = {
+			has_character_flag = disable_exotic_goods_events
+		}
 	}
 	weight_multiplier = {
 		base = 1
@@ -124,6 +127,13 @@ silk_road_events.0001 = {
 				has_trait = ambitious
 			}
 		}
+		# Don't show again checkbox
+		checkbox_option = {
+			name = silk_road_events.dont_show_again
+			effect = {
+				add_character_flag = disable_exotic_goods_events
+			}
+		}
 	}
 	# Bargain for a better price
 	option = {
@@ -141,6 +151,13 @@ silk_road_events.0001 = {
 			modifier = {
 				add = 25
 				has_trait = diligent
+			}
+		}
+		# Don't show again checkbox
+		checkbox_option = {
+			name = silk_road_events.dont_show_again
+			effect = {
+				add_character_flag = disable_exotic_goods_events
 			}
 		}
 	}
@@ -167,6 +184,13 @@ silk_road_events.0001 = {
 			modifier = {
 				add = 25
 				has_trait = paranoid
+			}
+		}
+		# Don't show again checkbox
+		checkbox_option = {
+			name = silk_road_events.dont_show_again
+			effect = {
+				add_character_flag = disable_exotic_goods_events
 			}
 		}
 	}
@@ -239,6 +263,13 @@ silk_road_events.0002 = {
 				years = 2
 			}
 		}
+		# Don't show again checkbox
+		checkbox_option = {
+			name = silk_road_events.dont_show_again
+			effect = {
+				add_character_flag = disable_exotic_goods_events
+			}
+		}
 	}
 	# Failed bargaining
 	option = {
@@ -252,6 +283,13 @@ silk_road_events.0002 = {
 				target = root
 				modifier = opinion_annoyed
 				years = 2
+			}
+		}
+		# Don't show again checkbox
+		checkbox_option = {
+			name = silk_road_events.dont_show_again
+			effect = {
+				add_character_flag = disable_exotic_goods_events
 			}
 		}
 	}

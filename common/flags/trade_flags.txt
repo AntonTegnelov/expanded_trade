@@ -54,6 +54,11 @@ flag_key = trade_node_controller
 flag_category = character
 flag_save = yes
 flag_clear_after_days = no
+# Flag to disable exotic goods events
+flag_key = disable_exotic_goods_events
+flag_category = character
+flag_save = yes
+flag_clear_after_days = no
 # Route flags
 # Marks a trade route as having been recently disrupted
 flag_key = route_recently_disrupted
