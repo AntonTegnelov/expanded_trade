@@ -107,11 +107,11 @@
 
 ### 7.7 Events
 
-- [ ] Add debug_log statements to `events/trade/trade_monthly_events.txt`
+- [x] Add debug_log statements to `events/trade/trade_monthly_events.txt`
 
-  - [ ] Log event triggers: `debug_log = "Event triggered: [EventID]"`
-  - [ ] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
-  - [ ] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
+  - [x] Log event triggers: `debug_log = "Event triggered: [EventID]"`
+  - [x] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
+  - [x] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
 
 - [ ] Add debug_log statements to `events/trade/silk_road_events.txt`
 
