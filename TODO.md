@@ -39,7 +39,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [x] **Trade Good Distribution** - Limited set of luxury and common goods
 
-  - [x] Create `common/trade_goods/mvp_trade_goods.txt` with basic goods
+  - [x] Create `common/trade_goods/trade_goods.txt` with basic goods
     - [x] Implement core good categories (luxury, common) with minimal types
     - [x] Define basic production rules based on vanilla terrain types
     - [x] Create simple consumption rules using existing character scope
@@ -72,7 +72,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [x] **Trade Triggers and Conditions** - Essential checks for trade functionality
 
-  - [x] Create `common/scripted_triggers/mvp_trade_triggers.txt` for basic conditions
+  - [x] Create `common/scripted_triggers/trade_triggers.txt` for basic conditions
     - [x] Implement `is_on_silk_road_trigger` for county checks
     - [x] Create `has_trade_good_trigger` for production verification
     - [x] Add `has_trade_prosperity_trigger` with basic levels
@@ -83,7 +83,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [x] **Trade Effects and Actions** - Core effects for basic trade operations
 
-  - [x] Create `common/scripted_effects/mvp_trade_effects.txt` for essential actions
+  - [x] Create `common/scripted_effects/trade_effects.txt` for essential actions
     - [x] Implement `setup_silk_road_effect` for initial configuration
     - [x] Create `calculate_basic_trade_income_effect` for financial impact
     - [x] Add `apply_trade_prosperity_effect` for county modifiers
@@ -94,7 +94,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [x] **On-Action Hooks** - Minimal integration with game events
 
-  - [x] Create `common/on_action/mvp_trade_on_actions.txt` for essential hooks
+  - [x] Create `common/on_action/trade_on_actions.txt` for essential hooks
     - [x] Hook into `on_monthly_pulse` for trade calculations
     - [x] Add `on_county_occupied` for route disruption
     - [x] Implement `on_holding_building_constructed` for trade building effects
@@ -105,7 +105,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [x] **Trade Variables and Flags** - Essential state tracking
 
-  - [x] Create `common/script_values/mvp_trade_variables.txt` for core state tracking
+  - [x] Create `common/script_values/trade_variables.txt` for core state tracking
     - [x] Implement global silk_road_status variable
     - [x] Create county_trade_prosperity_level for local tracking
     - [x] Add character_trade_participation for ruler engagement
@@ -115,7 +115,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Leverage existing flag system for state tracking
 
 - [x] **Trade Modifiers** - Basic modifiers for county and character effects
-  - [x] Create `common/modifiers/mvp_trade_modifiers.txt` for core gameplay effects
+  - [x] Create `common/modifiers/trade_modifiers.txt` for core gameplay effects
     - [x] Implement county_trade_value modifier for local prosperity
     - [x] Create character_trade_income_mult for ruler benefits
     - [x] Add building_trade_value_add for infrastructure bonuses
@@ -128,11 +128,11 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Trade Buildings** - Essential infrastructure (markets, trading posts, caravanserais)
 
-  - [ ] Create `common/buildings/mvp_trade_buildings.txt` with core buildings
-    - [ ] Design Market Square building for city holdings
-      - [ ] Set gold_cost = 100 and build_time = 200
-      - [ ] Add county_trade_value_add = 0.5 and tax_mult = 0.05
-      - [ ] Use existing building system prerequisites (requires city_buildings_01)
+  - [x] Create `common/buildings/trade_buildings.txt` with core buildings
+    - [x] Design Market Square building for city holdings
+      - [x] Set gold_cost = 100 and build_time = 200
+      - [x] Add county_trade_value_add = 0.5 and tax_mult = 0.05
+      - [x] Use existing building system prerequisites (requires city_buildings_01)
     - [ ] Design Trading Post building for tribal and castle holdings
       - [ ] Set gold_cost = 150 and build_time = 300
       - [ ] Add county_trade_value_add = 0.75 and monthly_income = 0.2
@@ -148,7 +148,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Merchant Character Interactions** - Basic set of character actions
 
-  - [ ] Create `common/character_interactions/mvp_trade_interactions.txt` with essential interactions
+  - [ ] Create `common/character_interactions/trade_interactions.txt` with essential interactions
     - [ ] Implement "Invite Merchant" interaction
       - [ ] Use category = diplomatic for proper UI placement
       - [ ] Implement is_shown using has_appropriate_rank_trigger from vanilla
@@ -173,7 +173,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
 
-  - [ ] Create `common/decisions/mvp_trade_policy_decisions.txt` with basic policy options
+  - [ ] Create `common/decisions/trade_policy_decisions.txt` with basic policy options
     - [ ] Implement "Set Trade Stance" decision for realm policy
       - [ ] Create stances: Open (high flow, low tax), Balanced, Restrictive (low flow, high tax)
       - [ ] Set is_shown = { is_ruler = yes has_realm_size_trigger = { trigger_value >= small } }
@@ -198,7 +198,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Implement localization in `localization/english/trade_decisions_l_english.yml`
 
 - [ ] **Silk Road Interface** - Basic map mode and information display
-  - [ ] Create `gui/mvp_trade_mapmode.gui` for Silk Road visualization
+  - [ ] Create `gui/trade_mapmode.gui` for Silk Road visualization
     - [ ] Implement basic map mode showing trade routes with different colors
     - [ ] Create map objects for trade nodes using existing map system
     - [ ] Design route visualization with three states (prosperous, normal, disrupted)
@@ -206,7 +206,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Implement tooltips showing route state and prosperity
     - [ ] Create node tooltips showing goods and value
     - [ ] Add trade map mode button to existing map mode selection panel
-  - [ ] Create `gui/mvp_trade_window.gui` for detailed trade information
+  - [ ] Create `gui/trade_window.gui` for detailed trade information
     - [ ] Design main trade info window following vanilla window patterns
     - [ ] Create tabs for Routes, Goods, and Policies
     - [ ] Implement route list showing status and value of each route section
@@ -214,7 +214,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Add current policies section showing active trade decisions
     - [ ] Create basic realm trade summary with income breakdown
     - [ ] Use vanilla widget templates for consistency (similar to economy window)
-  - [ ] Create `gui/widgets/mvp_trade_tooltips.gui` for enhanced information display
+  - [ ] Create `gui/widgets/trade_tooltips.gui` for enhanced information display
     - [ ] Design county tooltip extension showing trade information
     - [ ] Create character tooltip extension for merchant characters
     - [ ] Implement holding tooltip additions for trade buildings
@@ -234,7 +234,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Basic Trade Events** - Simple events for trade activity
 
-  - [ ] Create `events/mvp_trade_events.txt` for general trade events
+  - [ ] Create `events/trade_events.txt` for general trade events
     - [ ] Implement "Trade Caravan Arrival" event
       - [ ] Use type = character_event for ruler interaction
       - [ ] Set trigger = { owns_county_with_trade_route_trigger = yes }
@@ -292,7 +292,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Ensure compatibility with Northern Lords if present
 
 - [ ] **Basic Tutorial Elements** - Essential guidance for new players
-  - [ ] Create `events/mvp_trade_tutorial.txt` for basic tutorial events
+  - [ ] Create `events/trade_tutorial.txt` for basic tutorial events
     - [ ] Design "Introduction to Trade" event
       - [ ] Trigger on first game month for player with trade routes
       - [ ] Create clear explanation of basic mechanics

@@ -1,0 +1,28 @@
+##############################
+# Trade Buildings          #
+##############################
+# Market Square - Basic economic building for city holdings
+market_square_01 = {
+	construction_time = 200
+	can_construct_potential = {
+		building_requirement_city = {
+			LEVEL = 1
+		}
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	is_enabled = {
+		# No special requirements beyond being a city
+	}
+	cost_gold = 100
+	province_modifier = {
+		monthly_income = 0.5
+		tax_mult = 0.05
+	}
+	county_modifier = {
+		county_trade_value_add = 0.5
+	}
+	# Future upgrade paths could be added here
+	# next_building = market_square_02
+}
