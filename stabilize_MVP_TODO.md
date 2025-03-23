@@ -68,11 +68,11 @@
   - [x] Log key variable changes: `debug_log = "Variable [VarName] changed to [Value]"`
   - [x] Log effect completion: `debug_log = "Completed effect: [EffectName]"`
 
-- [ ] Add debug_log statements to `common/scripted_effects/trade_calculation_effects.txt`
+- [x] Add debug_log statements to `common/scripted_effects/trade_calculation_effects.txt`
 
-  - [ ] Log calculation starts: `debug_log = "Starting trade calculation for [ScopeInfo]"`
-  - [ ] Log intermediate results: `debug_log = "Intermediate calculation: [StepName] = [Value]"`
-  - [ ] Log final results: `debug_log = "Final trade value: [Value]"`
+  - [x] Log calculation starts: `debug_log = "Starting trade calculation for [ScopeInfo]"`
+  - [x] Log intermediate results: `debug_log = "Intermediate calculation: [StepName] = [Value]"`
+  - [x] Log final results: `debug_log = "Final trade value: [Value]"`
 
 - [ ] Add debug_log statements to `common/scripted_effects/trade_route_effects.txt`
   - [ ] Log route effect triggers: `debug_log = "Route effect triggered: [EffectName]"`
