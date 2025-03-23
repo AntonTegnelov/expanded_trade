@@ -7,6 +7,8 @@ trade_building_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# Player must have seen the trade introduction
 		has_character_flag = viewed_trade_introduction_step1
 		# But not have seen this advice yet
@@ -65,6 +67,8 @@ trade_route_disruption_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# Player should be aware of the trade system already
 		has_character_flag = viewed_trade_introduction_step1
 		# County must be on a silk road and recently disrupted
@@ -139,6 +143,8 @@ trade_prosperity_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# Player must have completed the trade introduction
 		has_character_flag = completed_trade_introduction
 		# But not seen this specific advice yet

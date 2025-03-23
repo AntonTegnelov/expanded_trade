@@ -350,9 +350,9 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Create `localization/english/trade_tutorial_lessons_l_english.yml`
     - [x] Add detailed lesson text with appropriate formatting
     - [x] Include button text and headers
-  - [ ] Create appropriate hooks into vanilla tutorial system
-    - [ ] Ensure compatibility with existing tutorial progression
-    - [ ] Respect player's tutorial settings
+  - [x] Create appropriate hooks into vanilla tutorial system
+    - [x] Ensure compatibility with existing tutorial progression
+    - [x] Respect player's tutorial settings
 
 - [ ] **Guided Tutorial Elements** - Essential player guidance using proper tutorial system
   - [ ] Create basic trade lesson chain in `common/tutorial_lesson_chains/trade_lesson_chains.txt`

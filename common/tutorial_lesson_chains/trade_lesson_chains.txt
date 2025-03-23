@@ -4,6 +4,8 @@
 trade_basics_chain = {
 	# Only show after player has completed the basic game tutorials
 	trigger = {
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# This ensures we don't show trade tutorials until basics are covered
 		is_tutorial_lesson_chain_completed = lesson_chain_basics_unpause
 		# Make sure player has also completed core game mechanics tutorials
@@ -55,6 +57,8 @@ trade_basics_chain = {
 trade_reactive_chain = {
 	# No specific trigger - these are shown based on important action triggers
 	trigger = {
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# Only show reactive lessons after player has seen introduction
 		has_character_flag = viewed_trade_introduction_step1
 		# And if the player has access to the trade system
@@ -89,6 +93,8 @@ trade_reactive_chain = {
 trade_advanced_chain = {
 	# Only show after player has completed the basic trade chain
 	trigger = {
+		# Check if tutorials are enabled for this player
+		is_tutorial_enabled = yes
 		# Requires completion of basic trade tutorials
 		is_tutorial_lesson_chain_completed = trade_basics_chain
 		# And requires player to have reasonable understanding of game economics
