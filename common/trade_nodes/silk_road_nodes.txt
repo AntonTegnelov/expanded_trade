@@ -4,99 +4,123 @@
 trade_node = {
 	id = "xian_node"
 	name = "xian_node"
+	debug_log = "Initializing node: xian_node at county 9546"
 	# Xingqing - Starting point in China, nearest in-game representation of the historical Chang'an/Xi'an
 	county = 9546	# Using Xingqing county ID
 	province = 9546	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: xian_node = [trade_node_base_value]"
 }
 
 trade_node = {
 	id = "dunhuang_node"
 	name = "dunhuang_node"
+	debug_log = "Initializing node: dunhuang_node at county 1448"
 	# Dunhuang - Western China gateway
 	county = 1448	# Using Dunhuang county ID
 	province = 1448	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: dunhuang_node = [trade_node_base_value]"
 }
 
 trade_node = {
 	id = "kashgar_node"
 	name = "kashgar_node"
+	debug_log = "Initializing node: kashgar_node at county 1439"
 	# Kashgar - Entry to Central Asia
 	county = 1439	# Using Kashgar county ID
 	province = 1439	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: kashgar_node = [trade_node_base_value]"
 }
 
 # Central Asian Nodes
 trade_node = {
 	id = "samarkand_node"
 	name = "samarkand_node"
+	debug_log = "Initializing node: samarkand_node at county 441"
 	# Samarkand - Central Asian hub
 	county = 441	# Using Samarkand county ID
 	province = 441	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: samarkand_node = [trade_node_base_value]"
 }
 
 trade_node = {
 	id = "bukhara_node"
 	name = "bukhara_node"
+	debug_log = "Initializing node: bukhara_node at county 440"
 	# Bukhara - Major trading center
 	county = 440	# Using Bukhara county ID
 	province = 440	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: bukhara_node = [trade_node_base_value]"
 }
 
 trade_node = {
 	id = "merv_node"
 	name = "merv_node"
+	debug_log = "Initializing node: merv_node at county 4238"
 	# Merv - Persian trade city
 	county = 4238	# Using Merv county ID
 	province = 4238	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: merv_node = [trade_node_base_value]"
 }
 
 # Persian Nodes
 trade_node = {
 	id = "nishapur_node"
 	name = "nishapur_node"
+	debug_log = "Initializing node: nishapur_node at county 4017"
 	# Nishapur - Northeastern Persian hub
 	county = 4017	# Using Nishapur county ID
 	province = 4017	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: nishapur_node = [trade_node_base_value]"
 }
 
 trade_node = {
 	id = "rayy_node"
 	name = "rayy_node"
+	debug_log = "Initializing node: rayy_node at county 661"
 	# Rayy/Tehran - Northwest Persian center
 	county = 661	# Using Rayy county ID
 	province = 661	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
+	debug_log = "Node controller set: [scope:county.holder.GetID]"
 	# Use development-based value calculation instead of static value
 	value = trade_node_base_value
+	debug_log = "Node value calculated: rayy_node = [trade_node_base_value]"
 }
 
 # Middle Eastern Nodes
