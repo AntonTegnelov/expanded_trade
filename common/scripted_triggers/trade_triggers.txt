@@ -128,6 +128,47 @@ can_build_trade_building_trigger = {
 	development_level >= 5
 }
 
+# Checks if a county can build a trading post
+can_build_trading_post_trigger = {
+	# County must be on a trade route
+	is_on_silk_road_trigger = yes
+	# Check if the holding is appropriate for trading posts
+	OR = {
+		is_tribal_holding = yes
+		is_castle_holding = yes
+	}
+	# Basic development requirement
+	development_level >= 3
+}
+
+# Checks if a county can build a caravanserai
+can_build_caravanserai_trigger = {
+	# County must be a key trade node
+	county = {
+		is_on_silk_road_trigger = yes
+		# Only key locations can have caravanserais
+		OR = {
+			any_trade_node = {
+				OR = {
+					# Key Silk Road nodes
+					node_id = samarkand_node
+					node_id = bukhara_node
+					node_id = merv_node
+					node_id = baghdad_node
+					node_id = mosul_node
+					node_id = aleppo_node
+					node_id = antioch_node
+					node_id = constantinople_node
+				}
+			}
+			# Or county is set as a trade_post_slot location
+			has_county_flag = trade_post_slot
+		}
+	}
+	# More significant development requirement
+	development_level >= 7
+}
+
 # Checks if a character is actively participating in trade
 is_trade_participant_trigger = {
 	OR = {

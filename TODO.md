@@ -143,8 +143,8 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Implement special_building_slot = trade_post_slot for key locations
     - [ ] Ensure building upgrades follow vanilla pattern (level 1, 2, 3)
     - [x] Use appropriate building flags for UI display (construction_category = economic)
-    - [ ] Balance costs and benefits against vanilla economic buildings
-    - [ ] Create appropriate building unlock conditions using scripted triggers
+    - [x] Balance costs and benefits against vanilla economic buildings
+    - [x] Create appropriate building unlock conditions using scripted triggers
 
 - [ ] **Merchant Character Interactions** - Basic set of character actions
 
