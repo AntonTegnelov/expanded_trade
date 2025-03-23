@@ -163,7 +163,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Implement scope validation using has_independent_realm_trigger or similar
     - [ ] Create "Sponsor Trade Expedition" interaction for increasing trade flow
       - [x] Use category = diplomatic for proper UI placement
-      - [ ] Set cost = { gold = 100 prestige = 50 }
+      - [x] Set cost = { gold = 100 prestige = 50 }
       - [ ] Create on_accept effect to improve trade flow on specific route
       - [ ] Add ai_will_do based on stewardship and ambitious trait
       - [ ] Create event chain for success/failure using random_events_weight system

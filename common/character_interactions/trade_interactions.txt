@@ -363,4 +363,9 @@ sponsor_trade_expedition_interaction = {
 	category = interaction_category_diplomatic
 	icon = travel
 	desc = sponsor_trade_expedition_interaction_desc
+	# Cost for expedition
+	cost = {
+		gold = 100
+		prestige = 50
+	}
 }
