@@ -14,17 +14,23 @@ foreign_merchant.0001 = {
 		animation = idle
 	}
 	immediate = {
+		debug_log = "[GetDateString]: Event scope: foreign_merchant.0001 - Root=[Root.GetID]"
+		debug_log = "[GetDateString]: Executing immediate effects in event foreign_merchant.0001"
 		# Check for cultural difference outcomes
 		random_list = {
+			debug_log = "[GetDateString]: Random selection for cultural outcome in event foreign_merchant.0001"
 			60 = {
+				debug_log = "[GetDateString]: Selected cultural exchange outcome"
 				# Cultural exchange benefits
 				set_flag = merchant_cultural_exchange
 			}
 			30 = {
+				debug_log = "[GetDateString]: Selected trade benefits outcome"
 				# Trade benefits
 				set_flag = merchant_trade_benefits
 			}
 			10 = {
+				debug_log = "[GetDateString]: Selected potential conflict outcome"
 				# Potential conflict
 				trigger = {
 					OR = {
@@ -44,6 +50,7 @@ foreign_merchant.0001 = {
 	}
 	option = {
 		name = foreign_merchant.0001.a		# Embrace foreign influence
+		debug_log = "[GetDateString]: Executing foreign influence embrace effects in event foreign_merchant.0001"
 		trigger = {
 			has_flag = merchant_cultural_exchange
 		}

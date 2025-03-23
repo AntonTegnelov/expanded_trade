@@ -117,7 +117,7 @@
   - [x] `events/trade/trade_events.txt`
   - [x] `events/trade/trade_monthly_events.txt`
   - [x] `events/trade/trade_decision_events.txt`
-  - [ ] `events/trade/foreign_merchant_events.txt`
+  - [x] `events/trade/foreign_merchant_events.txt`
   - [ ] `events/trade/trade_disruption_events.txt`
   - [ ] `events/trade/trade_expedition_events.txt`
 
