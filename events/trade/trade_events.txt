@@ -11,6 +11,7 @@ trade_events.0001 = {
 		animation = personality_rational
 	}
 	trigger = {
+		debug_log = "[GetDateString]: Event scope: trade_events.0001 - Root=[Root.GetID]"
 		owns_county_with_trade_route_trigger = yes
 		NOT = {
 			has_character_flag = recent_trade_caravan
@@ -33,19 +34,23 @@ trade_events.0001 = {
 		}
 	}
 	immediate = {
+		debug_log = "[GetDateString]: Executing immediate effects in event trade_events.0001"
 		add_character_flag = {
 			flag = recent_trade_caravan
 			days = 180			# 6 month cooldown
 		}
 		# Determine trade good type
 		random_list = {
+			debug_log = "[GetDateString]: Random selection for trade good type in event trade_events.0001"
 			33 = {
+				debug_log = "[GetDateString]: Selected luxury trade good type"
 				set_scope_variable = {
 					name = trade_good_type
 					value = "luxury"
 				}
 			}
 			67 = {
+				debug_log = "[GetDateString]: Selected basic trade good type"
 				set_scope_variable = {
 					name = trade_good_type
 					value = "common"

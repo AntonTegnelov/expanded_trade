@@ -107,12 +107,6 @@
 
 ### 7.7 Events
 
-- [x] Add debug_log statements to `events/trade/trade_monthly_events.txt`
-
-  - [x] Log event triggers: `debug_log = "Event triggered: [EventID]"`
-  - [x] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
-  - [x] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
-
 - [x] Add debug_log statements to `events/trade/silk_road_events.txt`
 
   - [x] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
@@ -120,7 +114,12 @@
   - [x] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
 
 - [ ] Add debug_log statements to all other event files
-  - [ ] Follow the same pattern of logging triggers, scopes, and effects
+  - [x] `events/trade/trade_events.txt`
+  - [ ] `events/trade/trade_monthly_events.txt`
+  - [ ] `events/trade/trade_decision_events.txt`
+  - [ ] `events/trade/foreign_merchant_events.txt`
+  - [ ] `events/trade/trade_disruption_events.txt`
+  - [ ] `events/trade/trade_expedition_events.txt`
 
 ### 7.8 Trade Goods
 
