@@ -10,11 +10,14 @@ trade_decision_events.0001 = {
 		animation = personality_rational
 	}
 	immediate = {
+		debug_log = "[GetDateString]: Event scope: trade_decision_events.0001 - Root=[Root.GetID]"
+		debug_log = "[GetDateString]: Executing immediate effects in event trade_decision_events.0001"
 		save_scope_as = investor_ruler
 		# Get selected county
 		saved_temporary_scope_list = {
 			name = trade_route_counties
 			random_in_list = {
+				debug_log = "[GetDateString]: Selected random county from trade route counties"
 				save_scope_as = invested_county
 			}
 		}
@@ -22,7 +25,9 @@ trade_decision_events.0001 = {
 	# Improve infrastructure
 	option = {
 		name = trade_decision_events.0001.a
+		debug_log = "[GetDateString]: Executing infrastructure improvement effects in event trade_decision_events.0001"
 		scope:invested_county = {
+			debug_log = "[GetDateString]: Applying county improvements to [This.GetID]"
 			# Boost development slightly
 			change_development = {
 				add = 0.5
@@ -39,7 +44,9 @@ trade_decision_events.0001 = {
 	# Attract merchants
 	option = {
 		name = trade_decision_events.0001.b
+		debug_log = "[GetDateString]: Executing merchant attraction effects in event trade_decision_events.0001"
 		scope:invested_county = {
+			debug_log = "[GetDateString]: Applying merchant attraction effects to [This.GetID]"
 			# Increase prosperity
 			change_variable = {
 				name = trade_prosperity_level
