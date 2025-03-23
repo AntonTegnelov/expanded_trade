@@ -31,6 +31,10 @@ trade_basics_chain = {
 	}
 	# Save progress in the game state so it's preserved between sessions
 	save_progress_in_gamestate = yes
+	# Track completion status in gamestate
+	save_completion_in_gamestate = yes
+	# Enable auto-progression to next lesson in chain
+	auto_progress_chain = yes
 	# Define the order of lessons in this chain with proper progression
 	lessons = {
 		trade_introduction_lesson		# Start with general introduction
@@ -64,7 +68,10 @@ trade_reactive_chain = {
 			}
 		}
 	}
+	# Save progress but don't auto-progress this chain as it's reactive
 	save_progress_in_gamestate = yes
+	save_completion_in_gamestate = yes
+	auto_progress_chain = no
 	# Reactive lessons that can be triggered by important actions
 	lessons = {
 		# Empty for now - will be populated with reactive lessons as needed
@@ -88,7 +95,10 @@ trade_advanced_chain = {
 		is_tutorial_lesson_completed = lesson_domain_management
 		# Additional requirements for showing advanced tutorials can be added here
 	}
+	# Save progress for advanced chain
 	save_progress_in_gamestate = yes
+	save_completion_in_gamestate = yes
+	auto_progress_chain = yes
 	# Define the order of lessons in this chain
 	# Will be populated in future updates
 	lessons = {
