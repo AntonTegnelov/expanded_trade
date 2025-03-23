@@ -93,10 +93,10 @@
 
 ### 7.5 Scripted Triggers
 
-- [ ] Add debug_log statements to `common/scripted_triggers/trade_triggers.txt`
-  - [ ] Add debug_tooltip to key triggers: `debug_tooltip = yes`
-  - [ ] Log trigger evaluation: `debug_log = "Evaluating trigger: [TriggerName] for [ScopeInfo]"`
-  - [ ] Log trigger results: `debug_log = "Trigger result: [TriggerName] = [Result]"`
+- [x] Add debug_log statements to `common/scripted_triggers/trade_triggers.txt`
+  - [x] Add debug_tooltip to key triggers: `debug_tooltip = yes`
+  - [x] Log trigger evaluation: `debug_log = "Evaluating trigger: [TriggerName] for [ScopeInfo]"`
+  - [x] Log trigger results: `debug_log = "Trigger result: [TriggerName] = [Result]"`
 
 ### 7.6 On-Actions
 
