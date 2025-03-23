@@ -10,6 +10,8 @@ trade_disruption_events.0001 = {
 		animation = worry
 	}
 	immediate = {
+		debug_log = "[GetDateString]: Event scope: trade_disruption_events.0001 - Root=[Root.GetID]"
+		debug_log = "[GetDateString]: Executing immediate effects in event trade_disruption_events.0001"
 		save_scope_as = disruption_ruler
 		# Find disrupted county
 		random_held_title = {
@@ -17,17 +19,20 @@ trade_disruption_events.0001 = {
 				tier = county
 				has_county_flag = on_disrupted_trade_route
 			}
+			debug_log = "[GetDateString]: Found disrupted county [This.GetID]"
 			save_scope_as = disrupted_county
 		}
 	}
 	option = {
 		name = trade_disruption_events.0001.a
+		debug_log = "[GetDateString]: Executing disruption acceptance effects in event trade_disruption_events.0001"
 		# Sad
 		add_stress = minor_stress_gain
 		# Economic loss
 		add_gold = -10
 		# Decrease prosperity
 		scope:disrupted_county = {
+			debug_log = "[GetDateString]: Decreasing prosperity for county [This.GetID]"
 			change_variable = {
 				name = trade_prosperity_level
 				subtract = 1
@@ -47,6 +52,7 @@ trade_disruption_events.0001 = {
 	# Try to redirect trade
 	option = {
 		name = trade_disruption_events.0001.b
+		debug_log = "[GetDateString]: Executing trade redirection effects in event trade_disruption_events.0001"
 		trigger = {
 			stewardship >= 8
 		}
