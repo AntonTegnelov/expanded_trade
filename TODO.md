@@ -148,13 +148,13 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Merchant Character Interactions** - Basic set of character actions
 
-  - [ ] Create `common/character_interactions/trade_interactions.txt` with essential interactions
-    - [ ] Implement "Invite Merchant" interaction
-      - [ ] Use category = diplomatic for proper UI placement
-      - [ ] Implement is_shown using has_appropriate_rank_trigger from vanilla
-      - [ ] Create on_accept effect to generate merchant character (uses generate_character effect)
-      - [ ] Set cooldown = { days = 365 } for balance
-      - [ ] Use ai_accept system with wealth and personality factors
+  - [x] Create `common/character_interactions/trade_interactions.txt` with essential interactions
+    - [x] Implement "Invite Merchant" interaction
+      - [x] Use category = diplomatic for proper UI placement
+      - [x] Implement is_shown using has_appropriate_rank_trigger from vanilla
+      - [x] Create on_accept effect to generate merchant character (uses generate_character effect)
+      - [x] Set cooldown = { days = 365 } for balance
+      - [x] Use ai_accept system with wealth and personality factors
     - [ ] Design "Establish Trade Agreement" interaction between rulers
       - [ ] Use category = diplomatic for proper UI placement
       - [ ] Add cost = { gold = 150 prestige = 100 } for balance
@@ -169,7 +169,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [ ] Create event chain for success/failure using random_events_weight system
     - [ ] Ensure compatibility with vanilla interaction framework
     - [ ] Create proper interaction icons in `gfx/interface/icons/character_interactions/`
-    - [ ] Add appropriate tooltip localizations in `localization/english/trade_interactions_l_english.yml`
+    - [x] Add appropriate tooltip localizations in `localization/english/trade_interactions_l_english.yml`
 
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
 
