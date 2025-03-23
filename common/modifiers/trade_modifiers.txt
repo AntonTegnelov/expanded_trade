@@ -434,3 +434,31 @@ increased_foreign_trade = {
 	monthly_development_growth_add = 0.05
 	icon = merchants
 }
+
+# Exotic Goods Modifiers
+exotic_silk_goods = {
+	monthly_prestige = 0.1
+	diplomacy = 1
+	stewardship = 1
+	monthly_character_income = 0.1
+	court_grandeur_contribution_mult = 0.1
+	icon = silk
+}
+
+exotic_spice_goods = {
+	monthly_prestige = 0.1
+	stewardship = 1
+	learning = 1
+	monthly_character_income = 0.1
+	court_grandeur_contribution_mult = 0.1
+	icon = spices
+}
+
+exotic_jewelry_goods = {
+	monthly_prestige = 0.2
+	diplomacy = 2
+	monthly_character_income = 0.1
+	court_grandeur_contribution_mult = 0.15
+	attraction_opinion = 5
+	icon = jewelry
+}

@@ -1,0 +1,23 @@
+l_english:
+ # Exotic Goods Discovery Event
+ silk_road_events.0001.t:0 "Exotic Goods from Distant Lands"
+ silk_road_events.0001.desc:0 "A caravan of merchants has arrived in our lands, having traveled the length of the Silk Road from distant eastern kingdoms. Among their wares are exotic goods rarely seen in our realm - fine silks with patterns of breathtaking intricacy, spices that tantalize the senses, and jewels of unusual beauty.\n\nThe merchant bows deeply as he presents his finest wares, explaining the arduous journey these treasures have made to reach your court. Such luxuries would certainly enhance your prestige among both your subjects and neighboring rulers."
+ silk_road_events.0001.a:0 "These treasures will adorn my court!"
+ silk_road_events.0001.b:0 "Perhaps we can negotiate a better price..."
+ silk_road_events.0001.c:0 "We have no need for such foreign luxuries."
+
+ # Bargaining follow-up event
+ silk_road_events.0002.t:0 "The Art of Bargaining"
+ silk_road_events.0002.desc:0 "You carefully examine the exotic goods, making a show of finding minor flaws and questioning their authenticity. The merchant defends his wares passionately, citing their distant origins and the dangers faced to bring them to your lands.\n\nAs the negotiations continue, you sense an opportunity to secure these luxuries at a more favorable price."
+ silk_road_events.0002.a:0 "An excellent deal has been struck!"
+ silk_road_events.0002.b:0 "The merchant refuses to lower his price further."
+
+ # Modifiers
+ exotic_silk_goods:0 "Exotic Silks"
+ exotic_silk_goods_desc:0 "This court has acquired rare silks from distant eastern lands, enhancing prestige and diplomatic standing."
+ 
+ exotic_spice_goods:0 "Exotic Spices"
+ exotic_spice_goods_desc:0 "This court has acquired unusual spices from distant lands, enhancing culinary delights and cultural knowledge."
+ 
+ exotic_jewelry_goods:0 "Exotic Jewelry"
+ exotic_jewelry_goods_desc:0 "This court has acquired extraordinary jewelry from distant lands, greatly enhancing the ruler's appearance and prestige."

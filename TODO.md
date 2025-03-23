@@ -289,34 +289,33 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Silk Road Events** - Limited set of events for the main trade route
 
-  - [ ] Create `events/silk_road_events.txt` for Silk Road specific events
-    - [ ] Design "Exotic Goods Discovery" event
-      - [ ] Trigger for counties directly on Silk Road main route
-      - [ ] Use trade_good_discovered_trigger from trade systems
-      - [ ] Create special opinion modifiers with foreign merchants
-      - [ ] Add prestige and small wealth benefits
-      - [ ] Include cultural flavor for goods origin
-    - [ ] Implement "Silk Road Disruption" event
-      - [ ] Trigger from county occupation on main route
-      - [ ] Create notification for players about economic impact
-      - [ ] Show temporary prosperity penalties
-      - [ ] Add strategic options for rulers to respond
-      - [ ] Include diplomatic actions against disrupting parties
-    - [ ] Create "Cultural Exchange" event chain
-      - [ ] Focus on minimal innovation spread mechanics
-      - [ ] Use existing culture scope and relation systems
-      - [ ] Add minor acceptance bonuses between trade partners
-      - [ ] Include options for embracing or rejecting foreign influences
-      - [ ] Create trait-based outcomes affecting character opinions
-    - [ ] Add "Trade Route Security" event
-      - [ ] Trigger from counties with active trade but low control
-      - [ ] Present options for investing in route protection
-      - [ ] Create risk/reward decisions for military investment
-      - [ ] Add outcomes affecting county control and prosperity
-    - [ ] Use on_action hooks for key trigger points (occupation, peace treaty)
-    - [ ] Implement localization in `localization/english/silk_road_events_l_english.yml`
-    - [ ] Create Silk Road specific event pictures
-    - [ ] Ensure compatibility with Northern Lords if present
+  - [x] Design "Exotic Goods Discovery" event
+    - [x] Trigger for counties directly on Silk Road main route
+    - [x] Use trade_good_discovered_trigger from trade systems
+    - [x] Create special opinion modifiers with foreign merchants
+    - [x] Add prestige and small wealth benefits
+    - [x] Include cultural flavor for goods origin
+  - [ ] Implement "Silk Road Disruption" event
+    - [ ] Trigger from county occupation on main route
+    - [ ] Create notification for players about economic impact
+    - [ ] Show temporary prosperity penalties
+    - [ ] Add strategic options for rulers to respond
+    - [ ] Include diplomatic actions against disrupting parties
+  - [ ] Create "Cultural Exchange" event chain
+    - [ ] Focus on minimal innovation spread mechanics
+    - [ ] Use existing culture scope and relation systems
+    - [ ] Add minor acceptance bonuses between trade partners
+    - [ ] Include options for embracing or rejecting foreign influences
+    - [ ] Create trait-based outcomes affecting character opinions
+  - [ ] Add "Trade Route Security" event
+    - [ ] Trigger from counties with active trade but low control
+    - [ ] Present options for investing in route protection
+    - [ ] Create risk/reward decisions for military investment
+    - [ ] Add outcomes affecting county control and prosperity
+  - [ ] Use on_action hooks for key trigger points (occupation, peace treaty)
+  - [ ] Implement localization in `localization/english/silk_road_events_l_english.yml`
+  - [ ] Create Silk Road specific event pictures
+  - [ ] Ensure compatibility with Northern Lords if present
 
 - [ ] **Basic Tutorial Elements** - Essential guidance for new players
   - [ ] Create `events/trade_tutorial.txt` for basic tutorial events

@@ -1,0 +1,258 @@
+namespace = silk_road_events
+# Exotic Goods Discovery Event
+# This event triggers for rulers who control counties directly on the Silk Road
+silk_road_events.0001 = {
+	type = character_event
+	title = silk_road_events.0001.t
+	desc = silk_road_events.0001.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = default
+	}
+	trigger = {
+		owns_county_on_silk_road_trigger = yes
+		NOT = {
+			has_character_flag = recent_exotic_goods_discovery
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		# More likely for counties with high trade prosperity
+		modifier = {
+			add = 1
+			any_county = {
+				is_on_silk_road_trigger = yes
+				has_high_trade_prosperity_trigger = yes
+			}
+		}
+		# More likely for rulers focused on trade
+		modifier = {
+			add = 1
+			has_character_modifier = promoting_trade_modifier
+		}
+	}
+	immediate = {
+		add_character_flag = {
+			flag = recent_exotic_goods_discovery
+			days = 365			# 1 year cooldown
+		}
+		# Generate foreign merchant
+		create_character = {
+			name = scope:foreign_merchant
+			age = {
+				25
+				45
+			}
+			gender = male
+			culture = {
+				if = {
+					limit = {
+						any_county = {
+							is_on_silk_road_trigger = yes
+							culture_region = culture_region:byzantine
+						}
+					}
+					culture = culture:greek
+				}
+				else_if = {
+					limit = {
+						any_county = {
+							is_on_silk_road_trigger = yes
+							culture_region = culture_region:byzantine
+						}
+					}
+					culture = culture:assyrian
+				}
+				else = {
+					culture = culture:persian
+				}
+			}
+			religion = {
+				target = root
+				faith = random
+			}
+			trait = merchant
+			trait = gregarious
+			save_scope_as = foreign_merchant
+		}
+	}
+	# Accept the exotic goods
+	option = {
+		name = silk_road_events.0001.a
+		add_prestige = medium_prestige_gain
+		add_gold = minor_gold_gain
+		random_list = {
+			33 = {
+				add_character_modifier = {
+					modifier = exotic_silk_goods
+					years = 2
+				}
+			}
+			33 = {
+				add_character_modifier = {
+					modifier = exotic_spice_goods
+					years = 2
+				}
+			}
+			34 = {
+				add_character_modifier = {
+					modifier = exotic_jewelry_goods
+					years = 2
+				}
+			}
+		}
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_grateful
+				years = 2
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = {
+				add = 50
+				has_trait = greedy
+			}
+			modifier = {
+				add = 50
+				has_trait = ambitious
+			}
+		}
+	}
+	# Bargain for a better price
+	option = {
+		name = silk_road_events.0001.b
+		trigger_event = {
+			id = silk_road_events.0002
+			days = 1
+		}
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 75
+				has_trait = greedy
+			}
+			modifier = {
+				add = 25
+				has_trait = diligent
+			}
+		}
+	}
+	# Decline the offer
+	option = {
+		name = silk_road_events.0001.c
+		add_prestige = minor_prestige_gain
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_disappointed
+				years = 2
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				add = 50
+				has_trait = zealous
+				NOT = {
+					faith = scope:foreign_merchant.faith
+				}
+			}
+			modifier = {
+				add = 25
+				has_trait = paranoid
+			}
+		}
+	}
+}
+
+# Bargaining follow-up event
+silk_road_events.0002 = {
+	type = character_event
+	title = silk_road_events.0002.t
+	desc = silk_road_events.0002.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = disapproval
+	}
+	immediate = {
+		# Determine success based on stewardship
+		if = {
+			limit = {
+				stewardship > 10
+			}
+			set_scope_variable = {
+				name = bargaining_success
+				value = yes
+			}
+		}
+		else = {
+			set_scope_variable = {
+				name = bargaining_success
+				value = no
+			}
+		}
+	}
+	# Successful bargaining
+	option = {
+		name = silk_road_events.0002.a
+		trigger = {
+			scope:bargaining_success = yes
+		}
+		add_prestige = medium_prestige_gain
+		add_gold = medium_gold_gain
+		random_list = {
+			33 = {
+				add_character_modifier = {
+					modifier = exotic_silk_goods
+					years = 2
+				}
+			}
+			33 = {
+				add_character_modifier = {
+					modifier = exotic_spice_goods
+					years = 2
+				}
+			}
+			34 = {
+				add_character_modifier = {
+					modifier = exotic_jewelry_goods
+					years = 2
+				}
+			}
+		}
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_impressed
+				years = 2
+			}
+		}
+	}
+	# Failed bargaining
+	option = {
+		name = silk_road_events.0002.b
+		trigger = {
+			scope:bargaining_success = no
+		}
+		add_prestige = minor_prestige_loss
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_annoyed
+				years = 2
+			}
+		}
+	}
+}

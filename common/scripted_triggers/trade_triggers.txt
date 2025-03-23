@@ -32,6 +32,14 @@ is_on_silk_road_trigger = {
 	}
 }
 
+# Checks if a character owns a county that is directly on the Silk Road
+owns_county_on_silk_road_trigger = {
+	any_county = {
+		county_controller = root
+		is_on_silk_road_trigger = yes
+	}
+}
+
 # Checks if a county is on a valid trade route
 is_on_valid_trade_route_trigger = {
 	# Check if the county has the trade route flag
