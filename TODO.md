@@ -206,7 +206,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Add random events that can fire while task is assigned
       - [x] Use existing council task framework for compatibility
       - [ ] Create appropriate task icon in gfx/interface/icons/council_tasks/
-      - [ ] Add localization in trade_council_tasks_l_english.yml
+      - [x] Add localization in trade_council_tasks_l_english.yml
     - [ ] Design "Secure Trade Route" decision for protecting specific routes
       - [ ] Use is_shown that requires county on silk road and ruler control
       - [ ] Set cost = { gold = 250 prestige = 150 }
