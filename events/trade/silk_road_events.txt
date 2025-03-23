@@ -91,19 +91,23 @@ silk_road_events.0001 = {
 		add_prestige = medium_prestige_gain
 		add_gold = minor_gold_gain
 		random_list = {
+			debug_log = "[GetDateString]: Random selection for exotic goods in event silk_road_events.0001"
 			33 = {
+				debug_log = "[GetDateString]: Selected exotic silk goods"
 				add_character_modifier = {
 					modifier = exotic_silk_goods
 					years = 2
 				}
 			}
 			33 = {
+				debug_log = "[GetDateString]: Selected exotic spice goods"
 				add_character_modifier = {
 					modifier = exotic_spice_goods
 					years = 2
 				}
 			}
 			34 = {
+				debug_log = "[GetDateString]: Selected exotic jewelry goods"
 				add_character_modifier = {
 					modifier = exotic_jewelry_goods
 					years = 2

@@ -116,7 +116,7 @@
 - [x] Add debug_log statements to `events/trade/silk_road_events.txt`
 
   - [x] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
-  - [ ] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
+  - [x] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
   - [ ] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
 
 - [ ] Add debug_log statements to all other event files
