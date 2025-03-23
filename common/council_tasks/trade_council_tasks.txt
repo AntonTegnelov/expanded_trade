@@ -20,6 +20,31 @@ task_court_trade_focus = {
 			}
 		}
 	}
+	# Make sure task is valid
+	is_shown = {
+		exists = councillor_liege
+		councillor_liege = {
+			any_sub_realm_county = {
+				OR = {
+					is_on_active_trade_route_trigger = yes
+					has_building = building_market_square
+					has_building = building_trading_post
+				}
+			}
+		}
+	}
+	is_valid_showing_failures_only = {
+		exists = councillor_liege
+		councillor_liege = {
+			any_sub_realm_county = {
+				OR = {
+					is_on_active_trade_route_trigger = yes
+					has_building = building_market_square
+					has_building = building_trading_post
+				}
+			}
+		}
+	}
 	# Ongoing modifiers while task is active
 	council_owner_modifier = {
 		name = task_court_trade_focus_income_modifier
@@ -41,6 +66,45 @@ task_court_trade_focus = {
 		}
 	}
 	monthly_on_action = trade_council_steward_focus_on_action
+	on_start_task = {
+		if = {
+			limit = {
+				exists = councillor_liege
+			}
+			councillor_liege = {
+				add_character_flag = {
+					flag = steward_focusing_on_trade
+					years = 5
+				}
+			}
+		}
+	}
+	on_finish_task = {
+		if = {
+			limit = {
+				exists = councillor_liege
+				councillor_liege = {
+					has_character_flag = steward_focusing_on_trade
+				}
+			}
+			councillor_liege = {
+				remove_character_flag = steward_focusing_on_trade
+			}
+		}
+	}
+	on_cancel_task = {
+		if = {
+			limit = {
+				exists = councillor_liege
+				councillor_liege = {
+					has_character_flag = steward_focusing_on_trade
+				}
+			}
+			councillor_liege = {
+				remove_character_flag = steward_focusing_on_trade
+			}
+		}
+	}
 	ai_will_do = {
 		base = 10
 		modifier = {

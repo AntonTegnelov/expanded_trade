@@ -183,3 +183,13 @@ is_trade_participant_trigger = {
 		has_character_modifier = trade_infrastructure
 	}
 }
+
+is_on_active_trade_route_trigger = {
+	OR = {
+		has_county_flag = on_silk_road
+		has_county_flag = on_active_trade_route
+	}
+	NOT = {
+		has_county_flag = trade_route_disrupted
+	}
+}

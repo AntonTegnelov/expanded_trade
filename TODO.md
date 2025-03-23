@@ -204,7 +204,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [ ] Create different outcomes based on ruler traits (greedy, just, ambitious)
       - [x] Implement ongoing modifiers while task is active
       - [x] Add random events that can fire while task is assigned
-      - [ ] Use existing council task framework for compatibility
+      - [x] Use existing council task framework for compatibility
       - [ ] Create appropriate task icon in gfx/interface/icons/council_tasks/
       - [ ] Add localization in trade_council_tasks_l_english.yml
     - [ ] Design "Secure Trade Route" decision for protecting specific routes
