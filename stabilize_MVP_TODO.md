@@ -87,9 +87,9 @@
   - [x] Log conditional branches: `debug_log = "Taking condition branch: [ConditionDesc]"`
   - [x] Log final values: `debug_log = "Final value: [ValueName] = [Result]"`
 
-- [ ] Add debug_log statements to `common/script_values/trade_variables.txt`
-  - [ ] Log variable initialization: `debug_log = "Initializing variable: [VarName] = [Value]"`
-  - [ ] Log variable changes: `debug_log = "Variable changed: [VarName] from [OldValue] to [NewValue]"`
+- [x] Add debug_log statements to `common/script_values/trade_variables.txt`
+  - [x] Log variable initialization: `debug_log = "Initializing variable: [VarName] = [Value]"`
+  - [x] Log variable changes: `debug_log = "Variable changed: [VarName] from [OldValue] to [NewValue]"`
 
 ### 7.5 Scripted Triggers
 
