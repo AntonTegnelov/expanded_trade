@@ -15,6 +15,10 @@ trade_introduction_lesson = {
 				}
 			}
 		}
+		# Only show if the player hasn't completed this tutorial yet
+		NOT = {
+			has_character_flag = completed_trade_introduction
+		}
 	}
 	# Title shown in the tutorial window
 	header_info = {
@@ -38,6 +42,14 @@ trade_introduction_lesson = {
 		}
 		# Configure animation for tutorial window
 		animation = center
+		# Set flag when this step is viewed
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_introduction_step1
+				}
+			}
+		}
 		# When the player clicks Next, move to the next step with a visual transition
 		on_continue = {
 			transition = next_step
@@ -55,6 +67,9 @@ trade_introduction_lesson = {
 			effect = {
 				# This will be replaced with proper effect when map mode is implemented
 				# For MVP, just provide guidance
+				set_character_flag = {
+					flag = viewed_trade_routes_explanation
+				}
 			}
 		}
 		# Highlight the main trade route on the map
@@ -92,10 +107,22 @@ trade_introduction_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_buildings_explanation
+				}
+			}
+		}
 		on_continue = {
 			effect = {
 				# Small reward for completing tutorial
 				add_gold = 25
+				# Mark tutorial as completed
+				set_character_flag = {
+					flag = completed_trade_introduction
+					days = -1					# Permanent flag
+				}
 			}
 			transition = complete
 			transition_animation = fade_out
@@ -112,6 +139,11 @@ trade_buildings_lesson = {
 		any_held_title = {
 			tier = county
 			has_county_flag = on_silk_road
+		}
+		# Only show if the player has completed the introduction but not this tutorial
+		has_character_flag = completed_trade_introduction
+		NOT = {
+			has_character_flag = completed_trade_buildings_tutorial
 		}
 	}
 	header_info = {
@@ -135,6 +167,13 @@ trade_buildings_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_building_types
+				}
+			}
+		}
 		on_continue = {
 			transition = next_step
 			transition_animation = slide_right
@@ -158,10 +197,22 @@ trade_buildings_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_building_construction
+				}
+			}
+		}
 		on_continue = {
 			effect = {
 				# Small reward for completing tutorial
 				add_gold = 25
+				# Mark tutorial as completed
+				set_character_flag = {
+					flag = completed_trade_buildings_tutorial
+					days = -1					# Permanent flag
+				}
 			}
 			transition = complete
 			transition_animation = fade_out
@@ -178,6 +229,11 @@ trade_policies_lesson = {
 		any_held_title = {
 			tier = county
 			has_county_flag = on_silk_road
+		}
+		# Only show if the player has completed the buildings tutorial but not this one
+		has_character_flag = completed_trade_buildings_tutorial
+		NOT = {
+			has_character_flag = completed_trade_policies_tutorial
 		}
 	}
 	header_info = {
@@ -201,6 +257,13 @@ trade_policies_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_policies_overview
+				}
+			}
+		}
 		on_continue = {
 			transition = next_step
 			transition_animation = slide_right
@@ -224,6 +287,13 @@ trade_policies_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_council_tasks
+				}
+			}
+		}
 		on_continue = {
 			transition = next_step
 			transition_animation = slide_right
@@ -247,7 +317,21 @@ trade_policies_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		on_start = {
+			effect = {
+				set_character_flag = {
+					flag = viewed_trade_decisions
+				}
+			}
+		}
 		on_continue = {
+			effect = {
+				# Mark tutorial as completed
+				set_character_flag = {
+					flag = completed_trade_policies_tutorial
+					days = -1					# Permanent flag
+				}
+			}
 			transition = complete
 			transition_animation = fade_out
 		}

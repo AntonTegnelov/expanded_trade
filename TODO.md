@@ -336,7 +336,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Define lesson chain for trade mechanics
     - [x] Create structured lessons with proper GUI transitions
     - [x] Implement widget highlighting for UI elements
-    - [ ] Add appropriate effects and triggers for progression
+    - [x] Add appropriate effects and triggers for progression
     - [ ] Use encapsulated states with proper animation
   - [ ] Create `common/tutorial_lesson_chains/trade_lesson_chains.txt`
     - [ ] Define progression of lesson chains
