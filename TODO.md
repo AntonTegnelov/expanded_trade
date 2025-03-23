@@ -246,11 +246,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Create character tooltip extension for merchant characters
     - [x] Implement holding tooltip additions for trade buildings
     - [x] Use vanilla tooltip framework (DefaultTooltipWidget)
-  - [x] Create necessary graphics in `gfx/interface/` folders
-    - [x] Design route and node icons for map display
-    - [x] Create trade good icons for interface
-    - [x] Design window background and frame elements
-    - [x] Create status icons for prosperity and disruption
+  - [x] Reuse existing graphics from base game assets
+    - [x] Use vanilla icons for routes, nodes, goods and all interface elements
+    - [x] Leverage vanilla window backgrounds and frame elements
+    - [x] Repurpose existing status icons for prosperity and disruption indicators
   - [x] Implement localization in `localization/english/trade_interface_l_english.yml`
     - [x] Add map mode name and description
     - [x] Create tooltip text for all interface elements
@@ -285,7 +284,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Ensure hooks into existing on_action triggers for event firing
     - [x] Keep event chains short (3-5 events maximum) for MVP
     - [x] Use standard event system formatting and structure
-    - [x] Create basic event images in `gfx/interface/illustrations/events/`
+    - [x] Select appropriate vanilla event illustrations from the base game
 
 - [x] **Silk Road Events** - Limited set of events for the main trade route
 
@@ -314,17 +313,17 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add outcomes affecting county control and prosperity
     - [x] Use on_action hooks for key trigger points (occupation, peace treaty)
     - [x] Implement localization in `localization/english/silk_road_events_l_english.yml`
-    - [ ] Create Silk Road specific event pictures
-    - [ ] Ensure compatibility with Northern Lords if present
+    - [x] Map events to appropriate vanilla event themes and backgrounds
+    - [x] Ensure compatibility with Northern Lords if present
 
 - [ ] **Basic Tutorial Elements** - Essential guidance for new players
-  - [ ] Create `events/trade_tutorial.txt` for basic tutorial events
-    - [ ] Design "Introduction to Trade" event
-      - [ ] Trigger on first game month for player with trade routes
-      - [ ] Create clear explanation of basic mechanics
-      - [ ] Add guidance for accessing trade interface
-      - [ ] Use hint system to point to key interface elements
-      - [ ] Include option to disable further tutorials
+  - [x] Create `events/trade_tutorial.txt` for basic tutorial events
+    - [x] Design "Introduction to Trade" event
+      - [x] Trigger on first game month for player with trade routes
+      - [x] Create clear explanation of basic mechanics
+      - [x] Add guidance for accessing trade interface
+      - [x] Use hint system to point to key interface elements
+      - [x] Include option to disable further tutorials
     - [ ] Implement "Trade Buildings Guide" event
       - [ ] Trigger when player can build first trade building
       - [ ] Explain building benefits and requirements
@@ -343,10 +342,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [ ] Create tutorial-specific tooltips with extended information
     - [ ] Use existing hint system for interface guidance
     - [ ] Implement skip option for experienced players
-    - [ ] Add tutorial-specific graphics for clarity
+    - [ ] Exclusively use vanilla tutorial-style graphics and UI elements - NO custom art
   - [ ] Create `gui/trade_tutorial_widget.gui` for helper overlays
-    - [ ] Design unobtrusive UI elements for pointing out features
-    - [ ] Create expandable help panels for detailed explanations
+    - [ ] Adapt vanilla UI elements for unobtrusive feature highlighting
+    - [ ] Use existing help panel templates for detailed explanations
     - [ ] Implement dismiss and "don't show again" options
     - [ ] Use vanilla UI framework for consistent appearance
   - [ ] Add detailed tutorial text in `localization/english/trade_tutorial_l_english.yml`
@@ -415,4 +414,225 @@ More complex systems like Merchant Organizations, Religious Trade, River Trade, 
 - [ ] Create `common/scripted_triggers/trade_triggers.txt` for condition checks
   - [ ] Implement `can_build_trade_building_trigger` for building prerequisites
   - [ ] Create `is_on_active_trade_route_trigger` for county checks
-  - [ ] Add `has_profitable_trade_goods_trigger`
+  - [ ] Add `has_profitable_trade_goods_trigger` for production checks
+  - [ ] Implement `can_establish_trade_agreement_trigger` for character interactions
+  - [ ] Create `is_trade_route_disrupted_trigger` for route status checks
+  - [ ] Add `has_trade_prosperity_trigger` with multiple levels
+  - [ ] Ensure compatibility with standard trigger structure conventions
+
+### 2.6 Trade Effects and Actions
+
+- [ ] Create `common/scripted_effects/trade_effects.txt` for trade actions
+  - [ ] Implement `setup_trade_route_effect` for route initialization
+  - [ ] Create `calculate_trade_income_effect` for economic impact
+  - [ ] Add `apply_trade_opinion_effect` for character relations
+  - [ ] Implement `destroy_trade_route_effect` for route disruption
+  - [ ] Create `trade_cultural_exchange_effect` for innovation spread
+  - [ ] Add `apply_trade_prosperity_effect` with county modifications
+  - [ ] Follow standard effect formatting and scope manipulation
+
+### 2.7 Trade Calculation System
+
+- [ ] Create `common/scripted_effects/trade_calculation_effects.txt` for core algorithms
+  - [ ] Implement monthly flow calculation algorithm
+  - [ ] Create node value determination system
+  - [ ] Add good distribution and pricing mechanisms
+  - [ ] Implement route efficiency calculations based on control
+  - [ ] Create prosperity level determination
+  - [ ] Add character wealth generation from trade
+  - [ ] Optimize for efficient monthly pulse execution
+
+### 2.8 On-Action Hooks
+
+- [ ] Create `common/on_action/trade_on_actions.txt` for trade event hooks
+  - [ ] Hook into `on_monthly_pulse` for trade calculations
+  - [ ] Add `on_county_occupied` hook for route disruption
+  - [ ] Implement `on_realm_law_changed` for trade policy updates
+  - [ ] Create `on_character_travel_start` hooks for caravan events
+  - [ ] Add `on_holding_building_constructed` for trade building effects
+  - [ ] Implement `on_culture_era_changed` for new goods unlocking
+  - [ ] Add compatibility with `fp1_trade_events_cycle` and `fp1_trade_events_random`
+  - [ ] Create hooks for major historical disruptions (like Black Death)
+  - [ ] Add `on_realm_split` hook for empire fragmentation effects
+  - [ ] Implement `on_game_year_change` hook for historical progression
+
+### 2.9 Trade Variables and Flags
+
+- [ ] Create `common/script_values/trade_variables.txt` for state tracking
+  - [ ] Implement global trade network state variables
+  - [ ] Create county-level trade activity tracking
+  - [ ] Add character trade participation metrics
+  - [ ] Implement realm trade policy state
+  - [ ] Create trade agreement status tracking
+  - [ ] Add trade route disruption flags
+  - [ ] Use standard variable naming conventions for compatibility
+
+### 2.10 Trade Modifiers
+
+- [ ] Create `common/modifiers/trade_modifiers.txt` for gameplay effects
+  - [ ] Implement county trade value modifiers
+  - [ ] Create character trade income multipliers
+  - [ ] Add building trade efficiency bonuses
+  - [ ] Implement cultural trade acceptance modifiers
+  - [ ] Create trade route throughput adjustments
+  - [ ] Add special trade good bonuses
+  - [ ] Leverage existing modifiers like monthly_income_mult and development_growth_factor
+
+### 2.11 Merchant Organizations
+
+- [ ] Create `common/merchant_guilds/` folder for organization definitions
+  - [ ] Implement Hanseatic League structure
+  - [ ] Define Italian merchant houses (Medici, etc.)
+  - [ ] Create Middle Eastern merchant networks
+  - [ ] Set up organization power calculation
+  - [ ] Create inter-organization rivalry system
+  - [ ] Implement guild master character generation
+  - [ ] Define ruler-guild relation framework
+  - [ ] Create guild influence mechanics in counties
+  - [ ] Set up autonomous guild actions independent of ruler control
+  - [ ] Add era-appropriate availability restrictions (Hanseatic League c. 1356)
+
+### 2.12 Religious Trade System
+
+- [ ] Create `common/scripted_effects/religious_trade_effects.txt` for religious trade mechanics
+  - [ ] Implement pilgrimage-trade overlap mechanics
+  - [ ] Create religious trade centers (Jerusalem, Mecca, Rome)
+  - [ ] Add faith restrictions on trade interactions
+  - [ ] Implement religious order trade benefits
+  - [ ] Create faith-based trade good price modifiers
+  - [ ] Add holy site trade bonuses
+  - [ ] Implement religious diplomatic modifiers for trade
+
+### 2.13 River Trade System
+
+- [ ] Create `common/river_trade_routes/` folder for river trade definitions
+  - [ ] Define major historical river trade routes (Dnieper, Volga, Nile, etc.)
+  - [ ] Create specialized river port building types
+  - [ ] Implement seasonal effects on river trade (freezing, floods)
+  - [ ] Add piracy and toll mechanics for river routes
+  - [ ] Create river trade control mechanics
+  - [ ] Implement special terrain bonuses for river trade
+  - [ ] Add river-specific trade goods and specializations
+
+### 2.14 Maritime Innovation System
+
+- [ ] Create `common/trade_technologies/maritime_innovations.txt` for naval technologies
+  - [ ] Define progression of maritime technologies (compass, shipbuilding, etc.)
+  - [ ] Create discovery and spread mechanics for innovations
+  - [ ] Implement effects of maritime technologies on trade
+  - [ ] Add character knowledge requirements for technologies
+  - [ ] Create discovery events framework
+  - [ ] Implement era-specific maritime capabilities
+  - [ ] Add regional specialization in naval technologies
+  - [ ] Create historically accurate timing for major innovations (magnetic compass c. 1100-1200)
+  - [ ] Implement knowledge diffusion from advanced to less advanced regions
+
+### 2.15 Trade Technology System
+
+- [ ] Create `common/trade_technologies/financial_innovations.txt` for economic innovations
+  - [ ] Define financial instruments (bills of exchange, banking, etc.)
+  - [ ] Create merchant-banking mechanics
+  - [ ] Implement currency and exchange systems
+  - [ ] Add long-distance trade facilitation mechanics
+  - [ ] Create character education requirements for financial knowledge
+  - [ ] Implement technology spread through trade routes
+  - [ ] Add specialized character roles for financial innovations
+  - [ ] Implement historical year restrictions for advanced banking (bills of exchange c. 1150+)
+  - [ ] Add regional early unlock for Italian city-states
+  - [ ] Create progressive unlocking system for financial instruments by era
+
+### 2.16 Empire Peace Effects System
+
+- [ ] Create `common/scripted_effects/trade_peace_effects.txt` for empire stability mechanics
+  - [ ] Implement "Pax Mongolica" style trade safety bonuses for large stable realms
+  - [ ] Create trade route safety calculations based on political stability
+  - [ ] Add empire fragmentation penalties to trade
+  - [ ] Implement civil war and succession crisis trade disruptions
+  - [ ] Create special caravan protection mechanics for large realms
+  - [ ] Add diplomatic relation modifiers based on shared trade benefits
+  - [ ] Implement trade recovery after major political shifts
+  - [ ] Add era-appropriate empire effects (Pax Mongolica c. 1250-1350)
+
+## 3. Silk Road Implementation
+
+- [ ] Create `common/trade_routes/silk_road.txt` defining main route
+- [ ] Create `common/trade_routes/silk_road_branches.txt` for secondary routes
+- [ ] Create `common/trade_nodes/` folder for trade junction definitions
+  - [ ] Create `common/trade_nodes/eastern_nodes.txt` (China, Central Asia)
+  - [ ] Create `common/trade_nodes/middle_eastern_nodes.txt` (Persia, Mesopotamia)
+  - [ ] Create `common/trade_nodes/european_nodes.txt` (Constantinople, Venice, etc.)
+- [ ] Create `common/province_modifiers/trade_province_modifiers.txt` for route bonuses
+
+## 4. Trade Goods
+
+- [ ] Create `common/trade_goods/luxury_goods.txt` (silk, spices, jade, etc.)
+- [ ] Create `common/trade_goods/common_goods.txt` (grain, timber, metals, etc.)
+- [ ] Create `common/trade_goods/regional_goods.txt` (area-specific goods)
+- [ ] Create `localization/english/trade_goods_l_english.yml` for goods descriptions
+- [ ] Reuse existing inventory or artifact icons from vanilla game for all goods
+
+## 5. Trade Buildings
+
+- [ ] Create `common/buildings/trade_buildings.txt` for:
+  - [ ] Caravanserais
+  - [ ] Trading posts
+  - [ ] Warehouses
+  - [ ] Market squares
+  - [ ] Toll stations
+  - [ ] Guild halls
+  - [ ] Trade fair grounds
+  - [ ] River ports
+  - [ ] Caravan outfitting centers
+  - [ ] Banking houses (historically locked until 1100+ for Italian regions, 1200+ for others)
+  - [ ] Merchant quarters
+- [ ] Reuse appropriate existing building icons from vanilla game
+- [ ] Create `localization/english/trade_buildings_l_english.yml` for building descriptions
+- [ ] Implement hooks into the on_holding_building_constructed on-action
+
+## 6. Character Mechanics
+
+- [ ] Create `common/traits/trade_traits.txt` for merchant/trader traits
+- [ ] Create `common/character_interactions/trade_interactions.txt` for:
+  - [ ] Establish relations with merchant guilds
+  - [ ] Invest in trade venture
+  - [ ] Sabotage rival's trade
+  - [ ] Hire merchant advisors
+  - [ ] Grant trade privileges to guilds
+  - [ ] Negotiate with guild masters
+- [ ] Create `common/decisions/trade_decisions.txt` for character trade choices
+- [ ] Integrate with existing character scope and AI behavior systems
+
+## 7. Events
+
+- [ ] Create `events/trade_events.txt` for generic trade events
+- [ ] Create `events/silk_road_events.txt` for Silk Road specific events:
+  - [ ] Merchant caravan arrival
+  - [ ] Trade disputes
+  - [ ] Exotic goods discovery
+  - [ ] Trade delegation
+- [ ] Create `events/cultural_exchange_events.txt` for cross-cultural encounters
+- [ ] Create `events/trade_crisis_events.txt` for disruptions and opportunities
+- [ ] Create `localization/english/trade_events_l_english.yml` for event texts
+- [ ] Use travel_plan scope for caravan-related events
+
+## 8. Trade Fair System
+
+- [ ] Create `common/activities/trade_fair.txt` for trade fair framework
+- [ ] Create `events/trade_fair_events.txt` for Champagne-style trade fair events:
+  - [ ] Fair preparation events
+  - [ ] Merchant arrival events
+  - [ ] Negotiations and deals events
+  - [ ] Cultural exchange during fairs
+  - [ ] Disputes and resolution events
+  - [ ] Fair conclusion events
+- [ ] Create `common/modifiers/trade_fair_modifiers.txt` for temporary effects
+- [ ] Create `decisions/host_trade_fair_decision.txt` for initiating fairs
+- [ ] Use existing event illustrations from vanilla game - NO custom art
+- [ ] Implement hooks into activity system similar to feasts and hunts
+- [ ] Add historical restrictions (Champagne fairs begin c. 1150)
+
+## 9. Merchant Republic System
+
+- [ ] Create `common/government_types/merchant_republic_types.txt` for republic framework
+- [ ] Create `common/succession_laws/merchant_republic_succession.txt` for unique succession
+- [ ] Create `common/buildings/merchant_republic_buildings.txt`

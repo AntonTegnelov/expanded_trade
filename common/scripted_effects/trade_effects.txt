@@ -300,3 +300,10 @@ generate_merchant_character_effect = {
 		}
 	}
 }
+
+# Effect to show trade mapmode in tutorial
+show_trade_mapmode_effect = {
+	custom_tooltip = show_trade_mapmode_tooltip
+	# This is a placeholder - will need UI integration in the future
+	# Currently it just provides guidance in the tooltip
+}

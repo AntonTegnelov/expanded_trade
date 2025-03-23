@@ -1,0 +1,12 @@
+l_english:
+ 
+ # Trade Tutorial Events
+ trade_tutorial.001.t:0 "Introduction to Trade"
+ trade_tutorial.001.desc:0 "Your realm is situated near the famous Silk Road, a network of trade routes connecting East and West. By participating in trade, you can increase your wealth, improve relations with foreign rulers, and bring prosperity to your lands.\n\nTrade routes bring valuable goods through your realm, while trade buildings and decisions allow you to benefit from merchant activity."
+ trade_tutorial.001.a:0 "Show me how trade works"
+ trade_tutorial.001.a.tt:0 "Learn about the basics of the trade system and how to benefit from trade activities in your realm."
+ trade_tutorial.001.b:0 "I'll figure it out myself"
+ trade_tutorial.001.b.tt:0 "Skip the trade tutorials. You can always learn about trade through the game rules or by experimenting."
+ 
+ # Trade Tutorial Effects
+ show_trade_mapmode_tooltip:0 "The Trade Map Mode helps you visualize trade routes and nodes. To access it, click on the map mode button in the lower right corner and select the Trade Map Mode.\n\nTrade routes are represented by lines connecting trade nodes. The color indicates prosperity level, while disrupted routes will appear dashed." 

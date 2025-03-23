@@ -176,3 +176,10 @@ on_monthly_county_pulse = {
 		trade_events.0002		# Local Goods Price Fluctuation
 	}
 }
+
+# Game start hook for tutorial events
+on_game_start_after_lobby = {
+	events = {
+		trade_tutorial.001		# Introduction to Trade Tutorial
+	}
+}
