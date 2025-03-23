@@ -342,8 +342,8 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Define progression of lesson chains
     - [x] Set proper prerequisites using existing lesson chains
     - [x] Configure save_progress_in_gamestate settings
-  - [ ] Create `common/important_actions/trade_reactive_advice.txt`
-    - [ ] Implement reactive advice for trade situations
+  - [x] Create `common/important_actions/trade_reactive_advice.txt`
+    - [x] Implement reactive advice for trade situations
     - [ ] Set appropriate triggers for when advice should appear
     - [ ] Connect to lesson system with start_tutorial_lesson
   - [ ] Update localization files for tutorial content
