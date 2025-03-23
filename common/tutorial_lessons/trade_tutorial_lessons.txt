@@ -42,6 +42,17 @@ trade_introduction_lesson = {
 		}
 		# Configure animation for tutorial window
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		# Set flag when this step is viewed
 		on_start = {
 			effect = {
@@ -84,6 +95,17 @@ trade_introduction_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_continue = {
 			transition = next_step
 			transition_animation = slide_right
@@ -107,6 +129,17 @@ trade_introduction_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
@@ -167,6 +200,17 @@ trade_buildings_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
@@ -197,6 +241,17 @@ trade_buildings_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
@@ -257,6 +312,17 @@ trade_policies_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
@@ -287,6 +353,17 @@ trade_policies_lesson = {
 		}
 		# Configure animation for this step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
@@ -317,6 +394,17 @@ trade_policies_lesson = {
 		}
 		# Configure animation for final step
 		animation = center
+		# Use encapsulated states for better animation control
+		state = {
+			name = "appear_state"
+			animation = "tutorial_appear"
+			trigger_on = appear
+		}
+		state = {
+			name = "idle_state"
+			animation = "tutorial_idle"
+			trigger_on = idle
+		}
 		on_start = {
 			effect = {
 				set_character_flag = {
