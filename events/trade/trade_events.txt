@@ -683,53 +683,152 @@ trade_events.0004 = {
 	}
 }
 
-# Trade Status Change Notification Event
-# This event is triggered when a county's trade route status changes
+# Trade Status Change Notification
+# This event informs the ruler about changes in trade status on their routes
 trade_events.0100 = {
-	type = county_event
+	type = character_event
 	title = trade_events.0100.t
-	desc = {
-		desc = trade_events.0100.active_desc
-		trigger = {
-			has_county_flag = on_active_trade_route
-		}
-	}
-	desc = {
-		desc = trade_events.0100.disrupted_desc
-		trigger = {
-			has_county_flag = on_disrupted_trade_route
-		}
-	}
+	desc = trade_events.0100.desc
 	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
 	trigger = {
-		OR = {
-			has_county_flag = on_active_trade_route
-			has_county_flag = on_disrupted_trade_route
+		any_county = {
+			OR = {
+				has_county_flag = on_active_trade_route
+				has_county_flag = on_disrupted_trade_route
+			}
 		}
 	}
 	immediate = {
-		save_scope_as = status_change_county
+		random_county = {
+			limit = {
+				OR = {
+					has_county_flag = on_active_trade_route
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+			save_scope_as = trade_status_county
+		}
 	}
 	# Acknowledge
 	option = {
 		name = trade_events.0100.a
-		# Different effects based on the trade route status
-		if = {
+		custom_tooltip = trade_status_county_tooltip
+	}
+}
+
+# Prosperity Trade Event
+# This event triggers for rulers with prosperous trade counties
+trade_events.0201 = {
+	type = character_event
+	title = trade_events.0201.t
+	desc = trade_events.0201.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	trigger = {
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+			has_county_flag = trade_prosperity_high
+		}
+	}
+	immediate = {
+		random_held_title = {
 			limit = {
+				tier = county
+				has_county_flag = on_active_trade_route
+				has_county_flag = trade_prosperity_high
+			}
+			save_scope_as = prosperous_trade_county
+		}
+	}
+	# Benefit from prosperity
+	option = {
+		name = trade_events.0201.a
+		add_gold = medium_gold_gain
+		add_prestige = minor_prestige_gain
+	}
+}
+
+# Caravan Trade Event
+# This event triggers for rulers with active trade routes
+trade_events.0202 = {
+	type = character_event
+	title = trade_events.0202.t
+	desc = trade_events.0202.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	trigger = {
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+		}
+	}
+	immediate = {
+		random_held_title = {
+			limit = {
+				tier = county
 				has_county_flag = on_active_trade_route
 			}
+			save_scope_as = caravan_county
+		}
+	}
+	# Welcome the caravan
+	option = {
+		name = trade_events.0202.a
+		add_gold = minor_gold_gain
+		scope:caravan_county = {
 			add_county_modifier = {
-				modifier = trade_route_active
-				days = 365
+				modifier = recent_caravan_visit
+				years = 1
 			}
 		}
-		else_if = {
+	}
+}
+
+# Merchant Trade Event
+# This event triggers for rulers with merchant activity
+trade_events.0203 = {
+	type = character_event
+	title = trade_events.0203.t
+	desc = trade_events.0203.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_sociable
+	}
+	trigger = {
+		any_held_title = {
+			tier = county
+			has_county_flag = on_active_trade_route
+		}
+	}
+	immediate = {
+		random_held_title = {
 			limit = {
-				has_county_flag = on_disrupted_trade_route
+				tier = county
+				has_county_flag = on_active_trade_route
 			}
+			save_scope_as = merchant_county
+		}
+	}
+	# Deal with the merchants
+	option = {
+		name = trade_events.0203.a
+		add_gold = minor_gold_gain
+		scope:merchant_county = {
 			add_county_modifier = {
-				modifier = trade_route_disrupted
-				days = 365
+				modifier = merchant_connections
+				years = 2
 			}
 		}
 	}
