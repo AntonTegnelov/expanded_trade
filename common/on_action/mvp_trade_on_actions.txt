@@ -2,6 +2,7 @@
 # These on_actions provide minimal integration with game events for the MVP
 # Simplified versions of the full trade on_actions
 # Hook into the standard on_monthly_pulse to run our trade calculations
+# This is a standard game on_action that triggers every month
 on_monthly_pulse = {
 	on_actions = {
 		mvp_on_monthly_trade_pulse
@@ -9,78 +10,255 @@ on_monthly_pulse = {
 }
 
 # Monthly pulse for trade calculations
+# This is our custom on_action called by on_monthly_pulse
+# No specific scope - inherits from the parent on_action
 mvp_on_monthly_trade_pulse = {
-	# This is called by hooking into the on_monthly_pulse
 	effect = {
-		# Execute the simplified trade flow calculation
-		# This uses the MVP versions of the effects for better performance
-		calculate_basic_trade_income_effect = yes
-		# Update county prosperity based on trade route status
-		every_title = {
+		# Execute the simplified trade flow calculation only if we have trade routes
+		# This check improves performance for games without active trade
+		if = {
 			limit = {
-				tier = county
-				has_county_flag = on_silk_road
+				any_title = {
+					tier = county
+					has_county_flag = on_silk_road
+				}
 			}
-			# Apply trade prosperity effects to counties on the Silk Road
-			apply_trade_prosperity_effect = yes
+			# Execute the simplified trade flow calculation
+			# This uses the MVP versions of the effects for better performance
+			calculate_basic_trade_income_effect = yes
+			# Update county prosperity based on trade route status
+			# Only process counties on the Silk Road for better performance
+			every_title = {
+				limit = {
+					tier = county
+					has_county_flag = on_silk_road
+				}
+				# Apply trade prosperity effects to counties on the Silk Road
+				apply_trade_prosperity_effect = yes
+				# Check for status changes - only if there are active or disrupted routes
+				# This significantly reduces unnecessary checks
+				if = {
+					limit = {
+						OR = {
+							has_county_flag = on_active_trade_route
+							has_county_flag = on_disrupted_trade_route
+							# Also check prosperity flags to catch prosperity changes
+							has_county_flag = trade_prosperity_low
+							has_county_flag = trade_prosperity_medium
+							has_county_flag = trade_prosperity_high
+						}
+					}
+					# If trade status has changed, trigger events
+					if = {
+						limit = {
+							OR = {
+								# Route was active but is now disrupted
+								AND = {
+									has_county_flag = on_active_trade_route
+									has_county_flag = on_disrupted_trade_route
+								}
+								# Route was disrupted but is now active
+								AND = {
+									had_county_flag = {
+										flag = on_disrupted_trade_route
+										days = 0
+									}
+									has_county_flag = on_active_trade_route
+									NOT = {
+										has_county_flag = on_disrupted_trade_route
+									}
+								}
+								# New prosperity level - low to medium
+								AND = {
+									has_county_flag = on_active_trade_route
+									had_county_flag = {
+										flag = trade_prosperity_low
+										days = 0
+									}
+									has_county_flag = trade_prosperity_medium
+									NOT = {
+										has_county_flag = trade_prosperity_low
+									}
+								}
+								# New prosperity level - medium to high
+								AND = {
+									has_county_flag = on_active_trade_route
+									had_county_flag = {
+										flag = trade_prosperity_medium
+										days = 0
+									}
+									has_county_flag = trade_prosperity_high
+									NOT = {
+										has_county_flag = trade_prosperity_medium
+									}
+								}
+							}
+						}
+						# Trigger trade status change on_action
+						trigger_event = {
+							on_action = mvp_trade_status_change
+						}
+					}
+				}
+			}
 		}
 	}
 	events = {
 		# Add event references here when MVP trade events are implemented
 		# These would be simpler versions focused on core mechanics
 	}
+	# Fallback in case no events are valid - could be used for debugging
+	# fallback = mvp_trade_fallback
 }
 
 # County occupation affects trade routes
+# Root is the county title
 on_county_occupied = {
-	# Root is the county title
+	# Only run this for counties on trade routes to improve performance
+	trigger = {
+		has_county_flag = on_silk_road
+	}
 	effect = {
-		# Check if county is on trade route
-		if = {
-			limit = {
-				has_county_flag = on_silk_road
-			}
-			# Apply trade route disruption effect
-			disrupt_trade_route_effect = yes
-			# Log for debugging
-			debug_log = "Trade route disrupted due to occupation in [ROOT.GetName]"
+		# Apply trade route disruption effect
+		disrupt_trade_route_effect = yes
+		# Log for debugging
+		debug_log = "Trade route disrupted due to occupation in [ROOT.GetName]"
+		# Trigger trade status change events
+		trigger_event = {
+			on_action = mvp_trade_status_change
 		}
 	}
 }
 
 # Building construction affects trade
+# Root is the holding
+# scope:builder is the character who built it
 on_holding_building_constructed = {
-	# Root is the holding
-	# scope:builder is the character who built it
+	trigger = {
+		# Only process for trade-related buildings
+		OR = {
+			exists = building:market_square_01
+			exists = building:trading_post_01
+		}
+		# Only check counties on trade routes for performance
+		county = {
+			has_county_flag = on_silk_road
+		}
+	}
 	effect = {
-		# Check if a trade-related building was constructed
-		if = {
-			limit = {
-				OR = {
-					exists = building:market_square_01
-					exists = building:trading_post_01
+		# Boost trade in the county
+		county = {
+			# Apply or upgrade trade prosperity
+			apply_trade_prosperity_effect = yes
+			# Flag county as being on active trade route if it's on the silk road
+			# but not already flagged
+			if = {
+				limit = {
+					NOT = {
+						has_county_flag = on_active_trade_route
+					}
+					NOT = {
+						has_county_flag = on_disrupted_trade_route
+					}
+				}
+				set_county_flag = on_active_trade_route
+				# Trigger trade status change events for new active route
+				trigger_event = {
+					on_action = mvp_trade_status_change
 				}
 			}
-			# Boost trade in the county
-			county = {
-				# Apply or upgrade trade prosperity
-				apply_trade_prosperity_effect = yes
-				# Flag county as being on active trade route if it's on the silk road
-				# but not already flagged
-				if = {
-					limit = {
-						has_county_flag = on_silk_road
-						NOT = {
-							has_county_flag = on_active_trade_route
-						}
-						NOT = {
-							has_county_flag = on_disrupted_trade_route
-						}
-					}
-					set_county_flag = on_active_trade_route
+			# Log for debugging
+			debug_log = "Trade building constructed in [ROOT.GetName]"
+		}
+	}
+}
+
+# Integration with Northern Lords DLC's trade events if available
+# This ensures our trade system works alongside the vanilla DLC
+# scope:character is provided by the parent on_action
+fp1_trade_events_random = {
+	# Only trigger our integration events if trade routes exist
+	# This is a critical performance optimization
+	trigger = {
+		scope:character = {
+			any_sub_realm_county = {
+				has_county_flag = on_silk_road
+				has_county_flag = on_active_trade_route
+			}
+		}
+	}
+	# Use weight_multiplier to reduce frequency of these events for performance
+	weight_multiplier = {
+		base = 1
+		# Reduce frequency if character has many trade counties to prevent spam
+		modifier = {
+			add = -0.5
+			scope:character = {
+				count_sub_realm_county = {
+					count > 5
+					has_county_flag = on_active_trade_route
 				}
-				# Log for debugging
-				debug_log = "Trade building constructed in [ROOT.GetName]"
+			}
+		}
+	}
+	events = {
+		# These event IDs need to be updated when implementing actual events
+		# that integrate with Northern Lords content
+		scope:character = {
+			trigger_event = {
+				id = mvp_trade_events.0100
+				days = {
+					3
+					7
+				}
+				random = yes
+			}
+		}
+	}
+}
+
+# Custom on_action for trade status changes
+# This would be triggered when trade prosperity levels change
+# Root is expected to be a county title
+mvp_trade_status_change = {
+	trigger = {
+		has_county_flag = on_silk_road
+	}
+	effect = {
+		# Log the status change
+		debug_log = "Trade status changed in [ROOT.GetName]"
+		# Save trade status for event reference
+		save_temporary_scope_as = trade_county
+		# Notify county owner
+		owner = {
+			save_temporary_scope_as = county_owner
+		}
+	}
+	# Events for different trade status changes
+	events = {
+		# Route disruption notification
+		mvp_trade_events.0201 = {
+			trigger = {
+				has_county_flag = on_disrupted_trade_route
+			}
+		}
+		# Route restoration notification
+		mvp_trade_events.0202 = {
+			trigger = {
+				has_county_flag = on_active_trade_route
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+		}
+		# Prosperity increase notification
+		mvp_trade_events.0203 = {
+			trigger = {
+				has_county_flag = on_active_trade_route
+				OR = {
+					has_county_flag = trade_prosperity_medium
+					has_county_flag = trade_prosperity_high
+				}
 			}
 		}
 	}
