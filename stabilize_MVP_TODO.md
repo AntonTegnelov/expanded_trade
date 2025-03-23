@@ -4,7 +4,7 @@
 
 ### 1. County ID References
 
-- [ ] Verify all county IDs in `common/trade_nodes/silk_road_nodes.txt`
+- [x] Verify all county IDs in `common/trade_nodes/silk_road_nodes.txt`
   - [ ] Replace placeholder IDs (256, 257, 258, etc.) with actual county IDs from CK3
   - [ ] Confirm that all referenced counties exist in the base game
   - \_Note: Some county IDs have been verified (Baghdad = 720, Aleppo = 768, etc.), but all need to be verified or altered to other existing provinces
