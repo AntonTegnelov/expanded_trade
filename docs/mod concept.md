@@ -29,6 +29,18 @@ Player engagement is maintained through:
 - Gradual unlocking of more valuable trade goods and routes as their influence grows
 - Competing objectives between maximizing trade profit and other feudal concerns
 
+## Artistic Direction
+
+This mod will leverage existing art assets from the base game as much as possible. No custom art will be created unless absolutely necessary, and in those rare cases, only minimal art assets will be developed. The mod will:
+
+- Repurpose existing event backgrounds for trade-related events
+- Use vanilla icons and UI elements for trade interfaces
+- Adapt existing map overlays and markers for trade routes
+- Utilize standard building icons for trade structures
+- Reuse existing character portraits and clothing for merchant characters
+
+This approach ensures compatibility with the base game aesthetic while focusing development resources on gameplay systems rather than visual assets.
+
 ## Core Loops
 
 The primary gameplay loops include:

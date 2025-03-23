@@ -1,0 +1,32 @@
+# Trade Tutorial Lesson Chains
+# These chains define the progression of trade tutorials integrated with vanilla lesson chains
+# Main trade lesson chain - Basic introduction to trade system
+trade_basics_chain = {
+	# Only show after player has completed the basic game tutorials
+	trigger = {
+		# This ensures we don't show trade tutorials until basics are covered
+		is_tutorial_lesson_chain_completed = lesson_chain_basics_unpause
+	}
+	# Save progress in the game state so it's preserved between sessions
+	save_progress_in_gamestate = yes
+	# Define the order of lessons in this chain
+	lessons = {
+		trade_introduction_lesson		# Start with general introduction
+		trade_buildings_lesson		# Then cover buildings
+		trade_policies_lesson		# Finally cover policies
+	}
+}
+
+# Reactive lesson chain - Used for important action notifications
+trade_reactive_chain = {
+	# No specific trigger - these are shown based on important action triggers
+	trigger = {
+		always = yes
+	}
+	save_progress_in_gamestate = yes
+	# Reactive lessons that can be triggered by important actions
+	lessons = {
+		# Empty for now - will be populated with reactive lessons as needed
+		# This structure is included as a placeholder for the MVP
+	}
+}

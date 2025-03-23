@@ -1,0 +1,105 @@
+# Trade Reactive Advice
+# These important actions provide reactive advice related to trade situations
+# First Trade Building - Shown when player builds their first trade building
+trade_building_advice = {
+	type = important_action
+	# Check if this is the player's first trade building
+	trigger = {
+		exists = this
+		is_ai = no
+		NOT = {
+			has_character_flag = seen_trade_building_advice
+		}
+		any_held_title = {
+			tier = county
+			any_county_holding = {
+				OR = {
+					has_building = market_square
+					has_building = trading_post
+					has_building = caravanserai
+				}
+			}
+		}
+	}
+	# If the player doesn't have the flag yet, add it to avoid showing this again
+	immediate = {
+		add_character_flag = {
+			flag = seen_trade_building_advice
+			days = -1
+		}
+	}
+	# Function to check if this advice should be created
+	check_create_action = {
+		save_temporary_scope_as = character
+		# Create the advice with proper title and description 
+		create_important_action = {
+			title = trade_building_advice_title
+			desc = trade_building_advice_desc
+			# Add sound effect for notification
+			soundeffect = "event:/SFX/UI/Notifications/notification_generic"
+		}
+	}
+	# Connection to relevant tutorial lesson
+	on_action_taken = {
+		effect = {
+			# This would connect to actual tutorial lesson in the full implementation
+			# start_tutorial_lesson = trade_buildings_lesson
+			# For MVP, just provide a small bonus for acknowledging
+			add_gold = 10
+		}
+	}
+}
+
+# Trade Route Disruption - Shown when a trade route becomes disrupted
+trade_route_disruption_advice = {
+	type = important_action
+	# Check if player has a disrupted trade route
+	trigger = {
+		exists = this
+		is_ai = no
+		any_held_title = {
+			tier = county
+			has_county_flag = on_silk_road
+			has_county_flag = on_disrupted_trade_route
+			NOT = {
+				has_county_flag = notified_disruption
+			}
+		}
+	}
+	# Mark the county as notified
+	immediate = {
+		random_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_silk_road
+				has_county_flag = on_disrupted_trade_route
+				NOT = {
+					has_county_flag = notified_disruption
+				}
+			}
+			set_county_flag = {
+				flag = notified_disruption
+				days = 365
+			}
+		}
+	}
+	# Function to check if this advice should be created
+	check_create_action = {
+		save_temporary_scope_as = character
+		# Create the advice with proper title and description
+		create_important_action = {
+			title = trade_route_disruption_advice_title
+			desc = trade_route_disruption_advice_desc
+			# Add sound effect for notification
+			soundeffect = "event:/SFX/UI/Notifications/notification_warning"
+		}
+	}
+	# Connection to relevant tutorial lesson or event
+	on_action_taken = {
+		effect = {
+			# This would connect to actual tutorial lesson in the full implementation
+			# start_tutorial_lesson = trade_route_security_lesson
+			# For MVP, just provide guidance
+		}
+	}
+}

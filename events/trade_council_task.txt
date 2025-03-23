@@ -24,6 +24,9 @@ trade_council_task.001 = {
 		}
 	}
 	immediate = {
+		council_task_steward = {
+			save_scope_as = councillor
+		}
 		save_scope_as = task_owner
 	}
 	option = {

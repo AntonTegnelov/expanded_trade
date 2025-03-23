@@ -958,6 +958,17 @@ Expanded Trade Mod
 - Initialize trade systems properly when loading existing saves
 - Handle migration of trade data between mod versions
 
+### 7.5 Art and Visual Assets Approach
+
+- Leverage existing game art assets exclusively where possible
+- No custom art will be created unless absolutely necessary
+- Interface elements will utilize vanilla UI components and templates
+- Event illustrations will repurpose existing game art
+- Map visuals will adapt existing map modes and indicators
+- Building icons will reuse appropriate vanilla icons
+- Trade goods will be represented by existing item icons from the base game
+- If custom visuals are absolutely required, they will be minimal and closely match the game's style
+
 ### 7.6 Historical Accuracy Timeline
 
 To maintain historical accuracy, the mod implements the following timeline restrictions:
@@ -1008,45 +1019,137 @@ These restrictions ensure players experience a historically plausible progressio
 
 ### 9.1 Concept
 
-**Files**: `events/trade_tutorial_events.txt`, `gui/trade_tutorial_window.gui`
+**Files**: `common/tutorial_lessons/trade_tutorial_lessons.txt`, `common/tutorial_lesson_chains/trade_lesson_chains.txt`, `common/important_actions/trade_reactive_advice.txt`
 
-- **Implementation**: Progressive tutorial events and tooltips that introduce trade mechanics to players
-- **Design Philosophy**: "Learn by doing" approach that teaches mechanics when they become relevant
+- **Implementation**: Uses CK3's native tutorial system with lesson chains, lessons, and reactive advice
+- **Design Philosophy**: Integrated guidance that extends the vanilla tutorial framework with trade-specific lessons
 
 ### 9.2 Components
 
-#### 9.2.1 Tutorial Events Chain
+#### 9.2.1 Lesson Chains
 
-- **Initial Introduction**: Triggered when player first encounters trade mechanics
-- **System-Specific Tutorials**: Separate tutorial events for each major system
-- **Progressive Complexity**: Tutorials unlock as player advances in trade capability
-- **Era-Based Guidance**: New tutorials appear when new mechanics unlock
+- **File Structure**:
+  ```
+  lesson_chain_trade = {
+      save_progress_in_gamestate = yes
+      trigger = {
+          is_tutorial_lesson_chain_completed = lesson_chain_basics_unpause
+      }
+  }
+  ```
+- **Integration Points**:
+  - Hooks into vanilla lesson chain system
+  - Respects existing tutorial progression
+  - Maintains save state across play sessions
+  - Follows CK3's tutorial UI patterns
 
-#### 9.2.2 Context-Sensitive Help
+#### 9.2.2 Lessons
 
-- **Hoverable Info Icons**: Added to all trade UIs for detailed explanations
-- **Suggestion System**: Contextual suggestions based on player's current situation
-- **Trade Advisor**: Optional character interaction with a "trade advisor" character who provides guidance
+- **File Structure**:
 
-#### 9.2.3 Guided Tasks
+  ```
+  lesson_trade_basics = {
+      chain = lesson_chain_trade
+      delay = 0
 
-- **Tutorial Decisions**: Simple trade-related tasks that teach basic mechanics
-- **Achievement Framework**: Small rewards for completing tutorial stages
-- **Reference Guide**: Accessible encyclopedia of trade concepts and mechanics
+      lesson_trade_introduction = {
+          text = "lesson_trade_introduction_desc"
+          force_pause_game = yes
+          animation = center
 
-### 9.3 Complexity Management
+          highlight_widget = "trade_mapmode_button"
 
-- **Tiered Interface**: Basic view with essential information, expandable to detailed view
-- **Complexity Settings**: Game rule to adjust tutorial frequency and detail level
-- **Auto-Suggestion**: Optional automated suggestions for optimal trade actions
-- **Quick Reference**: One-click access to essential trade information
+          gui_transition = {
+              button_id = "next"
+              button_text = "tutorial_lesson_button_next"
+              target = lesson_trade_routes
+          }
+      }
+
+      lesson_trade_routes = {
+          text = "lesson_trade_routes_desc"
+          header_info = "lesson_step_2_of_4"
+
+          highlight_widget = "trade_route_window"
+
+          # More lesson content
+      }
+
+      # Additional lessons in sequence
+  }
+  ```
+
+- **Key Features**:
+  - Widget highlighting for UI elements
+  - Guided transitions with buttons
+  - Step-by-step progression
+  - Lesson encyclopedia integration
+  - Proper animation and UI placement
+
+#### 9.2.3 Reactive Advice
+
+- **File Structure**:
+
+  ```
+  action_reactive_advice_trade_building = {
+      type = tutorial
+      icon = generic_reactive_advice
+      soundeffect = "event:/SFX/UI/Notifications/TopBar/sfx_ui_notifications_topbar_reactive_advice"
+
+      check_create_action = {
+          if = {
+              limit = {
+                  should_show_tutorial_alert = { LESSON = reactive_advice_trade_building }
+                  gold > 100
+                  any_realm_county = {
+                      has_county_flag = is_on_silk_road
+                  }
+              }
+              try_create_important_action = {
+                  important_action_type = action_reactive_advice_trade_building
+                  actor = root
+              }
+          }
+      }
+
+      effect = {
+          start_tutorial_lesson = reactive_advice_trade_building
+      }
+  }
+  ```
+
+- **Integration Points**:
+  - Uses vanilla important_action system
+  - Context-sensitive triggers for timely advice
+  - Connects to specific tutorial lessons
+  - Compatible with notification system
+
+### 9.3 Lesson Content
+
+- **Introduction to Trade**: Basic overview of trade mechanics and interface
+- **Trade Routes and Nodes**: Explanation of route system and node control
+- **Trade Buildings**: Guide to building and upgrading trade infrastructure
+- **Trade Policies**: Tutorial for selecting and managing trade policies
+- **Trade Prosperity**: Guidance on maximizing trade benefits
 
 ### 9.4 Integration Points
 
-- **Hooks into Vanilla Tutorial**: Extends existing tutorial framework
-- **Character Events**: Tutorial content delivered through character events
-- **Interface Hints**: Uses vanilla tooltip and hint system
-- **Game Rules**: Respects player's tutorial preferences set in game rules
+- **Hooks into Vanilla Tutorial**: Extends existing lesson framework
+- **Widget Highlighting**: Uses vanilla highlight_widget system
+- **Lesson Encyclopedia**: Integrates with game encyclopedia
+- **Tutorial Settings**: Respects player's tutorial preferences
+- **Lesson Animation**: Uses standard animation placements
+- **GUI Transitions**: Leverages vanilla tutorial navigation system
+
+### 9.5 Implementation Approach
+
+- **Extend, Don't Replace**: Work within vanilla tutorial framework
+- **Consistent UI**: Match vanilla tutorial visual style and interaction patterns
+- **Contextual Triggers**: Show tutorials only when relevant to current game state
+- **Proper Progression**: Ensure tutorials appear in logical sequence
+- **Encyclopedia Integration**: All lessons properly cataloged in game encyclopedia
+- **Respect Player Choices**: Honor tutorial disable settings
+- **Localization Standards**: Follow vanilla format for lesson text
 
 ## 10. Visual Feedback System
 
@@ -1054,46 +1157,46 @@ These restrictions ensure players experience a historically plausible progressio
 
 **Files**: `gui/trade_visual_indicators.gui`, `gfx/interface/icons/trade_states/`
 
-- **Implementation**: Rich visual feedback for trade system state and performance
-- **Design Philosophy**: Critical information should be understood at a glance
+- **Implementation**: Rich visual feedback for trade system state and performance using existing game assets
+- **Design Philosophy**: Critical information should be understood at a glance while leveraging vanilla art assets
 
 ### 10.2 Components
 
 #### 10.2.1 Map Visualization
 
-- **Trade Route Rendering**: Routes colored by prosperity/disruption status
-- **Node Icons**: Visual indicators of node specialization and value
-- **Prosperity Indicators**: County coloring based on trade prosperity levels
+- **Trade Route Rendering**: Routes colored using existing map rendering system
+- **Node Icons**: Repurpose suitable vanilla icons for node representation
+- **Prosperity Indicators**: Utilize existing county coloring systems as used in development or control map modes
 
 #### 10.2.2 UI Enhancement
 
-- **Trade Flow Diagrams**: Interactive flowcharts showing good movement
-- **Prosperity Meter**: Visual gauge of county prosperity level
-- **Route Health Indicator**: Traffic-light system for route status
-- **Income Breakdown**: Visual breakdown of trade income sources
-- **Network Graph**: Interactive network visualization of connected trade nodes
+- **Trade Flow Diagrams**: Adapt existing UI frameworks for interactive information
+- **Prosperity Meter**: Use vanilla UI gauge components as seen in other interfaces
+- **Route Health Indicator**: Repurpose existing status indicators from vanilla interface
+- **Income Breakdown**: Leverage existing economic breakdown visual elements
+- **Network Graph**: Adapt vanilla UI components for network visualization
 
 #### 10.2.3 Animation and Effects
 
-- **Caravan Animation**: Visual representation of active trade along routes
-- **Prosperity Effects**: Visual effects on counties with high trade prosperity
-- **Era Transition Effects**: Special effects when entering new trade eras
-- **Buildings Visualization**: Enhanced building icons showing trade activity levels
+- **Caravan Animation**: Utilize existing travel or army movement animations
+- **Prosperity Effects**: Use existing county visual states for prosperity indication
+- **Era Transition Effects**: Adapt existing notification effects for era changes
+- **Buildings Visualization**: Use vanilla building icons with state modifications
 
 ### 10.3 Visual Accessibility
 
-- **Color-Blind Modes**: Alternative visual indicators for color-blind players
-- **Scaling Options**: Adjustable icon sizes and visual indicators
-- **Simplified View**: Toggle for reduced visual complexity
-- **Custom Themes**: Options for different visual styles of trade indicators
+- **Color-Blind Modes**: Integrate with existing accessibility features
+- **Scaling Options**: Use vanilla UI scaling system
+- **Simplified View**: Leverage existing UI toggle patterns
+- **Custom Themes**: Work within the constraints of vanilla UI theming
 
 ### 10.4 Integration Points
 
-- **Map Modes**: New "Trade" map mode with multiple visualization options
-- **County Window**: Enhanced county view with trade prosperity indicators
-- **Character Interface**: Visual indicators of character trade involvement
-- **Notification System**: Visual alerts for significant trade events
-- **Settings Menu**: Visual feedback configuration options
+- **Map Modes**: Extend existing map mode system
+- **County Window**: Add trade information to vanilla county interface
+- **Character Interface**: Add trade involvement indicators to character UI
+- **Notification System**: Use vanilla notification system for trade alerts
+- **Settings Menu**: Integrate with existing settings framework
 
 ## 11. AI Trade Behavior System
 

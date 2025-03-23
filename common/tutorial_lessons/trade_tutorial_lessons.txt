@@ -1,0 +1,180 @@
+# Trade Tutorial Lessons
+# These lessons guide players through the trade mechanics of the Expanded Trade mod
+# They use CK3's native tutorial system for proper integration
+# Introduction to Trade - Basic overview of the trade system
+trade_introduction_lesson = {
+	type = generic	# Uses standard lesson format
+	# Only show if player has counties on or near trade routes
+	trigger = {
+		exists = capital_province
+		capital_province.county = {
+			OR = {
+				has_county_flag = on_silk_road
+				any_neighboring_county = {
+					has_county_flag = on_silk_road
+				}
+			}
+		}
+	}
+	# Title shown in the tutorial window
+	header_info = {
+		title = "tutorial_lesson_trade_introduction_header"
+	}
+	# Initial step for introduction
+	step = {
+		header = "tutorial_lesson_trade_introduction_step1_header"
+		instruction = "tutorial_lesson_trade_introduction_step1_instruction"
+		highlighted_option = yes		# Highlight the "Next" button
+		button_text = "tutorial_button_continue"
+		# Highlight the trade map mode button
+		highlight_widget = {
+			widget = "map_modes_window_trade_map_mode"
+			should_animate_highlight = yes
+		}
+		# Configure animation for tutorial window
+		animation = center
+		# When the player clicks Next, move to the next step with a visual transition
+		on_continue = {
+			transition = next_step
+			transition_animation = slide_right
+		}
+	}
+	# Step explaining trade routes
+	step = {
+		header = "tutorial_lesson_trade_routes_header"
+		instruction = "tutorial_lesson_trade_routes_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_button_continue"
+		# Open trade map mode when this step starts
+		on_start = {
+			effect = {
+				# This will be replaced with proper effect when map mode is implemented
+				# For MVP, just provide guidance
+			}
+		}
+		# Configure animation for this step
+		animation = center
+		on_continue = {
+			transition = next_step
+			transition_animation = slide_right
+		}
+	}
+	# Step explaining trade buildings
+	step = {
+		header = "tutorial_lesson_trade_buildings_header"
+		instruction = "tutorial_lesson_trade_buildings_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_lesson_complete_button"
+		# Configure animation for final step
+		animation = center
+		on_continue = {
+			effect = {
+				# Small reward for completing tutorial
+				add_gold = 25
+			}
+			transition = complete
+			transition_animation = fade_out
+		}
+	}
+}
+
+# Trade Buildings Guide - Basic building mechanics
+trade_buildings_lesson = {
+	type = generic
+	# Only show for players with enough gold and counties on trade routes
+	trigger = {
+		gold > 100
+		any_held_title = {
+			tier = county
+			has_county_flag = on_silk_road
+		}
+	}
+	header_info = {
+		title = "tutorial_lesson_trade_buildings_guide_header"
+	}
+	# First step explains building types
+	step = {
+		header = "tutorial_lesson_trade_buildings_types_header"
+		instruction = "tutorial_lesson_trade_buildings_types_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_button_continue"
+		# Configure animation for this step
+		animation = center
+		on_continue = {
+			transition = next_step
+			transition_animation = slide_right
+		}
+	}
+	# Second step guides through building construction
+	step = {
+		header = "tutorial_lesson_trade_buildings_construction_header"
+		instruction = "tutorial_lesson_trade_buildings_construction_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_lesson_complete_button"
+		# Configure animation for final step
+		animation = center
+		on_continue = {
+			effect = {
+				# Small reward for completing tutorial
+				add_gold = 25
+			}
+			transition = complete
+			transition_animation = fade_out
+		}
+	}
+}
+
+# Trade Policies - Guide to policies and decisions
+trade_policies_lesson = {
+	type = generic
+	# Only show for rulers with a reasonable realm size
+	trigger = {
+		domain_size > 3
+		any_held_title = {
+			tier = county
+			has_county_flag = on_silk_road
+		}
+	}
+	header_info = {
+		title = "tutorial_lesson_trade_policies_header"
+	}
+	# First step introduces policies
+	step = {
+		header = "tutorial_lesson_trade_policies_overview_header"
+		instruction = "tutorial_lesson_trade_policies_overview_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_button_continue"
+		# Configure animation for this step
+		animation = center
+		on_continue = {
+			transition = next_step
+			transition_animation = slide_right
+		}
+	}
+	# Second step explains council tasks
+	step = {
+		header = "tutorial_lesson_trade_council_tasks_header"
+		instruction = "tutorial_lesson_trade_council_tasks_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_button_continue"
+		# Configure animation for this step
+		animation = center
+		on_continue = {
+			transition = next_step
+			transition_animation = slide_right
+		}
+	}
+	# Third step covers trade decisions
+	step = {
+		header = "tutorial_lesson_trade_decisions_header"
+		instruction = "tutorial_lesson_trade_decisions_instruction"
+		highlighted_option = yes
+		button_text = "tutorial_lesson_complete_button"
+		# Configure animation for final step
+		animation = center
+		on_continue = {
+			transition = complete
+			transition_animation = fade_out
+		}
+	}
+}

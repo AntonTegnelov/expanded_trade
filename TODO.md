@@ -332,9 +332,9 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 - [ ] **Implement Proper Tutorial System** - Use CK3's native tutorial framework
 
-  - [ ] Create `common/tutorial_lessons/trade_tutorial_lessons.txt`
-    - [ ] Define lesson chain for trade mechanics
-    - [ ] Create structured lessons with proper GUI transitions
+  - [x] Create `common/tutorial_lessons/trade_tutorial_lessons.txt`
+    - [x] Define lesson chain for trade mechanics
+    - [x] Create structured lessons with proper GUI transitions
     - [ ] Implement widget highlighting for UI elements
     - [ ] Add appropriate effects and triggers for progression
     - [ ] Use encapsulated states with proper animation

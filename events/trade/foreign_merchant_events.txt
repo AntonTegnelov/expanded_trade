@@ -1,0 +1,196 @@
+namespace = foreign_merchant
+# Initial foreign merchant event
+foreign_merchant.0001 = {
+	type = character_event
+	title = foreign_merchant.0001.t
+	desc = foreign_merchant.0001.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = idle
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = idle
+	}
+	immediate = {
+		# Check for cultural difference outcomes
+		random_list = {
+			60 = {
+				# Cultural exchange benefits
+				set_flag = merchant_cultural_exchange
+			}
+			30 = {
+				# Trade benefits
+				set_flag = merchant_trade_benefits
+			}
+			10 = {
+				# Potential conflict
+				trigger = {
+					OR = {
+						has_trait = zealous
+						has_trait = xenophobic
+						scope:foreign_merchant = {
+							faith_hostility_level = {
+								target = root.faith
+								value >= faith_hostile_level
+							}
+						}
+					}
+				}
+				set_flag = merchant_cultural_conflict
+			}
+		}
+	}
+	option = {
+		name = foreign_merchant.0001.a		# Embrace foreign influence
+		trigger = {
+			has_flag = merchant_cultural_exchange
+		}
+		add_prestige = 25
+		hidden_effect = {
+			trigger_event = {
+				id = foreign_merchant.0002				# Cultural exchange event
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = foreign_merchant.0001.b		# Focus on trade benefits
+		trigger = {
+			has_flag = merchant_trade_benefits
+		}
+		add_gold = 25
+		hidden_effect = {
+			trigger_event = {
+				id = foreign_merchant.0003				# Trade benefits event
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = foreign_merchant.0001.c		# Address cultural tensions
+		trigger = {
+			has_flag = merchant_cultural_conflict
+		}
+		stress = minor_stress_gain
+		hidden_effect = {
+			trigger_event = {
+				id = foreign_merchant.0004				# Cultural conflict event
+				days = 7
+			}
+		}
+	}
+}
+
+# Cultural exchange event
+foreign_merchant.0002 = {
+	type = character_event
+	title = foreign_merchant.0002.t
+	desc = foreign_merchant.0002.desc
+	theme = diplomacy
+	left_portrait = {
+		character = root
+		animation = personality_happy
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = personality_happy
+	}
+	option = {
+		name = foreign_merchant.0002.a		# Embrace cultural learning
+		random_list = {
+			33 = {
+				add_diplomacy_skill = 1
+				add_prestige = 25
+			}
+			33 = {
+				add_stewardship_skill = 1
+				add_gold = 25
+			}
+			33 = {
+				add_character_modifier = {
+					modifier = cultural_insight
+					years = 5
+				}
+			}
+		}
+	}
+}
+
+# Trade benefits event
+foreign_merchant.0003 = {
+	type = character_event
+	title = foreign_merchant.0003.t
+	desc = foreign_merchant.0003.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_happy
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = idle
+	}
+	option = {
+		name = foreign_merchant.0003.a		# Excellent for business
+		add_gold = 50
+		capital_county = {
+			add_county_modifier = {
+				modifier = temporary_trade_boost
+				years = 2
+			}
+		}
+	}
+}
+
+# Cultural conflict event
+foreign_merchant.0004 = {
+	type = character_event
+	title = foreign_merchant.0004.t
+	desc = foreign_merchant.0004.desc
+	theme = diplomacy
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = worry
+	}
+	option = {
+		name = foreign_merchant.0004.a		# Find compromise
+		trigger = {
+			OR = {
+				diplomacy >= 8
+				has_trait = gregarious
+				has_trait = compassionate
+			}
+		}
+		add_prestige = 10
+		capital_county = {
+			add_county_modifier = {
+				modifier = foreign_trade_taxation
+				years = 2
+			}
+		}
+	}
+	option = {
+		name = foreign_merchant.0004.b		# Force compliance
+		trigger = {
+			OR = {
+				stewardship >= 8
+				has_trait = arbitrary
+				has_trait = callous
+			}
+		}
+		add_tyranny = 5
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = forced_compliance
+				opinion = -15
+			}
+		}
+	}
+}

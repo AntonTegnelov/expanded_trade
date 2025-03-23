@@ -1,0 +1,117 @@
+# Silk Road Event Themes
+# Exotic Goods Discovery Event Theme
+silk_road_merchant_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_stewardship.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_economy"
+	}
+	background = {
+		reference = silk_road_merchant_caravan
+	}
+}
+
+# Bargaining Event Theme
+silk_road_bargaining_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_stewardship.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_economy"
+	}
+	background = {
+		reference = silk_road_merchant_bargaining
+	}
+}
+
+# Silk Road Disruption Event Theme
+silk_road_disruption_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_war.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_war"
+	}
+	background = {
+		reference = silk_road_disruption
+	}
+}
+
+# Trade Route Restored Event Theme
+silk_road_restored_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_economy.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_economy"
+	}
+	background = {
+		reference = silk_road_restored
+	}
+}
+
+# Cultural Exchange Event Theme
+silk_road_cultural_exchange_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_diplomacy.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_diplomacy"
+	}
+	background = {
+		reference = silk_road_cultural_exchange
+	}
+}
+
+# Innovation Discovery Event Theme
+silk_road_innovation_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_learning.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_learning"
+	}
+	background = {
+		reference = silk_road_innovation
+	}
+}
+
+# Trade Route Security Event Theme
+silk_road_security_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_army.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_army"
+	}
+	background = {
+		reference = silk_road_security
+	}
+}
+
+# Security Mission Success Event Theme
+silk_road_security_success_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_army.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_good"
+	}
+	background = {
+		reference = silk_road_security_success
+	}
+}
+
+# Security Mission Failure Event Theme
+silk_road_security_failure_theme = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_army.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_bad"
+	}
+	background = {
+		reference = silk_road_security_failure
+	}
+}
