@@ -354,55 +354,55 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Ensure compatibility with existing tutorial progression
     - [x] Respect player's tutorial settings
 
-- [ ] **Guided Tutorial Elements** - Essential player guidance using proper tutorial system
-  - [ ] Create basic trade lesson chain in `common/tutorial_lesson_chains/trade_lesson_chains.txt`
-    - [ ] Set appropriate prerequisites with vanilla tutorial chains
-    - [ ] Configure save_progress_in_gamestate flags
-    - [ ] Set proper trigger conditions for availability
-  - [ ] Implement core trade lessons in `common/tutorial_lessons/trade_tutorial_lessons.txt`
-    - [ ] Create "Introduction to Trade" lesson
-      - [ ] Implement highlight_widget for trade map mode and UI elements
-      - [ ] Add GUI transitions with proper button_id elements
-      - [ ] Include animation = center for main tutorial window
-      - [ ] Set force_pause_game = yes for critical information
-    - [ ] Design "Trade Buildings Guide" lesson
-      - [ ] Add widget highlighting for building menu
-      - [ ] Include progressive step structure with header_info
-      - [ ] Create trigger_transition elements for building construction
-      - [ ] Add appropriate effects with small rewards for completion
-    - [ ] Add "Trade Policies" lesson
-      - [ ] Create highlight_widget for policy decision menu
-      - [ ] Add GUI transitions to guide through policy selection
-      - [ ] Include button_text elements for clear navigation
-      - [ ] Set appropriate enabled conditions for progression
-    - [ ] Implement "Trade Prosperity" lesson
-      - [ ] Create widget highlights for prosperity indicators
-      - [ ] Add illustrations of prosperity mechanics
-      - [ ] Include step-by-step guidance on prosperity management
-      - [ ] Configure proper shown_in_encyclopedia flags
-  - [ ] Create reactive advice in `common/important_actions/trade_reactive_advice.txt`
-    - [ ] Implement "First Trade Building" advice
-      - [ ] Set appropriate check_create_action conditions
-      - [ ] Configure soundeffect for notification
-      - [ ] Connect to proper tutorial lesson
-    - [ ] Add "Trade Route Disruption" advice
-      - [ ] Set triggers for when trade routes become disrupted
-      - [ ] Create appropriate icon and notification
-      - [ ] Link to helpful tutorial lesson
-    - [ ] Design "Trade Prosperity Achieved" advice
-      - [ ] Configure conditions for first prosperity milestone
-      - [ ] Set up congratulatory notification
-      - [ ] Connect to prosperity management lesson
-  - [ ] Add comprehensive localization in `localization/english/trade_tutorial_lessons_l_english.yml`
-    - [ ] Create clear lesson text with proper formatting
-    - [ ] Add button labels with descriptive text
-    - [ ] Include header information for all tutorial steps
-    - [ ] Create tooltips for highlighted widgets
-  - [ ] Ensure perfect compatibility with vanilla tutorial system
-    - [ ] Test integration with existing tutorial progression
-    - [ ] Verify respect for tutorial settings
-    - [ ] Confirm proper encyclopedia entries
-    - [ ] Validate all widget highlighting functions
+- [x] **Guided Tutorial Elements** - Essential player guidance using proper tutorial system
+  - [x] Create basic trade lesson chain in `common/tutorial_lesson_chains/trade_lesson_chains.txt`
+    - [x] Set appropriate prerequisites with vanilla tutorial chains
+    - [x] Configure save_progress_in_gamestate flags
+    - [x] Set proper trigger conditions for availability
+  - [x] Implement core trade lessons in `common/tutorial_lessons/trade_tutorial_lessons.txt`
+    - [x] Create "Introduction to Trade" lesson
+      - [x] Implement highlight_widget for trade map mode and UI elements
+      - [x] Add GUI transitions with proper button_id elements
+      - [x] Include animation = center for main tutorial window
+      - [x] Set force_pause_game = yes for critical information
+    - [x] Design "Trade Buildings Guide" lesson
+      - [x] Add widget highlighting for building menu
+      - [x] Include progressive step structure with header_info
+      - [x] Create trigger_transition elements for building construction
+      - [x] Add appropriate effects with small rewards for completion
+    - [x] Add "Trade Policies" lesson
+      - [x] Create highlight_widget for policy decision menu
+      - [x] Add GUI transitions to guide through policy selection
+      - [x] Include button_text elements for clear navigation
+      - [x] Set appropriate enabled conditions for progression
+    - [x] Implement "Trade Prosperity" lesson
+      - [x] Create widget highlights for prosperity indicators
+      - [x] Add illustrations of prosperity mechanics
+      - [x] Include step-by-step guidance on prosperity management
+      - [x] Configure proper shown_in_encyclopedia flags
+  - [x] Create reactive advice in `common/important_actions/trade_reactive_advice.txt`
+    - [x] Implement "First Trade Building" advice
+      - [x] Set appropriate check_create_action conditions
+      - [x] Configure soundeffect for notification
+      - [x] Connect to proper tutorial lesson
+    - [x] Add "Trade Route Disruption" advice
+      - [x] Set triggers for when trade routes become disrupted
+      - [x] Create appropriate icon and notification
+      - [x] Link to helpful tutorial lesson
+    - [x] Design "Trade Prosperity Achieved" advice
+      - [x] Configure conditions for first prosperity milestone
+      - [x] Set up congratulatory notification
+      - [x] Connect to prosperity management lesson
+  - [x] Add comprehensive localization in `localization/english/trade_tutorial_lessons_l_english.yml`
+    - [x] Create clear lesson text with proper formatting
+    - [x] Add button labels with descriptive text
+    - [x] Include header information for all tutorial steps
+    - [x] Create tooltips for highlighted widgets
+  - [x] Ensure perfect compatibility with vanilla tutorial system
+    - [x] Test integration with existing tutorial progression
+    - [x] Verify respect for tutorial settings
+    - [x] Confirm proper encyclopedia entries
+    - [x] Validate all widget highlighting functions
 
 This MVP focuses on establishing the Silk Road with basic mechanics, allowing players to:
 
