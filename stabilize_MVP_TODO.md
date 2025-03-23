@@ -62,11 +62,11 @@
 
 ### 7.3 Scripted Effects
 
-- [ ] Add debug_log statements to `common/scripted_effects/trade_effects.txt`
+- [x] Add debug_log statements to `common/scripted_effects/trade_effects.txt`
 
-  - [ ] Log effect entry points: `debug_log = "Starting effect: [EffectName]"`
-  - [ ] Log key variable changes: `debug_log = "Variable [VarName] changed to [Value]"`
-  - [ ] Log effect completion: `debug_log = "Completed effect: [EffectName]"`
+  - [x] Log effect entry points: `debug_log = "Starting effect: [EffectName]"`
+  - [x] Log key variable changes: `debug_log = "Variable [VarName] changed to [Value]"`
+  - [x] Log effect completion: `debug_log = "Completed effect: [EffectName]"`
 
 - [ ] Add debug_log statements to `common/scripted_effects/trade_calculation_effects.txt`
 

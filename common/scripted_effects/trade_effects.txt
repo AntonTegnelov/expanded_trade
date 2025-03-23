@@ -2,6 +2,7 @@
 # Core effects for basic trade operations
 # Sets up the Silk Road with initial configuration
 setup_silk_road_effect = {
+	debug_log = "Starting effect: setup_silk_road_effect"
 	# This effect should be run at the global scope
 	# It will flag counties on the Silk Road and set up trade nodes
 	# First, ensure the trade route exists
@@ -11,6 +12,7 @@ setup_silk_road_effect = {
 				exists = silk_road_main
 			}
 		}
+		debug_log = "Creating Silk Road trade route"
 		# Create the Silk Road trade route
 		create_trade_route = {
 			id = silk_road_main
@@ -29,6 +31,7 @@ setup_silk_road_effect = {
 			limit = {
 				county_id = 256				# Placeholder for actual county ID
 			}
+			debug_log = "Setting up Xian node at county [THIS.GetID]"
 			set_county_flag = on_silk_road
 			create_trade_node = {
 				id = xian_node
@@ -41,6 +44,7 @@ setup_silk_road_effect = {
 			limit = {
 				county_id = 257				# Placeholder for actual county ID
 			}
+			debug_log = "Setting up Dunhuang node at county [THIS.GetID]"
 			set_county_flag = on_silk_road
 			create_trade_node = {
 				id = dunhuang_node
@@ -51,6 +55,7 @@ setup_silk_road_effect = {
 		# Additional nodes can be added as needed
 	}
 	# Set up the connections between nodes
+	debug_log = "Connecting trade nodes"
 	connect_trade_nodes_effect = {
 		NODE_A = xian_node
 		NODE_B = dunhuang_node
@@ -68,17 +73,21 @@ setup_silk_road_effect = {
 					has_county_flag = on_disrupted_trade_route
 				}
 			}
+			debug_log = "Activating trade route at county [THIS.GetID]"
 			set_county_flag = on_active_trade_route
 		}
 	}
+	debug_log = "Completed effect: setup_silk_road_effect"
 }
 
 # Effect to apply prosperity to counties based on trade route status
 apply_trade_prosperity_effect = {
+	debug_log = "Starting effect: apply_trade_prosperity_effect"
 	# Remove all existing trade prosperity flags first to avoid duplicates
 	remove_county_flag = trade_prosperity_low
 	remove_county_flag = trade_prosperity_medium
 	remove_county_flag = trade_prosperity_high
+	debug_log = "Removed existing prosperity flags"
 	# Basic calculation - a simple system for MVP
 	# If county is on an active trade route, determine prosperity level
 	if = {
@@ -112,6 +121,7 @@ apply_trade_prosperity_effect = {
 					}
 				}
 			}
+			debug_log = "Setting high prosperity for county [THIS.GetID]"
 			set_county_flag = trade_prosperity_high
 			add_county_modifier = {
 				modifier = trade_high_prosperity
@@ -157,6 +167,7 @@ apply_trade_prosperity_effect = {
 			months = 12
 		}
 	}
+	debug_log = "Completed effect: apply_trade_prosperity_effect"
 }
 
 # Effect to disrupt trade route in a county
