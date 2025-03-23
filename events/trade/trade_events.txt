@@ -1,0 +1,684 @@
+namespace = trade_events
+# Trade Caravan Arrival Event
+# This event triggers for rulers who control counties on trade routes
+trade_events.0001 = {
+	type = character_event
+	title = trade_events.0001.t
+	desc = trade_events.0001.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	trigger = {
+		owns_county_with_trade_route_trigger = yes
+		NOT = {
+			has_character_flag = recent_trade_caravan
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		# More likely for counties with high trade prosperity
+		modifier = {
+			add = 1
+			any_county = {
+				is_on_active_trade_route_trigger = yes
+				has_high_trade_prosperity_trigger = yes
+			}
+		}
+		# More likely for rulers focused on trade
+		modifier = {
+			add = 1
+			has_character_modifier = promoting_trade_modifier
+		}
+	}
+	immediate = {
+		add_character_flag = {
+			flag = recent_trade_caravan
+			days = 180			# 6 month cooldown
+		}
+		# Determine trade good type
+		random_list = {
+			33 = {
+				set_scope_variable = {
+					name = trade_good_type
+					value = "luxury"
+				}
+			}
+			67 = {
+				set_scope_variable = {
+					name = trade_good_type
+					value = "common"
+				}
+			}
+		}
+	}
+	# Accept the caravan and trade with them
+	option = {
+		name = trade_events.0001.a
+		trigger = {
+			always = yes
+		}
+		# Different rewards based on the good type
+		if = {
+			limit = {
+				scope:trade_good_type = "luxury"
+			}
+			add_gold = 50
+			add_prestige = 100
+		}
+		else_if = {
+			limit = {
+				scope:trade_good_type = "common"
+			}
+			add_gold = 25
+			add_prestige = 50
+		}
+		# Cultural benefit
+		add_realm_law_skip_cooldown = stewardship
+		ai_chance = {
+			base = 70
+			# Greedy rulers prioritize wealth
+			modifier = {
+				add = 30
+				has_trait = greedy
+			}
+			# Ambitious rulers see political advantages
+			modifier = {
+				add = 20
+				has_trait = ambitious
+			}
+		}
+	}
+	# Impose high taxes on the caravan
+	option = {
+		name = trade_events.0001.b
+		# Higher immediate profit but harms relations
+		add_gold = 75
+		add_prestige = -25
+		# Reduce long-term trade prosperity
+		random_county = {
+			limit = {
+				is_on_active_trade_route_trigger = yes
+			}
+			add_county_modifier = {
+				modifier = excessive_trade_taxation
+				days = 365
+			}
+		}
+		ai_chance = {
+			base = 20
+			# Very greedy rulers might do this
+			modifier = {
+				add = 50
+				has_trait = greedy
+			}
+			# Arbitrary rulers don't care about fairness
+			modifier = {
+				add = 30
+				has_trait = arbitrary
+			}
+			# Just rulers avoid this option
+			modifier = {
+				factor = 0
+				has_trait = just
+			}
+		}
+	}
+	# Turn away the caravan
+	option = {
+		name = trade_events.0001.c
+		# Cultural/religious purity at expense of trade
+		add_prestige = 25
+		add_piety = 25
+		# Greatly reduces trade prosperity
+		random_county = {
+			limit = {
+				is_on_active_trade_route_trigger = yes
+			}
+			add_county_modifier = {
+				modifier = rejected_foreign_merchants
+				days = 730				# 2 years
+			}
+		}
+		ai_chance = {
+			base = 10
+			# Zealous rulers might prefer isolation
+			modifier = {
+				add = 40
+				has_trait = zealous
+			}
+			# Paranoid rulers distrust foreigners
+			modifier = {
+				add = 30
+				has_trait = paranoid
+			}
+			# Rulers with Stewardship education avoid this
+			modifier = {
+				factor = 0
+				has_trait = education_stewardship_3
+			}
+		}
+	}
+}
+
+# Local Goods Price Fluctuation
+# This event triggers for provinces with trade goods when prices fluctuate
+trade_events.0002 = {
+	type = county_event
+	title = trade_events.0002.t
+	desc = trade_events.0002.desc
+	theme = stewardship
+	trigger = {
+		has_trade_good_trigger = yes
+		NOT = {
+			has_county_flag = recent_price_fluctuation
+		}
+		owner = {
+			is_ai = no
+		}
+		# Only trigger for player-owned counties
+	}
+	weight_multiplier = {
+		base = 1
+		# More likely during seasonal transitions
+		modifier = {
+			add = 1
+			OR = {
+				AND = {
+					has_game_month = 3					# Spring
+					has_game_month = 4
+				}
+				AND = {
+					has_game_month = 9					# Fall
+					has_game_month = 10
+				}
+			}
+		}
+		# More likely for major trade nodes
+		modifier = {
+			add = 2
+			is_trade_node_major_trigger = yes
+		}
+	}
+	immediate = {
+		add_county_flag = {
+			flag = recent_price_fluctuation
+			days = 365			# Annual cooldown
+		}
+		save_scope_as = fluctuation_county
+		# Determine market direction
+		random_list = {
+			40 = {
+				# Price increase
+				set_scope_variable = {
+					name = price_direction
+					value = "increase"
+				}
+			}
+			40 = {
+				# Price decrease
+				set_scope_variable = {
+					name = price_direction
+					value = "decrease"
+				}
+			}
+			20 = {
+				# Market instability
+				set_scope_variable = {
+					name = price_direction
+					value = "volatile"
+				}
+			}
+		}
+	}
+	# Price increase
+	option = {
+		name = trade_events.0002.a
+		trigger = {
+			scope:price_direction = "increase"
+		}
+		# Benefit to county income
+		add_county_modifier = {
+			modifier = price_boom_modifier
+			days = 180			# 6 months
+		}
+		# Extra effect for ruler
+		scope:fluctuation_county.owner = {
+			add_gold = 25
+			stress_impact = {
+				greedy = medium_stress_impact_gain
+			}
+		}
+	}
+	# Price decrease
+	option = {
+		name = trade_events.0002.b
+		trigger = {
+			scope:price_direction = "decrease"
+		}
+		# Penalty to county income
+		add_county_modifier = {
+			modifier = price_slump_modifier
+			days = 180			# 6 months
+		}
+		# Opportunity for long-term investment
+		scope:fluctuation_county.owner = {
+			trigger_event = {
+				id = trade_events.0003				# Follow-up event for investment opportunity
+				days = 14
+			}
+		}
+	}
+	# Market volatility
+	option = {
+		name = trade_events.0002.c
+		trigger = {
+			scope:price_direction = "volatile"
+		}
+		# Temporary disorder in the trade
+		add_county_modifier = {
+			modifier = market_volatility_modifier
+			days = 90			# 3 months
+		}
+		# Opportunity for speculation for skilled rulers
+		scope:fluctuation_county.owner = {
+			if = {
+				limit = {
+					stewardship > 12
+				}
+				add_gold = 50
+				add_prestige = 25
+			}
+			else = {
+				add_gold = -25
+				add_prestige = -10
+			}
+		}
+	}
+}
+
+# Investment opportunity during price slump
+# Follow-up event from trade_events.0002 when prices decrease
+trade_events.0003 = {
+	type = character_event
+	title = trade_events.0003.t
+	desc = trade_events.0003.desc
+	theme = stewardship
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	# Direct trigger from parent event
+	immediate = {
+		# Determine investment outcome (affected by ruler's stewardship)
+		if = {
+			limit = {
+				stewardship > 12
+			}
+			set_variable = {
+				name = investment_success_chance
+				value = 70
+			}
+		}
+		else_if = {
+			limit = {
+				stewardship > 8
+			}
+			set_variable = {
+				name = investment_success_chance
+				value = 50
+			}
+		}
+		else = {
+			set_variable = {
+				name = investment_success_chance
+				value = 30
+			}
+		}
+		# Traits can modify chances
+		if = {
+			limit = {
+				has_trait = greedy
+			}
+			change_variable = {
+				name = investment_success_chance
+				add = 10
+			}
+		}
+		if = {
+			limit = {
+				has_trait = patient
+			}
+			change_variable = {
+				name = investment_success_chance
+				add = 15
+			}
+		}
+		if = {
+			limit = {
+				has_trait = impulsive
+			}
+			change_variable = {
+				name = investment_success_chance
+				add = -15
+			}
+		}
+	}
+	# Make a significant investment
+	option = {
+		name = trade_events.0003.a
+		add_gold = -100
+		# Determine outcome based on calculated chance
+		random = {
+			chance = investment_success_chance
+			# Success
+			add_gold = 250
+			add_prestige = 100
+			add_county_modifier = {
+				county = scope:fluctuation_county
+				modifier = shrewd_investment_modifier
+				days = 730				# 2 years
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				add = 40
+				gold > 200
+			}
+			modifier = {
+				add = 30
+				has_trait = greedy
+			}
+			modifier = {
+				factor = 0
+				gold < 150
+			}
+		}
+	}
+	# Make a modest investment
+	option = {
+		name = trade_events.0003.b
+		add_gold = -50
+		# Determine outcome based on calculated chance
+		random = {
+			chance = investment_success_chance
+			# Success - smaller return but less risk
+			add_gold = 100
+			add_prestige = 25
+			add_county_modifier = {
+				county = scope:fluctuation_county
+				modifier = modest_investment_modifier
+				days = 365				# 1 year
+			}
+		}
+		ai_chance = {
+			base = 60
+			modifier = {
+				add = 20
+				gold > 100
+			}
+			modifier = {
+				factor = 0
+				gold < 60
+			}
+		}
+	}
+	# Decline to invest
+	option = {
+		name = trade_events.0003.c
+		add_prestige = -15
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = 70
+				gold < 100
+			}
+			modifier = {
+				add = -20
+				has_trait = brave
+			}
+		}
+	}
+}
+
+# Merchant Dispute Event
+# This event handles disputes between local and foreign merchants
+trade_events.0004 = {
+	type = character_event
+	title = trade_events.0004.t
+	desc = trade_events.0004.desc
+	theme = diplomacy
+	left_portrait = {
+		character = root
+		animation = anger
+	}
+	right_portrait = {
+		character = scope:merchant
+		animation = worry
+	}
+	trigger = {
+		is_ruler = yes
+		owns_county_with_trade_route_trigger = yes
+		NOT = {
+			has_character_flag = recent_merchant_dispute
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		# More likely in busy trade centers
+		modifier = {
+			add = 2
+			any_county = {
+				is_trade_node_major_trigger = yes
+			}
+		}
+		# More likely with cultural differences
+		modifier = {
+			add = 1
+			any_county = {
+				culture != root.culture
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = {
+			flag = recent_merchant_dispute
+			days = 365			# Annual cooldown
+		}
+		# Generate foreign merchant
+		create_character = {
+			name = scope:merchant
+			gender = male
+			age = {
+				25
+				50
+			}
+			culture = scope:merchant_culture
+			religion = scope:merchant_religion
+			trait = education_stewardship_3
+			save_scope_as = merchant
+		}
+		# Set merchant culture - choose a foreign culture
+		random_list = {
+			20 = {
+				set_scope_variable = {
+					name = merchant_culture
+					value = culture_greek
+				}
+				set_scope_variable = {
+					name = merchant_religion
+					value = religion_orthodox
+				}
+			}
+			20 = {
+				set_scope_variable = {
+					name = merchant_culture
+					value = culture_armenian
+				}
+				set_scope_variable = {
+					name = merchant_religion
+					value = religion_orthodox
+				}
+			}
+			20 = {
+				set_scope_variable = {
+					name = merchant_culture
+					value = culture_persian
+				}
+				set_scope_variable = {
+					name = merchant_religion
+					value = religion_islam_sunni
+				}
+			}
+			20 = {
+				set_scope_variable = {
+					name = merchant_culture
+					value = culture_arabic
+				}
+				set_scope_variable = {
+					name = merchant_religion
+					value = religion_islam_sunni
+				}
+			}
+			20 = {
+				set_scope_variable = {
+					name = merchant_culture
+					value = culture_italian
+				}
+				set_scope_variable = {
+					name = merchant_religion
+					value = religion_catholic
+				}
+			}
+		}
+	}
+	# Rule in favor of local merchants
+	option = {
+		name = trade_events.0004.a
+		# Local popularity but foreign reputation loss
+		add_prestige = 50
+		add_opinion = {
+			modifier = favored_local_merchants
+			target = every_courtier
+			opinion = 10
+			years = 2
+		}
+		# Foreign merchant reactions
+		scope:merchant = {
+			opinion = {
+				modifier = ruled_against_merchants
+				target = root
+				opinion = -30
+				years = 5
+			}
+		}
+		# Loss of foreign trade
+		random_county = {
+			limit = {
+				is_on_active_trade_route_trigger = yes
+			}
+			add_county_modifier = {
+				modifier = decreased_foreign_trade
+				days = 365
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 30
+				has_trait = xenophile
+			}
+			modifier = {
+				add = 20
+				has_trait = gregarious
+			}
+		}
+	}
+	# Diplomatic compromise
+	option = {
+		name = trade_events.0004.b
+		# Requires diplomacy skill
+		trigger = {
+			diplomacy > 8
+		}
+		# Small immediate cost
+		add_gold = -25
+		# But long-term benefit to trade relations
+		add_prestige = 25
+		scope:merchant = {
+			opinion = {
+				modifier = diplomatic_resolution
+				target = root
+				opinion = 20
+				years = 5
+			}
+		}
+		# Improved trade conditions
+		random_county = {
+			limit = {
+				is_on_active_trade_route_trigger = yes
+			}
+			add_county_modifier = {
+				modifier = diplomatic_trade_solution
+				days = 730				# 2 years
+			}
+		}
+		ai_chance = {
+			base = 30
+			modifier = {
+				add = 50
+				diplomacy > 12
+			}
+			modifier = {
+				add = 30
+				has_trait = diplomat
+			}
+		}
+	}
+	# Rule in favor of foreign merchants
+	option = {
+		name = trade_events.0004.c
+		# Short-term local opinion loss
+		add_prestige = -15
+		add_opinion = {
+			modifier = favored_foreign_merchants
+			target = every_courtier
+			opinion = -10
+			years = 2
+		}
+		# But foreign merchant's gratitude
+		scope:merchant = {
+			opinion = {
+				modifier = ruled_for_merchants
+				target = root
+				opinion = 30
+				years = 5
+			}
+		}
+		# Significant gold from the foreign merchant
+		add_gold = 100
+		# Long-term trade benefits
+		random_county = {
+			limit = {
+				is_on_active_trade_route_trigger = yes
+			}
+			add_county_modifier = {
+				modifier = increased_foreign_trade
+				days = 730				# 2 years
+			}
+		}
+		ai_chance = {
+			base = 20
+			modifier = {
+				add = 40
+				has_trait = greedy
+			}
+			modifier = {
+				add = 20
+				stewardship > 12
+			}
+		}
+	}
+}

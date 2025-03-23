@@ -156,3 +156,18 @@ trade_events_random = {
 		100 = trade_events.0203
 	}
 }
+
+# Monthly character pulse - trigger regular trade events
+on_monthly_character_pulse = {
+	events = {
+		trade_events.0001		# Trade Caravan Arrival
+		trade_events.0004		# Merchant Dispute
+	}
+}
+
+# Monthly county pulse - trigger county-level trade events
+on_monthly_county_pulse = {
+	events = {
+		trade_events.0002		# Local Goods Price Fluctuation
+	}
+}

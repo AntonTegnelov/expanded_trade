@@ -184,6 +184,7 @@ is_trade_participant_trigger = {
 	}
 }
 
+# Checks if a county is on an active trade route
 is_on_active_trade_route_trigger = {
 	OR = {
 		has_county_flag = on_silk_road
@@ -191,5 +192,62 @@ is_on_active_trade_route_trigger = {
 	}
 	NOT = {
 		has_county_flag = trade_route_disrupted
+	}
+}
+
+# Checks if a culture has trade-related traditions
+has_trade_tradition_trigger = {
+	# Culture scope
+	OR = {
+		# Major trade cultures
+		culture_group = culture_group:byzantine
+		culture_group = culture_group:arabic_group
+		culture_group = culture_group:chinese_group
+		culture_group = culture_group:turkic_group
+		culture_group = culture_group:persian_group
+		culture_group = culture_group:indian_group
+		culture_group = culture_group:byzantine
+		# Cultures with sea/river trade traditions
+		culture = culture:greek
+		culture = culture:italian
+		culture = culture:norse
+		culture = culture:egyptian
+		# Or any cultures with major merchants
+		has_cultural_parameter = major_trading_culture
+	}
+}
+
+# Check if character owns a county on a trade route
+owns_county_with_trade_route_trigger = {
+	any_county = {
+		is_on_active_trade_route_trigger = yes
+	}
+}
+
+# Check if county has a trade good
+has_trade_good_trigger = {
+	OR = {
+		has_luxury_goods_trigger = yes
+		has_common_goods_trigger = yes
+	}
+}
+
+# Check if county has high trade prosperity
+has_high_trade_prosperity_trigger = {
+	OR = {
+		has_county_modifier = trade_prosperity_high
+		has_county_modifier = trade_prosperity_very_high
+	}
+}
+
+# Check if county is a major trade node
+is_trade_node_major_trigger = {
+	OR = {
+		county = 1000		# Constantinople
+		county = 1110		# Baghdad
+		county = 1215		# Samarkand
+		county = 1445		# Chang'an
+		county = 907		# Alexandria
+		county = 828		# Venice
 	}
 }

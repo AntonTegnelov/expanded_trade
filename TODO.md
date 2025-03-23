@@ -259,33 +259,33 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 ### Events and Content
 
-- [ ] **Basic Trade Events** - Simple events for trade activity
+- [x] **Basic Trade Events** - Simple events for trade activity
 
-  - [ ] Create `events/trade_events.txt` for general trade events
-    - [ ] Implement "Trade Caravan Arrival" event
-      - [ ] Use type = character_event for ruler interaction
-      - [ ] Set trigger = { owns_county_with_trade_route_trigger = yes }
-      - [ ] Create monthly_province_pulse_chance = { base = 1 }
-      - [ ] Add options for accepting goods with wealth/prestige gains
-      - [ ] Include options for turning away merchants with opinion consequences
-      - [ ] Create ai_chance calculations based on traits and realm needs
-    - [ ] Design "Local Goods Price Fluctuation" event
-      - [ ] Use type = province_event for county-specific impact
-      - [ ] Create seasonal triggers for appropriate timing
-      - [ ] Add multiple outcomes based on trade good type
-      - [ ] Implement temporary county modifier application
-      - [ ] Set appropriate cooldown = { days = 365 }
-    - [ ] Create "Merchant Dispute" event
-      - [ ] Use type = character_event with involved_characters = { scope:merchant }
-      - [ ] Generate random merchant character using generate_trader_effect
-      - [ ] Add diplomatic resolution options with skill checks
-      - [ ] Create options for justice versus profit with trait implications
-      - [ ] Set appropriate opinion modifiers for outcomes
-    - [ ] Implement simple economic events without advanced mechanics
-    - [ ] Ensure hooks into existing on_action triggers for event firing
-    - [ ] Keep event chains short (3-5 events maximum) for MVP
-    - [ ] Use standard event system formatting and structure
-    - [ ] Create basic event images in `gfx/interface/illustrations/events/`
+  - [x] Create `events/trade_events.txt` for general trade events
+    - [x] Implement "Trade Caravan Arrival" event
+      - [x] Use type = character_event for ruler interaction
+      - [x] Set trigger = { owns_county_with_trade_route_trigger = yes }
+      - [x] Create monthly_province_pulse_chance = { base = 1 }
+      - [x] Add options for accepting goods with wealth/prestige gains
+      - [x] Include options for turning away merchants with opinion consequences
+      - [x] Create ai_chance calculations based on traits and realm needs
+    - [x] Design "Local Goods Price Fluctuation" event
+      - [x] Use type = province_event for county-specific impact
+      - [x] Create seasonal triggers for appropriate timing
+      - [x] Add multiple outcomes based on trade good type
+      - [x] Implement temporary county modifier application
+      - [x] Set appropriate cooldown = { days = 365 }
+    - [x] Create "Merchant Dispute" event
+      - [x] Use type = character_event with involved_characters = { scope:merchant }
+      - [x] Generate random merchant character using generate_trader_effect
+      - [x] Add diplomatic resolution options with skill checks
+      - [x] Create options for justice versus profit with trait implications
+      - [x] Set appropriate opinion modifiers for outcomes
+    - [x] Implement simple economic events without advanced mechanics
+    - [x] Ensure hooks into existing on_action triggers for event firing
+    - [x] Keep event chains short (3-5 events maximum) for MVP
+    - [x] Use standard event system formatting and structure
+    - [x] Create basic event images in `gfx/interface/illustrations/events/`
 
 - [ ] **Silk Road Events** - Limited set of events for the main trade route
 

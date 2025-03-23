@@ -1,0 +1,66 @@
+l_english:
+ # Trade Caravan Arrival Event
+ trade_events.0001.t:0 "Trade Caravan Arrives"
+ trade_events.0001.desc:0 "A large caravan of merchants has arrived in your realm, following the ancient trade routes that connect distant lands. Their wagons are laden with goods both exotic and common, and the lead merchant approaches you with offers of trade."
+ trade_events.0001.a:0 "Welcome them and trade fairly."
+ trade_events.0001.b:0 "Tax them heavily for the privilege of trading here."
+ trade_events.0001.c:0 "Turn them away. We need no foreign influences."
+
+ # Local Goods Price Fluctuation
+ trade_events.0002.t:0 "Market Fluctuations"
+ trade_events.0002.desc:0 "The markets in [scope:fluctuation_county.GetName] are experiencing unusual activity. The local merchants report significant changes in the prices of trade goods, which could have lasting effects on the local economy."
+ trade_events.0002.a:0 "The prices are rising rapidly!"
+ trade_events.0002.b:0 "The markets are in decline."
+ trade_events.0002.c:0 "The market is highly unstable."
+
+ # Investment opportunity
+ trade_events.0003.t:0 "Investment Opportunity"
+ trade_events.0003.desc:0 "With prices falling in [scope:fluctuation_county.GetName], your steward suggests this might be an opportune time to invest. By purchasing goods at low prices now, you could potentially sell them for significant profit when the market recovers."
+ trade_events.0003.a:0 "Make a significant investment (100 gold)."
+ trade_events.0003.b:0 "Make a modest investment (50 gold)."
+ trade_events.0003.c:0 "This is too risky. Decline to invest."
+
+ # Merchant Dispute Event
+ trade_events.0004.t:0 "Merchant Dispute"
+ trade_events.0004.desc:0 "A heated conflict has erupted between local merchants and a powerful foreign trader named [scope:merchant.GetFirstName] from [scope:merchant.GetCulture.GetName] lands. Both sides claim the other is engaging in unfair trade practices, undercutting prices, and violating local customs. As the ruler, they look to you to settle this dispute."
+ trade_events.0004.a:0 "Rule in favor of the local merchants."
+ trade_events.0004.b:0 "Negotiate a diplomatic compromise."
+ trade_events.0004.c:0 "Rule in favor of the foreign merchant."
+
+ # Trade Modifiers
+ excessive_trade_taxation:0 "Excessive Trade Taxation"
+ excessive_trade_taxation_desc:0 "Heavy taxation has discouraged merchants from bringing their best goods to this county."
+ 
+ rejected_foreign_merchants:0 "Rejected Foreign Merchants"
+ rejected_foreign_merchants_desc:0 "Foreign merchants avoid this county due to previous harsh treatment."
+ 
+ price_boom_modifier:0 "Rising Commodity Prices"
+ price_boom_modifier_desc:0 "Local goods are fetching high prices on the market."
+ 
+ price_slump_modifier:0 "Falling Commodity Prices"
+ price_slump_modifier_desc:0 "Local goods are selling for less than usual."
+ 
+ market_volatility_modifier:0 "Market Volatility"
+ market_volatility_modifier_desc:0 "Unpredictable price movements have disrupted normal trade patterns."
+ 
+ shrewd_investment_modifier:0 "Shrewd Investment Returns"
+ shrewd_investment_modifier_desc:0 "A large investment during market weakness is now yielding substantial returns."
+ 
+ modest_investment_modifier:0 "Investment Returns"
+ modest_investment_modifier_desc:0 "A modest investment is providing steady returns as the market recovers."
+ 
+ decreased_foreign_trade:0 "Decreased Foreign Trade"
+ decreased_foreign_trade_desc:0 "Foreign merchants are reluctant to bring their goods to this county."
+ 
+ diplomatic_trade_solution:0 "Diplomatic Trade Agreement"
+ diplomatic_trade_solution_desc:0 "A carefully negotiated agreement has created favorable conditions for both local and foreign merchants."
+ 
+ increased_foreign_trade:0 "Increased Foreign Trade"
+ increased_foreign_trade_desc:0 "Foreign merchants are bringing exotic goods and increased commerce to this county."
+ 
+ # Opinion Modifiers
+ favored_local_merchants:0 "Favored Local Merchants"
+ ruled_against_merchants:0 "Ruled Against Merchants"
+ diplomatic_resolution:0 "Diplomatic Resolution"
+ favored_foreign_merchants:0 "Favored Foreign Merchants"
+ ruled_for_merchants:0 "Ruled For Merchants" 
