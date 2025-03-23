@@ -25,7 +25,7 @@
 ### 4. Flag Management
 
 - [ ] Audit county flag usage
-  - [ ] Ensure `on_silk_road`, `on_active_trade_route`, and `on_disrupted_trade_route` flags are set before checking
+  - [x] Ensure `on_silk_road`, `on_active_trade_route`, and `on_disrupted_trade_route` flags are set before checking
   - [ ] Add safety checks before using flags in conditions
   - [ ] Replace custom county flag `coastal_county` with CK3's native coastal check if available
 
@@ -95,3 +95,34 @@
   - [ ] Add debug_tooltip to key triggers: `debug_tooltip = yes`
   - [ ] Log trigger evaluation: `debug_log = "Evaluating trigger: [TriggerName] for [ScopeInfo]"`
   - [ ] Log trigger results: `debug_log = "Trigger result: [TriggerName] = [Result]"`
+
+### 7.6 On-Actions
+
+- [ ] Add debug_log statements to `common/on_action/trade_on_actions.txt`
+  - [ ] Log on-action firing: `debug_log = "On-action fired: [OnActionName]"`
+  - [ ] Log event chains: `debug_log = "Starting event chain from on-action: [EventID]"`
+  - [ ] Log effect execution: `debug_log = "Executing effect from on-action: [EffectName]"`
+
+### 7.7 Events
+
+- [ ] Add debug_log statements to `events/trade/trade_monthly_events.txt`
+
+  - [ ] Log event triggers: `debug_log = "Event triggered: [EventID]"`
+  - [ ] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
+  - [ ] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
+
+- [ ] Add debug_log statements to `events/trade/silk_road_events.txt`
+
+  - [ ] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
+  - [ ] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
+  - [ ] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
+
+- [ ] Add debug_log statements to all other event files
+  - [ ] Follow the same pattern of logging triggers, scopes, and effects
+
+### 7.8 Trade Goods
+
+- [ ] Add debug_log statements to `common/trade_goods/trade_goods.txt`
+  - [ ] Log good initialization: `debug_log = "Initializing trade good: [GoodID]"`
+  - [ ] Log production rules: `debug_log = "Production rule for [GoodID]: [RuleDesc]"`
+  - [ ] Log good value changes: `debug_log = "Trade good value change: [GoodID] = [Value]"`
