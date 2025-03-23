@@ -294,3 +294,9 @@ improved_trade_flow = {
 	monthly_development_growth = 0.1
 	icon = development
 }
+
+temporary_trade_boost = {
+	county_trade_value_add = 1
+	monthly_income = 0.2
+	icon = gold
+}

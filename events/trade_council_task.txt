@@ -1,0 +1,63 @@
+namespace = trade_council_task
+# Random events for steward trade focus
+trade_council_task.001 = {
+	type = character_event
+	title = trade_council_task.001.t
+	desc = trade_council_task.001.desc
+	theme = stewardship
+	left_portrait = root
+	right_portrait = scope:councillor
+	trigger = {
+		exists = scope:councillor
+		scope:councillor = {
+			is_alive = yes
+			is_performing_council_task = task_court_trade_focus
+		}
+	}
+	weight_multiplier = {
+		base = 100
+		modifier = {
+			add = 50
+			scope:councillor = {
+				stewardship > mediocre_skill_rating
+			}
+		}
+	}
+	immediate = {
+		save_scope_as = task_owner
+	}
+	option = {
+		# Approve merchant proposal
+		name = trade_council_task.001.a
+		add_gold = 25
+		add_prestige = 10
+		if = {
+			limit = {
+				exists = capital_province
+				capital_province.county = {
+					NOT = {
+						has_county_modifier = trade_prosperity_high
+					}
+				}
+			}
+			capital_province.county = {
+				add_county_modifier = {
+					modifier = temporary_trade_boost
+					years = 1
+				}
+			}
+		}
+	}
+	option = {
+		# Decline merchant proposal
+		name = trade_council_task.001.b
+		add_prestige = 25
+		scope:councillor = {
+			add_opinion = {
+				target = root
+				modifier = opinion_disappointed
+				years = 2
+			}
+		}
+	}
+}

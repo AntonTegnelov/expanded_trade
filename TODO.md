@@ -203,7 +203,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [ ] Design event chain reflecting character traits and culture
       - [ ] Create different outcomes based on ruler traits (greedy, just, ambitious)
       - [x] Implement ongoing modifiers while task is active
-      - [ ] Add random events that can fire while task is assigned
+      - [x] Add random events that can fire while task is assigned
       - [ ] Use existing council task framework for compatibility
       - [ ] Create appropriate task icon in gfx/interface/icons/council_tasks/
       - [ ] Add localization in trade_council_tasks_l_english.yml
