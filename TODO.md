@@ -295,12 +295,12 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Create special opinion modifiers with foreign merchants
     - [x] Add prestige and small wealth benefits
     - [x] Include cultural flavor for goods origin
-  - [ ] Implement "Silk Road Disruption" event
-    - [ ] Trigger from county occupation on main route
-    - [ ] Create notification for players about economic impact
-    - [ ] Show temporary prosperity penalties
-    - [ ] Add strategic options for rulers to respond
-    - [ ] Include diplomatic actions against disrupting parties
+  - [x] Implement "Silk Road Disruption" event
+    - [x] Trigger from county occupation on main route
+    - [x] Create notification for players about economic impact
+    - [x] Show temporary prosperity penalties
+    - [x] Add strategic options for rulers to respond
+    - [x] Include diplomatic actions against disrupting parties
   - [ ] Create "Cultural Exchange" event chain
     - [ ] Focus on minimal innovation spread mechanics
     - [ ] Use existing culture scope and relation systems

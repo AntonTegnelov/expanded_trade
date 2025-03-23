@@ -12,6 +12,18 @@ l_english:
  silk_road_events.0002.a:0 "An excellent deal has been struck!"
  silk_road_events.0002.b:0 "The merchant refuses to lower his price further."
 
+ # Silk Road Disruption Event
+ silk_road_events.0003.t:0 "Silk Road Disrupted"
+ silk_road_events.0003.desc:0 "Troubling news has reached your court. Military occupation of [scope:disrupted_county.GetName] has severely disrupted the flow of trade along the Silk Road. Merchants are avoiding the area, caravans have been redirected, and the economic impact is already being felt throughout your realm.\n\nAs trade dwindles, you stand to lose significant income and prestige if the situation continues. The local trade communities are anxiously awaiting your response to this crisis."
+ silk_road_events.0003.a:0 "Spare no expense to protect our trade interests!"
+ silk_road_events.0003.b:0 "This disruption is temporary. We shall endure."
+ silk_road_events.0003.c:0 "Negotiate with the occupier to maintain trade."
+
+ # Trade Route Restored Notification
+ silk_road_events.0004.t:0 "Silk Road Trade Restored"
+ silk_road_events.0004.desc:0 "After a period of disruption, trade along the Silk Road flowing through [scope:restored_county.GetName] has finally been restored. Merchant caravans have returned to their usual routes, and goods from distant lands are once again flowing into your markets.\n\nThe restoration of trade brings renewed prosperity to your realm, with increased tax revenues and a boost to your reputation as a ruler who maintains vital trade connections."
+ silk_road_events.0004.a:0 "Excellent news for our prosperity!"
+
  # Modifiers
  exotic_silk_goods:0 "Exotic Silks"
  exotic_silk_goods_desc:0 "This court has acquired rare silks from distant eastern lands, enhancing prestige and diplomatic standing."

@@ -256,3 +256,177 @@ silk_road_events.0002 = {
 		}
 	}
 }
+
+# Silk Road Disruption Event
+# This event triggers when a county on the Silk Road is occupied
+silk_road_events.0003 = {
+	type = character_event
+	title = silk_road_events.0003.t
+	desc = silk_road_events.0003.desc
+	theme = war
+	left_portrait = {
+		character = root
+		animation = anger
+	}
+	trigger = {
+		any_county = {
+			is_on_silk_road_trigger = yes
+			is_county_occupied = yes
+			NOT = {
+				has_county_flag = recent_silk_road_disruption
+			}
+		}
+	}
+	immediate = {
+		random_county = {
+			limit = {
+				is_on_silk_road_trigger = yes
+				is_county_occupied = yes
+				NOT = {
+					has_county_flag = recent_silk_road_disruption
+				}
+			}
+			save_scope_as = disrupted_county
+			add_county_flag = {
+				flag = recent_silk_road_disruption
+				days = 365				# 1 year cooldown
+			}
+			add_county_flag = {
+				flag = trade_route_disrupted
+				days = 180				# 6 months disruption
+			}
+			add_county_modifier = {
+				modifier = disrupted_trade_route
+				months = 6
+			}
+		}
+	}
+	# Prioritize restoring trade
+	option = {
+		name = silk_road_events.0003.a
+		add_prestige = minor_prestige_loss
+		add_gold = medium_gold_loss
+		scope:disrupted_county = {
+			add_county_modifier = {
+				modifier = protected_trade_route
+				months = 12
+			}
+			remove_county_flag = trade_route_disrupted
+			remove_county_modifier = disrupted_trade_route
+		}
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 25
+				has_trait = diligent
+			}
+			modifier = {
+				add = 25
+				has_trait = ambitious
+			}
+			modifier = {
+				add = 50
+				is_trade_participant_trigger = yes
+			}
+		}
+	}
+	# Accept the temporary disruption
+	option = {
+		name = silk_road_events.0003.b
+		add_prestige = minor_prestige_loss
+		trigger_event = {
+			id = silk_road_events.0004
+			days = 180
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				add = 25
+				has_trait = content
+			}
+			modifier = {
+				add = 25
+				has_trait = patient
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					gold > 150
+				}
+			}
+		}
+	}
+	# Negotiate with occupier
+	option = {
+		name = silk_road_events.0003.c
+		trigger = {
+			diplomacy > 10
+		}
+		scope:disrupted_county = {
+			county_occupier = {
+				save_scope_as = occupier
+			}
+		}
+		add_gold = minor_gold_loss
+		scope:occupier = {
+			opinion = {
+				target = root
+				modifier = opinion_respected_request
+				years = 2
+			}
+		}
+		scope:disrupted_county = {
+			add_county_modifier = {
+				modifier = diplomatic_trade_solution
+				months = 6
+			}
+			remove_county_flag = trade_route_disrupted
+			remove_county_modifier = disrupted_trade_route
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 50
+				diplomacy > 15
+			}
+			modifier = {
+				add = 50
+				has_trait = diplomat
+			}
+		}
+	}
+}
+
+# Trade route restored notification
+silk_road_events.0004 = {
+	type = character_event
+	title = silk_road_events.0004.t
+	desc = silk_road_events.0004.desc
+	theme = economy
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		random_county = {
+			limit = {
+				has_county_flag = trade_route_disrupted
+				has_county_flag = recent_silk_road_disruption
+			}
+			save_scope_as = restored_county
+			remove_county_flag = trade_route_disrupted
+			remove_county_modifier = disrupted_trade_route
+		}
+	}
+	# Celebrate the restoration
+	option = {
+		name = silk_road_events.0004.a
+		add_prestige = minor_prestige_gain
+		scope:restored_county = {
+			add_county_modifier = {
+				modifier = improved_trade_flow
+				months = 12
+			}
+		}
+	}
+}

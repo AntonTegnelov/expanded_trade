@@ -83,6 +83,9 @@ trade_county_occupied = {
 			}
 		}
 	}
+	events = {
+		silk_road_events.0003		# Silk Road Disruption Event
+	}
 }
 
 # This is triggered when a holding building is constructed
