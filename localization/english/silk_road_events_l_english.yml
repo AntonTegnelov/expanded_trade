@@ -38,6 +38,24 @@ l_english:
  silk_road_events.0006.b:0 "Let this knowledge spread naturally through cultural exchange."
  silk_road_events.0006.c:0 "Use this knowledge to improve our trade networks instead."
 
+ # Trade Route Security Event
+ silk_road_events.0007.t:0 "Unsafe Trade Routes"
+ silk_road_events.0007.desc:0 "Reports have reached your court of increasing bandit activity along the Silk Road in [scope:unsafe_trade_county.GetName]. With county control already weak in the area, merchants are concerned about the safety of their caravans and goods.\n\nIf this situation continues, trade may decline significantly as merchants seek safer routes or delay their journeys. Your advisors suggest several options to address the security concerns before they escalate further."
+ silk_road_events.0007.a:0 "Invest gold in local security measures."
+ silk_road_events.0007.b:0 "Send my marshal to organize patrols."
+ silk_road_events.0007.c:0 "The risks are part of a merchant's life."
+
+ # Security Mission Success
+ silk_road_events.0008.t:0 "Trade Routes Secured"
+ silk_road_events.0008.desc:0 "Your marshal reports success in securing the trade routes in [scope:unsafe_trade_county.GetName]. Bandit camps have been cleared out, patrols established along key paths, and local officials instructed on maintaining security.\n\nMerchants have already noticed the improvement, and caravans are flowing more freely through the area. With the routes secured, trade prosperity is expected to increase, bringing greater wealth to your realm."
+ silk_road_events.0008.a:0 "Excellent work! The Silk Road must remain open."
+
+ # Security Mission Failure or Bandit Attack
+ silk_road_events.0009.t:0 "Caravan Attacked!"
+ silk_road_events.0009.desc:0 "Disaster has struck along the Silk Road in [scope:unsafe_trade_county.GetName]. A large group of bandits has attacked a valuable merchant caravan, killing the guards and stealing precious goods. Survivors have fled to your court seeking justice.\n\nThis brazen attack has severely disrupted trade in the region. Merchants are now refusing to travel through the area without significant protection, and trade prosperity has plummeted. A response is needed to restore confidence in the route."
+ silk_road_events.0009.a:0 "Launch a punitive expedition against the bandits."
+ silk_road_events.0009.b:0 "Focus on rebuilding infrastructure and confidence."
+
  # Modifiers
  exotic_silk_goods:0 "Exotic Silks"
  exotic_silk_goods_desc:0 "This court has acquired rare silks from distant eastern lands, enhancing prestige and diplomatic standing."

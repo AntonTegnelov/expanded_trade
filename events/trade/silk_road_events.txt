@@ -759,3 +759,277 @@ silk_road_events.0006 = {
 		}
 	}
 }
+
+# Trade Route Security Event
+# This event triggers for counties with active trade but low control
+silk_road_events.0007 = {
+	type = character_event
+	title = silk_road_events.0007.t
+	desc = silk_road_events.0007.desc
+	theme = army
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	trigger = {
+		any_county = {
+			is_on_silk_road_trigger = yes
+			county_controller = root
+			NOT = {
+				has_county_flag = recent_trade_security_event
+			}
+			county_control < 50
+		}
+	}
+	immediate = {
+		random_county = {
+			limit = {
+				is_on_silk_road_trigger = yes
+				county_controller = root
+				NOT = {
+					has_county_flag = recent_trade_security_event
+				}
+				county_control < 50
+			}
+			save_scope_as = unsafe_trade_county
+			add_county_flag = {
+				flag = recent_trade_security_event
+				days = 365				# 1 year cooldown
+			}
+		}
+	}
+	# Invest in local security
+	option = {
+		name = silk_road_events.0007.a
+		trigger = {
+			gold > 150
+		}
+		add_gold = medium_gold_loss
+		scope:unsafe_trade_county = {
+			add_county_modifier = {
+				modifier = protected_trade_route
+				months = 12
+			}
+			add_county_control = 15
+		}
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 25
+				has_trait = diligent
+			}
+			modifier = {
+				add = 25
+				martial > 12
+			}
+		}
+	}
+	# Use your marshal
+	option = {
+		name = silk_road_events.0007.b
+		scope:unsafe_trade_county = {
+			add_county_modifier = {
+				modifier = improved_trade_infrastructure
+				months = 6
+			}
+			add_county_control = 5
+		}
+		add_prestige = minor_prestige_loss
+		random_list = {
+			70 = {
+				# Success
+				trigger_event = {
+					id = silk_road_events.0008
+					days = 30
+				}
+			}
+			30 = {
+				# Failure
+				trigger_event = {
+					id = silk_road_events.0009
+					days = 30
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				has_trait = patient
+			}
+			modifier = {
+				add = 25
+				martial > 10
+			}
+			modifier = {
+				factor = 2
+				gold < 150
+			}
+		}
+	}
+	# Accept the risk
+	option = {
+		name = silk_road_events.0007.c
+		scope:unsafe_trade_county = {
+			add_county_modifier = {
+				modifier = decreased_foreign_trade
+				months = 6
+			}
+			add_county_control = -5
+		}
+		random_list = {
+			75 = {
+				# Trade declines but no incident
+				add_prestige = minor_prestige_loss
+			}
+			25 = {
+				# Bandit attack
+				trigger_event = {
+					id = silk_road_events.0009
+					days = 15
+				}
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				add = 50
+				has_trait = content
+			}
+			modifier = {
+				add = 25
+				stewardship < 8
+			}
+		}
+	}
+}
+
+# Security mission success event
+silk_road_events.0008 = {
+	type = character_event
+	title = silk_road_events.0008.t
+	desc = silk_road_events.0008.desc
+	theme = army
+	left_portrait = {
+		character = root
+		animation = personality_bold
+	}
+	immediate = {
+		scope:unsafe_trade_county = {
+			add_county_control = 15
+			remove_county_modifier = improved_trade_infrastructure
+			add_county_modifier = {
+				modifier = protected_trade_route
+				months = 24
+			}
+		}
+	}
+	# Celebrate the success
+	option = {
+		name = silk_road_events.0008.a
+		add_prestige = medium_prestige_gain
+		scope:unsafe_trade_county = {
+			add_county_modifier = {
+				modifier = improved_trade_flow
+				months = 12
+			}
+		}
+	}
+}
+
+# Security mission failure or bandit attack event
+silk_road_events.0009 = {
+	type = character_event
+	title = silk_road_events.0009.t
+	desc = silk_road_events.0009.desc
+	theme = army
+	left_portrait = {
+		character = root
+		animation = anger
+	}
+	immediate = {
+		scope:unsafe_trade_county = {
+			add_county_control = -10
+			if = {
+				limit = {
+					has_county_modifier = improved_trade_infrastructure
+				}
+				remove_county_modifier = improved_trade_infrastructure
+			}
+			add_county_modifier = {
+				modifier = disrupted_trade_route
+				months = 6
+			}
+		}
+	}
+	# Launch a punitive expedition
+	option = {
+		name = silk_road_events.0009.a
+		trigger = {
+			gold > 100
+		}
+		add_gold = minor_gold_loss
+		add_prestige = minor_prestige_gain
+		scope:unsafe_trade_county = {
+			add_county_control = 15
+			remove_county_modifier = disrupted_trade_route
+		}
+		random_list = {
+			70 = {
+				# Success
+				scope:unsafe_trade_county = {
+					add_county_modifier = {
+						modifier = protected_trade_route
+						months = 12
+					}
+				}
+			}
+			30 = {
+				# Partial success
+				scope:unsafe_trade_county = {
+					add_county_modifier = {
+						modifier = improved_trade_infrastructure
+						months = 6
+					}
+				}
+			}
+		}
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 25
+				has_trait = wrathful
+			}
+			modifier = {
+				add = 25
+				martial > 10
+			}
+			modifier = {
+				factor = 0.5
+				gold < 150
+			}
+		}
+	}
+	# Focus on recovery
+	option = {
+		name = silk_road_events.0009.b
+		add_prestige = minor_prestige_loss
+		scope:unsafe_trade_county = {
+			add_county_modifier = {
+				modifier = improved_trade_infrastructure
+				months = 12
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				has_trait = patient
+			}
+			modifier = {
+				add = 25
+				stewardship > 10
+			}
+		}
+	}
+}

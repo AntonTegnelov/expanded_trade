@@ -307,11 +307,11 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add minor acceptance bonuses between trade partners
     - [x] Include options for embracing or rejecting foreign influences
     - [x] Create trait-based outcomes affecting character opinions
-  - [ ] Add "Trade Route Security" event
-    - [ ] Trigger from counties with active trade but low control
-    - [ ] Present options for investing in route protection
-    - [ ] Create risk/reward decisions for military investment
-    - [ ] Add outcomes affecting county control and prosperity
+  - [x] Add "Trade Route Security" event
+    - [x] Trigger from counties with active trade but low control
+    - [x] Present options for investing in route protection
+    - [x] Create risk/reward decisions for military investment
+    - [x] Add outcomes affecting county control and prosperity
   - [ ] Use on_action hooks for key trigger points (occupation, peace treaty)
   - [ ] Implement localization in `localization/english/silk_road_events_l_english.yml`
   - [ ] Create Silk Road specific event pictures
