@@ -682,3 +682,55 @@ trade_events.0004 = {
 		}
 	}
 }
+
+# Trade Status Change Notification Event
+# This event is triggered when a county's trade route status changes
+trade_events.0100 = {
+	type = county_event
+	title = trade_events.0100.t
+	desc = {
+		desc = trade_events.0100.active_desc
+		trigger = {
+			has_county_flag = on_active_trade_route
+		}
+	}
+	desc = {
+		desc = trade_events.0100.disrupted_desc
+		trigger = {
+			has_county_flag = on_disrupted_trade_route
+		}
+	}
+	theme = stewardship
+	trigger = {
+		OR = {
+			has_county_flag = on_active_trade_route
+			has_county_flag = on_disrupted_trade_route
+		}
+	}
+	immediate = {
+		save_scope_as = status_change_county
+	}
+	# Acknowledge
+	option = {
+		name = trade_events.0100.a
+		# Different effects based on the trade route status
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			add_county_modifier = {
+				modifier = trade_route_active
+				days = 365
+			}
+		}
+		else_if = {
+			limit = {
+				has_county_flag = on_disrupted_trade_route
+			}
+			add_county_modifier = {
+				modifier = trade_route_disrupted
+				days = 365
+			}
+		}
+	}
+}

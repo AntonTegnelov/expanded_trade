@@ -27,6 +27,12 @@ l_english:
  trade_events.0004.b:0 "Negotiate a diplomatic compromise."
  trade_events.0004.c:0 "Rule in favor of the foreign merchant."
 
+ # Trade Status Change Notification Event
+ trade_events.0100.t:0 "Trade Route Status Change"
+ trade_events.0100.active_desc:0 "The trade route through [scope:status_change_county.GetName] is now active and flowing smoothly. Merchants are bringing goods and wealth to the county, and the local economy is beginning to benefit from increased trade."
+ trade_events.0100.disrupted_desc:0 "The trade route through [scope:status_change_county.GetName] has been disrupted. Merchants are avoiding the area, and the local economy is suffering from decreased trade activity."
+ trade_events.0100.a:0 "We must adapt to these changes."
+
  # Trade Modifiers
  excessive_trade_taxation:0 "Excessive Trade Taxation"
  excessive_trade_taxation_desc:0 "Heavy taxation has discouraged merchants from bringing their best goods to this county."
@@ -57,6 +63,12 @@ l_english:
  
  increased_foreign_trade:0 "Increased Foreign Trade"
  increased_foreign_trade_desc:0 "Foreign merchants are bringing exotic goods and increased commerce to this county."
+
+ trade_route_active:0 "Active Trade Route"
+ trade_route_active_desc:0 "This county has an active trade route passing through it, bringing economic benefits."
+ 
+ trade_route_disrupted:0 "Disrupted Trade Route"
+ trade_route_disrupted_desc:0 "The trade route through this county has been disrupted, reducing economic activity."
  
  # Opinion Modifiers
  favored_local_merchants:0 "Favored Local Merchants"
