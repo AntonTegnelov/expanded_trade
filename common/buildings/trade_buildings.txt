@@ -58,3 +58,56 @@ trading_post_01 = {
 	# Future upgrade paths could be added here
 	# next_building = trading_post_02
 }
+
+# Caravanserai - Advanced economic building for counties on major trade routes
+caravanserai_01 = {
+	construction_time = 365
+	can_construct_potential = {
+		OR = {
+			building_requirement_castle = {
+				LEVEL = 1
+			}
+			building_requirement_city = {
+				LEVEL = 1
+			}
+		}
+	}
+	can_construct_showing_failures_only = {
+		is_on_silk_road_trigger = yes
+	}
+	is_enabled = {
+		# County must be a key trade node on the Silk Road
+		county = {
+			is_on_silk_road_trigger = yes
+			# Only key locations can have caravanserais
+			OR = {
+				any_trade_node = {
+					OR = {
+						# Key Silk Road nodes
+						node_id = samarkand_node
+						node_id = bukhara_node
+						node_id = merv_node
+						node_id = baghdad_node
+						node_id = mosul_node
+						node_id = aleppo_node
+						node_id = antioch_node
+						node_id = constantinople_node
+					}
+				}
+				# Or county is set as a trade_post_slot location
+				has_county_flag = trade_post_slot
+			}
+		}
+	}
+	cost_gold = 200
+	province_modifier = {
+		monthly_income = 0.3
+		defender_advantage = 2
+	}
+	county_modifier = {
+		county_trade_value_add = 1
+		development_growth_factor = 0.1
+	}
+	# Future upgrade paths could be added here
+	# next_building = caravanserai_02
+}

@@ -137,10 +137,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Set gold_cost = 150 and build_time = 300
       - [x] Add county_trade_value_add = 0.75 and monthly_income = 0.2
       - [x] Require county to be on trade route using is_on_silk_road_trigger
-    - [ ] Design Caravanserai building for counties on major routes
-      - [ ] Set gold_cost = 200 and build_time = 365
-      - [ ] Add county_trade_value_add = 1 and development_growth_factor = 0.1
-      - [ ] Implement special_building_slot = trade_post_slot for key locations
+    - [x] Design Caravanserai building for counties on major routes
+      - [x] Set gold_cost = 200 and build_time = 365
+      - [x] Add county_trade_value_add = 1 and development_growth_factor = 0.1
+      - [x] Implement special_building_slot = trade_post_slot for key locations
     - [ ] Ensure building upgrades follow vanilla pattern (level 1, 2, 3)
     - [ ] Use appropriate building flags for UI display (construction_category = economic)
     - [ ] Balance costs and benefits against vanilla economic buildings
