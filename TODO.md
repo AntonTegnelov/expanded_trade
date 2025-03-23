@@ -316,21 +316,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Map events to appropriate vanilla event themes and backgrounds
     - [x] Ensure compatibility with Northern Lords if present
 
-## 1B. Tutorial System Refactoring
-
-- [x] **Remove Event-Based Tutorial Approach** - Fix the incorrect implementation
-
-  - [x] Delete `events/trade_tutorial.txt` file
-    - [x] Remove on_action hooks for tutorial events
-    - [x] Remove character flags for tutorial progress tracking
-  - [x] Remove any references to tutorial events from other files
-    - [x] Clean up localization files of tutorial event texts
-    - [x] Remove any interface elements specific to tutorial events
-  - [x] Audit other files for tutorial event dependencies
-    - [x] Check on_action files for tutorial event triggers
-    - [x] Verify no decisions or interactions depend on tutorial events
-
-- [x] **Implement Proper Tutorial System** - Use CK3's native tutorial framework
+- [x] **Implement Tutorial System** - Use CK3's native tutorial framework
 
   - [x] Create `common/tutorial_lessons/trade_tutorial_lessons.txt`
     - [x] Define lesson chain for trade mechanics

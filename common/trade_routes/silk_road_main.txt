@@ -1,6 +1,7 @@
 trade_route = {
 	id = "silk_road_main"
 	name = "silk_road_name"
+	debug_log = "Initializing Silk Road main route"
 	# Main Silk Road nodes from China to Europe
 	nodes = {
 		xian_node		# Chang'an/Xi'an - Starting point in China
@@ -22,50 +23,62 @@ trade_route = {
 		{
 			from = xian_node
 			to = dunhuang_node
+			debug_log = "Connected land route: Xi'an to Dunhuang"
 		}
 		{
 			from = dunhuang_node
 			to = kashgar_node
+			debug_log = "Connected land route: Dunhuang to Kashgar"
 		}
 		{
 			from = kashgar_node
 			to = samarkand_node
+			debug_log = "Connected land route: Kashgar to Samarkand"
 		}
 		{
 			from = samarkand_node
 			to = bukhara_node
+			debug_log = "Connected land route: Samarkand to Bukhara"
 		}
 		{
 			from = bukhara_node
 			to = merv_node
+			debug_log = "Connected land route: Bukhara to Merv"
 		}
 		{
 			from = merv_node
 			to = nishapur_node
+			debug_log = "Connected land route: Merv to Nishapur"
 		}
 		{
 			from = nishapur_node
 			to = rayy_node
+			debug_log = "Connected land route: Nishapur to Rayy"
 		}
 		{
 			from = rayy_node
 			to = baghdad_node
+			debug_log = "Connected land route: Rayy to Baghdad"
 		}
 		{
 			from = baghdad_node
 			to = mosul_node
+			debug_log = "Connected land route: Baghdad to Mosul"
 		}
 		{
 			from = mosul_node
 			to = aleppo_node
+			debug_log = "Connected land route: Mosul to Aleppo"
 		}
 		{
 			from = aleppo_node
 			to = antioch_node
+			debug_log = "Connected land route: Aleppo to Antioch"
 		}
 		{
 			from = antioch_node
 			to = constantinople_node
+			debug_log = "Connected land route: Antioch to Constantinople"
 		}
 	}
 	# Alternative sea route from Baghdad to Constantinople
@@ -73,6 +86,7 @@ trade_route = {
 		{
 			from = baghdad_node
 			to = constantinople_node
+			debug_log = "Connected sea route: Baghdad to Constantinople"
 		}
 	}
 	# Historical description
@@ -80,6 +94,7 @@ trade_route = {
 	# Status flags - initially active and not disrupted
 	is_active = yes
 	is_disrupted = no
+	debug_log = "Silk Road route status: Active, Not Disrupted"
 	# Base trade flow capacity
 	base_flow_capacity = 10
 	# Basic route properties
