@@ -74,10 +74,10 @@
   - [x] Log intermediate results: `debug_log = "Intermediate calculation: [StepName] = [Value]"`
   - [x] Log final results: `debug_log = "Final trade value: [Value]"`
 
-- [ ] Add debug_log statements to `common/scripted_effects/trade_route_effects.txt`
-  - [ ] Log route effect triggers: `debug_log = "Route effect triggered: [EffectName]"`
-  - [ ] Log scope changes: `debug_log = "Changing scope from [OldScope] to [NewScope]"`
-  - [ ] Log route modifications: `debug_log = "Route modified: [RouteID] [ChangeType]"`
+- [x] Add debug_log statements to `common/scripted_effects/trade_route_effects.txt`
+  - [x] Log route effect triggers: `debug_log = "Route effect triggered: [EffectName]"`
+  - [x] Log scope changes: `debug_log = "Changing scope from [OldScope] to [NewScope]"`
+  - [x] Log route modifications: `debug_log = "Route modified: [RouteID] [ChangeType]"`
 
 ### 7.4 Script Values
 

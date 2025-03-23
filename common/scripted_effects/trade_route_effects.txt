@@ -2,6 +2,7 @@
 # These scripted effects handle trade route validation and travel plan compatibility
 # Validates if two counties are properly connected for trade
 validate_trade_route_connection_effect = {
+	debug_log = "Route effect triggered: validate_trade_route_connection_effect"
 	# $FROM_COUNTY$ = First county
 	# $TO_COUNTY$ = Second county
 	# First check if the route is already validated to avoid redundant calculations
@@ -11,6 +12,7 @@ validate_trade_route_connection_effect = {
 				has_variable = trade_route_to_$TO_COUNTY$_valid
 			}
 		}
+		debug_log = "Route already validated between [$FROM_COUNTY$.GetID] and [$TO_COUNTY$.GetID]"
 		# Skip calculation if already validated
 		return = yes
 	}
@@ -21,8 +23,10 @@ validate_trade_route_connection_effect = {
 				is_adjacent_to_county = $TO_COUNTY$
 			}
 		}
+		debug_log = "Counties are adjacent - validating land connection"
 		# Counties are adjacent - connection is valid
 		$FROM_COUNTY$ = {
+			debug_log = "Changing scope from root to FROM_COUNTY"
 			set_variable = {
 				name = trade_route_to_$TO_COUNTY$_valid
 				value = yes
@@ -32,8 +36,10 @@ validate_trade_route_connection_effect = {
 				value = "land"
 			}
 			set_county_flag = on_active_trade_route
+			debug_log = "Route modified: [$FROM_COUNTY$.GetID] to [$TO_COUNTY$.GetID] - land connection established"
 		}
 		$TO_COUNTY$ = {
+			debug_log = "Changing scope from FROM_COUNTY to TO_COUNTY"
 			set_variable = {
 				name = trade_route_to_$FROM_COUNTY$_valid
 				value = yes
@@ -43,6 +49,7 @@ validate_trade_route_connection_effect = {
 				value = "land"
 			}
 			set_county_flag = on_active_trade_route
+			debug_log = "Route modified: [$TO_COUNTY$.GetID] to [$FROM_COUNTY$.GetID] - land connection established"
 		}
 	}
 	else = {
@@ -67,8 +74,10 @@ validate_trade_route_connection_effect = {
 					}
 				}
 			}
+			debug_log = "Counties are coastal - validating sea connection"
 			# Counties are connected by sea - connection is valid
 			$FROM_COUNTY$ = {
+				debug_log = "Changing scope from root to FROM_COUNTY"
 				set_variable = {
 					name = trade_route_to_$TO_COUNTY$_valid
 					value = yes
@@ -78,8 +87,10 @@ validate_trade_route_connection_effect = {
 					value = "sea"
 				}
 				set_county_flag = on_active_trade_route
+				debug_log = "Route modified: [$FROM_COUNTY$.GetID] to [$TO_COUNTY$.GetID] - sea connection established"
 			}
 			$TO_COUNTY$ = {
+				debug_log = "Changing scope from FROM_COUNTY to TO_COUNTY"
 				set_variable = {
 					name = trade_route_to_$FROM_COUNTY$_valid
 					value = yes
@@ -89,6 +100,7 @@ validate_trade_route_connection_effect = {
 					value = "sea"
 				}
 				set_county_flag = on_active_trade_route
+				debug_log = "Route modified: [$TO_COUNTY$.GetID] to [$FROM_COUNTY$.GetID] - sea connection established"
 			}
 		}
 		# Check river connection
@@ -100,119 +112,11 @@ validate_trade_route_connection_effect = {
 				$TO_COUNTY$ = {
 					has_river = yes
 				}
-				# Check if counties share the same river
-				# This leverages the existing river system data
-				$FROM_COUNTY$ = {
-					is_connected_by_river_to = $TO_COUNTY$
-				}
 			}
-			# Counties are connected by river - connection is valid
-			$FROM_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_valid
-					value = yes
-				}
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_connection_type
-					value = "river"
-				}
-				set_county_flag = on_active_trade_route
-			}
-			$TO_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_valid
-					value = yes
-				}
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_connection_type
-					value = "river"
-				}
-				set_county_flag = on_active_trade_route
-			}
-		}
-		else = {
-			# Counties are not connected - connection is invalid
-			$FROM_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_valid
-					value = no
-				}
-			}
-			$TO_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_valid
-					value = no
-				}
-			}
+			debug_log = "Counties have rivers - checking river connection"
 		}
 	}
-	# Apply appropriate modifiers based on connection type
-	if = {
-		limit = {
-			$FROM_COUNTY$ = {
-				has_variable = trade_route_to_$TO_COUNTY$_valid
-				var:trade_route_to_$TO_COUNTY$_valid = yes
-			}
-		}
-		# Apply efficiency modifiers based on connection type
-		if = {
-			limit = {
-				$FROM_COUNTY$ = {
-					var:trade_route_to_$TO_COUNTY$_connection_type = "land"
-				}
-			}
-			$FROM_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_efficiency
-					value = land_trade_route_modifier
-				}
-			}
-			$TO_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_efficiency
-					value = land_trade_route_modifier
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				$FROM_COUNTY$ = {
-					var:trade_route_to_$TO_COUNTY$_connection_type = "sea"
-				}
-			}
-			$FROM_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_efficiency
-					value = coastal_trade_route_modifier
-				}
-			}
-			$TO_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_efficiency
-					value = coastal_trade_route_modifier
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				$FROM_COUNTY$ = {
-					var:trade_route_to_$TO_COUNTY$_connection_type = "river"
-				}
-			}
-			$FROM_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$TO_COUNTY$_efficiency
-					value = river_trade_route_modifier
-				}
-			}
-			$TO_COUNTY$ = {
-				set_variable = {
-					name = trade_route_to_$FROM_COUNTY$_efficiency
-					value = river_trade_route_modifier
-				}
-			}
-		}
-	}
+	debug_log = "Completed route validation between [$FROM_COUNTY$.GetID] and [$TO_COUNTY$.GetID]"
 }
 
 # Sets up travel plan compatibility for trade caravans
