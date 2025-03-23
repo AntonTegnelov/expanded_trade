@@ -2,6 +2,7 @@
 # These on_actions trigger events related to trade
 # Hook into the standard on_monthly_pulse to run our trade calculations
 on_monthly_pulse = {
+	debug_log = "On-action fired: on_monthly_pulse"
 	on_actions = {
 		on_monthly_trade_pulse
 	}
@@ -9,8 +10,10 @@ on_monthly_pulse = {
 
 # Monthly pulse for trade calculations
 on_monthly_trade_pulse = {
+	debug_log = "On-action fired: on_monthly_trade_pulse"
 	# This is called by hooking into the on_monthly_pulse
 	effect = {
+		debug_log = "Executing effect from on-action: on_monthly_trade_pulse"
 		# Execute the simplified trade flow calculation only if we have trade routes
 		# This check improves performance for games without active trade
 		if = {
@@ -20,6 +23,7 @@ on_monthly_trade_pulse = {
 					has_county_flag = on_silk_road
 				}
 			}
+			debug_log = "Executing effect: calculate_basic_trade_income_effect"
 			# Execute the simplified trade flow calculation
 			calculate_basic_trade_income_effect = yes
 			# Update county prosperity based on trade route status
@@ -29,6 +33,7 @@ on_monthly_trade_pulse = {
 					tier = county
 					has_county_flag = on_silk_road
 				}
+				debug_log = "Executing effect: apply_trade_prosperity_effect for [THIS.GetID]"
 				# Apply trade prosperity effects to counties on the Silk Road
 				apply_trade_prosperity_effect = yes
 				# Check for status changes - only if there are active or disrupted routes
@@ -44,6 +49,7 @@ on_monthly_trade_pulse = {
 							has_county_flag = trade_prosperity_high
 						}
 					}
+					debug_log = "Starting event chain from on-action: trade_status_change for [THIS.GetID]"
 					# Check if the status has changed
 					on_action = trade_status_change
 				}
@@ -55,6 +61,7 @@ on_monthly_trade_pulse = {
 # This is triggered when a county is occupied
 # County scope
 on_county_occupied = {
+	debug_log = "On-action fired: on_county_occupied for [THIS.GetID]"
 	on_actions = {
 		trade_county_occupied
 	}
@@ -63,7 +70,9 @@ on_county_occupied = {
 # Custom on_action for county occupation
 # County scope
 trade_county_occupied = {
+	debug_log = "On-action fired: trade_county_occupied for [THIS.GetID]"
 	effect = {
+		debug_log = "Executing effect from on-action: trade_county_occupied"
 		# Only check counties on trade routes
 		if = {
 			limit = {
@@ -74,6 +83,7 @@ trade_county_occupied = {
 				limit = {
 					has_county_flag = on_active_trade_route
 				}
+				debug_log = "Executing effect: Disrupting trade route in [THIS.GetID]"
 				# Remove active flag
 				remove_county_flag = on_active_trade_route
 				# Add disrupted flag
@@ -84,6 +94,7 @@ trade_county_occupied = {
 		}
 	}
 	events = {
+		debug_log = "Starting event chain from on-action: silk_road_events.0003"
 		silk_road_events.0003		# Silk Road Disruption Event
 	}
 }
@@ -91,6 +102,7 @@ trade_county_occupied = {
 # This is triggered when a holding building is constructed
 # Holding scope
 on_holding_building_constructed = {
+	debug_log = "On-action fired: on_holding_building_constructed for [THIS.GetID]"
 	on_actions = {
 		trade_building_constructed
 	}
@@ -99,7 +111,9 @@ on_holding_building_constructed = {
 # Custom on_action for building construction
 # Holding scope
 trade_building_constructed = {
+	debug_log = "On-action fired: trade_building_constructed for [THIS.GetID]"
 	effect = {
+		debug_log = "Executing effect from on-action: trade_building_constructed"
 		# Check if this is a trade building
 		if = {
 			limit = {
@@ -109,6 +123,7 @@ trade_building_constructed = {
 					has_building = caravanserai
 				}
 			}
+			debug_log = "Executing effect: Updating trade status for trade building in [THIS.GetID]"
 			# Update trade status for the county
 			county = {
 				# If on a trade route, may activate it
@@ -120,6 +135,7 @@ trade_building_constructed = {
 							has_county_flag = on_active_trade_route
 						}
 					}
+					debug_log = "Executing effect: Activating trade route in [THIS.GetID]"
 					# Remove disrupted flag
 					remove_county_flag = on_disrupted_trade_route
 					# Add active flag
@@ -135,6 +151,7 @@ trade_building_constructed = {
 # Triggered when a county changes status
 # County scope
 trade_status_change = {
+	debug_log = "On-action fired: trade_status_change for [THIS.GetID]"
 	random_events = {
 		# Add event references here when trade events are implemented
 		# Events for active routes becoming prosperous
@@ -142,6 +159,7 @@ trade_status_change = {
 		# fallback = trade_fallback
 	}
 	events = {
+		debug_log = "Starting event chain from on-action: trade_events.0100"
 		# Status change notification events
 		id = trade_events.0100
 	}
@@ -150,6 +168,7 @@ trade_status_change = {
 # Custom on_action for trade events
 # Character scope
 trade_events_random = {
+	debug_log = "On-action fired: trade_events_random for [THIS.GetID]"
 	random_events = {
 		# Prosperity events
 		100 = trade_events.0201
@@ -162,23 +181,31 @@ trade_events_random = {
 
 # Monthly character pulse - trigger regular trade events
 on_monthly_character_pulse = {
+	debug_log = "On-action fired: on_monthly_character_pulse for [THIS.GetID]"
 	events = {
+		debug_log = "Starting event chain from on-action: trade_events.0001"
 		trade_events.0001		# Trade Caravan Arrival
+		debug_log = "Starting event chain from on-action: trade_events.0004"
 		trade_events.0004		# Merchant Dispute
+		debug_log = "Starting event chain from on-action: silk_road_events.0005"
 		silk_road_events.0005		# Cultural Exchange on the Silk Road
+		debug_log = "Starting event chain from on-action: silk_road_events.0007"
 		silk_road_events.0007		# Trade Route Security
 	}
 }
 
 # Monthly county pulse - trigger county-level trade events
 on_monthly_county_pulse = {
+	debug_log = "On-action fired: on_monthly_county_pulse for [THIS.GetID]"
 	events = {
+		debug_log = "Starting event chain from on-action: trade_events.0002"
 		trade_events.0002		# Local Goods Price Fluctuation
 	}
 }
 
 # Game start hook for tutorial events
 on_game_start_after_lobby = {
+	debug_log = "On-action fired: on_game_start_after_lobby"
 	events = {
 		# Removed trade_tutorial.001 (Introduction to Trade Tutorial)
 	}

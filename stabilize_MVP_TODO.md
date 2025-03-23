@@ -100,10 +100,10 @@
 
 ### 7.6 On-Actions
 
-- [ ] Add debug_log statements to `common/on_action/trade_on_actions.txt`
-  - [ ] Log on-action firing: `debug_log = "On-action fired: [OnActionName]"`
-  - [ ] Log event chains: `debug_log = "Starting event chain from on-action: [EventID]"`
-  - [ ] Log effect execution: `debug_log = "Executing effect from on-action: [EffectName]"`
+- [x] Add debug_log statements to `common/on_action/trade_on_actions.txt`
+  - [x] Log on-action firing: `debug_log = "On-action fired: [OnActionName]"`
+  - [x] Log event chains: `debug_log = "Starting event chain from on-action: [EventID]"`
+  - [x] Log effect execution: `debug_log = "Executing effect from on-action: [EffectName]"`
 
 ### 7.7 Events
 
