@@ -167,8 +167,11 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Create on_accept effect to improve trade flow on specific route
       - [x] Add ai_will_do based on stewardship and ambitious trait
       - [x] Create event chain for success/failure using random_events_weight system
-    - [ ] Ensure compatibility with vanilla interaction framework
-    - [ ] Create proper interaction icons in `gfx/interface/icons/character_interactions/`
+    - [x] Ensure compatibility with vanilla interaction framework
+      - [x] Use standard category and scopes
+      - [x] Follow vanilla pattern for all properties
+    - [x] Create proper interaction icons in `gfx/interface/icons/character_interactions/`
+      - [x] For MVP, use existing game icons (invite_to_court, alliance, and travel)
     - [x] Add appropriate tooltip localizations in `localization/english/trade_interactions_l_english.yml`
 
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
