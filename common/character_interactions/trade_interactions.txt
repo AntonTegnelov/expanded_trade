@@ -404,4 +404,52 @@ sponsor_trade_expedition_interaction = {
 			add_prestige = 75
 		}
 	}
+	# How likely is the AI to initiate this
+	ai_will_do = {
+		base = 10
+		# More likely if good at stewardship
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				stewardship > 10
+			}
+		}
+		# More likely if ambitious
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				has_trait = ambitious
+			}
+		}
+		# Less likely if content
+		modifier = {
+			factor = 0.5
+			scope:actor = {
+				has_trait = content
+			}
+		}
+		# More likely if wealthy
+		modifier = {
+			factor = 2
+			scope:actor = {
+				gold > 500
+			}
+		}
+		# Less likely if poor
+		modifier = {
+			factor = 0.3
+			scope:actor = {
+				gold < 200
+			}
+		}
+		# More likely if the realm is on a trade route
+		modifier = {
+			factor = 3
+			scope:actor = {
+				any_realm_county = {
+					has_county_flag = on_active_trade_route
+				}
+			}
+		}
+	}
 }
