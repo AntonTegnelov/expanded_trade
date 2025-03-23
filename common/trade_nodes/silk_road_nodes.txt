@@ -4,9 +4,9 @@
 trade_node = {
 	id = "xian_node"
 	name = "xian_node"
-	# Chang'an/Xi'an - Starting point in China
-	county = 256	# Placeholder ID - will need to be replaced with actual county ID
-	province = 256	# Added province_id reference matching county
+	# Xingqing - Starting point in China, nearest in-game representation of the historical Chang'an/Xi'an
+	county = 9546	# Using Xingqing county ID
+	province = 9546	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -17,8 +17,8 @@ trade_node = {
 	id = "dunhuang_node"
 	name = "dunhuang_node"
 	# Dunhuang - Western China gateway
-	county = 257	# Placeholder ID
-	province = 257	# Added province_id reference matching county
+	county = 1448	# Using Dunhuang county ID
+	province = 1448	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -29,8 +29,8 @@ trade_node = {
 	id = "kashgar_node"
 	name = "kashgar_node"
 	# Kashgar - Entry to Central Asia
-	county = 258	# Placeholder ID
-	province = 258	# Added province_id reference matching county
+	county = 1439	# Using Kashgar county ID
+	province = 1439	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -66,8 +66,8 @@ trade_node = {
 	id = "merv_node"
 	name = "merv_node"
 	# Merv - Persian trade city
-	county = 450	# Placeholder ID
-	province = 450	# Added province_id reference matching county
+	county = 4238	# Using Merv county ID
+	province = 4238	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value
@@ -79,8 +79,8 @@ trade_node = {
 	id = "nishapur_node"
 	name = "nishapur_node"
 	# Nishapur - Northeastern Persian hub
-	county = 451	# Placeholder ID
-	province = 451	# Added province_id reference matching county
+	county = 4017	# Using Nishapur county ID
+	province = 4017	# Added province_id reference matching county
 	# Controller is the owner of the county
 	controller = scope:county.holder
 	# Use development-based value calculation instead of static value

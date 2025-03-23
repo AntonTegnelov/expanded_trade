@@ -36,7 +36,7 @@ l_english:
  trade_building_advice_desc:0 "You have constructed your first trade building! These structures increase your income from trade routes and boost the prosperity of your counties.\n\nConsider building more trade structures in counties along the Silk Road to maximize your profits."
  
  trade_route_disruption_advice_title:0 "Trade Route Disrupted"
- trade_route_disruption_advice_desc:0 "A trade route passing through your realm has been disrupted! This will reduce income and prosperity in affected counties.\n\nDisruptions can be caused by war, occupation, or low county control. Consider using the 'Secure Trade Route' decision to restore normal trade flow." ufeff
+ trade_route_disruption_advice_desc:0 "A trade route passing through your realm has been disrupted! This will reduce income and prosperity in affected counties.\n\nDisruptions can be caused by war, occupation, or low county control. Consider using the 'Secure Trade Route' decision to restore normal trade flow."
  
  trade_prosperity_advice_title:0 "Trade Prosperity Achieved"
  trade_prosperity_advice_desc:0 "One of your counties has achieved high trade prosperity! This means it is benefiting greatly from trade route activity and will receive significant bonuses to development, income, and county control.\n\nContinue investing in trade buildings and policies to maintain and increase this prosperity across your realm."

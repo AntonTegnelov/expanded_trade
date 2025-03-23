@@ -177,67 +177,9 @@ on_monthly_county_pulse = {
 	}
 }
 
-# Hook into title gain events to initialize county variables
-# Character scope
-on_title_gain = {
-	effect = {
-		# Initialize trade variables when a character gains a county
-		if = {
-			limit = {
-				scope:title = {
-					tier = county
-				}
-			}
-			scope:title = {
-				initialize_county_trade_variables_effect = {
-					COUNTY = this
-				}
-			}
-		}
-		# Initialize character trade variables when character becomes a ruler
-		if = {
-			limit = {
-				is_ruler = yes
-				NOT = {
-					has_variable = trade_prosperity_level
-				}
-			}
-			initialize_character_trade_variables_effect = yes
-		}
-	}
-}
-
-# Hook into character creation to initialize character variables
-# Character scope
-on_birth = {
-	effect = {
-		# Nothing to do for newborns currently
-	}
-}
-
 # Game start hook for tutorial events
 on_game_start_after_lobby = {
 	events = {
 		# Removed trade_tutorial.001 (Introduction to Trade Tutorial)
-	}
-	effect = {
-		# Initialize all trade variables at game start
-		initialize_global_trade_variables_effect = yes
-		# Initialize variables for all characters
-		every_character = {
-			limit = {
-				is_ruler = yes
-			}
-			initialize_character_trade_variables_effect = yes
-		}
-		# Initialize variables for all counties
-		every_title = {
-			limit = {
-				tier = county
-			}
-			initialize_county_trade_variables_effect = {
-				COUNTY = this
-			}
-		}
 	}
 }
