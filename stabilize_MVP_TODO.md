@@ -113,13 +113,13 @@
   - [x] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
   - [x] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
 
-- [ ] Add debug_log statements to all other event files
+- [x] Add debug_log statements to all other event files
   - [x] `events/trade/trade_events.txt`
   - [x] `events/trade/trade_monthly_events.txt`
   - [x] `events/trade/trade_decision_events.txt`
   - [x] `events/trade/foreign_merchant_events.txt`
   - [x] `events/trade/trade_disruption_events.txt`
-  - [ ] `events/trade/trade_expedition_events.txt`
+  - [x] `events/trade/trade_expedition_events.txt`
 
 ### 7.8 Trade Goods
 

@@ -11,8 +11,12 @@ trade_expedition.0001 = {
 	}
 	# Simple outcome selection (success or failure)
 	immediate = {
+		debug_log = "[GetDateString]: Event scope: trade_expedition.0001 - Root=[Root.GetID]"
+		debug_log = "[GetDateString]: Executing immediate effects in event trade_expedition.0001"
 		random_list = {
+			debug_log = "[GetDateString]: Random selection for expedition outcome in event trade_expedition.0001"
 			70 = {
+				debug_log = "[GetDateString]: Selected success outcome"
 				# Success
 				trigger = {
 					OR = {
@@ -23,6 +27,7 @@ trade_expedition.0001 = {
 				set_flag = trade_expedition_success
 			}
 			30 = {
+				debug_log = "[GetDateString]: Selected failure outcome"
 				# Failure
 				set_flag = trade_expedition_failure
 			}
@@ -30,6 +35,7 @@ trade_expedition.0001 = {
 	}
 	option = {
 		name = trade_expedition.0001.a		# Continue the expedition
+		debug_log = "[GetDateString]: Executing success path effects in event trade_expedition.0001"
 		trigger = {
 			has_flag = trade_expedition_success
 		}
@@ -42,6 +48,7 @@ trade_expedition.0001 = {
 	}
 	option = {
 		name = trade_expedition.0001.b		# Continue the expedition
+		debug_log = "[GetDateString]: Executing failure path effects in event trade_expedition.0001"
 		trigger = {
 			has_flag = trade_expedition_failure
 		}
