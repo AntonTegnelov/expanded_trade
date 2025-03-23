@@ -7,9 +7,13 @@ trade_building_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Player must have seen the trade introduction
+		has_character_flag = viewed_trade_introduction_step1
+		# But not have seen this advice yet
 		NOT = {
 			has_character_flag = seen_trade_building_advice
 		}
+		# And must have just built a trade building
 		any_held_title = {
 			tier = county
 			any_county_holding = {
@@ -18,6 +22,8 @@ trade_building_advice = {
 					has_building = trading_post
 					has_building = caravanserai
 				}
+				# Recently constructed (within the last 30 days)
+				has_holding_modifier = recently_constructed_building
 			}
 		}
 	}
@@ -57,12 +63,31 @@ trade_route_disruption_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Player should be aware of the trade system already
+		has_character_flag = viewed_trade_introduction_step1
+		# County must be on a silk road and recently disrupted
 		any_held_title = {
 			tier = county
 			has_county_flag = on_silk_road
 			has_county_flag = on_disrupted_trade_route
+			# The disruption should be recent (flag set within last 30 days)
 			NOT = {
 				has_county_flag = notified_disruption
+			}
+			# Make sure disruption is significant
+			NOT = {
+				development_level < 10
+			}
+		}
+		# Only show if the character has some investment in trade
+		any_held_title = {
+			tier = county
+			any_county_holding = {
+				OR = {
+					has_building = market_square
+					has_building = trading_post
+					has_building = caravanserai
+				}
 			}
 		}
 	}
@@ -111,15 +136,35 @@ trade_prosperity_advice = {
 	trigger = {
 		exists = this
 		is_ai = no
+		# Player must have completed the trade introduction
+		has_character_flag = completed_trade_introduction
+		# But not seen this specific advice yet
 		NOT = {
 			has_character_flag = seen_trade_prosperity_advice
 		}
+		# Must have a county with high prosperity that hasn't been notified yet
 		any_held_title = {
 			tier = county
 			has_county_flag = on_silk_road
 			has_county_flag = high_trade_prosperity
+			# Prosperity should be recent (within last 30 days)
 			NOT = {
 				has_county_flag = notified_high_prosperity
+			}
+			# County should have a significant amount of development
+			development_level >= 15
+			# At least 3 holdings to ensure it's a significant county
+			num_of_holdings >= 3
+		}
+		# Player should have at least one trade building
+		any_held_title = {
+			tier = county
+			any_county_holding = {
+				OR = {
+					has_building = market_square
+					has_building = trading_post
+					has_building = caravanserai
+				}
 			}
 		}
 	}
