@@ -114,15 +114,15 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Ensure compatibility with save/load system
     - [x] Leverage existing flag system for state tracking
 
-- [ ] **Trade Modifiers** - Basic modifiers for county and character effects
-  - [ ] Create `common/modifiers/mvp_trade_modifiers.txt` for core gameplay effects
-    - [ ] Implement county_trade_value modifier for local prosperity
-    - [ ] Create character_trade_income_mult for ruler benefits
-    - [ ] Add building_trade_value_add for infrastructure bonuses
-    - [ ] Implement trade_route_throughput for route quality
-    - [ ] Use existing modifier system for integration
-    - [ ] Ensure compatibility with monthly_income_mult and similar vanilla modifiers
-    - [ ] Create icons for trade-specific modifiers
+- [x] **Trade Modifiers** - Basic modifiers for county and character effects
+  - [x] Create `common/modifiers/mvp_trade_modifiers.txt` for core gameplay effects
+    - [x] Implement county_trade_value modifier for local prosperity
+    - [x] Create character_trade_income_mult for ruler benefits
+    - [x] Add building_trade_value_add for infrastructure bonuses
+    - [x] Implement trade_route_throughput for route quality
+    - [x] Use existing modifier system for integration
+    - [x] Ensure compatibility with monthly_income_mult and similar vanilla modifiers
+    - [x] Create icons for trade-specific modifiers
 
 ### Player Interaction
 
