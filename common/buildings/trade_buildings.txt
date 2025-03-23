@@ -23,6 +23,9 @@ market_square_01 = {
 	county_modifier = {
 		county_trade_value_add = 0.5
 	}
+	# Building flags for UI display
+	flag = economic
+	construction_category = economic
 	# Future upgrade paths could be added here
 	# next_building = market_square_02
 }
@@ -55,6 +58,9 @@ trading_post_01 = {
 	county_modifier = {
 		county_trade_value_add = 0.75
 	}
+	# Building flags for UI display
+	flag = economic
+	construction_category = economic
 	# Future upgrade paths could be added here
 	# next_building = trading_post_02
 }
@@ -108,6 +114,9 @@ caravanserai_01 = {
 		county_trade_value_add = 1
 		development_growth_factor = 0.1
 	}
+	# Building flags for UI display
+	flag = economic
+	construction_category = economic
 	# Future upgrade paths could be added here
 	# next_building = caravanserai_02
 }
