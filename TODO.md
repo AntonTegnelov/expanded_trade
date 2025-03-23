@@ -202,7 +202,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [ ] Create `common/council_tasks/trade_council_tasks.txt` for the Steward
       - [ ] Design event chain reflecting character traits and culture
       - [ ] Create different outcomes based on ruler traits (greedy, just, ambitious)
-      - [ ] Implement ongoing modifiers while task is active
+      - [x] Implement ongoing modifiers while task is active
       - [ ] Add random events that can fire while task is assigned
       - [ ] Use existing council task framework for compatibility
       - [ ] Create appropriate task icon in gfx/interface/icons/council_tasks/

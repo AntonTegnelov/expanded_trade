@@ -1,0 +1,5 @@
+trade_council_steward_focus_on_action = {
+	events = {
+		trade_council_task.001		# Random events for steward trade focus
+	}
+}

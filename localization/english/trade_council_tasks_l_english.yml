@@ -1,0 +1,7 @@
+l_english:
+ task_court_trade_focus:0 "Court Trade Focus"
+ task_court_trade_focus_effect_desc:0 "Your Steward will focus on improving trade relations and managing commercial affairs in your realm."
+ task_court_trade_focus_improved_income:0 "Improved trade income"
+ task_court_trade_focus_merchant_complaint:0 "Merchant complaints about regulations"
+ task_court_trade_focus_income_modifier:0 "Court Trade Focus Income"
+ task_court_trade_focus_development_modifier:0 "Court Trade Focus Development" 
