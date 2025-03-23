@@ -4,17 +4,20 @@
 ## Luxury Goods - High value, low volume
 # Silk - Primarily from China and Central Asia
 trade_good = {
+	debug_log = "[GetDateString]: Initializing trade good: silk"
 	id = "silk"
 	name = "silk"	# Uses vanilla localization
 	category = "luxury"
 	base_value = 3
 	# Production based on terrain types
+	debug_log = "[GetDateString]: Production rule for silk: terrain-based production in mountains and steppes"
 	production_terrain = {
 		desert_mountains
 		steppe
 		mountains
 	}
 	# Characters desire this based on rank
+	debug_log = "[GetDateString]: Trade good value change: silk = 3 (base) + rank modifiers"
 	consumption_desire = {
 		rank_desire = {
 			emperor = 0.5
@@ -29,16 +32,19 @@ trade_good = {
 
 # Spices - From India and Southeast Asia
 trade_good = {
+	debug_log = "[GetDateString]: Initializing trade good: spices"
 	id = "spices"
 	name = "spices"	# Uses vanilla localization
 	category = "luxury"
 	base_value = 2.5
 	# Production based on terrain types
+	debug_log = "[GetDateString]: Production rule for spices: terrain-based production in jungle and hills"
 	production_terrain = {
 		jungle
 		hills
 	}
 	# Characters desire this based on rank
+	debug_log = "[GetDateString]: Trade good value change: spices = 2.5 (base) + rank modifiers"
 	consumption_desire = {
 		rank_desire = {
 			emperor = 0.4

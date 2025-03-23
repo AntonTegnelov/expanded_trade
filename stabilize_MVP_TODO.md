@@ -123,7 +123,7 @@
 
 ### 7.8 Trade Goods
 
-- [ ] Add debug_log statements to `common/trade_goods/trade_goods.txt`
-  - [ ] Log good initialization: `debug_log = "Initializing trade good: [GoodID]"`
-  - [ ] Log production rules: `debug_log = "Production rule for [GoodID]: [RuleDesc]"`
-  - [ ] Log good value changes: `debug_log = "Trade good value change: [GoodID] = [Value]"`
+- [x] Add debug_log statements to `common/trade_goods/trade_goods.txt`
+  - [x] Log good initialization: `debug_log = "Initializing trade good: [GoodID]"`
+  - [x] Log production rules: `debug_log = "Production rule for [GoodID]: [RuleDesc]"`
+  - [x] Log good value changes: `debug_log = "Trade good value change: [GoodID] = [Value]"`
