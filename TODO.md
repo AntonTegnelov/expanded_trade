@@ -126,7 +126,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 
 ### Player Interaction
 
-- [ ] **Trade Buildings** - Essential infrastructure (markets, trading posts, caravanserais)
+- [x] **Trade Buildings** - Essential infrastructure (markets, trading posts, caravanserais)
 
   - [x] Create `common/buildings/trade_buildings.txt` with core buildings
     - [x] Design Market Square building for city holdings
@@ -141,7 +141,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Set gold_cost = 200 and build_time = 365
       - [x] Add county_trade_value_add = 1 and development_growth_factor = 0.1
       - [x] Implement special_building_slot = trade_post_slot for key locations
-    - [ ] Ensure building upgrades follow vanilla pattern (level 1, 2, 3)
+    - [x] Ensure building upgrades follow vanilla pattern (level 1, 2, 3)
     - [x] Use appropriate building flags for UI display (construction_category = economic)
     - [x] Balance costs and benefits against vanilla economic buildings
     - [x] Create appropriate building unlock conditions using scripted triggers
