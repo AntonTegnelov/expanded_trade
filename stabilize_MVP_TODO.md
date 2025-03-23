@@ -32,10 +32,10 @@
 
 ### 5. Script Value Definitions
 
-- [ ] Review `common/script_values/trade_values.txt`
-  - [ ] Fix `trade_node_base_value` script value definition
-  - [ ] Ensure all referenced conditions and variables exist
-  - [ ] Add fallback values to prevent null references
+- [x] Review `common/script_values/trade_values.txt`
+  - [x] Fix `trade_node_base_value` script value definition
+  - [x] Ensure all referenced conditions and variables exist
+  - [x] Add fallback values to prevent null references
 
 ### 6. Version Compatibility
 

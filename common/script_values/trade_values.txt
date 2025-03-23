@@ -10,34 +10,47 @@ large_trade_flow = 15
 major_trade_flow = 20
 # Trade node values
 trade_node_base_value = {
-	# Base value calculation based on development
-	value = scope:county.development_level
-	# Bonus for coastal provinces (access to sea trade)
+	# First ensure we have a valid county scope
 	if = {
 		limit = {
+			exists = scope:county
 			scope:county = {
-				has_county_flag = coastal_county
+				is_county = yes
 			}
 		}
-		add = 2
+		# Base value calculation based on development
+		value = scope:county.development_level
+		# Bonus for coastal provinces (access to sea trade)
+		if = {
+			limit = {
+				scope:county = {
+					is_coastal_county = yes
+				}
+			}
+			add = 2
+		}
+		# Bonus for river provinces (river trade)
+		if = {
+			limit = {
+				scope:county = {
+					has_river = yes
+				}
+			}
+			add = 1
+		}
+		# Penalty for disrupted routes
+		if = {
+			limit = {
+				scope:county = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+			subtract = 2
+		}
 	}
-	# Bonus for river provinces (river trade)
-	if = {
-		limit = {
-			scope:county = {
-				has_river = yes
-			}
-		}
-		add = 1
-	}
-	# Penalty for disrupted routes
-	if = {
-		limit = {
-			scope:county = {
-				has_county_flag = on_disrupted_trade_route
-			}
-		}
-		subtract = 2
+	# If no valid county, return minimum value
+	else = {
+		value = 1
 	}
 	# Ensure value doesn't go below minimum
 	min = 1
@@ -45,79 +58,122 @@ trade_node_base_value = {
 
 # Trade prosperity impact on development
 trade_prosperity_development_growth = {
-	# Base value is small
-	value = 0.05
-	# If county has medium trade prosperity
+	# First ensure we have a valid county scope
 	if = {
 		limit = {
+			exists = scope:county
 			scope:county = {
-				var:trade_prosperity_level >= medium_trade_prosperity
+				is_county = yes
 			}
 		}
-		add = 0.05
+		# Base value is small
+		value = 0.05
+		# If county has medium trade prosperity
+		if = {
+			limit = {
+				scope:county = {
+					exists = var:trade_prosperity_level
+					var:trade_prosperity_level >= medium_trade_prosperity
+				}
+			}
+			add = 0.05
+		}
+		# If county has high trade prosperity
+		if = {
+			limit = {
+				scope:county = {
+					exists = var:trade_prosperity_level
+					var:trade_prosperity_level >= high_trade_prosperity
+				}
+			}
+			add = 0.1
+		}
 	}
-	# If county has high trade prosperity
-	if = {
-		limit = {
-			scope:county = {
-				var:trade_prosperity_level >= high_trade_prosperity
-			}
-		}
-		add = 0.1
+	# If no valid county, return base value
+	else = {
+		value = 0.05
 	}
 }
 
 # Income from trade for rulers
 ruler_trade_income = {
-	# Base value from trade prosperity
-	value = scope:ruler.domain_size
-	multiply = 0.01
-	# Bonus based on stewardship skill
-	add = scope:ruler.stewardship
-	multiply = 0.02
-	# Bonus for controlling trade nodes
+	# First ensure we have a valid ruler scope
 	if = {
 		limit = {
+			exists = scope:ruler
 			scope:ruler = {
-				any_held_title = {
-					tier = county
-					is_on_valid_trade_route_trigger = yes
-				}
+				is_ruler = yes
 			}
 		}
-		multiply = 1.2
+		# Base value from trade prosperity
+		value = scope:ruler.domain_size
+		multiply = 0.01
+		# Bonus based on stewardship skill
+		add = scope:ruler.stewardship
+		multiply = 0.02
+		# Bonus for controlling trade nodes
+		if = {
+			limit = {
+				scope:ruler = {
+					any_held_title = {
+						tier = county
+						is_on_valid_trade_route_trigger = yes
+					}
+				}
+			}
+			multiply = 1.2
+		}
+	}
+	# If no valid ruler, return 0
+	else = {
+		value = 0
 	}
 }
 
 # Trade connection value between nodes
 trade_connection_value = {
-	# $FROM_NODE$ = Source trade node
-	# $TO_NODE$ = Destination trade node
-	# Base value is the average of the two nodes' values
-	value = $FROM_NODE$.base_value
-	add = $TO_NODE$.base_value
-	divide = 2
-	# Penalty for sea routes (more expensive/risky)
+	# First ensure we have valid node scopes
 	if = {
 		limit = {
-			$FROM_NODE$.county = {
-				has_variable = trade_route_to_$TO_NODE$.county_sea_route
+			exists = $FROM_NODE$
+			exists = $TO_NODE$
+			$FROM_NODE$ = {
+				exists = county
+			}
+			$TO_NODE$ = {
+				exists = county
 			}
 		}
-		multiply = 0.8
-	}
-	# Penalty for disrupted connection
-	if = {
-		limit = {
-			OR = {
+		# Base value is the average of the two nodes' values
+		value = $FROM_NODE$.base_value
+		add = $TO_NODE$.base_value
+		divide = 2
+		# Penalty for sea routes (more expensive/risky)
+		if = {
+			limit = {
 				$FROM_NODE$.county = {
-					has_county_flag = on_disrupted_trade_route
-				}
-				$TO_NODE$.county = {
-					has_county_flag = on_disrupted_trade_route
+					exists = var:trade_route_to_$TO_NODE$.county_sea_route
 				}
 			}
+			multiply = 0.8
 		}
-		multiply = 0.5
+		# Penalty for disrupted connection
+		if = {
+			limit = {
+				OR = {
+					$FROM_NODE$.county = {
+						has_county_flag = on_disrupted_trade_route
+					}
+					$TO_NODE$.county = {
+						has_county_flag = on_disrupted_trade_route
+					}
+				}
+			}
+			multiply = 0.5
+		}
+	}
+	# If no valid nodes, return 0
+	else = {
+		value = 0
 	}
 }
