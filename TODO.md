@@ -133,10 +133,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Set gold_cost = 100 and build_time = 200
       - [x] Add county_trade_value_add = 0.5 and tax_mult = 0.05
       - [x] Use existing building system prerequisites (requires city_buildings_01)
-    - [ ] Design Trading Post building for tribal and castle holdings
-      - [ ] Set gold_cost = 150 and build_time = 300
-      - [ ] Add county_trade_value_add = 0.75 and monthly_income = 0.2
-      - [ ] Require county to be on trade route using is_on_silk_road_trigger
+    - [x] Design Trading Post building for tribal and castle holdings
+      - [x] Set gold_cost = 150 and build_time = 300
+      - [x] Add county_trade_value_add = 0.75 and monthly_income = 0.2
+      - [x] Require county to be on trade route using is_on_silk_road_trigger
     - [ ] Design Caravanserai building for counties on major routes
       - [ ] Set gold_cost = 200 and build_time = 365
       - [ ] Add county_trade_value_add = 1 and development_growth_factor = 0.1
