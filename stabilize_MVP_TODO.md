@@ -11,10 +11,15 @@
 
 ### 2. Event Implementation
 
-- [ ] Check all event references in `common/on_action/trade_on_actions.txt`
-  - [ ] Ensure `silk_road_events.0003` and other referenced events exist
-  - [ ] Validate event syntax and structure
-  - [ ] Fix any missing or improperly formatted events
+- [x] Check all event references in `common/on_action/trade_on_actions.txt`
+  - [x] Ensure `silk_road_events.0003` and other referenced events exist
+  - [x] Validate event syntax and structure
+  - [ ] Fix missing events:
+    - [ ] Create `trade_events.0100` (Status change notification event)
+    - [ ] Create `trade_events.0201` (Prosperity event)
+    - [ ] Create `trade_events.0202` (Caravan event)
+    - [ ] Create `trade_events.0203` (Merchant event)
+  - _Note: All silk_road_events exist, but several trade_events are missing_
 
 ### 3. Scope and Variable Issues
 
