@@ -117,7 +117,7 @@
 
   - [x] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
   - [x] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
-  - [ ] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
+  - [x] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
 
 - [ ] Add debug_log statements to all other event files
   - [ ] Follow the same pattern of logging triggers, scopes, and effects

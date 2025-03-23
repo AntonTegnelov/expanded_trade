@@ -88,6 +88,7 @@ silk_road_events.0001 = {
 	# Accept the exotic goods
 	option = {
 		name = silk_road_events.0001.a
+		debug_log = "[GetDateString]: Executing effects for option A in event silk_road_events.0001"
 		add_prestige = medium_prestige_gain
 		add_gold = minor_gold_gain
 		random_list = {
@@ -115,6 +116,7 @@ silk_road_events.0001 = {
 			}
 		}
 		scope:foreign_merchant = {
+			debug_log = "[GetDateString]: Adding opinion modifier to foreign merchant"
 			opinion = {
 				target = root
 				modifier = opinion_grateful
@@ -143,6 +145,7 @@ silk_road_events.0001 = {
 	# Bargain for a better price
 	option = {
 		name = silk_road_events.0001.b
+		debug_log = "[GetDateString]: Executing effects for option B in event silk_road_events.0001"
 		trigger_event = {
 			id = silk_road_events.0002
 			days = 1
@@ -169,8 +172,10 @@ silk_road_events.0001 = {
 	# Decline the offer
 	option = {
 		name = silk_road_events.0001.c
+		debug_log = "[GetDateString]: Executing effects for option C in event silk_road_events.0001"
 		add_prestige = minor_prestige_gain
 		scope:foreign_merchant = {
+			debug_log = "[GetDateString]: Adding disappointed opinion modifier to foreign merchant"
 			opinion = {
 				target = root
 				modifier = opinion_disappointed
