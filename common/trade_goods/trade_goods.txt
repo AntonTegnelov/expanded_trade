@@ -1,0 +1,244 @@
+# Trade Goods
+# Basic set of goods for the trade system
+# These are divided into luxury and common categories
+## Luxury Goods - High value, low volume
+# Silk - Primarily from China and Central Asia
+trade_good = {
+	id = "silk"
+	name = "silk"	# Uses vanilla localization
+	category = "luxury"
+	base_value = 3
+	# Production based on terrain types
+	production_terrain = {
+		desert_mountains
+		steppe
+		mountains
+	}
+	# Characters desire this based on rank
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.5
+			king = 0.3
+			duke = 0.2
+			count = 0.1
+		}
+		# Court grandeur increases desire
+		court_grandeur_modifier = 0.2
+	}
+}
+
+# Spices - From India and Southeast Asia
+trade_good = {
+	id = "spices"
+	name = "spices"	# Uses vanilla localization
+	category = "luxury"
+	base_value = 2.5
+	# Production based on terrain types
+	production_terrain = {
+		jungle
+		hills
+	}
+	# Characters desire this based on rank
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.4
+			king = 0.3
+			duke = 0.2
+			count = 0.1
+		}
+		# Court grandeur increases desire
+		court_grandeur_modifier = 0.15
+	}
+}
+
+# Ivory - From Africa and India
+trade_good = {
+	id = "ivory"
+	name = "ivory"	# Uses vanilla localization
+	category = "luxury"
+	base_value = 2.8
+	# Production based on terrain types
+	production_terrain = {
+		jungle
+		savanna
+	}
+	# Characters desire this based on rank
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.5
+			king = 0.4
+			duke = 0.2
+			count = 0.1
+		}
+		# Court grandeur increases desire
+		court_grandeur_modifier = 0.2
+	}
+}
+
+# Incense - From Arabia and East Africa
+trade_good = {
+	id = "incense"
+	name = "incense"	# Uses vanilla localization
+	category = "luxury"
+	base_value = 2.2
+	# Production based on terrain types
+	production_terrain = {
+		desert
+		desert_mountains
+	}
+	# Characters desire this based on rank and religion
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.3
+			king = 0.2
+			duke = 0.1
+			count = 0.05
+		}
+		# Religious leaders desire more
+		religious_head_desire = 0.3
+		# Court grandeur increases desire
+		court_grandeur_modifier = 0.1
+	}
+}
+
+# Furs - From Northern Europe and Russia
+trade_good = {
+	id = "furs"
+	name = "furs"	# Uses vanilla localization
+	category = "luxury"
+	base_value = 2
+	# Production based on terrain types
+	production_terrain = {
+		forest
+		taiga
+		tundra
+	}
+	# Characters desire this based on rank
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.4
+			king = 0.3
+			duke = 0.2
+			count = 0.1
+		}
+		# Court grandeur increases desire
+		court_grandeur_modifier = 0.15
+	}
+}
+
+## Common Goods - Lower value, higher volume
+# Grain - Available in most farming regions
+trade_good = {
+	id = "grain"
+	name = "grain"	# Uses vanilla localization
+	category = "common"
+	base_value = 1
+	# Production based on terrain types
+	production_terrain = {
+		plains
+		farmlands
+		drylands
+	}
+	# All settlements need grain
+	consumption_desire = {
+		population_desire = 0.5
+	}
+}
+
+# Timber - From forested regions
+trade_good = {
+	id = "timber"
+	name = "timber"	# Uses vanilla localization
+	category = "common"
+	base_value = 1.2
+	# Production based on terrain types
+	production_terrain = {
+		forest
+		taiga
+	}
+	# Desired based on building activity
+	consumption_desire = {
+		construction_desire = 0.3
+	}
+}
+
+# Metals - From mountainous regions
+trade_good = {
+	id = "metals"
+	name = "metals"	# Uses vanilla localization
+	category = "common"
+	base_value = 1.5
+	# Production based on terrain types
+	production_terrain = {
+		mountains
+		hills
+	}
+	# Desired based on building and military activity
+	consumption_desire = {
+		construction_desire = 0.2
+		military_desire = 0.3
+	}
+}
+
+# Salt - From coastal regions and salt mines
+trade_good = {
+	id = "salt"
+	name = "salt"	# Uses vanilla localization
+	category = "common"
+	base_value = 1.3
+	# Production based on terrain types
+	production_terrain = {
+		desert
+		coast
+		mountains
+	}
+	# All settlements need salt
+	consumption_desire = {
+		population_desire = 0.4
+	}
+}
+
+# Wine - From suitable grape-growing regions
+trade_good = {
+	id = "wine"
+	name = "wine"	# Uses vanilla localization
+	category = "common"
+	base_value = 1.4
+	# Production based on terrain types
+	production_terrain = {
+		hills
+		farmlands
+		mediterranean_farmland
+	}
+	# Consumption based on court and religious factors
+	consumption_desire = {
+		rank_desire = {
+			emperor = 0.3
+			king = 0.2
+			duke = 0.1
+			count = 0.05
+		}
+		court_grandeur_modifier = 0.1
+		religious_head_desire = 0.2
+	}
+}
+
+# Textiles - From areas with flax, cotton or wool
+trade_good = {
+	id = "textiles"
+	name = "textiles"	# Uses vanilla localization
+	category = "common"
+	base_value = 1.3
+	# Production based on terrain types
+	production_terrain = {
+		plains
+		farmlands
+		drylands
+		steppe
+	}
+	# All settlements need textiles
+	consumption_desire = {
+		population_desire = 0.3
+		court_grandeur_modifier = 0.05
+	}
+}

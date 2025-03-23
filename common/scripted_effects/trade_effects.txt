@@ -1,0 +1,245 @@
+# Trade Effects
+# Core effects for basic trade operations
+# Sets up the Silk Road with initial configuration
+setup_silk_road_effect = {
+	# This effect should be run at the global scope
+	# It will flag counties on the Silk Road and set up trade nodes
+	# First, ensure the trade route exists
+	if = {
+		limit = {
+			NOT = {
+				exists = silk_road_main
+			}
+		}
+		# Create the Silk Road trade route
+		create_trade_route = {
+			id = silk_road_main
+			name = "silk_road_name"
+			is_active = yes
+			is_disrupted = no
+			base_flow_capacity = 10
+		}
+	}
+	# Set up Silk Road node counties
+	# Each node county gets the appropriate flag
+	# Note: Node county IDs need to be mapped to actual game counties
+	every_county = {
+		# Xian/Chang'an region
+		if = {
+			limit = {
+				county_id = 256				# Placeholder for actual county ID
+			}
+			set_county_flag = on_silk_road
+			create_trade_node = {
+				id = xian_node
+				name = "xian_node"
+				controller = this.holder
+			}
+		}
+		# Dunhuang region
+		else_if = {
+			limit = {
+				county_id = 257				# Placeholder for actual county ID
+			}
+			set_county_flag = on_silk_road
+			create_trade_node = {
+				id = dunhuang_node
+				name = "dunhuang_node"
+				controller = this.holder
+			}
+		}
+		# Additional nodes can be added as needed
+	}
+	# Set up the connections between nodes
+	connect_trade_nodes_effect = {
+		NODE_A = xian_node
+		NODE_B = dunhuang_node
+		CONNECTION_TYPE = land_route
+	}
+	# Initialize all flagged counties as active
+	every_county = {
+		limit = {
+			has_county_flag = on_silk_road
+		}
+		# Set initial active flag if not disrupted
+		if = {
+			limit = {
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+			set_county_flag = on_active_trade_route
+		}
+	}
+}
+
+# Calculates basic trade income for routes and counties
+calculate_basic_trade_income_effect = {
+	# This effect should be run at the global scope
+	# It will generate trade value for active routes
+	# Calculate trade value for each active county
+	every_county = {
+		limit = {
+			has_county_flag = on_active_trade_route
+		}
+		# Base trade value from development
+		set_variable = {
+			name = county_trade_value
+			value = development_level
+			multiply = 0.5
+		}
+		# Add bonus for trade buildings
+		if = {
+			limit = {
+				any_holding = {
+					has_building = market_square
+				}
+			}
+			change_variable = {
+				name = county_trade_value
+				add = 1
+			}
+		}
+		if = {
+			limit = {
+				any_holding = {
+					has_building = trading_post
+				}
+			}
+			change_variable = {
+				name = county_trade_value
+				add = 2
+			}
+		}
+		if = {
+			limit = {
+				any_holding = {
+					has_building = caravanserai
+				}
+			}
+			change_variable = {
+				name = county_trade_value
+				add = 3
+			}
+		}
+		# Apply the trade value as income to the county holder
+		holder = {
+			add_character_modifier = {
+				modifier = trader_ruler
+				months = 1
+			}
+			# Add direct income based on county trade value
+			change_gold = {
+				value = prev.var:county_trade_value
+				multiply = 0.1
+			}
+		}
+	}
+}
+
+# Apply trade prosperity effects to a county
+apply_trade_prosperity_effect = {
+	# County scope
+	# Remove all previous prosperity modifiers
+	remove_county_modifier = low_trade_prosperity
+	remove_county_modifier = medium_trade_prosperity
+	remove_county_modifier = high_trade_prosperity
+	# Remove all prosperity flags
+	remove_county_flag = trade_prosperity_low
+	remove_county_flag = trade_prosperity_medium
+	remove_county_flag = trade_prosperity_high
+	# Only continue if the county is on an active trade route
+	if = {
+		limit = {
+			has_county_flag = on_active_trade_route
+		}
+		# Calculate prosperity based on development and buildings
+		set_variable = {
+			name = trade_prosperity_level
+			value = development_level
+			divide = 5			# Scale to reasonable range
+		}
+		# Add bonus for trade buildings
+		if = {
+			limit = {
+				any_holding = {
+					OR = {
+						has_building = market_square
+						has_building = trading_post
+						has_building = caravanserai
+					}
+				}
+			}
+			change_variable = {
+				name = trade_prosperity_level
+				add = 1
+			}
+		}
+		# Apply appropriate modifier based on prosperity level
+		if = {
+			limit = {
+				var:trade_prosperity_level >= 3
+			}
+			add_county_modifier = {
+				modifier = high_trade_prosperity
+				months = 2				# Refresh on next month's calculation
+			}
+			set_county_flag = trade_prosperity_high
+		}
+		else_if = {
+			limit = {
+				var:trade_prosperity_level >= 2
+			}
+			add_county_modifier = {
+				modifier = medium_trade_prosperity
+				months = 2				# Refresh on next month's calculation
+			}
+			set_county_flag = trade_prosperity_medium
+		}
+		else_if = {
+			limit = {
+				var:trade_prosperity_level >= 1
+			}
+			add_county_modifier = {
+				modifier = low_trade_prosperity
+				months = 2				# Refresh on next month's calculation
+			}
+			set_county_flag = trade_prosperity_low
+		}
+	}
+}
+
+# Create a trade disruption on a route
+disrupt_trade_route_effect = {
+	# County scope
+	# Only if on active trade route
+	if = {
+		limit = {
+			has_county_flag = on_active_trade_route
+		}
+		# Mark as disrupted
+		remove_county_flag = on_active_trade_route
+		set_county_flag = on_disrupted_trade_route
+		# Remove prosperity
+		remove_county_modifier = low_trade_prosperity
+		remove_county_modifier = medium_trade_prosperity
+		remove_county_modifier = high_trade_prosperity
+		remove_county_flag = trade_prosperity_low
+		remove_county_flag = trade_prosperity_medium
+		remove_county_flag = trade_prosperity_high
+	}
+}
+
+# Restore trade on a disrupted route
+restore_trade_route_effect = {
+	# County scope
+	# Only if on disrupted trade route
+	if = {
+		limit = {
+			has_county_flag = on_disrupted_trade_route
+		}
+		# Mark as active
+		remove_county_flag = on_disrupted_trade_route
+		set_county_flag = on_active_trade_route
+	}
+}

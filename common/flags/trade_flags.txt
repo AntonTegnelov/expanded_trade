@@ -1,5 +1,5 @@
-# MVP Trade Flags
-# Essential state tracking flags for the MVP trade system
+# Trade Flags
+# Essential state tracking flags for the trade system
 # These are used to mark counties, characters, and trade routes
 # County flags
 # Marks a county as being on the Silk Road trade network
@@ -48,30 +48,20 @@ flag_clear_after_days = no
 flag_key = recent_trade_deal
 flag_category = character
 flag_save = yes
-flag_clear_after_days = 365# Clear after one year
-# Marks a character as having a trade embargo
-flag_key = trade_embargo
-flag_category = character
-flag_save = yes
-flag_clear_after_days = 1825# Clear after five years
-# Marks a character as a merchant advisor
-flag_key = merchant_advisor
+flag_clear_after_days = 365# Clears after 1 year
+# Marks a character as a trade node controller
+flag_key = trade_node_controller
 flag_category = character
 flag_save = yes
 flag_clear_after_days = no
-# Route disruption flags
-# Used to track wars disrupting trade
-flag_key = trade_route_war_disruption
+# Route flags
+# Marks a trade route as having been recently disrupted
+flag_key = route_recently_disrupted
 flag_category = global
 flag_save = yes
-flag_clear_after_days = no
-# Used to track plague disruptions
-flag_key = trade_route_plague_disruption
+flag_clear_after_days = 180# Clears after 6 months
+# Marks a trade route as having peak activity
+flag_key = peak_trade_activity
 flag_category = global
 flag_save = yes
-flag_clear_after_days = no
-# Used to track bandit disruptions
-flag_key = trade_route_bandit_disruption
-flag_category = county
-flag_save = yes
-flag_clear_after_days = 365# Clear after one year 
+flag_clear_after_days = 90# Clears after 3 months 

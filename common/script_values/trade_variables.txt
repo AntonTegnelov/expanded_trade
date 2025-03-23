@@ -1,0 +1,227 @@
+# Trade Variables
+# Essential state tracking variables for the trade system
+# Global Silk Road status - overall health of the trade network
+# 0 = completely disrupted, 10 = fully functioning
+silk_road_status = {
+	# Base value is high - assume functioning trade
+	value = 10
+	# Reduce based on disrupted trade route segments
+	subtract = {
+		value = global_var:disrupted_silk_road_segments
+		multiply = 2
+		min = 0
+		max = 10
+	}
+	# Ensure value stays within bounds
+	min = 0
+	max = 10
+}
+
+# County trade prosperity level - measures local trade activity
+# Used for applying modifiers and determining benefits
+# Range: 0-10 (0 = no prosperity, 10 = maximum prosperity)
+county_trade_prosperity_level = {
+	# Base value from development
+	value = scope:county.development_level
+	multiply = 0.5
+	# Bonus for being on active silk road
+	if = {
+		limit = {
+			scope:county = {
+				has_county_flag = on_active_trade_route
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
+			}
+		}
+		add = 2
+	}
+	# Penalty for disrupted routes
+	if = {
+		limit = {
+			scope:county = {
+				has_county_flag = on_disrupted_trade_route
+			}
+		}
+		subtract = 3
+	}
+	# Bonus for trade buildings
+	if = {
+		limit = {
+			scope:county = {
+				any_county_holding = {
+					OR = {
+						has_building = market_square
+						has_building = trading_post
+						has_building = caravanserai
+					}
+				}
+			}
+		}
+		add = 1
+	}
+	# Extra bonus for multiple trade buildings
+	if = {
+		limit = {
+			scope:county = {
+				any_county_holding = {
+					count >= 2
+					OR = {
+						has_building = market_square
+						has_building = trading_post
+						has_building = caravanserai
+					}
+				}
+			}
+		}
+		add = 1
+	}
+	# Penalty for low control
+	if = {
+		limit = {
+			scope:county.county_control < 50
+		}
+		subtract = {
+			value = 50
+			subtract = scope:county.county_control
+			divide = 10
+		}
+	}
+	# Ensure value stays within bounds
+	min = 0
+	max = 10
+}
+
+# Character trade participation - measures involvement in trade
+# Used for determining character benefits from trade
+# Range: 0-10 (0 = no involvement, 10 = major trade power)
+character_trade_participation = {
+	# Base value from stewardship
+	value = stewardship
+	multiply = 0.5
+	# Bonus for ruling counties on trade routes
+	add = {
+		value = this.domain_county
+		multiply = {
+			value = 0
+			add = {
+				every_county = {
+					limit = {
+						holder = this
+						has_county_flag = on_active_trade_route
+					}
+					add = 1
+				}
+			}
+		}
+		divide = 2
+	}
+	# Bonus for trade buildings
+	if = {
+		limit = {
+			any_held_title = {
+				tier = county
+				any_county_holding = {
+					OR = {
+						has_building = market_square
+						has_building = trading_post
+						has_building = caravanserai
+					}
+				}
+			}
+		}
+		add = 1
+	}
+	# Bonus for merchant traits - Future implementation can add specific merchant traits
+	if = {
+		limit = {
+			OR = {
+				has_trait = greedy
+				has_trait = gregarious
+				has_trait = administrator
+			}
+		}
+		add = 1
+	}
+	# Ensure value stays within bounds
+	min = 0
+	max = 10
+}
+
+# Trade route disruption risk - chance of disruption from war, etc.
+# Range: 0-100 (0 = no risk, 100 = certain disruption)
+trade_route_disruption_risk = {
+	# Base risk is low 
+	value = 5
+	# Increase for ongoing wars in the region
+	add = {
+		value = 0
+		if = {
+			limit = {
+				scope:county = {
+					county_has_any_war = yes
+				}
+			}
+			add = 20
+		}
+	}
+	# Increase for low county control
+	add = {
+		value = 100
+		subtract = scope:county.county_control
+		divide = 2
+	}
+	# Increase for hostility between realm and neighbors
+	add = {
+		value = 0
+		add = {
+			every_neighboring_county = {
+				limit = {
+					holder.is_at_war_with = scope:county.holder
+				}
+				add = 5
+			}
+		}
+	}
+	# Ensure value stays within bounds
+	min = 0
+	max = 100
+}
+
+# Trade income multiplier - calculation for trade benefits
+# This modifies income from trade activities
+trade_income_mult = {
+	# Base value
+	value = 1
+	# Bonus based on character's trade participation
+	add = {
+		value = character_trade_participation
+		divide = 20		# Convert 0-10 scale to 0-0.5 bonus
+	}
+	# Bonus for high stewardship
+	if = {
+		limit = {
+			stewardship > 15
+		}
+		add = {
+			value = stewardship
+			subtract = 15
+			divide = 30			# Each point above 15 adds 0.033
+		}
+	}
+	# Bonus for merchant traits
+	if = {
+		limit = {
+			has_trait = greedy
+		}
+		add = 0.1
+	}
+	if = {
+		limit = {
+			has_trait = gregarious
+		}
+		add = 0.05
+	}
+	# Ensure minimum multiplier
+	min = 0.1
+}

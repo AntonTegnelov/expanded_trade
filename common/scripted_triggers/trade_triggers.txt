@@ -1,0 +1,144 @@
+# Trade Triggers
+# These scripted triggers provide essential checks for trade functionality
+# Checks if a county is on the Silk Road
+is_on_silk_road_trigger = {
+	# County can be directly on the route or close enough to benefit
+	OR = {
+		# Direct Silk Road county (has the flag)
+		has_county_flag = on_silk_road
+		# County is within trading distance of a Silk Road node
+		any_neighboring_county = {
+			has_county_flag = on_silk_road
+		}
+		# County has a silk road trade node
+		any_trade_node = {
+			OR = {
+				# Exact node matching
+				node_id = xian_node
+				node_id = dunhuang_node
+				node_id = kashgar_node
+				node_id = samarkand_node
+				node_id = bukhara_node
+				node_id = merv_node
+				node_id = nishapur_node
+				node_id = rayy_node
+				node_id = baghdad_node
+				node_id = mosul_node
+				node_id = aleppo_node
+				node_id = antioch_node
+				node_id = constantinople_node
+			}
+		}
+	}
+}
+
+# Checks if a county is on a valid trade route
+is_on_valid_trade_route_trigger = {
+	# Check if the county has the trade route flag
+	OR = {
+		has_county_flag = on_active_trade_route
+		has_county_flag = on_disrupted_trade_route
+	}
+}
+
+# Checks if a county has a connection to another county via a trade route
+has_trade_route_connection_trigger = {
+	# $TARGET_COUNTY$ = County to check connection with
+	OR = {
+		# Direct connection via valid route
+		has_variable = trade_route_to_$TARGET_COUNTY$_valid
+		var:trade_route_to_$TARGET_COUNTY$_valid = yes
+		# Connection through another node
+		AND = {
+			is_on_valid_trade_route_trigger = yes
+			$TARGET_COUNTY$ = {
+				is_on_valid_trade_route_trigger = yes
+			}
+		}
+	}
+}
+
+# Checks if a county produces a specific trade good
+has_trade_good_trigger = {
+	# $TRADE_GOOD$ = ID of the trade good to check for
+	# If a specific trade good is provided, check for that
+	OR = {
+		# County has the specific trade good flag
+		has_county_flag = produces_$TRADE_GOOD$
+		# County terrain matches production requirements
+		AND = {
+			# The check works with a scope to the county
+			$TRADE_GOOD$ = {
+				# Check if county terrain matches any of the production terrain types
+				any_in_list = {
+					variable = production_terrain
+					this = {
+						terrain = prev
+					}
+				}
+			}
+		}
+	}
+}
+
+# Checks if a county has a specified trade node
+has_trade_node_trigger = {
+	# $NODE_ID$ = ID of the trade node to check for
+	exists = $NODE_ID$
+	$NODE_ID$ = {
+		county = root
+	}
+}
+
+# Checks if a province can be used as a trade route province based on terrain
+province_valid_for_trade_route_trigger = {
+	# The following terrain types are suitable for land trade routes
+	OR = {
+		terrain = plains
+		terrain = farmlands
+		terrain = forest
+		terrain = hills
+		terrain = mountains
+		terrain = desert
+		terrain = drylands
+		terrain = steppe
+		terrain = oasis
+	}
+}
+
+# Checks if a county has trade prosperity
+has_trade_prosperity_trigger = {
+	OR = {
+		has_county_modifier = low_trade_prosperity
+		has_county_modifier = medium_trade_prosperity
+		has_county_modifier = high_trade_prosperity
+	}
+}
+
+# Checks if a county can build a trade building
+can_build_trade_building_trigger = {
+	# Check if the county is on a trade route
+	is_on_silk_road_trigger = yes
+	# Check if the holding is appropriate for trade buildings
+	OR = {
+		is_city_holding = yes
+		is_castle_holding = yes
+	}
+	# Check if the holding has enough development
+	development_level >= 5
+}
+
+# Checks if a character is actively participating in trade
+is_trade_participant_trigger = {
+	OR = {
+		# Character rules a county on a trade route
+		any_held_title = {
+			tier = county
+			is_on_silk_road_trigger = yes
+		}
+		# Character has a trade character modifier
+		has_character_modifier = trader_ruler
+		has_character_modifier = trade_node_controller
+		has_character_modifier = trade_infrastructure
+	}
+}

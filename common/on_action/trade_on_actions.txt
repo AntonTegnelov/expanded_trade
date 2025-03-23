@@ -11,214 +11,148 @@ on_monthly_pulse = {
 on_monthly_trade_pulse = {
 	# This is called by hooking into the on_monthly_pulse
 	effect = {
-		# Execute the main trade flow calculation
-		calculate_trade_flow_effect = yes
-		# Update trade route statuses
-		every_title = {
+		# Execute the simplified trade flow calculation only if we have trade routes
+		# This check improves performance for games without active trade
+		if = {
 			limit = {
-				tier = county
-				is_on_valid_trade_route_trigger = yes
-			}
-			# Calculate trade prosperity
-			calculate_trade_prosperity_effect = {
-				COUNTY = this
-			}
-			# Apply development growth based on trade prosperity
-			if = {
-				limit = {
-					var:trade_prosperity_level > 0
+				any_title = {
+					tier = county
+					has_county_flag = on_silk_road
 				}
-				change_development = {
-					add = trade_prosperity_development_growth
+			}
+			# Execute the simplified trade flow calculation
+			calculate_basic_trade_income_effect = yes
+			# Update county prosperity based on trade route status
+			# Only process counties on the Silk Road for better performance
+			every_title = {
+				limit = {
+					tier = county
+					has_county_flag = on_silk_road
+				}
+				# Apply trade prosperity effects to counties on the Silk Road
+				apply_trade_prosperity_effect = yes
+				# Check for status changes - only if there are active or disrupted routes
+				# This significantly reduces unnecessary checks
+				if = {
+					limit = {
+						OR = {
+							has_county_flag = on_active_trade_route
+							has_county_flag = on_disrupted_trade_route
+							# Also check prosperity flags to catch prosperity changes
+							has_county_flag = trade_prosperity_low
+							has_county_flag = trade_prosperity_medium
+							has_county_flag = trade_prosperity_high
+						}
+					}
+					# Check if the status has changed
+					on_action = trade_status_change
 				}
 			}
 		}
-		# Update trade node controllers
-		every_title = {
-			limit = {
-				tier = county
-				any_in_list = {
-					list = global_trade_nodes_list
-					county = this
-				}
-			}
-			# This would update the node controller to the county holder
-			every_in_list = {
-				list = global_trade_nodes_list
-				limit = {
-					county = prev
-				}
-				update_trade_node_controller_effect = {
-					NODE_ID = this
-				}
-			}
-		}
-	}
-	events = {
-		# Events that might fire on monthly pulse
-		trade_monthly_events.0001		# Prosperity change events
-		trade_monthly_events.0002		# Trade flow events
-		trade_monthly_events.0003		# Random merchant arrival events
 	}
 }
 
-# County occupation affects trade routes
+# This is triggered when a county is occupied
+# County scope
 on_county_occupied = {
-	# Root is the county title
+	on_actions = {
+		trade_county_occupied
+	}
+}
+
+# Custom on_action for county occupation
+# County scope
+trade_county_occupied = {
 	effect = {
-		# Check if county is on trade route
+		# Only check counties on trade routes
 		if = {
 			limit = {
-				is_on_valid_trade_route_trigger = yes
+				has_county_flag = on_silk_road
 			}
-			# Set trade route to disrupted
-			set_county_flag = on_disrupted_trade_route
-			# If flag was already set, don't clear it
+			# Mark the trade route as disrupted if it was active
 			if = {
 				limit = {
 					has_county_flag = on_active_trade_route
 				}
+				# Remove active flag
 				remove_county_flag = on_active_trade_route
-			}
-			# Notify owner and controller about disruption
-			holder = {
-				trigger_event = trade_disruption_events.0001
-			}
-			occupier = {
-				trigger_event = trade_disruption_events.0002
+				# Add disrupted flag
+				set_county_flag = on_disrupted_trade_route
+				# Notify about disruption
+				on_action = trade_status_change
 			}
 		}
 	}
 }
 
-# County control restored affects trade routes
-on_county_control_change = {
-	# Root is the county title
-	effect = {
-		# Check if county is on trade route and was disrupted
-		if = {
-			limit = {
-				has_county_flag = on_disrupted_trade_route
-				NOT = {
-					is_occupied = yes
-				}
-			}
-			# Restore active trade
-			set_county_flag = on_active_trade_route
-			remove_county_flag = on_disrupted_trade_route
-			# Notify owner about trade restoration
-			holder = {
-				trigger_event = trade_restoration_events.0001
-			}
-		}
-	}
-}
-
-# Trade caravan arrival
-trade_caravan_arrival_on_action = {
-	# Root is the character leading the caravan
-	# scope:destination_province is the province where the caravan arrived
-	effect = {
-		# Generate trade goods and values
-		scope:destination_province.county = {
-			# Set trade goods value based on county development
-			set_variable = {
-				name = trade_goods_value
-				value = development_level
-				multiply = 5
-			}
-			# Random bonus
-			random = {
-				chance = 25
-				change_variable = {
-					name = trade_goods_value
-					multiply = 1.5
-				}
-			}
-			# Save scope for events
-			save_scope_as = caravan_destination_county
-		}
-		# Notify county holder about caravan arrival
-		scope:destination_province.county.holder = {
-			save_scope_as = caravan_destination_ruler
-			trigger_event = trade_caravan_events.0001
-		}
-	}
-	events = {
-		# Events that fire when caravan arrives
-		trade_caravan_events.0001		# Caravan arrival notification
-	}
-}
-
-# Building construction affects trade
+# This is triggered when a holding building is constructed
+# Holding scope
 on_holding_building_constructed = {
-	# Root is the holding
-	# scope:builder is the character who built it
+	on_actions = {
+		trade_building_constructed
+	}
+}
+
+# Custom on_action for building construction
+# Holding scope
+trade_building_constructed = {
 	effect = {
-		# Check if a trade-related building was constructed
+		# Check if this is a trade building
 		if = {
 			limit = {
 				OR = {
+					has_building = market_square
 					has_building = trading_post
-					has_building = market
-					has_building = guild_hall
 					has_building = caravanserai
 				}
 			}
-			# Add trade benefits to county
+			# Update trade status for the county
 			county = {
-				# Boost trade prosperity
-				change_variable = {
-					name = trade_prosperity_level
-					add = 1
-				}
-				# Mark county as on active trade route if it wasn't already
+				# If on a trade route, may activate it
 				if = {
 					limit = {
+						has_county_flag = on_silk_road
+						has_county_flag = on_disrupted_trade_route
 						NOT = {
 							has_county_flag = on_active_trade_route
 						}
-						NOT = {
-							has_county_flag = on_disrupted_trade_route
-						}
 					}
+					# Remove disrupted flag
+					remove_county_flag = on_disrupted_trade_route
+					# Add active flag
 					set_county_flag = on_active_trade_route
-				}
-				# Notify builder about trade bonus
-				scope:builder = {
-					trigger_event = trade_building_events.0001
+					# Notify about activation
+					on_action = trade_status_change
 				}
 			}
 		}
 	}
 }
 
-# Game start setup for trade system
-on_game_start_trade_setup = {
-	effect = {
-		# Initialize trade node connections based on adjacency
-		setup_trade_node_connections_effect = {
-		}
-		# Log the initialization
-		log = "[Trade System] Initialized trade node connections at game start"
+# Triggered when a county changes status
+# County scope
+trade_status_change = {
+	random_events = {
+		# Add event references here when trade events are implemented
+		# Events for active routes becoming prosperous
+		100 = 0
+		# fallback = trade_fallback
+	}
+	events = {
+		# Status change notification events
+		id = trade_events.0100
 	}
 }
 
-# Hook into the game start
-on_game_start = {
-	on_actions = {
-		on_game_start_trade_setup
-	}
-}
-
-# New trade node established
-on_trade_node_established = {
-	# scope:new_node is the newly established trade node
-	effect = {
-		# Refresh all trade node connections
-		setup_trade_node_connections_effect = {
-		}
-		# Log the update
-		log = "[Trade System] Updated trade node connections after establishing new node [scope:new_node.GetID]"
+# Custom on_action for trade events
+# Character scope
+trade_events_random = {
+	random_events = {
+		# Prosperity events
+		100 = trade_events.0201
+		# Caravan events
+		100 = trade_events.0202
+		# Merchant events
+		100 = trade_events.0203
 	}
 }
