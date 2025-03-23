@@ -174,7 +174,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] For MVP, use existing game icons (invite_to_court, alliance, and travel)
     - [x] Add appropriate tooltip localizations in `localization/english/trade_interactions_l_english.yml`
 
-- [ ] **Character Interaction Refactoring** - Replace direct control with character-driven interactions
+- [x] **Character Interaction Refactoring** - Replace direct control with character-driven interactions
 
   - [x] Remove direct "Establish Trade Agreement" interaction
 
@@ -184,16 +184,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Remove localization entries from trade_interactions_l_english.yml
     - [x] Update tutorial text that references this interaction
 
-  - [ ] Implement "Host Foreign Merchants" character interaction
-    - [ ] Use category = diplomatic for proper UI placement
-    - [ ] Create invitation mechanism for foreign merchant characters
-    - [ ] Implement ongoing trade benefits that scale based on merchant skills
-    - [ ] Add events for cultural exchanges, conflicts, and relationships
-    - [ ] Create trait-based outcomes reflecting ruler personality
-    - [ ] Design opinion modifiers with foreign rulers based on treatment of their merchants
-    - [ ] Implement compatibility with vanilla interaction framework
-    - [ ] Create appropriate interaction icon
-    - [ ] Add localization in trade_interactions_l_english.yml
+  - [x] Implement "Host Foreign Merchants" character interaction
+    - [x] Use category = diplomatic for proper UI placement
+    - [x] Create invitation mechanism for foreign merchant characters
+    - [x] Implement ongoing trade benefits that scale based on merchant skills
+    - [x] Add events for cultural exchanges, conflicts, and relationships
+    - [x] Create trait-based outcomes reflecting ruler personality
+    - [x] Design opinion modifiers with foreign rulers based on treatment of their merchants
+    - [x] Implement compatibility with vanilla interaction framework
+    - [x] Create appropriate interaction icon
+    - [x] Add localization in trade_interactions_l_english.yml
 
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
 

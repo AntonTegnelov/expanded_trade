@@ -249,3 +249,481 @@ sponsor_trade_expedition_interaction = {
 		}
 	}
 }
+
+# Host foreign merchants from distant lands for economic and cultural benefits
+host_foreign_merchants_interaction = {
+	category = interaction_category_diplomatic
+	icon = invite_to_court
+	desc = host_foreign_merchants_interaction_desc
+	# AI target selection
+	ai_targets = {
+		ai_recipients = liege
+		realm_characters
+	}
+	# Standard traits that give bonuses/penalties for diplomatic activities
+	actor_opinion_modifier_eligible_for_hostility_reduction = yes
+	recipient_opinion_modifier_eligible_for_hostility_reduction = yes
+	opinion_acceptance_modifier_factor = 2
+	# Only rulers of appropriate rank can host foreign merchants
+	is_shown = {
+		is_ruler = yes
+		# Need at least a county to attract merchants
+		highest_held_title_tier >= tier_county
+		# Need a county on a trade route
+		any_realm_county = {
+			has_county_flag = on_active_trade_route
+		}
+	}
+	# Cooldown between uses
+	cooldown = {
+		days = 1095		# 3 years
+	}
+	# Cost to host merchants
+	cost = {
+		gold = 75
+		prestige = 50
+	}
+	# Simple UI greeting
+	greeting = friendly
+	# What happens when the interaction is accepted
+	on_accept = {
+		# Create ongoing trade benefits
+		scope:actor = {
+			# Create a foreign merchant character
+			create_character = {
+				age = {
+					min = 25
+					max = 50
+				}
+				save_scope_as = foreign_merchant
+				# Random different culture
+				culture = {
+					target_type = culture
+					random = yes
+					save_temporary = yes
+					trigger = {
+						NOT = {
+							this = root.culture
+						}
+						has_trade_tradition_trigger = yes						# Custom trigger to check if culture has trade tradition
+					}
+				}
+				# Random faith
+				faith = {
+					target_type = faith
+					random = yes
+					save_temporary = yes
+					trigger = {
+						NOR = {
+							this = root.faith
+							root.faith = {
+								has_doctrine = doctrine_religious_hostility_this_faith
+							}
+						}
+					}
+				}
+				employer = root
+				gender_female_chance = 20				# 20% chance to be female
+				# Merchants are good at stewardship
+				random_traits = {
+					traits = {
+						stewardship_education_1 = 10
+						stewardship_education_2 = 20
+						stewardship_education_3 = 40
+						stewardship_education_4 = 30
+					}
+				}
+				# Give them some appropriate traits
+				random_traits = {
+					traits = {
+						greedy = 40
+						ambitious = 40
+						diligent = 30
+						gregarious = 30
+						shrewd = 20
+						honest = 10
+						deceitful = 10
+						cynical = 10
+					}
+					amount = 2
+				}
+				# Add stewardship skill points
+				stewardship = {
+					value = 8
+					add = {
+						value = primary_education_tier
+						multiply = 2
+					}
+				}
+				# Add appropriate modifiers for foreign merchants
+				add_character_modifier = {
+					modifier = foreign_merchant_advisor
+					years = 10
+				}
+				# Add merchant flag for future interactions
+				add_character_flag = {
+					flag = foreign_merchant_character
+					years = 100
+				}
+			}
+			# Add cultural exchange benefits to ruler
+			add_character_modifier = {
+				modifier = foreign_trade_connections
+				years = 5
+			}
+			# Add trade benefits to capital and trade counties
+			capital_county = {
+				add_county_modifier = {
+					modifier = flourishing_trade_node
+					years = 5
+				}
+			}
+			# Apply benefits to random trade route county
+			random_realm_county = {
+				limit = {
+					has_county_flag = on_active_trade_route
+				}
+				add_county_modifier = {
+					modifier = foreign_trade_taxation
+					years = 5
+				}
+			}
+			# Trigger events for cultural exchanges
+			trigger_event = {
+				id = foreign_merchant.0001
+				days = 60
+			}
+		}
+	}
+	# AI decision-making
+	ai_accept = {
+		base = 50
+		# More likely if good at stewardship
+		modifier = {
+			add = {
+				value = scope:actor.stewardship
+				multiply = 2
+			}
+			desc = "stewardship_skill"
+		}
+		# Wealth factors
+		modifier = {
+			trigger = {
+				scope:actor.gold > 200
+			}
+			add = 15
+			desc = "wealthy_ruler"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.gold < 100
+			}
+			add = -15
+			desc = "low_funds"
+		}
+		# Personality factors
+		modifier = {
+			trigger = {
+				scope:actor.is_greedy = yes
+			}
+			add = 10
+			desc = "greedy_trait"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.is_ambitious = yes
+			}
+			add = 10
+			desc = "ambitious_trait"
+		}
+		# Cultural interest factor
+		modifier = {
+			trigger = {
+				scope:actor.is_curious = yes
+			}
+			add = 15
+			desc = "curious_about_foreign_cultures"
+		}
+		# Xenophobia factor
+		modifier = {
+			trigger = {
+				scope:actor.is_xenophobic = yes
+			}
+			add = -25
+			desc = "xenophobic_trait"
+		}
+	}
+	ai_will_do = {
+		base = 5
+		# More likely if good at stewardship and diplomacy
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				stewardship > 10
+				diplomacy > 8
+			}
+		}
+		# More likely if curious or gregarious
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				OR = {
+					has_trait = curious
+					has_trait = gregarious
+				}
+			}
+		}
+		# Less likely if xenophobic or paranoid
+		modifier = {
+			factor = 0.25
+			scope:actor = {
+				OR = {
+					has_trait = xenophobic
+					has_trait = paranoid
+				}
+			}
+		}
+		# More likely if on a major trade route
+		modifier = {
+			factor = 2
+			scope:actor = {
+				any_realm_county = {
+					OR = {
+						has_county_flag = trade_prosperity_high
+						has_county_flag = trade_prosperity_medium
+					}
+				}
+			}
+		}
+		# Less likely if poor
+		modifier = {
+			factor = 0.5
+			scope:actor = {
+				gold < 150
+			}
+		}
+	}
+}
+
+# Host foreign merchants to establish trading outposts in your realm
+host_foreign_merchants_interaction = {
+	category = interaction_category_diplomatic
+	icon = invite_to_court
+	desc = host_foreign_merchants_interaction_desc
+	# AI target selection
+	ai_targets = {
+		ai_recipients = liege
+		realm_characters
+	}
+	# Standard traits that give bonuses/penalties for diplomatic activities
+	actor_opinion_modifier_eligible_for_hostility_reduction = yes
+	recipient_opinion_modifier_eligible_for_hostility_reduction = yes
+	opinion_acceptance_modifier_factor = 2
+	# Only rulers of appropriate rank can host foreign merchants
+	is_shown = {
+		is_ruler = yes
+		# Need at least a county to attract foreign merchants
+		highest_held_title_tier >= tier_county
+		# Need to have a county on a trade route
+		any_realm_county = {
+			has_county_flag = on_active_trade_route
+		}
+	}
+	# Cooldown between uses
+	cooldown = {
+		days = 1825		# 5 years
+	}
+	# Cost to host foreign merchants
+	cost = {
+		gold = 75
+		prestige = 50
+	}
+	# Simple UI greeting
+	greeting = friendly
+	# What happens when the interaction is accepted
+	on_accept = {
+		# Create a foreign merchant character
+		scope:actor = {
+			# Create a foreign merchant from a random culture
+			random_culture = {
+				limit = {
+					NOT = {
+						this = root.culture
+					}
+				}
+				save_scope_as = foreign_culture
+			}
+			create_character = {
+				age = {
+					min = 30
+					max = 55
+				}
+				save_scope_as = foreign_merchant
+				culture = scope:foreign_culture
+				employer = root
+				gender_female_chance = 20				# 20% chance to be female
+				# Foreign merchants are good at stewardship
+				random_traits = {
+					traits = {
+						stewardship_education_1 = 5
+						stewardship_education_2 = 20
+						stewardship_education_3 = 50
+						stewardship_education_4 = 25
+					}
+				}
+				# Give them some appropriate traits
+				random_traits = {
+					traits = {
+						greedy = 40
+						ambitious = 40
+						diligent = 30
+						gregarious = 30
+						shrewd = 20
+						honest = 10
+						deceitful = 10
+						cynical = 10
+					}
+					amount = 2
+				}
+				# Add stewardship skill points
+				stewardship = {
+					value = 8
+					add = {
+						value = primary_education_tier
+						multiply = 2
+					}
+				}
+				# Add diplomacy as well for foreign connections
+				diplomacy = {
+					value = 4
+					add = {
+						value = primary_education_tier
+					}
+				}
+				# Add appropriate modifiers for foreign merchants
+				add_character_modifier = {
+					modifier = foreign_merchant_advisor
+					years = 10
+				}
+				# Add foreign merchant flag for future interactions
+				add_character_flag = {
+					flag = foreign_merchant_character
+					years = 100
+				}
+			}
+			# Apply trade boost to capital county
+			capital_county = {
+				add_county_modifier = {
+					modifier = foreign_trade_connections
+					years = 5
+				}
+			}
+			# Apply cultural insight modifier to the ruler
+			add_character_modifier = {
+				modifier = cultural_insight
+				years = 5
+			}
+			# Trigger the foreign merchant event chain
+			trigger_event = {
+				id = foreign_merchant.0001
+				days = 30
+			}
+		}
+	}
+	# AI decision-making
+	ai_accept = {
+		base = 50
+		# More likely if good at stewardship
+		modifier = {
+			add = {
+				value = scope:actor.stewardship
+				multiply = 2
+			}
+			desc = "stewardship_skill"
+		}
+		# Wealth factors
+		modifier = {
+			trigger = {
+				scope:actor.gold > 200
+			}
+			add = 15
+			desc = "wealthy_ruler"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.gold < 100
+			}
+			add = -20
+			desc = "low_funds"
+		}
+		# Personality factors
+		modifier = {
+			trigger = {
+				scope:actor.is_greedy = yes
+			}
+			add = 15
+			desc = "greedy_trait"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.has_trait = xenophobic
+			}
+			add = -30
+			desc = "xenophobic_trait"
+		}
+		modifier = {
+			trigger = {
+				scope:actor.has_trait = curious
+			}
+			add = 20
+			desc = "curious_about_foreign_cultures"
+		}
+	}
+	ai_will_do = {
+		base = 5
+		# More likely if good at stewardship
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				stewardship > 12
+			}
+		}
+		# More likely if diplomatic
+		modifier = {
+			factor = 1.5
+			scope:actor = {
+				diplomacy > 12
+			}
+		}
+		# More likely if wealthy
+		modifier = {
+			factor = 2
+			scope:actor = {
+				gold > 300
+			}
+		}
+		# Less likely if poor
+		modifier = {
+			factor = 0.3
+			scope:actor = {
+				gold < 150
+			}
+		}
+		# More likely if on a major trade route
+		modifier = {
+			factor = 3
+			scope:actor = {
+				any_realm_county = {
+					has_county_flag = on_active_trade_route
+				}
+			}
+		}
+		# Less likely if xenophobic
+		modifier = {
+			factor = 0.2
+			scope:actor = {
+				has_trait = xenophobic
+			}
+		}
+	}
+}
