@@ -113,9 +113,9 @@
   - [x] Log immediate block execution: `debug_log = "Processing immediate block for event: [EventID]"`
   - [x] Log option selection: `debug_log = "Selected option: [OptionID] for event [EventID]"`
 
-- [ ] Add debug_log statements to `events/trade/silk_road_events.txt`
+- [x] Add debug_log statements to `events/trade/silk_road_events.txt`
 
-  - [ ] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
+  - [x] Log event scopes: `debug_log = "Event scope: [EventID] - Root=[Root.GetID]"`
   - [ ] Log random selections: `debug_log = "Random selection made: [ChoiceDescription]"`
   - [ ] Log event effects: `debug_log = "Applied effect: [EffectDesc] in event [EventID]"`
 

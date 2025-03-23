@@ -15,6 +15,7 @@ silk_road_events.0001 = {
 		animation = default
 	}
 	trigger = {
+		debug_log = "[GetDateString]: Event scope: silk_road_events.0001 - Root=[Root.GetID]"
 		owns_county_on_silk_road_trigger = yes
 		NOT = {
 			has_character_flag = recent_exotic_goods_discovery
