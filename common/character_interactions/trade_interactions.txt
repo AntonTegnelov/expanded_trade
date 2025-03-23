@@ -357,3 +357,10 @@ establish_trade_agreement_interaction = {
 		}
 	}
 }
+
+# Sponsor a trade expedition to increase trade flow
+sponsor_trade_expedition_interaction = {
+	category = interaction_category_diplomatic
+	icon = travel
+	desc = sponsor_trade_expedition_interaction_desc
+}
