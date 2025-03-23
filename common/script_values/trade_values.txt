@@ -10,6 +10,7 @@ large_trade_flow = 15
 major_trade_flow = 20
 # Trade node values
 trade_node_base_value = {
+	debug_log = "Calculating script value: trade_node_base_value"
 	# First ensure we have a valid county scope
 	if = {
 		limit = {
@@ -18,8 +19,10 @@ trade_node_base_value = {
 				is_county = yes
 			}
 		}
+		debug_log = "Taking condition branch: Valid county scope found"
 		# Base value calculation based on development
 		value = scope:county.development_level
+		debug_log = "Base value from development: [scope:county.development_level]"
 		# Bonus for coastal provinces (access to sea trade)
 		if = {
 			limit = {
@@ -27,6 +30,7 @@ trade_node_base_value = {
 					is_coastal_county = yes
 				}
 			}
+			debug_log = "Taking condition branch: Coastal county bonus"
 			add = 2
 		}
 		# Bonus for river provinces (river trade)
@@ -36,6 +40,7 @@ trade_node_base_value = {
 					has_river = yes
 				}
 			}
+			debug_log = "Taking condition branch: River county bonus"
 			add = 1
 		}
 		# Penalty for disrupted routes
@@ -45,19 +50,23 @@ trade_node_base_value = {
 					has_county_flag = on_disrupted_trade_route
 				}
 			}
+			debug_log = "Taking condition branch: Disrupted route penalty"
 			subtract = 2
 		}
 	}
 	# If no valid county, return minimum value
 	else = {
+		debug_log = "Taking condition branch: No valid county, using minimum value"
 		value = 1
 	}
 	# Ensure value doesn't go below minimum
 	min = 1
+	debug_log = "Final value: trade_node_base_value = [THIS.GetValue]"
 }
 
 # Trade prosperity impact on development
 trade_prosperity_development_growth = {
+	debug_log = "Calculating script value: trade_prosperity_development_growth"
 	# First ensure we have a valid county scope
 	if = {
 		limit = {
@@ -66,8 +75,10 @@ trade_prosperity_development_growth = {
 				is_county = yes
 			}
 		}
+		debug_log = "Taking condition branch: Valid county scope found"
 		# Base value is small
 		value = 0.05
+		debug_log = "Base value: 0.05"
 		# If county has medium trade prosperity
 		if = {
 			limit = {
@@ -76,6 +87,7 @@ trade_prosperity_development_growth = {
 					var:trade_prosperity_level >= medium_trade_prosperity
 				}
 			}
+			debug_log = "Taking condition branch: Medium trade prosperity bonus"
 			add = 0.05
 		}
 		# If county has high trade prosperity
@@ -86,17 +98,21 @@ trade_prosperity_development_growth = {
 					var:trade_prosperity_level >= high_trade_prosperity
 				}
 			}
+			debug_log = "Taking condition branch: High trade prosperity bonus"
 			add = 0.1
 		}
 	}
 	# If no valid county, return base value
 	else = {
+		debug_log = "Taking condition branch: No valid county, using base value"
 		value = 0.05
 	}
+	debug_log = "Final value: trade_prosperity_development_growth = [THIS.GetValue]"
 }
 
 # Income from trade for rulers
 ruler_trade_income = {
+	debug_log = "Calculating script value: ruler_trade_income"
 	# First ensure we have a valid ruler scope
 	if = {
 		limit = {
@@ -105,33 +121,59 @@ ruler_trade_income = {
 				is_ruler = yes
 			}
 		}
-		# Base value from trade prosperity
-		value = scope:ruler.domain_size
-		multiply = 0.01
-		# Bonus based on stewardship skill
-		add = scope:ruler.stewardship
-		multiply = 0.02
-		# Bonus for controlling trade nodes
+		debug_log = "Taking condition branch: Valid ruler scope found"
+		# Base value from trade nodes in realm
+		value = scope:ruler.num_trade_nodes_in_realm
+		multiply = 0.5
+		debug_log = "Base value from trade nodes: [scope:ruler.num_trade_nodes_in_realm] * 0.5"
+		# Bonus for trade focused ruler
 		if = {
 			limit = {
 				scope:ruler = {
-					any_held_title = {
-						tier = county
-						is_on_valid_trade_route_trigger = yes
+					has_trait = trader
+				}
+			}
+			debug_log = "Taking condition branch: Trader trait bonus"
+			multiply = 1.5
+		}
+		# Bonus for merchant republic
+		if = {
+			limit = {
+				scope:ruler = {
+					primary_title = {
+						has_government = merchant_republic_government
 					}
 				}
 			}
-			multiply = 1.2
+			debug_log = "Taking condition branch: Merchant republic bonus"
+			multiply = 2
+		}
+		# Penalty for disrupted trade
+		if = {
+			limit = {
+				scope:ruler = {
+					any_realm_county = {
+						has_county_flag = on_disrupted_trade_route
+					}
+				}
+			}
+			debug_log = "Taking condition branch: Disrupted trade penalty"
+			multiply = 0.75
 		}
 	}
-	# If no valid ruler, return 0
+	# If no valid ruler, return minimum value
 	else = {
+		debug_log = "Taking condition branch: No valid ruler, using minimum value"
 		value = 0
 	}
+	# Ensure value doesn't go below zero
+	min = 0
+	debug_log = "Final value: ruler_trade_income = [THIS.GetValue]"
 }
 
 # Trade connection value between nodes
 trade_connection_value = {
+	debug_log = "Calculating script value: trade_connection_value"
 	# First ensure we have valid node scopes
 	if = {
 		limit = {
@@ -144,10 +186,12 @@ trade_connection_value = {
 				exists = county
 			}
 		}
+		debug_log = "Taking condition branch: Valid node scopes found"
 		# Base value is the average of the two nodes' values
 		value = $FROM_NODE$.base_value
 		add = $TO_NODE$.base_value
 		divide = 2
+		debug_log = "Base value (average of nodes): [THIS.GetValue]"
 		# Penalty for sea routes (more expensive/risky)
 		if = {
 			limit = {
@@ -155,6 +199,7 @@ trade_connection_value = {
 					exists = var:trade_route_to_$TO_NODE$.county_sea_route
 				}
 			}
+			debug_log = "Taking condition branch: Sea route penalty"
 			multiply = 0.8
 		}
 		# Penalty for disrupted connection
@@ -169,11 +214,49 @@ trade_connection_value = {
 					}
 				}
 			}
+			debug_log = "Taking condition branch: Disrupted connection penalty"
 			multiply = 0.5
 		}
 	}
 	# If no valid nodes, return 0
 	else = {
+		debug_log = "Taking condition branch: No valid nodes, using zero value"
 		value = 0
 	}
+	debug_log = "Final value: trade_connection_value = [THIS.GetValue]"
+}
+
+# Trade route value modifier
+trade_route_value_modifier = {
+	debug_log = "Calculating script value: trade_route_value_modifier"
+	value = 1
+	# Bonus for high development
+	if = {
+		limit = {
+			scope:county.development_level >= 20
+		}
+		debug_log = "Taking condition branch: High development bonus"
+		multiply = 1.25
+	}
+	# Bonus for capital county
+	if = {
+		limit = {
+			scope:county = {
+				is_capital_county = yes
+			}
+		}
+		debug_log = "Taking condition branch: Capital county bonus"
+		multiply = 1.5
+	}
+	# Penalty for raided county
+	if = {
+		limit = {
+			scope:county = {
+				has_county_modifier = recently_raided
+			}
+		}
+		debug_log = "Taking condition branch: Raided county penalty"
+		multiply = 0.5
+	}
+	debug_log = "Final value: trade_route_value_modifier = [THIS.GetValue]"
 }

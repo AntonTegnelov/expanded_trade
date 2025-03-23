@@ -81,11 +81,11 @@
 
 ### 7.4 Script Values
 
-- [ ] Add debug_log statements to `common/script_values/trade_values.txt`
+- [x] Add debug_log statements to `common/script_values/trade_values.txt`
 
-  - [ ] Log value calculation entry: `debug_log = "Calculating script value: [ValueName]"`
-  - [ ] Log conditional branches: `debug_log = "Taking condition branch: [ConditionDesc]"`
-  - [ ] Log final values: `debug_log = "Final value: [ValueName] = [Result]"`
+  - [x] Log value calculation entry: `debug_log = "Calculating script value: [ValueName]"`
+  - [x] Log conditional branches: `debug_log = "Taking condition branch: [ConditionDesc]"`
+  - [x] Log final values: `debug_log = "Final value: [ValueName] = [Result]"`
 
 - [ ] Add debug_log statements to `common/script_values/trade_variables.txt`
   - [ ] Log variable initialization: `debug_log = "Initializing variable: [VarName] = [Value]"`
