@@ -26,3 +26,20 @@
  merchant_alliance:0 "Merchant Alliance"
  merchant_alliance_desc:0 "This county benefits from a formal alliance between the ruler and local merchant groups, significantly increasing tax income and trade value."
 
+ # Promote Luxury Goods Decision
+ promote_luxury_goods_decision:0 "Promote Luxury Goods"
+ promote_luxury_goods_decision_desc:0 "Invest in promoting the luxury goods produced in your realm. By creating more demand and prestige for these valuable commodities, you can increase your income and influence."
+ promote_luxury_goods_decision_tooltip:0 "Promote luxury goods from a county in your realm to boost trade value and income."
+ promote_luxury_goods_decision_effect_tooltip:0 "You will be able to choose a county producing luxury goods to promote."
+
+ # Promote Luxury Goods Event
+ trade_decision_events.0020.t:0 "Promoting Luxury Goods"
+ trade_decision_events.0020.desc:0 "With your investment, you're ready to promote the luxury goods produced in your realm. There are several approaches you could take to increase their value and desirability."
+ trade_decision_events.0020.a:0 "Promote to local markets"
+ trade_decision_events.0020.b:0 "Promote to foreign courts"
+ trade_decision_events.0020.c:0 "Create exclusivity through scarcity"
+
+ # Luxury Goods Modifiers
+ luxury_goods_premium:0 "Luxury Goods Premium"
+ luxury_goods_premium_desc:0 "This county's luxury goods are being sold at premium prices due to artificially limited supply, significantly increasing tax income but slowing development and causing some local discontent."
+

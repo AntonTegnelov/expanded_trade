@@ -350,3 +350,21 @@ merchant_alliance = {
 	icon = money_bag
 	county_opinion_add = 15
 }
+
+promoting_luxury_goods = {
+	monthly_prestige = 0.1
+	stewardship = 1
+	diplomacy = 1
+	monthly_character_income = 0.15
+	court_grandeur_contribution_mult = 0.05
+	monthly_lifestyle_xp_gain_mult = 0.05
+	icon = money_bag
+}
+
+luxury_goods_premium = {
+	county_trade_value_add = 3
+	monthly_county_tax_modifier = 0.2
+	development_growth_factor = -0.1
+	icon = gold
+	county_opinion_add = -5
+}

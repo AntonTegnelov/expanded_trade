@@ -481,3 +481,114 @@ secure_trade_route_decision = {
 		}
 	}
 }
+
+# Promote Luxury Goods - boost the value of luxury goods in your realm
+promote_luxury_goods_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_diplomacy_lifestyle.dds"
+	major = no
+	desc = promote_luxury_goods_decision_desc
+	selection_tooltip = promote_luxury_goods_decision_tooltip
+	# Cost for promoting luxury goods
+	cost = {
+		gold = 200
+		prestige = 100
+	}
+	# Only shown if the ruler has counties producing luxury goods
+	is_shown = {
+		is_ruler = yes
+		any_realm_county = {
+			OR = {
+				has_trade_good_trigger = {
+					TRADE_GOOD = silk
+				}
+				has_trade_good_trigger = {
+					TRADE_GOOD = spices
+				}
+				has_trade_good_trigger = {
+					TRADE_GOOD = ivory
+				}
+				has_trade_good_trigger = {
+					TRADE_GOOD = incense
+				}
+				has_trade_good_trigger = {
+					TRADE_GOOD = furs
+				}
+			}
+		}
+		NOT = {
+			has_character_modifier = promoting_luxury_goods
+		}
+	}
+	# Long cooldown to prevent spamming
+	cooldown = {
+		days = 3650
+	}
+	effect = {
+		custom_tooltip = promote_luxury_goods_decision_effect_tooltip
+		# Create luxury goods county selection list
+		every_realm_county = {
+			limit = {
+				OR = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = silk
+					}
+					has_trade_good_trigger = {
+						TRADE_GOOD = spices
+					}
+					has_trade_good_trigger = {
+						TRADE_GOOD = ivory
+					}
+					has_trade_good_trigger = {
+						TRADE_GOOD = incense
+					}
+					has_trade_good_trigger = {
+						TRADE_GOOD = furs
+					}
+				}
+			}
+			add_to_temporary_list = luxury_goods_counties
+		}
+		# Select county to promote goods from
+		open_view_data = {
+			view = character_interaction_selection_view
+			is_from_interaction = no
+		}
+		# Add character modifier
+		add_character_modifier = {
+			modifier = promoting_luxury_goods
+			years = 5
+		}
+		# Trigger follow-up event to handle promotion effects
+		trigger_event = {
+			id = trade_decision_events.0020
+			days = 1
+		}
+	}
+	ai_will_do = {
+		base = 25
+		# Higher for stewardship rulers
+		modifier = {
+			factor = 1.5
+			stewardship >= 12
+		}
+		# Higher for appropriate traits
+		modifier = {
+			factor = 2
+			trait = greedy
+		}
+		modifier = {
+			factor = 1.5
+			trait = ambitious
+		}
+		# Higher for wealthy rulers
+		modifier = {
+			factor = 1.5
+			gold > 500
+		}
+		# Less likely for poor rulers
+		modifier = {
+			factor = 0.2
+			gold < 300
+		}
+	}
+}

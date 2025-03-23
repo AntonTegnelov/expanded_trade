@@ -195,9 +195,9 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Create appropriate interaction icon
     - [x] Add localization in trade_interactions_l_english.yml
 
-- [ ] **Trade Policy Decisions** - Simple realm-wide policies
+- [x] **Trade Policy Decisions** - Simple realm-wide policies
 
-  - [ ] Create `common/decisions/trade_policy_decisions.txt` with basic policy options
+  - [x] Create `common/decisions/trade_policy_decisions.txt` with basic policy options
     - [x] Implement "Court Trade Focus" council task
       - [x] Create `common/council_tasks/trade_council_tasks.txt` for the Steward
       - [x] Design event chain reflecting character traits and culture
@@ -213,16 +213,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Create effects that reduce disruption chance and increase trade prosperity
       - [x] Add time_to_complete = { days = 180 } for balance
       - [x] Set ai_will_do based on county's trade value and realm wealth
-    - [ ] Create "Promote Luxury Goods" decision for increasing high-end goods
-      - [ ] Add is_shown requiring specific goods production in realm
-      - [ ] Set cost = { gold = 200 prestige = 100 }
-      - [ ] Create effects boosting specific trade good value for duration
-      - [ ] Set cooldown = { days = 3650 } (10 years)
-      - [ ] Use ai_will_do weighted by stewardship and appropriate traits
-    - [ ] Use existing decision framework for compatibility
-    - [ ] Create custom_tooltip fields for clear player feedback
-    - [ ] Add appropriate icons in `gfx/interface/icons/decisions/`
-    - [ ] Implement localization in `localization/english/trade_decisions_l_english.yml`
+    - [x] Create "Promote Luxury Goods" decision for increasing high-end goods
+      - [x] Add is_shown requiring specific goods production in realm
+      - [x] Set cost = { gold = 200 prestige = 100 }
+      - [x] Create effects boosting specific trade good value for duration
+      - [x] Set cooldown = { days = 3650 } (10 years)
+      - [x] Use ai_will_do weighted by stewardship and appropriate traits
+    - [x] Use existing decision framework for compatibility
+    - [x] Create custom_tooltip fields for clear player feedback
+    - [x] Add appropriate icons in `gfx/interface/icons/decisions/`
+    - [x] Implement localization in `localization/english/trade_decisions_l_english.yml`
 
 - [ ] **Trade route Interface** - Basic map mode and information display
   - [ ] Create `gui/trade_mapmode.gui` for trade route visualization

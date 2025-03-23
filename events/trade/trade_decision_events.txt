@@ -857,3 +857,165 @@ trade_decision_events.0010 = {
 		add_prestige = 100
 	}
 }
+
+# Promote Luxury Goods follow-up event
+trade_decision_events.0020 = {
+	type = character_event
+	title = trade_decision_events.0020.t
+	desc = trade_decision_events.0020.desc
+	theme = realm
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	immediate = {
+		save_scope_as = promoting_ruler
+		# Get selected county
+		saved_temporary_scope_list = {
+			name = luxury_goods_counties
+			random_in_list = {
+				save_scope_as = luxury_goods_county
+			}
+		}
+		# Determine which luxury good the county produces
+		scope:luxury_goods_county = {
+			if = {
+				limit = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = silk
+					}
+				}
+				set_variable = {
+					name = promoted_good
+					value = "silk"
+				}
+				save_scope_as = silk_county
+			}
+			else_if = {
+				limit = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = spices
+					}
+				}
+				set_variable = {
+					name = promoted_good
+					value = "spices"
+				}
+				save_scope_as = spices_county
+			}
+			else_if = {
+				limit = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = ivory
+					}
+				}
+				set_variable = {
+					name = promoted_good
+					value = "ivory"
+				}
+				save_scope_as = ivory_county
+			}
+			else_if = {
+				limit = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = incense
+					}
+				}
+				set_variable = {
+					name = promoted_good
+					value = "incense"
+				}
+				save_scope_as = incense_county
+			}
+			else_if = {
+				limit = {
+					has_trade_good_trigger = {
+						TRADE_GOOD = furs
+					}
+				}
+				set_variable = {
+					name = promoted_good
+					value = "furs"
+				}
+				save_scope_as = furs_county
+			}
+		}
+	}
+	# Promote to local markets
+	option = {
+		name = trade_decision_events.0020.a
+		scope:luxury_goods_county = {
+			# Boost prosperity
+			change_variable = {
+				name = trade_prosperity_level
+				add = 1
+			}
+			# Add trade boost modifier
+			add_county_modifier = {
+				modifier = improved_trade_flow
+				years = 5
+			}
+			# Boost development slightly
+			change_development = {
+				add = 0.5
+			}
+		}
+		# Get some income from local sales
+		add_gold = 50
+	}
+	# Promote to foreign courts
+	option = {
+		name = trade_decision_events.0020.b
+		# Better for rulers with diplomacy
+		trigger = {
+			diplomacy >= 8
+		}
+		scope:luxury_goods_county = {
+			# Add trade boost modifier
+			add_county_modifier = {
+				modifier = improved_trade_flow
+				years = 5
+			}
+		}
+		# Get prestige from foreign recognition
+		add_prestige = 100
+		# And some gold from increased sales
+		add_gold = 25
+		# Add foreign trade connections if don't have them
+		if = {
+			limit = {
+				NOT = {
+					has_character_modifier = foreign_trade_connections
+				}
+			}
+			add_character_modifier = {
+				modifier = foreign_trade_connections
+				years = 5
+			}
+		}
+	}
+	# Create exclusivity through scarcity
+	option = {
+		name = trade_decision_events.0020.c
+		# Better for rulers with stewardship
+		trigger = {
+			stewardship >= 8
+		}
+		scope:luxury_goods_county = {
+			# Reduce prosperity slightly (artificially limiting supply)
+			change_variable = {
+				name = trade_prosperity_level
+				add = -0.5
+			}
+			# But add premium goods modifier
+			add_county_modifier = {
+				modifier = luxury_goods_premium
+				years = 5
+			}
+		}
+		# Get significant gold from exclusivity pricing
+		add_gold = 100
+		# But might upset some locals
+		add_stress = minor_stress_gain
+	}
+}

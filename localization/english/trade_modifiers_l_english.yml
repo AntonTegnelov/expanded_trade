@@ -75,4 +75,7 @@ trade_expedition_boost:0 "Trade Expedition"
 trade_expedition_boost_desc:0 "A trade expedition has been sponsored from this county, significantly boosting tax income, development, and pleasing local inhabitants."
 
 improved_trade_flow:0 "Improved Trade Flow"
-improved_trade_flow_desc:0 "This county is experiencing improved trade flow due to a recent expedition, increasing trade value and boosting the local economy." 
+improved_trade_flow_desc:0 "This county is experiencing improved trade flow due to a recent expedition, increasing trade value and boosting the local economy."
+
+promoting_luxury_goods:0 "Promoting Luxury Goods"
+promoting_luxury_goods_desc:0 "This character is actively promoting luxury goods from their realm, improving stewardship and diplomacy while increasing income, prestige, and court grandeur." 
