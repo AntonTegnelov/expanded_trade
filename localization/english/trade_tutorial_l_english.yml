@@ -8,5 +8,12 @@ l_english:
  trade_tutorial.001.b:0 "I'll figure it out myself"
  trade_tutorial.001.b.tt:0 "Skip the trade tutorials. You can always learn about trade through the game rules or by experimenting."
  
+ trade_tutorial.002.t:0 "Trade Buildings"
+ trade_tutorial.002.desc:0 "You now have enough gold to build your first trade building. Trade buildings such as markets, trading posts, and caravanserais increase your income from trade routes and boost the prosperity of your counties.\n\nTo build a trade building, open a holding in a county on or near a trade route, then select the construction tab. Trade buildings are more effective when built in counties directly on trade routes."
+ trade_tutorial.002.a:0 "Show me how to build"
+ trade_tutorial.002.a.tt:0 "Learn about trade buildings and receive 25 gold as a small bonus to help with your first construction."
+ trade_tutorial.002.b:0 "I'll figure it out myself"
+ trade_tutorial.002.b.tt:0 "Skip this and all future trade tutorials."
+ 
  # Trade Tutorial Effects
  show_trade_mapmode_tooltip:0 "The Trade Map Mode helps you visualize trade routes and nodes. To access it, click on the map mode button in the lower right corner and select the Trade Map Mode.\n\nTrade routes are represented by lines connecting trade nodes. The color indicates prosperity level, while disrupted routes will appear dashed." 

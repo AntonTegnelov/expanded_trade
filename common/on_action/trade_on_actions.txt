@@ -167,6 +167,7 @@ on_monthly_character_pulse = {
 		trade_events.0004		# Merchant Dispute
 		silk_road_events.0005		# Cultural Exchange on the Silk Road
 		silk_road_events.0007		# Trade Route Security
+		trade_tutorial.002		# Trade Buildings Guide
 	}
 }
 

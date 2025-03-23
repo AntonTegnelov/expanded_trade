@@ -40,3 +40,52 @@ trade_tutorial.001 = {
 		add_character_flag = disable_trade_tutorials
 	}
 }
+
+# Trade Buildings Guide event
+trade_tutorial.002 = {
+	type = character_event
+	title = trade_tutorial.002.t
+	desc = trade_tutorial.002.desc
+	theme = stewardship
+	left_portrait = root
+	trigger = {
+		is_ai = no		# Only for human players
+		exists = capital_province
+		capital_province.county = {
+			OR = {
+				has_county_flag = is_on_silk_road
+				any_neighboring_county = {
+					has_county_flag = is_on_silk_road
+				}
+			}
+		}
+		# Player has enough gold to build a trade building
+		gold > 100
+		# Player hasn't seen this tutorial yet
+		NOT = {
+			has_character_flag = received_trade_building_tutorial
+		}
+		# Player hasn't disabled tutorials
+		NOT = {
+			has_character_flag = disable_trade_tutorials
+		}
+	}
+	immediate = {
+		add_character_flag = received_trade_building_tutorial
+	}
+	# Called from monthly character pulse
+	on_action = on_monthly_character_pulse
+	option = {
+		# Show me trade buildings
+		name = trade_tutorial.002.a
+		custom_tooltip = trade_tutorial.002.a.tt
+		highlighted_option = yes
+		add_gold = 25		# Small reward for completing the tutorial
+	}
+	option = {
+		# I'll figure it out myself
+		name = trade_tutorial.002.b
+		custom_tooltip = trade_tutorial.002.b.tt
+		add_character_flag = disable_trade_tutorials
+	}
+}

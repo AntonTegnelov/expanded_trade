@@ -324,11 +324,11 @@ The following features constitute the Minimum Viable Product (MVP) for the first
       - [x] Add guidance for accessing trade interface
       - [x] Use hint system to point to key interface elements
       - [x] Include option to disable further tutorials
-    - [ ] Implement "Trade Buildings Guide" event
-      - [ ] Trigger when player can build first trade building
-      - [ ] Explain building benefits and requirements
-      - [ ] Add visual guidance for building placement
-      - [ ] Create small reward for completing first building
+    - [x] Implement "Trade Buildings Guide" event
+      - [x] Trigger when player can build first trade building
+      - [x] Explain building benefits and requirements
+      - [x] Add visual guidance for building placement
+      - [x] Create small reward for completing first building
     - [ ] Create "Trade Policies Introduction" event
       - [ ] Trigger when player reaches appropriate realm size
       - [ ] Explain policy options and trade-offs
