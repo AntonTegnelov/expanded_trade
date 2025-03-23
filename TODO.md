@@ -345,7 +345,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
   - [x] Create `common/important_actions/trade_reactive_advice.txt`
     - [x] Implement reactive advice for trade situations
     - [x] Set appropriate triggers for when advice should appear
-    - [ ] Connect to lesson system with start_tutorial_lesson
+    - [x] Connect to lesson system with start_tutorial_lesson
   - [ ] Update localization files for tutorial content
     - [ ] Create `localization/english/trade_tutorial_lessons_l_english.yml`
     - [ ] Add detailed lesson text with appropriate formatting

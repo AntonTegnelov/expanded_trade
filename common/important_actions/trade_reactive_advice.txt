@@ -48,9 +48,11 @@ trade_building_advice = {
 	# Connection to relevant tutorial lesson
 	on_action_taken = {
 		effect = {
-			# This would connect to actual tutorial lesson in the full implementation
-			# start_tutorial_lesson = trade_buildings_lesson
-			# For MVP, just provide a small bonus for acknowledging
+			# Connect to the trade buildings lesson
+			start_tutorial_lesson = {
+				tutorial_lesson = trade_buildings_lesson
+			}
+			# Provide a small bonus for acknowledging
 			add_gold = 10
 		}
 	}
@@ -122,9 +124,10 @@ trade_route_disruption_advice = {
 	# Connection to relevant tutorial lesson or event
 	on_action_taken = {
 		effect = {
-			# This would connect to actual tutorial lesson in the full implementation
-			# start_tutorial_lesson = trade_route_security_lesson
-			# For MVP, just provide guidance
+			# Connect to the lesson about trade policies
+			start_tutorial_lesson = {
+				tutorial_lesson = trade_policies_lesson
+			}
 		}
 	}
 }
@@ -203,9 +206,11 @@ trade_prosperity_advice = {
 	# Connection to relevant tutorial lesson or event
 	on_action_taken = {
 		effect = {
-			# This would connect to actual tutorial lesson in the full implementation
-			# start_tutorial_lesson = trade_prosperity_lesson
-			# For MVP, just provide a small bonus for acknowledging
+			# Connect to introduction lesson for detailed overview
+			start_tutorial_lesson = {
+				tutorial_lesson = trade_introduction_lesson
+			}
+			# Provide a small bonus for acknowledging
 			add_gold = 25
 			add_prestige = 50
 		}
