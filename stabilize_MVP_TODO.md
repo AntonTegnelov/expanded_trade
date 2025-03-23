@@ -26,7 +26,7 @@
 
 - [ ] Audit county flag usage
   - [x] Ensure `on_silk_road`, `on_active_trade_route`, and `on_disrupted_trade_route` flags are set before checking
-  - [ ] Add safety checks before using flags in conditions
+  - [x] Add safety checks before using flags in conditions
   - [ ] Replace custom county flag `coastal_county` with CK3's native coastal check if available
 
 ### 5. Script Value Definitions

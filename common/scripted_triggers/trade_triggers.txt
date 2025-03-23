@@ -2,12 +2,16 @@
 # These scripted triggers provide essential checks for trade functionality
 # Checks if a county is on the Silk Road
 is_on_silk_road_trigger = {
+	# First check if this is a valid county
+	exists = this
+	is_county = yes
 	# County can be directly on the route or close enough to benefit
 	OR = {
 		# Direct Silk Road county (has the flag)
 		has_county_flag = on_silk_road
 		# County is within trading distance of a Silk Road node
 		any_neighboring_county = {
+			exists = this
 			has_county_flag = on_silk_road
 		}
 		# County has a silk road trade node
@@ -34,7 +38,10 @@ is_on_silk_road_trigger = {
 
 # Checks if a character owns a county that is directly on the Silk Road
 owns_county_on_silk_road_trigger = {
+	exists = this
+	is_alive = yes
 	any_county = {
+		exists = this
 		county_controller = root
 		is_on_silk_road_trigger = yes
 	}
@@ -42,6 +49,9 @@ owns_county_on_silk_road_trigger = {
 
 # Checks if a county is on a valid trade route
 is_on_valid_trade_route_trigger = {
+	# First check if this is a valid county
+	exists = this
+	is_county = yes
 	# Check if the county has the trade route flag
 	OR = {
 		has_county_flag = on_active_trade_route
@@ -51,6 +61,9 @@ is_on_valid_trade_route_trigger = {
 
 # Checks if a county has a connection to another county via a trade route
 has_trade_route_connection_trigger = {
+	# First check if this is a valid county
+	exists = this
+	is_county = yes
 	# $TARGET_COUNTY$ = County to check connection with
 	OR = {
 		# Direct connection via valid route
@@ -60,6 +73,8 @@ has_trade_route_connection_trigger = {
 		AND = {
 			is_on_valid_trade_route_trigger = yes
 			$TARGET_COUNTY$ = {
+				exists = this
+				is_county = yes
 				is_on_valid_trade_route_trigger = yes
 			}
 		}
