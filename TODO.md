@@ -103,16 +103,16 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement basic event triggers for trade status changes
     - [x] Ensure performance optimization with minimal monthly checks
 
-- [ ] **Trade Variables and Flags** - Essential state tracking
+- [x] **Trade Variables and Flags** - Essential state tracking
 
-  - [ ] Create `common/script_values/mvp_trade_variables.txt` for core state tracking
-    - [ ] Implement global silk_road_status variable
-    - [ ] Create county_trade_prosperity_level for local tracking
-    - [ ] Add character_trade_participation for ruler engagement
-    - [ ] Implement trade_route_disruption flags for war impacts
-    - [ ] Use standard variable naming conventions
-    - [ ] Ensure compatibility with save/load system
-    - [ ] Leverage existing flag system for state tracking
+  - [x] Create `common/script_values/mvp_trade_variables.txt` for core state tracking
+    - [x] Implement global silk_road_status variable
+    - [x] Create county_trade_prosperity_level for local tracking
+    - [x] Add character_trade_participation for ruler engagement
+    - [x] Implement trade_route_disruption flags for war impacts
+    - [x] Use standard variable naming conventions
+    - [x] Ensure compatibility with save/load system
+    - [x] Leverage existing flag system for state tracking
 
 - [ ] **Trade Modifiers** - Basic modifiers for county and character effects
   - [ ] Create `common/modifiers/mvp_trade_modifiers.txt` for core gameplay effects

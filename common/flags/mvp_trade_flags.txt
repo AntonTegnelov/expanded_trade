@@ -1,0 +1,77 @@
+# MVP Trade Flags
+# Essential state tracking flags for the MVP trade system
+# These are used to mark counties, characters, and trade routes
+# County flags
+# Marks a county as being on the Silk Road trade network
+flag_key = on_silk_road
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# Marks a county as being on an active trade route
+flag_key = on_active_trade_route
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# Marks a county as being on a disrupted trade route
+flag_key = on_disrupted_trade_route
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# Marks a coastal county for sea trade bonuses
+flag_key = coastal_county
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# County prosperity level flags
+# Low trade prosperity
+flag_key = trade_prosperity_low
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# Medium trade prosperity
+flag_key = trade_prosperity_medium
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# High trade prosperity
+flag_key = trade_prosperity_high
+flag_category = county
+flag_save = yes
+flag_clear_after_days = no
+# Character flags
+# Marks a character as participating in trade
+flag_key = trade_participant
+flag_category = character
+flag_save = yes
+flag_clear_after_days = no
+# Marks a character as having recently made a trade deal
+flag_key = recent_trade_deal
+flag_category = character
+flag_save = yes
+flag_clear_after_days = 365# Clear after one year
+# Marks a character as having a trade embargo
+flag_key = trade_embargo
+flag_category = character
+flag_save = yes
+flag_clear_after_days = 1825# Clear after five years
+# Marks a character as a merchant advisor
+flag_key = merchant_advisor
+flag_category = character
+flag_save = yes
+flag_clear_after_days = no
+# Route disruption flags
+# Used to track wars disrupting trade
+flag_key = trade_route_war_disruption
+flag_category = global
+flag_save = yes
+flag_clear_after_days = no
+# Used to track plague disruptions
+flag_key = trade_route_plague_disruption
+flag_category = global
+flag_save = yes
+flag_clear_after_days = no
+# Used to track bandit disruptions
+flag_key = trade_route_bandit_disruption
+flag_category = county
+flag_save = yes
+flag_clear_after_days = 365# Clear after one year 
