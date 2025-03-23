@@ -316,43 +316,93 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Map events to appropriate vanilla event themes and backgrounds
     - [x] Ensure compatibility with Northern Lords if present
 
-- [ ] **Basic Tutorial Elements** - Essential guidance for new players
-  - [x] Create `events/trade_tutorial.txt` for basic tutorial events
-    - [x] Design "Introduction to Trade" event
-      - [x] Trigger on first game month for player with trade routes
-      - [x] Create clear explanation of basic mechanics
-      - [x] Add guidance for accessing trade interface
-      - [x] Use hint system to point to key interface elements
-      - [x] Include option to disable further tutorials
-    - [x] Implement "Trade Buildings Guide" event
-      - [x] Trigger when player can build first trade building
-      - [x] Explain building benefits and requirements
-      - [x] Add visual guidance for building placement
-      - [x] Create small reward for completing first building
-    - [ ] Create "Trade Policies Introduction" event
-      - [ ] Trigger when player reaches appropriate realm size
-      - [ ] Explain policy options and trade-offs
-      - [ ] Add guidance for decision menu navigation
-      - [ ] Use helper tooltips for explaining policy impacts
-    - [ ] Implement "Trade Prosperity Notification" event
-      - [ ] Trigger when county first reaches trade prosperity
-      - [ ] Explain prosperity benefits and mechanics
-      - [ ] Add visual indicators for prosperity levels
-      - [ ] Create tips for maintaining trade flow
-    - [ ] Create tutorial-specific tooltips with extended information
-    - [ ] Use existing hint system for interface guidance
-    - [ ] Implement skip option for experienced players
-    - [ ] Exclusively use vanilla tutorial-style graphics and UI elements - NO custom art
-  - [ ] Create `gui/trade_tutorial_widget.gui` for helper overlays
-    - [ ] Adapt vanilla UI elements for unobtrusive feature highlighting
-    - [ ] Use existing help panel templates for detailed explanations
-    - [ ] Implement dismiss and "don't show again" options
-    - [ ] Use vanilla UI framework for consistent appearance
-  - [ ] Add detailed tutorial text in `localization/english/trade_tutorial_l_english.yml`
-    - [ ] Create straightforward explanations of mechanics
-    - [ ] Add contextual tips for different play styles
-    - [ ] Include historical flavor about medieval trade
-    - [ ] Ensure readability and accessibility in language
+## 1B. Tutorial System Refactoring
+
+- [x] **Remove Event-Based Tutorial Approach** - Fix the incorrect implementation
+
+  - [x] Delete `events/trade_tutorial.txt` file
+    - [x] Remove on_action hooks for tutorial events
+    - [x] Remove character flags for tutorial progress tracking
+  - [x] Remove any references to tutorial events from other files
+    - [x] Clean up localization files of tutorial event texts
+    - [x] Remove any interface elements specific to tutorial events
+  - [x] Audit other files for tutorial event dependencies
+    - [x] Check on_action files for tutorial event triggers
+    - [x] Verify no decisions or interactions depend on tutorial events
+
+- [ ] **Implement Proper Tutorial System** - Use CK3's native tutorial framework
+
+  - [ ] Create `common/tutorial_lessons/trade_tutorial_lessons.txt`
+    - [ ] Define lesson chain for trade mechanics
+    - [ ] Create structured lessons with proper GUI transitions
+    - [ ] Implement widget highlighting for UI elements
+    - [ ] Add appropriate effects and triggers for progression
+    - [ ] Use encapsulated states with proper animation
+  - [ ] Create `common/tutorial_lesson_chains/trade_lesson_chains.txt`
+    - [ ] Define progression of lesson chains
+    - [ ] Set proper prerequisites using existing lesson chains
+    - [ ] Configure save_progress_in_gamestate settings
+  - [ ] Create `common/important_actions/trade_reactive_advice.txt`
+    - [ ] Implement reactive advice for trade situations
+    - [ ] Set appropriate triggers for when advice should appear
+    - [ ] Connect to lesson system with start_tutorial_lesson
+  - [ ] Update localization files for tutorial content
+    - [ ] Create `localization/english/trade_tutorial_lessons_l_english.yml`
+    - [ ] Add detailed lesson text with appropriate formatting
+    - [ ] Include button text and headers
+  - [ ] Create appropriate hooks into vanilla tutorial system
+    - [ ] Ensure compatibility with existing tutorial progression
+    - [ ] Respect player's tutorial settings
+
+- [ ] **Guided Tutorial Elements** - Essential player guidance using proper tutorial system
+  - [ ] Create basic trade lesson chain in `common/tutorial_lesson_chains/trade_lesson_chains.txt`
+    - [ ] Set appropriate prerequisites with vanilla tutorial chains
+    - [ ] Configure save_progress_in_gamestate flags
+    - [ ] Set proper trigger conditions for availability
+  - [ ] Implement core trade lessons in `common/tutorial_lessons/trade_tutorial_lessons.txt`
+    - [ ] Create "Introduction to Trade" lesson
+      - [ ] Implement highlight_widget for trade map mode and UI elements
+      - [ ] Add GUI transitions with proper button_id elements
+      - [ ] Include animation = center for main tutorial window
+      - [ ] Set force_pause_game = yes for critical information
+    - [ ] Design "Trade Buildings Guide" lesson
+      - [ ] Add widget highlighting for building menu
+      - [ ] Include progressive step structure with header_info
+      - [ ] Create trigger_transition elements for building construction
+      - [ ] Add appropriate effects with small rewards for completion
+    - [ ] Add "Trade Policies" lesson
+      - [ ] Create highlight_widget for policy decision menu
+      - [ ] Add GUI transitions to guide through policy selection
+      - [ ] Include button_text elements for clear navigation
+      - [ ] Set appropriate enabled conditions for progression
+    - [ ] Implement "Trade Prosperity" lesson
+      - [ ] Create widget highlights for prosperity indicators
+      - [ ] Add illustrations of prosperity mechanics
+      - [ ] Include step-by-step guidance on prosperity management
+      - [ ] Configure proper shown_in_encyclopedia flags
+  - [ ] Create reactive advice in `common/important_actions/trade_reactive_advice.txt`
+    - [ ] Implement "First Trade Building" advice
+      - [ ] Set appropriate check_create_action conditions
+      - [ ] Configure soundeffect for notification
+      - [ ] Connect to proper tutorial lesson
+    - [ ] Add "Trade Route Disruption" advice
+      - [ ] Set triggers for when trade routes become disrupted
+      - [ ] Create appropriate icon and notification
+      - [ ] Link to helpful tutorial lesson
+    - [ ] Design "Trade Prosperity Achieved" advice
+      - [ ] Configure conditions for first prosperity milestone
+      - [ ] Set up congratulatory notification
+      - [ ] Connect to prosperity management lesson
+  - [ ] Add comprehensive localization in `localization/english/trade_tutorial_lessons_l_english.yml`
+    - [ ] Create clear lesson text with proper formatting
+    - [ ] Add button labels with descriptive text
+    - [ ] Include header information for all tutorial steps
+    - [ ] Create tooltips for highlighted widgets
+  - [ ] Ensure perfect compatibility with vanilla tutorial system
+    - [ ] Test integration with existing tutorial progression
+    - [ ] Verify respect for tutorial settings
+    - [ ] Confirm proper encyclopedia entries
+    - [ ] Validate all widget highlighting functions
 
 This MVP focuses on establishing the Silk Road with basic mechanics, allowing players to:
 
