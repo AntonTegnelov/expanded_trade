@@ -198,10 +198,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
 - [ ] **Trade Policy Decisions** - Simple realm-wide policies
 
   - [ ] Create `common/decisions/trade_policy_decisions.txt` with basic policy options
-    - [ ] Implement "Court Trade Focus" council task
-      - [ ] Create `common/council_tasks/trade_council_tasks.txt` for the Steward
-      - [ ] Design event chain reflecting character traits and culture
-      - [ ] Create different outcomes based on ruler traits (greedy, just, ambitious)
+    - [x] Implement "Court Trade Focus" council task
+      - [x] Create `common/council_tasks/trade_council_tasks.txt` for the Steward
+      - [x] Design event chain reflecting character traits and culture
+      - [x] Create different outcomes based on ruler traits (greedy, just, ambitious)
       - [x] Implement ongoing modifiers while task is active
       - [x] Add random events that can fire while task is assigned
       - [x] Use existing council task framework for compatibility
