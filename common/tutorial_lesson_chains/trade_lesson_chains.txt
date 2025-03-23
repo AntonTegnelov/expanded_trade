@@ -6,14 +6,36 @@ trade_basics_chain = {
 	trigger = {
 		# This ensures we don't show trade tutorials until basics are covered
 		is_tutorial_lesson_chain_completed = lesson_chain_basics_unpause
+		# Only offer trade tutorials if player has counties near trade routes
+		exists = capital_province
+		capital_province.county = {
+			OR = {
+				has_county_flag = on_silk_road
+				any_neighboring_county = {
+					has_county_flag = on_silk_road
+				}
+			}
+		}
+		# Don't show if player has already completed all trade tutorials
+		NOR = {
+			AND = {
+				has_character_flag = completed_trade_introduction
+				has_character_flag = completed_trade_buildings_tutorial
+				has_character_flag = completed_trade_policies_tutorial
+			}
+		}
 	}
 	# Save progress in the game state so it's preserved between sessions
 	save_progress_in_gamestate = yes
-	# Define the order of lessons in this chain
+	# Define the order of lessons in this chain with proper progression
 	lessons = {
 		trade_introduction_lesson		# Start with general introduction
 		trade_buildings_lesson		# Then cover buildings
 		trade_policies_lesson		# Finally cover policies
+	}
+	# Define a completion trigger for this chain
+	completion_trigger = {
+		has_character_flag = completed_trade_policies_tutorial
 	}
 }
 
@@ -28,5 +50,21 @@ trade_reactive_chain = {
 	lessons = {
 		# Empty for now - will be populated with reactive lessons as needed
 		# This structure is included as a placeholder for the MVP
+	}
+}
+
+# Intermediate trade mechanics chain - For more advanced trade concepts
+# Not used in MVP but structure is defined for future expansion
+trade_advanced_chain = {
+	# Only show after player has completed the basic trade chain
+	trigger = {
+		is_tutorial_lesson_chain_completed = trade_basics_chain
+		# Additional requirements for showing advanced tutorials can be added here
+	}
+	save_progress_in_gamestate = yes
+	# Define the order of lessons in this chain
+	# Will be populated in future updates
+	lessons = {
+		# Empty for MVP
 	}
 }

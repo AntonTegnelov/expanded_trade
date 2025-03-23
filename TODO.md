@@ -339,7 +339,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add appropriate effects and triggers for progression
     - [x] Use encapsulated states with proper animation
   - [ ] Create `common/tutorial_lesson_chains/trade_lesson_chains.txt`
-    - [ ] Define progression of lesson chains
+    - [x] Define progression of lesson chains
     - [ ] Set proper prerequisites using existing lesson chains
     - [ ] Configure save_progress_in_gamestate settings
   - [ ] Create `common/important_actions/trade_reactive_advice.txt`
