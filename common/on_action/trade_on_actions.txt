@@ -167,7 +167,6 @@ on_monthly_character_pulse = {
 		trade_events.0004		# Merchant Dispute
 		silk_road_events.0005		# Cultural Exchange on the Silk Road
 		silk_road_events.0007		# Trade Route Security
-		trade_tutorial.002		# Trade Buildings Guide
 	}
 }
 
@@ -181,6 +180,6 @@ on_monthly_county_pulse = {
 # Game start hook for tutorial events
 on_game_start_after_lobby = {
 	events = {
-		trade_tutorial.001		# Introduction to Trade Tutorial
+		# Removed trade_tutorial.001 (Introduction to Trade Tutorial)
 	}
 }

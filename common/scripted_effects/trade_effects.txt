@@ -73,174 +73,198 @@ setup_silk_road_effect = {
 	}
 }
 
-# Calculates basic trade income for routes and counties
-calculate_basic_trade_income_effect = {
-	# This effect should be run at the global scope
-	# It will generate trade value for active routes
-	# Calculate trade value for each active county
-	every_county = {
-		limit = {
-			has_county_flag = on_active_trade_route
-		}
-		# Base trade value from development
-		set_variable = {
-			name = county_trade_value
-			value = development_level
-			multiply = 0.5
-		}
-		# Add bonus for trade buildings
-		if = {
-			limit = {
-				any_holding = {
-					has_building = market_square
-				}
-			}
-			change_variable = {
-				name = county_trade_value
-				add = 1
-			}
-		}
-		if = {
-			limit = {
-				any_holding = {
-					has_building = trading_post
-				}
-			}
-			change_variable = {
-				name = county_trade_value
-				add = 2
-			}
-		}
-		if = {
-			limit = {
-				any_holding = {
-					has_building = caravanserai
-				}
-			}
-			change_variable = {
-				name = county_trade_value
-				add = 3
-			}
-		}
-		# Apply the trade value as income to the county holder
-		holder = {
-			add_character_modifier = {
-				modifier = trader_ruler
-				months = 1
-			}
-			# Add direct income based on county trade value
-			change_gold = {
-				value = prev.var:county_trade_value
-				multiply = 0.1
-			}
-		}
-	}
-}
-
-# Apply trade prosperity effects to a county
+# Effect to apply prosperity to counties based on trade route status
 apply_trade_prosperity_effect = {
-	# County scope
-	# Remove all previous prosperity modifiers
-	remove_county_modifier = low_trade_prosperity
-	remove_county_modifier = medium_trade_prosperity
-	remove_county_modifier = high_trade_prosperity
-	# Remove all prosperity flags
+	# Remove all existing trade prosperity flags first to avoid duplicates
 	remove_county_flag = trade_prosperity_low
 	remove_county_flag = trade_prosperity_medium
 	remove_county_flag = trade_prosperity_high
-	# Only continue if the county is on an active trade route
+	# Basic calculation - a simple system for MVP
+	# If county is on an active trade route, determine prosperity level
 	if = {
 		limit = {
 			has_county_flag = on_active_trade_route
 		}
-		# Calculate prosperity based on development and buildings
-		set_variable = {
-			name = trade_prosperity_level
-			value = development_level
-			divide = 5			# Scale to reasonable range
-		}
-		# Add bonus for trade buildings
+		# Check for trade buildings to determine prosperity level
+		# More trade buildings = higher prosperity
+		# High Prosperity
 		if = {
 			limit = {
-				any_holding = {
-					OR = {
-						has_building = market_square
-						has_building = trading_post
-						has_building = caravanserai
+				# Requires multiple trade buildings or high-tier building
+				OR = {
+					has_building_or_higher = caravanserai
+					# Alternative check for multiple lower buildings
+					trigger_if = {
+						limit = {
+							OR = {
+								any_county_holding = {
+									has_building_or_higher = market_square
+								}
+								any_county_holding = {
+									has_building_or_higher = trading_post
+								}
+							}
+						}
+						count_holdings_with_building_in_county = {
+							building = market_square
+							value >= 2
+						}
 					}
 				}
 			}
-			change_variable = {
-				name = trade_prosperity_level
-				add = 1
-			}
-		}
-		# Apply appropriate modifier based on prosperity level
-		if = {
-			limit = {
-				var:trade_prosperity_level >= 3
-			}
-			add_county_modifier = {
-				modifier = high_trade_prosperity
-				months = 2				# Refresh on next month's calculation
-			}
 			set_county_flag = trade_prosperity_high
+			add_county_modifier = {
+				modifier = trade_high_prosperity
+				months = 12
+			}
 		}
+		# Medium Prosperity
 		else_if = {
 			limit = {
-				var:trade_prosperity_level >= 2
-			}
-			add_county_modifier = {
-				modifier = medium_trade_prosperity
-				months = 2				# Refresh on next month's calculation
+				# Requires at least one trade building
+				OR = {
+					any_county_holding = {
+						has_building_or_higher = market_square
+					}
+					any_county_holding = {
+						has_building_or_higher = trading_post
+					}
+				}
 			}
 			set_county_flag = trade_prosperity_medium
-		}
-		else_if = {
-			limit = {
-				var:trade_prosperity_level >= 1
-			}
 			add_county_modifier = {
-				modifier = low_trade_prosperity
-				months = 2				# Refresh on next month's calculation
+				modifier = trade_medium_prosperity
+				months = 12
 			}
+		}
+		# Low Prosperity - just being on an active route
+		else = {
 			set_county_flag = trade_prosperity_low
+			add_county_modifier = {
+				modifier = trade_low_prosperity
+				months = 12
+			}
 		}
 	}
-}
-
-# Create a trade disruption on a route
-disrupt_trade_route_effect = {
-	# County scope
-	# Only if on active trade route
-	if = {
-		limit = {
-			has_county_flag = on_active_trade_route
-		}
-		# Mark as disrupted
-		remove_county_flag = on_active_trade_route
-		set_county_flag = on_disrupted_trade_route
-		# Remove prosperity
-		remove_county_modifier = low_trade_prosperity
-		remove_county_modifier = medium_trade_prosperity
-		remove_county_modifier = high_trade_prosperity
-		remove_county_flag = trade_prosperity_low
-		remove_county_flag = trade_prosperity_medium
-		remove_county_flag = trade_prosperity_high
-	}
-}
-
-# Restore trade on a disrupted route
-restore_trade_route_effect = {
-	# County scope
-	# Only if on disrupted trade route
-	if = {
+	# If county is on a disrupted trade route, apply penalties
+	else_if = {
 		limit = {
 			has_county_flag = on_disrupted_trade_route
 		}
-		# Mark as active
-		remove_county_flag = on_disrupted_trade_route
-		set_county_flag = on_active_trade_route
+		# Apply disruption modifier
+		add_county_modifier = {
+			modifier = trade_route_disruption
+			months = 12
+		}
+	}
+}
+
+# Effect to disrupt trade route in a county
+disrupt_trade_route_effect = {
+	# Only apply to counties on trade routes
+	if = {
+		limit = {
+			has_county_flag = on_silk_road
+			has_county_flag = on_active_trade_route
+			NOT = {
+				has_county_flag = on_disrupted_trade_route
+			}
+		}
+		# Remove active flag
+		remove_county_flag = on_active_trade_route
+		# Add disrupted flag
+		set_county_flag = on_disrupted_trade_route
+		# Remove any prosperity flags
+		remove_county_flag = trade_prosperity_low
+		remove_county_flag = trade_prosperity_medium
+		remove_county_flag = trade_prosperity_high
+		# Add disruption modifier
+		add_county_modifier = {
+			modifier = trade_route_disruption
+			months = 12
+		}
+		# Trigger notification
+		on_action = trade_status_change
+	}
+}
+
+# Effect to calculate basic trade income for rulers with counties on active trade routes
+calculate_basic_trade_income_effect = {
+	# Simplified monthly calculation
+	every_ruler = {
+		limit = {
+			any_held_title = {
+				tier = county
+				has_county_flag = on_silk_road
+				has_county_flag = on_active_trade_route
+			}
+		}
+		# Calculate basic trade income
+		# For MVP, this is a simple calculation based on:
+		# 1. Number of active trade counties
+		# 2. Presence of trade buildings
+		# 3. Prosperity level
+		# Base gold per active trade county
+		set_variable = {
+			name = trade_income
+			value = 0
+		}
+		# For each active trade county, add to income
+		every_held_title = {
+			limit = {
+				tier = county
+				has_county_flag = on_silk_road
+				has_county_flag = on_active_trade_route
+			}
+			# Base value for active route
+			scope:ruler = {
+				change_variable = {
+					name = trade_income
+					add = 0.1
+				}
+			}
+			# Bonus for prosperity level
+			if = {
+				limit = {
+					has_county_flag = trade_prosperity_high
+				}
+				scope:ruler = {
+					change_variable = {
+						name = trade_income
+						add = 0.3
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_county_flag = trade_prosperity_medium
+				}
+				scope:ruler = {
+					change_variable = {
+						name = trade_income
+						add = 0.2
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_county_flag = trade_prosperity_low
+				}
+				scope:ruler = {
+					change_variable = {
+						name = trade_income
+						add = 0.1
+					}
+				}
+			}
+		}
+		# Add the income to the ruler
+		add_gold = var:trade_income
+		# Clear the variable
+		set_variable = {
+			name = trade_income
+			value = 0
+		}
 	}
 }
 
@@ -299,11 +323,4 @@ generate_merchant_character_effect = {
 			years = 100
 		}
 	}
-}
-
-# Effect to show trade mapmode in tutorial
-show_trade_mapmode_effect = {
-	custom_tooltip = show_trade_mapmode_tooltip
-	# This is a placeholder - will need UI integration in the future
-	# Currently it just provides guidance in the tooltip
 }
