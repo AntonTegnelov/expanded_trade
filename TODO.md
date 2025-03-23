@@ -330,7 +330,7 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Check on_action files for tutorial event triggers
     - [x] Verify no decisions or interactions depend on tutorial events
 
-- [ ] **Implement Proper Tutorial System** - Use CK3's native tutorial framework
+- [x] **Implement Proper Tutorial System** - Use CK3's native tutorial framework
 
   - [x] Create `common/tutorial_lessons/trade_tutorial_lessons.txt`
     - [x] Define lesson chain for trade mechanics
@@ -346,10 +346,10 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Implement reactive advice for trade situations
     - [x] Set appropriate triggers for when advice should appear
     - [x] Connect to lesson system with start_tutorial_lesson
-  - [ ] Update localization files for tutorial content
-    - [ ] Create `localization/english/trade_tutorial_lessons_l_english.yml`
-    - [ ] Add detailed lesson text with appropriate formatting
-    - [ ] Include button text and headers
+  - [x] Update localization files for tutorial content
+    - [x] Create `localization/english/trade_tutorial_lessons_l_english.yml`
+    - [x] Add detailed lesson text with appropriate formatting
+    - [x] Include button text and headers
   - [ ] Create appropriate hooks into vanilla tutorial system
     - [ ] Ensure compatibility with existing tutorial progression
     - [ ] Respect player's tutorial settings
