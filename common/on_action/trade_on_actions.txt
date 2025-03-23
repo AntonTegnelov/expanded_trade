@@ -165,6 +165,7 @@ on_monthly_character_pulse = {
 	events = {
 		trade_events.0001		# Trade Caravan Arrival
 		trade_events.0004		# Merchant Dispute
+		silk_road_events.0005		# Cultural Exchange on the Silk Road
 	}
 }
 

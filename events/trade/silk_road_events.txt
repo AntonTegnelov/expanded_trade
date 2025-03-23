@@ -430,3 +430,332 @@ silk_road_events.0004 = {
 		}
 	}
 }
+
+# Cultural Exchange Event
+# This event triggers for rulers on the Silk Road who interact with foreign merchants
+silk_road_events.0005 = {
+	type = character_event
+	title = silk_road_events.0005.t
+	desc = silk_road_events.0005.desc
+	theme = diplomacy
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = default
+	}
+	trigger = {
+		owns_county_on_silk_road_trigger = yes
+		NOT = {
+			has_character_flag = recent_cultural_exchange
+		}
+		any_county = {
+			is_on_silk_road_trigger = yes
+			has_high_trade_prosperity_trigger = yes
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		# More likely for rulers with foreign trade connections
+		modifier = {
+			add = 2
+			has_character_modifier = foreign_trade_connections
+		}
+		# More likely for open-minded rulers
+		modifier = {
+			add = 1
+			OR = {
+				has_trait = open_minded
+				has_trait = curious
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = {
+			flag = recent_cultural_exchange
+			days = 1825			# 5 year cooldown
+		}
+		# Generate foreign merchant
+		create_character = {
+			name = scope:foreign_merchant
+			age = {
+				30
+				50
+			}
+			gender = male
+			# Different culture from player
+			culture = {
+				# Pick a culture different from player's but likely to be on Silk Road
+				if = {
+					limit = {
+						culture_group = culture_group:persian_group
+					}
+					culture = culture:han
+				}
+				else_if = {
+					limit = {
+						culture_group = culture_group:arabic_group
+					}
+					culture = culture:persian
+				}
+				else_if = {
+					limit = {
+						culture_group = culture_group:byzantine
+					}
+					culture = culture:persian
+				}
+				else = {
+					culture = culture:persian
+				}
+			}
+			trait = merchant
+			trait = education_stewardship_3
+			intelligence = high
+			save_scope_as = foreign_merchant
+		}
+		# Set up innovation opportunity
+		random_list = {
+			75 = {
+				# Choose a cultural innovation we don't have
+				random_innovation = {
+					limit = {
+						NOT = {
+							culture:root.culture = {
+								has_innovation = this
+							}
+						}
+						OR = {
+							category = regional
+							category = cultural
+						}
+						scope:foreign_merchant.culture = {
+							has_innovation = this
+						}
+					}
+					save_scope_as = foreign_innovation
+				}
+			}
+			25 = {
+				# Choose a civic innovation
+				random_innovation = {
+					limit = {
+						NOT = {
+							culture:root.culture = {
+								has_innovation = this
+							}
+						}
+						category = civic
+						scope:foreign_merchant.culture = {
+							has_innovation = this
+						}
+					}
+					save_scope_as = foreign_innovation
+				}
+			}
+		}
+	}
+	# Embrace foreign influences
+	option = {
+		name = silk_road_events.0005.a
+		add_character_modifier = {
+			modifier = cultural_insight
+			years = 5
+		}
+		if = {
+			limit = {
+				exists = scope:foreign_innovation
+			}
+			trigger_event = {
+				id = silk_road_events.0006
+				days = 7
+			}
+		}
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_grateful
+				years = 5
+			}
+		}
+		add_prestige = medium_prestige_gain
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 25
+				has_trait = open_minded
+			}
+			modifier = {
+				add = 25
+				learning > 12
+			}
+		}
+	}
+	# Limited cultural exchange
+	option = {
+		name = silk_road_events.0005.b
+		add_character_modifier = {
+			modifier = foreign_trade_connections
+			years = 5
+		}
+		add_prestige = minor_prestige_gain
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_pleased
+				years = 2
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				has_trait = temperate
+			}
+			modifier = {
+				add = 25
+				stewardship > 12
+			}
+		}
+	}
+	# Reject foreign influences
+	option = {
+		name = silk_road_events.0005.c
+		add_prestige = minor_prestige_gain
+		if = {
+			limit = {
+				has_trait = xenophile
+			}
+			add_stress = medium_stress_gain
+		}
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_disappointed
+				years = 2
+			}
+		}
+		ai_chance = {
+			base = 25
+			modifier = {
+				add = 50
+				has_trait = zealous
+			}
+			modifier = {
+				add = 50
+				has_trait = xenophobe
+			}
+		}
+	}
+}
+
+# Innovation discovery follow-up
+silk_road_events.0006 = {
+	type = character_event
+	title = silk_road_events.0006.t
+	desc = silk_road_events.0006.desc
+	theme = learning
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	right_portrait = {
+		character = scope:foreign_merchant
+		animation = scholar
+	}
+	immediate = {
+		if = {
+			limit = {
+				exists = scope:foreign_innovation
+			}
+			culture:root.culture = {
+				add_innovation_progress = {
+					innovation = scope:foreign_innovation
+					progress = minor_innovation_progress
+				}
+			}
+		}
+	}
+	# Fund further research
+	option = {
+		name = silk_road_events.0006.a
+		trigger = {
+			gold > 200
+		}
+		add_gold = medium_gold_loss
+		culture:root.culture = {
+			add_innovation_progress = {
+				innovation = scope:foreign_innovation
+				progress = medium_innovation_progress
+			}
+		}
+		scope:foreign_merchant = {
+			opinion = {
+				target = root
+				modifier = opinion_impressed
+				years = 5
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				has_trait = scholar
+			}
+			modifier = {
+				add = 25
+				learning > 15
+			}
+			modifier = {
+				factor = 0.2
+				gold < 300
+			}
+		}
+	}
+	# Accept the innovation influence
+	option = {
+		name = silk_road_events.0006.b
+		# Small cultural acceptance boost with merchant's culture
+		add_cultural_acceptance = {
+			target = scope:foreign_merchant.culture
+			value = minor_cultural_acceptance_gain
+		}
+		ai_chance = {
+			base = 75
+			modifier = {
+				add = 25
+				has_trait = open_minded
+			}
+		}
+	}
+	# Exchange knowledge for trade benefits
+	option = {
+		name = silk_road_events.0006.c
+		add_character_modifier = {
+			modifier = improved_trade_flow
+			years = 3
+		}
+		random_county = {
+			limit = {
+				is_on_silk_road_trigger = yes
+				county_controller = root
+			}
+			add_county_modifier = {
+				modifier = increased_foreign_trade
+				years = 3
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = 25
+				has_trait = greedy
+			}
+			modifier = {
+				add = 25
+				stewardship > 15
+			}
+		}
+	}
+}

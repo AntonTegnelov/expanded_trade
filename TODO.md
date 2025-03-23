@@ -301,12 +301,12 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Show temporary prosperity penalties
     - [x] Add strategic options for rulers to respond
     - [x] Include diplomatic actions against disrupting parties
-  - [ ] Create "Cultural Exchange" event chain
-    - [ ] Focus on minimal innovation spread mechanics
-    - [ ] Use existing culture scope and relation systems
-    - [ ] Add minor acceptance bonuses between trade partners
-    - [ ] Include options for embracing or rejecting foreign influences
-    - [ ] Create trait-based outcomes affecting character opinions
+  - [x] Create "Cultural Exchange" event chain
+    - [x] Focus on minimal innovation spread mechanics
+    - [x] Use existing culture scope and relation systems
+    - [x] Add minor acceptance bonuses between trade partners
+    - [x] Include options for embracing or rejecting foreign influences
+    - [x] Create trait-based outcomes affecting character opinions
   - [ ] Add "Trade Route Security" event
     - [ ] Trigger from counties with active trade but low control
     - [ ] Present options for investing in route protection
