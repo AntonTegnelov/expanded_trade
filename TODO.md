@@ -224,38 +224,38 @@ The following features constitute the Minimum Viable Product (MVP) for the first
     - [x] Add appropriate icons in `gfx/interface/icons/decisions/`
     - [x] Implement localization in `localization/english/trade_decisions_l_english.yml`
 
-- [ ] **Trade route Interface** - Basic map mode and information display
-  - [ ] Create `gui/trade_mapmode.gui` for trade route visualization
-    - [ ] Implement basic map mode showing trade routes with different colors
-    - [ ] Create map objects for trade nodes using existing map system
-    - [ ] Design route visualization with three states (prosperous, normal, disrupted)
-    - [ ] Use vanilla map_modes.gui structure for compatibility
-    - [ ] Implement tooltips showing route state and prosperity
-    - [ ] Create node tooltips showing goods and value
-    - [ ] Add trade map mode button to existing map mode selection panel
-  - [ ] Create `gui/trade_window.gui` for detailed trade information
-    - [ ] Design main trade info window following vanilla window patterns
-    - [ ] Create tabs for Routes, Goods, and Policies
-    - [ ] Implement route list showing status and value of each route section
-    - [ ] Design goods list showing production and value in realm
-    - [ ] Add current policies section showing active trade decisions
-    - [ ] Create basic realm trade summary with income breakdown
-    - [ ] Use vanilla widget templates for consistency (similar to economy window)
-  - [ ] Create `gui/widgets/trade_tooltips.gui` for enhanced information display
-    - [ ] Design county tooltip extension showing trade information
-    - [ ] Create character tooltip extension for merchant characters
-    - [ ] Implement holding tooltip additions for trade buildings
-    - [ ] Use vanilla tooltip framework (DefaultTooltipWidget)
-  - [ ] Create necessary graphics in `gfx/interface/` folders
-    - [ ] Design route and node icons for map display
-    - [ ] Create trade good icons for interface
-    - [ ] Design window background and frame elements
-    - [ ] Create status icons for prosperity and disruption
-  - [ ] Implement localization in `localization/english/trade_interface_l_english.yml`
-    - [ ] Add map mode name and description
-    - [ ] Create tooltip text for all interface elements
-    - [ ] Add heading and label text for windows
-    - [ ] Include help text for new players
+- [x] **Trade route Interface** - Basic map mode and information display
+  - [x] Create `gui/trade_mapmode.gui` for trade route visualization
+    - [x] Implement basic map mode showing trade routes with different colors
+    - [x] Create map objects for trade nodes using existing map system
+    - [x] Design route visualization with three states (prosperous, normal, disrupted)
+    - [x] Use vanilla map_modes.gui structure for compatibility
+    - [x] Implement tooltips showing route state and prosperity
+    - [x] Create node tooltips showing goods and value
+    - [x] Add trade map mode button to existing map mode selection panel
+  - [x] Create `gui/trade_window.gui` for detailed trade information
+    - [x] Design main trade info window following vanilla window patterns
+    - [x] Create tabs for Routes, Goods, and Policies
+    - [x] Implement route list showing status and value of each route section
+    - [x] Design goods list showing production and value in realm
+    - [x] Add current policies section showing active trade decisions
+    - [x] Create basic realm trade summary with income breakdown
+    - [x] Use vanilla widget templates for consistency (similar to economy window)
+  - [x] Create `gui/widgets/trade_tooltips.gui` for enhanced information display
+    - [x] Design county tooltip extension showing trade information
+    - [x] Create character tooltip extension for merchant characters
+    - [x] Implement holding tooltip additions for trade buildings
+    - [x] Use vanilla tooltip framework (DefaultTooltipWidget)
+  - [x] Create necessary graphics in `gfx/interface/` folders
+    - [x] Design route and node icons for map display
+    - [x] Create trade good icons for interface
+    - [x] Design window background and frame elements
+    - [x] Create status icons for prosperity and disruption
+  - [x] Implement localization in `localization/english/trade_interface_l_english.yml`
+    - [x] Add map mode name and description
+    - [x] Create tooltip text for all interface elements
+    - [x] Add heading and label text for windows
+    - [x] Include help text for new players
 
 ### Events and Content
 

@@ -1,0 +1,112 @@
+types TradeTooltips {
+    type trade_county_tooltip_extension = widget {
+        name = "trade_county_tooltip_extension"
+        
+        vbox = {
+            margin = { 5 5 }
+            visible = "[County.IsOnTradeRoute]"
+            
+            divider = {
+                layoutpolicy_horizontal = expanding
+            }
+            
+            text_label_left = {
+                text = "TRADE_COUNTY_INFO"
+                default_format = "#high"
+            }
+            
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                
+                text_single = {
+                    text = "TRADE_COUNTY_PROSPERITY"
+                }
+                
+                expand = {}
+                
+                text_single = {
+                    text = "[County.GetTradeProsparity|0]"
+                }
+            }
+            
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                visible = "[County.HasTradeGoods]"
+                
+                text_single = {
+                    text = "TRADE_COUNTY_GOODS"
+                }
+                
+                expand = {}
+                
+                text_single = {
+                    text = "[County.GetTradeGoodsName]"
+                }
+            }
+        }
+    }
+    
+    type trade_holding_tooltip_extension = widget {
+        name = "trade_holding_tooltip_extension"
+        
+        vbox = {
+            margin = { 5 5 }
+            visible = "[Holding.HasTradeBuilding]"
+            
+            divider = {
+                layoutpolicy_horizontal = expanding
+            }
+            
+            text_label_left = {
+                text = "TRADE_HOLDING_INFO"
+                default_format = "#high"
+            }
+            
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                
+                text_single = {
+                    text = "TRADE_HOLDING_VALUE"
+                }
+                
+                expand = {}
+                
+                text_single = {
+                    text = "[Holding.GetTradeValue|0]"
+                }
+            }
+        }
+    }
+    
+    type trade_character_tooltip_extension = widget {
+        name = "trade_character_tooltip_extension"
+        
+        vbox = {
+            margin = { 5 5 }
+            visible = "[Character.HasTradeModifier]"
+            
+            divider = {
+                layoutpolicy_horizontal = expanding
+            }
+            
+            text_label_left = {
+                text = "TRADE_CHARACTER_INFO"
+                default_format = "#high"
+            }
+            
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                
+                text_single = {
+                    text = "TRADE_CHARACTER_INCOME"
+                }
+                
+                expand = {}
+                
+                text_single = {
+                    text = "[Character.GetTradeIncome|0]"
+                }
+            }
+        }
+    }
+} 

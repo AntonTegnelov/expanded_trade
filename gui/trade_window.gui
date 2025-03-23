@@ -1,0 +1,155 @@
+types TradeWindow {
+    type trade_window = window {
+        name = "trade_window"
+        parentanchor = center
+        size = { 960 700 }
+        layer = windows_layer
+        movable = yes
+        
+        using = Window_Background
+        using = Window_Decoration_Spike
+        
+        vbox = {
+            using = Window_Margins
+            
+            header_pattern = {
+                layoutpolicy_horizontal = expanding
+                
+                blockoverride "header_text" {
+                    text = "TRADE_WINDOW_TITLE"
+                }
+                
+                blockoverride "button_close" {
+                    onclick = "[TradeWindow.Close]"
+                }
+            }
+            
+            # Tabs for different sections
+            hbox = {
+                layoutpolicy_horizontal = expanding
+                margin = { 10 10 }
+                
+                button_tab = {
+                    text = "TRADE_TAB_ROUTES"
+                    onclick = "[TradeWindow.SetTab('routes')]"
+                    down = "[TradeWindow.IsTab('routes')]"
+                }
+                
+                button_tab = {
+                    text = "TRADE_TAB_GOODS"
+                    onclick = "[TradeWindow.SetTab('goods')]"
+                    down = "[TradeWindow.IsTab('goods')]"
+                }
+                
+                button_tab = {
+                    text = "TRADE_TAB_POLICIES"
+                    onclick = "[TradeWindow.SetTab('policies')]"
+                    down = "[TradeWindow.IsTab('policies')]"
+                }
+            }
+            
+            # Main content
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                layoutpolicy_vertical = expanding
+                margin = { 10 10 }
+                
+                # Routes tab
+                widget = {
+                    name = "routes_tab"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    visible = "[TradeWindow.IsTab('routes')]"
+                    
+                    text_label_center = {
+                        text = "TRADE_ROUTES_INFO"
+                        default_format = "#high"
+                        using = Font_Size_Medium
+                    }
+                    
+                    # Routes list would go here
+                    # For MVP, just a placeholder text
+                    text_multi = {
+                        text = "TRADE_ROUTES_PLACEHOLDER"
+                        autoresize = yes
+                        max_width = 920
+                        margin = { 10 20 }
+                    }
+                }
+                
+                # Goods tab
+                widget = {
+                    name = "goods_tab"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    visible = "[TradeWindow.IsTab('goods')]"
+                    
+                    text_label_center = {
+                        text = "TRADE_GOODS_INFO"
+                        default_format = "#high"
+                        using = Font_Size_Medium
+                    }
+                    
+                    # Goods list would go here
+                    # For MVP, just a placeholder text
+                    text_multi = {
+                        text = "TRADE_GOODS_PLACEHOLDER"
+                        autoresize = yes
+                        max_width = 920
+                        margin = { 10 20 }
+                    }
+                }
+                
+                # Policies tab
+                widget = {
+                    name = "policies_tab"
+                    layoutpolicy_horizontal = expanding
+                    layoutpolicy_vertical = expanding
+                    visible = "[TradeWindow.IsTab('policies')]"
+                    
+                    text_label_center = {
+                        text = "TRADE_POLICIES_INFO"
+                        default_format = "#high"
+                        using = Font_Size_Medium
+                    }
+                    
+                    # Policies list would go here
+                    # For MVP, just a placeholder text
+                    text_multi = {
+                        text = "TRADE_POLICIES_PLACEHOLDER"
+                        autoresize = yes
+                        max_width = 920
+                        margin = { 10 20 }
+                    }
+                }
+            }
+            
+            # Trade summary footer
+            vbox = {
+                layoutpolicy_horizontal = expanding
+                margin = { 10 10 }
+                
+                divider = {
+                    layoutpolicy_horizontal = expanding
+                }
+                
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin = { 5 5 }
+                    
+                    text_single = {
+                        text = "TRADE_INCOME_SUMMARY"
+                        default_format = "#high"
+                    }
+                    
+                    expand = {}
+                    
+                    text_single = {
+                        text = "TRADE_INCOME_VALUE"
+                        default_format = "#gold"
+                    }
+                }
+            }
+        }
+    }
+} 

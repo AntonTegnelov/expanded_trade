@@ -1,0 +1,37 @@
+﻿l_english:
+ # Trade Map Mode
+ TRADE_MAP_MODE:0 "Trade Routes"
+ TRADE_MAP_MODE_TOOLTIP:0 "Shows active trade routes and nodes throughout the world. Yellow routes are active, green routes are prosperous, and red routes are disrupted."
+
+ # Trade Window
+ TRADE_WINDOW_TITLE:0 "Trade Overview"
+ TRADE_TAB_ROUTES:0 "Routes"
+ TRADE_TAB_GOODS:0 "Goods"
+ TRADE_TAB_POLICIES:0 "Policies"
+
+ # Trade Routes Tab
+ TRADE_ROUTES_INFO:0 "Active Trade Routes"
+ TRADE_ROUTES_PLACEHOLDER:0 "Your realm participates in the following trade routes. Maintain control of counties along these routes to maximize your trade prosperity."
+
+ # Trade Goods Tab
+ TRADE_GOODS_INFO:0 "Trade Goods"
+ TRADE_GOODS_PLACEHOLDER:0 "These goods are produced in your realm or imported through trade routes. Luxury goods provide higher value and can be promoted through decisions."
+
+ # Trade Policies Tab
+ TRADE_POLICIES_INFO:0 "Trade Policies"
+ TRADE_POLICIES_PLACEHOLDER:0 "Active trade policies provide various bonuses to your realm's trade network. Use decisions to implement new policies."
+
+ # Trade Summary
+ TRADE_INCOME_SUMMARY:0 "Monthly Trade Income"
+ TRADE_INCOME_VALUE:0 "+[Player.GetMonthlyTradeIncome|2]"
+
+ # Tooltips
+ TRADE_COUNTY_INFO:0 "Trade Information"
+ TRADE_COUNTY_PROSPERITY:0 "Trade Prosperity"
+ TRADE_COUNTY_GOODS:0 "Trade Goods"
+
+ TRADE_HOLDING_INFO:0 "Trade Building Benefits"
+ TRADE_HOLDING_VALUE:0 "Trade Value"
+
+ TRADE_CHARACTER_INFO:0 "Trade Statistics"
+ TRADE_CHARACTER_INCOME:0 "Monthly Trade Income"
