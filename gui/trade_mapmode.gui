@@ -1,27 +1,31 @@
-types TradeMapMode {
-    type trade_map_mode = map_mode {
-        map_mode_type = trade
-        toolbar_category = administrative
-        title = "TRADE_MAP_MODE"
-        tooltip = "TRADE_MAP_MODE_TOOLTIP"
-        shortcut = map_mode_7
-        color = { 0.8 0.6 0.0 }
-        
-        onion_skin_outlines = no
-        default_provinces = { 0.3 0.3 0.5 }
-        default_country = { 0.4 0.4 0.6 }
-        
-        # Custom visualization for trade routes
-        country_color = {
-            on_active_trade_route = { 0.8 0.7 0.0 }
-            on_disrupted_trade_route = { 0.8 0.0 0.0 }
-            on_prosperous_trade_route = { 0.0 0.8 0.0 }
+﻿types TradeMapModes {
+    # Map mode implementation - will be moved to map_modes folder once created
+}
+
+map_mode = {
+    name = "trade"
+    category = administrative
+    title = "TRADE_MAP_MODE"
+    desc = "TRADE_MAP_MODE_TOOLTIP"
+    key = map_mode_7
+    
+    color = { 0.8 0.6 0.0 }
+    
+    setup = {
+        default = {
+            provinces = { 0.3 0.3 0.5 }
+            countries = { 0.4 0.4 0.6 }
         }
         
-        # Trade node visualization
-        province_color = {
-            trade_node = { 1.0 0.8 0.0 }
-            trade_node_major = { 1.0 1.0 0.0 }
+        trade_route = {
+            active = { 0.8 0.7 0.0 }
+            disrupted = { 0.8 0.0 0.0 }
+            prosperous = { 0.0 0.8 0.0 }
+        }
+        
+        trade_node = {
+            regular = { 1.0 0.8 0.0 }
+            major = { 1.0 1.0 0.0 }
         }
     }
 } 

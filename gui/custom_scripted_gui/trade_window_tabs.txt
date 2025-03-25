@@ -1,0 +1,53 @@
+﻿set_trade_tab_routes = {
+	scope = character
+	effect = {
+		set_variable = {
+			name = trade_window_tab
+			value = "routes"
+		}
+	}
+}
+
+set_trade_tab_goods = {
+	scope = character
+	effect = {
+		set_variable = {
+			name = trade_window_tab
+			value = "goods"
+		}
+	}
+}
+
+set_trade_tab_policies = {
+	scope = character
+	effect = {
+		set_variable = {
+			name = trade_window_tab
+			value = "policies"
+		}
+	}
+}
+
+is_trade_tab_routes = {
+	scope = character
+	is_shown = {
+		has_variable = trade_window_tab
+		var:trade_window_tab = "routes"
+	}
+}
+
+is_trade_tab_goods = {
+	scope = character
+	is_shown = {
+		has_variable = trade_window_tab
+		var:trade_window_tab = "goods"
+	}
+}
+
+is_trade_tab_policies = {
+	scope = character
+	is_shown = {
+		has_variable = trade_window_tab
+		var:trade_window_tab = "policies"
+	}
+}

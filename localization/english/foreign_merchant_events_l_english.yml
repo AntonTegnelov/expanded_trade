@@ -1,4 +1,4 @@
-l_english:
+﻿l_english:
   # Foreign Merchant Events
   foreign_merchant.0001.t:0 "Foreign Merchants Arrive"
   foreign_merchant.0001.desc:0 "Merchants from distant lands have arrived in your realm, bringing exotic goods, strange customs, and valuable connections. Their leader, [GetForeignMerchantTitledName], has established a small trading post in your capital and seeks your patronage.\n\nAs they settle in, you notice the impact they're already having on your realm. Local traders observe their methods curiously, while the common folk marvel at the exotic goods they've brought."

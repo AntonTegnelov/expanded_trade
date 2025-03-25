@@ -1,336 +1,57 @@
-# Trade Effects
-# Core effects for basic trade operations
-# Sets up the Silk Road with initial configuration
-setup_silk_road_effect = {
-	debug_log = "Starting effect: setup_silk_road_effect"
-	# This effect should be run at the global scope
-	# It will flag counties on the Silk Road and set up trade nodes
-	# First, ensure the trade route exists
-	if = {
-		limit = {
-			NOT = {
-				exists = silk_road_main
-			}
-		}
-		debug_log = "Creating Silk Road trade route"
-		# Create the Silk Road trade route
-		create_trade_route = {
-			id = silk_road_main
-			name = "silk_road_name"
-			is_active = yes
-			is_disrupted = no
-			base_flow_capacity = 10
-		}
+﻿# Initialize the trade system variables
+initialize_trade_system = {
+	# Initialize global variables
+	set_global_variable = {
+		name = disrupted_silk_road_segments
+		value = 0
 	}
-	# Set up Silk Road node counties
-	# Each node county gets the appropriate flag
-	# Note: Node county IDs need to be mapped to actual game counties
+	# Initialize trade prosperity levels for all counties
 	every_county = {
-		# Xian/Chang'an region
-		if = {
-			limit = {
-				county_id = 256				# Placeholder for actual county ID
-			}
-			debug_log = "Setting up Xian node at county [THIS.GetID]"
-			set_county_flag = on_silk_road
-			create_trade_node = {
-				id = xian_node
-				name = "xian_node"
-				controller = this.holder
-			}
-		}
-		# Dunhuang region
-		else_if = {
-			limit = {
-				county_id = 257				# Placeholder for actual county ID
-			}
-			debug_log = "Setting up Dunhuang node at county [THIS.GetID]"
-			set_county_flag = on_silk_road
-			create_trade_node = {
-				id = dunhuang_node
-				name = "dunhuang_node"
-				controller = this.holder
-			}
-		}
-		# Additional nodes can be added as needed
-	}
-	# Set up the connections between nodes
-	debug_log = "Connecting trade nodes"
-	connect_trade_nodes_effect = {
-		NODE_A = xian_node
-		NODE_B = dunhuang_node
-		CONNECTION_TYPE = land_route
-	}
-	# Initialize all flagged counties as active
-	every_county = {
-		limit = {
-			has_county_flag = on_silk_road
-		}
-		# Set initial active flag if not disrupted
-		if = {
-			limit = {
-				NOT = {
-					has_county_flag = on_disrupted_trade_route
-				}
-			}
-			debug_log = "Activating trade route at county [THIS.GetID]"
-			set_county_flag = on_active_trade_route
+		set_variable = {
+			name = trade_prosperity_level
+			value = 1			# Default to low prosperity
 		}
 	}
-	debug_log = "Completed effect: setup_silk_road_effect"
 }
 
-# Effect to apply prosperity to counties based on trade route status
-apply_trade_prosperity_effect = {
-	debug_log = "Starting effect: apply_trade_prosperity_effect"
-	# Remove all existing trade prosperity flags first to avoid duplicates
-	remove_county_flag = trade_prosperity_low
-	remove_county_flag = trade_prosperity_medium
-	remove_county_flag = trade_prosperity_high
-	debug_log = "Removed existing prosperity flags"
-	# Basic calculation - a simple system for MVP
-	# If county is on an active trade route, determine prosperity level
+# Set up trade route between two counties
+setup_trade_route = {
+	# $FROM_COUNTY$ = origin county
+	# $TO_COUNTY$ = destination county
+	# $SEA_ROUTE$ = whether this is a sea route (yes/no)
+	# Save the counties as event targets for reference
+	$FROM_COUNTY$ = {
+		save_scope_as = from_county
+	}
+	$TO_COUNTY$ = {
+		save_scope_as = to_county
+	}
+	# Set sea route flag if applicable
 	if = {
 		limit = {
-			has_county_flag = on_active_trade_route
+			$SEA_ROUTE$ = yes
 		}
-		# Check for trade buildings to determine prosperity level
-		# More trade buildings = higher prosperity
-		# High Prosperity
-		if = {
-			limit = {
-				# Requires multiple trade buildings or high-tier building
-				OR = {
-					has_building_or_higher = caravanserai
-					# Alternative check for multiple lower buildings
-					trigger_if = {
-						limit = {
-							OR = {
-								any_county_holding = {
-									has_building_or_higher = market_square
-								}
-								any_county_holding = {
-									has_building_or_higher = trading_post
-								}
-							}
-						}
-						count_holdings_with_building_in_county = {
-							building = market_square
-							value >= 2
-						}
-					}
-				}
-			}
-			debug_log = "Setting high prosperity for county [THIS.GetID]"
-			set_county_flag = trade_prosperity_high
-			add_county_modifier = {
-				modifier = trade_high_prosperity
-				months = 12
-			}
-		}
-		# Medium Prosperity
-		else_if = {
-			limit = {
-				# Requires at least one trade building
-				OR = {
-					any_county_holding = {
-						has_building_or_higher = market_square
-					}
-					any_county_holding = {
-						has_building_or_higher = trading_post
-					}
-				}
-			}
-			set_county_flag = trade_prosperity_medium
-			add_county_modifier = {
-				modifier = trade_medium_prosperity
-				months = 12
-			}
-		}
-		# Low Prosperity - just being on an active route
-		else = {
-			set_county_flag = trade_prosperity_low
-			add_county_modifier = {
-				modifier = trade_low_prosperity
-				months = 12
-			}
+		save_scope_value_as = {
+			name = sea_route
+			value = yes
 		}
 	}
-	# If county is on a disrupted trade route, apply penalties
-	else_if = {
-		limit = {
-			has_county_flag = on_disrupted_trade_route
+	else = {
+		save_scope_value_as = {
+			name = sea_route
+			value = no
 		}
-		# Apply disruption modifier
+	}
+	# Add trade route modifiers to the counties
+	scope:from_county = {
 		add_county_modifier = {
-			modifier = trade_route_disruption
-			months = 12
+			modifier = active_trade_route
+			years = 100
 		}
 	}
-	debug_log = "Completed effect: apply_trade_prosperity_effect"
-}
-
-# Effect to disrupt trade route in a county
-disrupt_trade_route_effect = {
-	# Only apply to counties on trade routes
-	if = {
-		limit = {
-			has_county_flag = on_silk_road
-			has_county_flag = on_active_trade_route
-			NOT = {
-				has_county_flag = on_disrupted_trade_route
-			}
-		}
-		# Remove active flag
-		remove_county_flag = on_active_trade_route
-		# Add disrupted flag
-		set_county_flag = on_disrupted_trade_route
-		# Remove any prosperity flags
-		remove_county_flag = trade_prosperity_low
-		remove_county_flag = trade_prosperity_medium
-		remove_county_flag = trade_prosperity_high
-		# Add disruption modifier
+	scope:to_county = {
 		add_county_modifier = {
-			modifier = trade_route_disruption
-			months = 12
-		}
-		# Trigger notification
-		on_action = trade_status_change
-	}
-}
-
-# Effect to calculate basic trade income for rulers with counties on active trade routes
-calculate_basic_trade_income_effect = {
-	# Simplified monthly calculation
-	every_ruler = {
-		limit = {
-			any_held_title = {
-				tier = county
-				has_county_flag = on_silk_road
-				has_county_flag = on_active_trade_route
-			}
-		}
-		# Calculate basic trade income
-		# For MVP, this is a simple calculation based on:
-		# 1. Number of active trade counties
-		# 2. Presence of trade buildings
-		# 3. Prosperity level
-		# Base gold per active trade county
-		set_variable = {
-			name = trade_income
-			value = 0
-		}
-		# For each active trade county, add to income
-		every_held_title = {
-			limit = {
-				tier = county
-				has_county_flag = on_silk_road
-				has_county_flag = on_active_trade_route
-			}
-			# Base value for active route
-			scope:ruler = {
-				change_variable = {
-					name = trade_income
-					add = 0.1
-				}
-			}
-			# Bonus for prosperity level
-			if = {
-				limit = {
-					has_county_flag = trade_prosperity_high
-				}
-				scope:ruler = {
-					change_variable = {
-						name = trade_income
-						add = 0.3
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					has_county_flag = trade_prosperity_medium
-				}
-				scope:ruler = {
-					change_variable = {
-						name = trade_income
-						add = 0.2
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					has_county_flag = trade_prosperity_low
-				}
-				scope:ruler = {
-					change_variable = {
-						name = trade_income
-						add = 0.1
-					}
-				}
-			}
-		}
-		# Add the income to the ruler
-		add_gold = var:trade_income
-		# Clear the variable
-		set_variable = {
-			name = trade_income
-			value = 0
-		}
-	}
-}
-
-# Generate a merchant character
-# Scope: Character (the one inviting the merchant)
-generate_merchant_character_effect = {
-	create_character = {
-		age = {
-			min = 25
-			max = 50
-		}
-		save_scope_as = merchant
-		culture = root.culture
-		faith = root.faith
-		employer = root
-		gender_female_chance = 20		# 20% chance to be female
-		# Merchants are good at stewardship
-		random_traits = {
-			traits = {
-				stewardship_education_1 = 10
-				stewardship_education_2 = 30
-				stewardship_education_3 = 40
-				stewardship_education_4 = 20
-			}
-		}
-		# Give them some appropriate traits (higher chance for the first two)
-		random_traits = {
-			traits = {
-				greedy = 40
-				ambitious = 40
-				diligent = 30
-				gregarious = 30
-				shrewd = 20
-				honest = 10
-				deceitful = 10
-				cynical = 10
-			}
-			amount = 2
-		}
-		# Add stewardship skill points
-		stewardship = {
-			value = 5
-			add = {
-				value = primary_education_tier
-				multiply = 2
-			}
-		}
-		# Add appropriate modifiers for merchants
-		add_character_modifier = {
-			modifier = merchant_advisor
-			years = 20
-		}
-		# Add merchant flag for future interactions
-		add_character_flag = {
-			flag = merchant_character
+			modifier = active_trade_route
 			years = 100
 		}
 	}

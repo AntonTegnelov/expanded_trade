@@ -1,4 +1,4 @@
-namespace = trade_council_task
+﻿namespace = trade_council_task
 # Random events for steward trade focus
 trade_council_task.001 = {
 	type = character_event

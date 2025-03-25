@@ -1,4 +1,4 @@
-# Trade Decisions
+﻿# Trade Decisions
 # Decisions related to the expanded trade system
 # Establish Trade Node
 establish_trade_node_decision = {

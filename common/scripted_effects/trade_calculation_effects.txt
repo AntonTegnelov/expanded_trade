@@ -1,4 +1,4 @@
-# Trade Calculation Effects
+﻿# Trade Calculation Effects
 # Core algorithms for calculating trade flow and prosperity
 # Main calculation effect run on monthly pulse
 # This orchestrates the flow calculations across the trade network

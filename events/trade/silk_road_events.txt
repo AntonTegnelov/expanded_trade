@@ -1,4 +1,4 @@
-namespace = silk_road_events
+﻿namespace = silk_road_events
 # Exotic Goods Discovery Event
 # This event triggers for rulers who control counties directly on the Silk Road
 silk_road_events.0001 = {

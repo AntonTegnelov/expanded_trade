@@ -1,0 +1,9 @@
+﻿# Trade Initialization Effects
+# This file contains effects for initializing the trade system
+# Main initialization effect
+initialize_trade_system = {
+	# Log that initialization is happening
+	debug_log = "Initializing trade system..."
+	# The actual initialization happens in the trade_system_init.0001 event
+	# This effect is just a wrapper for backwards compatibility
+}

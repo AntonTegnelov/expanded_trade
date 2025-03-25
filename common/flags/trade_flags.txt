@@ -1,4 +1,4 @@
-# Trade Flags
+﻿# Trade Flags
 # Essential state tracking flags for the trade system
 # These are used to mark counties, characters, and trade routes
 # County flags

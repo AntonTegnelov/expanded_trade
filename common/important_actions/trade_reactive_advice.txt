@@ -1,4 +1,4 @@
-# Trade Reactive Advice
+﻿# Trade Reactive Advice
 # These important actions provide reactive advice related to trade situations
 # First Trade Building - Shown when player builds their first trade building
 trade_building_advice = {

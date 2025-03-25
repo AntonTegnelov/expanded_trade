@@ -1,4 +1,4 @@
-l_english:
+﻿l_english:
  trade_council_task.001.t:0 "Merchant Proposal"
  trade_council_task.001.desc:0 "Your Steward [scope:councillor.GetName] has been approached by a group of merchants seeking to establish new trade connections. They offer a substantial payment in exchange for your support in their venture."
  trade_council_task.001.a:0 "Accept their offer"

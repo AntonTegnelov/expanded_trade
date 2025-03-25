@@ -1,0 +1,108 @@
+﻿namespace = trade_system_init
+# Trade system initialization event
+trade_system_init.0001 = {
+	type = character_event
+	hidden = yes
+	trigger = {
+		is_ai = no		# Only trigger for the player
+	}
+	immediate = {
+		debug_log = "Trade system initialization event triggered"
+		# Initialize global variables
+		set_global_variable = {
+			name = disrupted_silk_road_segments
+			value = 0
+		}
+		# Initialize county variables for all counties
+		every_county = {
+			# Set the trade prosperity level
+			set_variable = {
+				name = trade_prosperity_level
+				value = 0
+			}
+			# Set trade route status variables
+			set_variable = {
+				name = on_silk_road
+				value = 0
+			}
+			set_variable = {
+				name = trade_node_major
+				value = 0
+			}
+			set_variable = {
+				name = on_active_trade_route
+				value = 0
+			}
+			set_variable = {
+				name = major_trade_node
+				value = 0
+			}
+			debug_log = "Initialized trade variables for county [COUNTY.GetName]"
+		}
+		# Initialize trade routes - simplified approach that doesn't require complex scopes
+		# For each independent ruler, we pick a few counties to initialize
+		every_independent_ruler = {
+			limit = {
+				any_realm_county = {
+					always = yes
+				}
+			}
+			save_scope_as = current_ruler
+			debug_log = "Setting up trade routes for [THIS.GetTitledFirstName]"
+			# Get source counties
+			random_realm_county = {
+				save_scope_as = from_county
+				set_variable = {
+					name = trade_prosperity_level
+					value = 1
+				}
+				set_variable = {
+					name = on_active_trade_route
+					value = 1
+				}
+				debug_log = "Set [COUNTY.GetName] as trade origin"
+			}
+			# Get coastal counties if available
+			random_realm_county = {
+				limit = {
+					is_coastal_county = yes
+					NOT = {
+						this = scope:from_county
+					}
+				}
+				save_scope_as = sea_route
+				set_variable = {
+					name = on_active_trade_route
+					value = 1
+				}
+				set_variable = {
+					name = trade_prosperity_level
+					value = 1
+				}
+				debug_log = "Set [COUNTY.GetName] as sea trade route"
+			}
+			# Get destination counties
+			random_realm_county = {
+				limit = {
+					NOT = {
+						this = scope:from_county
+					}
+					NOT = {
+						this = scope:sea_route
+					}
+				}
+				save_scope_as = to_county
+				set_variable = {
+					name = on_active_trade_route
+					value = 1
+				}
+				set_variable = {
+					name = trade_prosperity_level
+					value = 1
+				}
+				debug_log = "Set [COUNTY.GetName] as trade destination"
+			}
+		}
+		debug_log = "Trade system initialization completed"
+	}
+}

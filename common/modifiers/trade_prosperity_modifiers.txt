@@ -1,10 +1,10 @@
-# Trade Prosperity Modifiers
+﻿# Trade Prosperity Modifiers
 # These modifiers affect counties that benefit from trade activity
 # County prosperity levels based on trade activity
 low_trade_prosperity = {
-	monthly_county_control_change_factor = 0.1
-	monthly_development_growth = 0.1
-	monthly_county_tax_modifier = 0.05
+	monthly_county_control_growth_factor = 0.1
+	development_growth_factor = 0.1
+	tax_mult = 0.05
 	supply_limit = 0.5
 	build_speed = 0.05
 	build_gold_cost = -0.02
@@ -12,9 +12,9 @@ low_trade_prosperity = {
 }
 
 medium_trade_prosperity = {
-	monthly_county_control_change_factor = 0.2
-	monthly_development_growth = 0.2
-	monthly_county_tax_modifier = 0.1
+	monthly_county_control_growth_factor = 0.2
+	development_growth_factor = 0.2
+	tax_mult = 0.1
 	supply_limit = 1
 	build_speed = 0.1
 	build_gold_cost = -0.05
@@ -22,9 +22,9 @@ medium_trade_prosperity = {
 }
 
 high_trade_prosperity = {
-	monthly_county_control_change_factor = 0.3
-	monthly_development_growth = 0.3
-	monthly_county_tax_modifier = 0.15
+	monthly_county_control_growth_factor = 0.3
+	development_growth_factor = 0.3
+	tax_mult = 0.15
 	supply_limit = 1.5
 	build_speed = 0.15
 	build_gold_cost = -0.1
@@ -33,26 +33,25 @@ high_trade_prosperity = {
 
 # Special modifier for counties at trade route crossroads
 trade_hub_modifier = {
-	monthly_development_growth = 0.15
-	monthly_county_tax_modifier = 0.15
-	local_build_gold_cost = -0.05
-	local_build_time = -0.1
+	development_growth_factor = 0.15
+	tax_mult = 0.15
+	build_gold_cost = -0.05
+	build_speed = 0.1
 	icon = development
 }
 
 # Modifier for counties with foreign trade connections
 foreign_trade_connections = {
 	cultural_acceptance_gain_mult = 0.05
-	faith_acceptance_gain_mult = 0.02
-	monthly_development_growth = 0.05
+	development_growth_factor = 0.05
 	icon = diplomacy
 }
 
 # Modifier for counties experiencing a trade disruption
 trade_route_disrupted = {
-	monthly_development_growth = -0.1
-	monthly_county_tax_modifier = -0.1
+	development_growth_factor = -0.1
+	tax_mult = -0.1
 	build_speed = -0.05
-	monthly_county_control_change_factor = -0.1
+	monthly_county_control_growth_factor = -0.1
 	icon = demotion
 }

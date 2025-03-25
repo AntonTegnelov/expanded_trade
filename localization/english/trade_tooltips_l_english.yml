@@ -1,0 +1,44 @@
+﻿l_english:
+ # County trade localizations
+ LOC_COUNTY_IS_ON_TRADE_ROUTE_YES:0 "This county is on a trade route"
+ LOC_COUNTY_IS_ON_TRADE_ROUTE_NO:0 "This county is not on a trade route"
+ LOC_COUNTY_TRADE_PROSPERITY_VALUE:0 "[Scope.Var('trade_prosperity')|0]"
+ LOC_COUNTY_TRADE_PROSPERITY_ZERO:0 "0"
+ LOC_COUNTY_HAS_TRADE_GOODS_YES:0 "This county produces trade goods"
+ LOC_COUNTY_HAS_TRADE_GOODS_NO:0 "This county does not produce any notable trade goods"
+ LOC_COUNTY_TRADE_GOODS_NAME_UNKNOWN:0 "No notable goods"
+ LOC_COUNTY_TRADE_GOODS_NAME_silk:0 "Silk"
+ LOC_COUNTY_TRADE_GOODS_NAME_spices:0 "Spices"
+ LOC_COUNTY_TRADE_GOODS_NAME_furs:0 "Furs"
+ LOC_COUNTY_TRADE_GOODS_NAME_ivory:0 "Ivory"
+ LOC_COUNTY_TRADE_GOODS_NAME_gold:0 "Gold"
+ LOC_COUNTY_TRADE_GOODS_NAME_silver:0 "Silver"
+ LOC_COUNTY_TRADE_GOODS_NAME_amber:0 "Amber"
+ LOC_COUNTY_TRADE_GOODS_NAME_incense:0 "Incense"
+ LOC_COUNTY_TRADE_GOODS_NAME_wine:0 "Wine"
+ LOC_COUNTY_TRADE_GOODS_NAME_salt:0 "Salt"
+ 
+ # Holding trade localizations
+ LOC_HOLDING_HAS_TRADE_BUILDING_YES:0 "This holding has trade buildings"
+ LOC_HOLDING_HAS_TRADE_BUILDING_NO:0 "This holding has no trade buildings"
+ LOC_HOLDING_TRADE_VALUE_VALUE:0 "[Scope.Var('trade_value')|0]"
+ LOC_HOLDING_TRADE_VALUE_ZERO:0 "0"
+ 
+ # Character trade localizations
+ LOC_CHARACTER_HAS_TRADE_MODIFIER_YES:0 "This character has trade modifiers"
+ LOC_CHARACTER_HAS_TRADE_MODIFIER_NO:0 "This character has no trade modifiers"
+ LOC_CHARACTER_TRADE_INCOME_VALUE:0 "[Scope.Var('trade_income')|0]"
+ LOC_CHARACTER_TRADE_INCOME_ZERO:0 "0"
+ 
+ # GUI text strings
+ TRADE_COUNTY_INFO:0 "Trade Information"
+ TRADE_COUNTY_PROSPERITY:0 "Trade Prosperity:"
+ TRADE_COUNTY_GOODS:0 "Produces:"
+ TRADE_HOLDING_INFO:0 "Trade Information"
+ TRADE_HOLDING_VALUE:0 "Trade Value:"
+ TRADE_CHARACTER_INFO:0 "Trade Information"
+ TRADE_CHARACTER_INCOME:0 "Trade Income:"
+ 
+ # Map mode text
+ TRADE_MAP_MODE:0 "Trade Map Mode"
+ TRADE_MAP_MODE_TOOLTIP:0 "Shows trade routes, nodes, and goods production across the map" 

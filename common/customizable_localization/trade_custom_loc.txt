@@ -1,0 +1,139 @@
+﻿trade_income_value = {
+	type = character
+	text = {
+		trigger = {
+			has_variable = monthly_trade_income
+		}
+		localization_key = TRADE_INCOME_VALUE_WITH_AMOUNT
+		scope = this
+	}
+	text = {
+		trigger = {
+			NOT = {
+				has_variable = monthly_trade_income
+			}
+		}
+		localization_key = TRADE_INCOME_VALUE_NONE
+		scope = this
+	}
+}
+
+county_is_on_trade_route = {
+	type = county
+	text = {
+		trigger = {
+			scope:county = {
+				has_variable = is_on_trade_route
+			}
+		}
+		localization_key = "LOC_COUNTY_IS_ON_TRADE_ROUTE_YES"
+	}
+	text = {
+		localization_key = "LOC_COUNTY_IS_ON_TRADE_ROUTE_NO"
+	}
+}
+
+county_get_trade_prosperity = {
+	type = county
+	text = {
+		trigger = {
+			scope:county = {
+				has_variable = trade_prosperity
+			}
+		}
+		localization_key = "LOC_COUNTY_TRADE_PROSPERITY_VALUE"
+	}
+	text = {
+		localization_key = "LOC_COUNTY_TRADE_PROSPERITY_ZERO"
+	}
+}
+
+county_has_trade_goods = {
+	type = county
+	text = {
+		trigger = {
+			scope:county = {
+				has_variable = has_trade_goods
+			}
+		}
+		localization_key = "LOC_COUNTY_HAS_TRADE_GOODS_YES"
+	}
+	text = {
+		localization_key = "LOC_COUNTY_HAS_TRADE_GOODS_NO"
+	}
+}
+
+county_get_trade_goods_name = {
+	type = county
+	text = {
+		trigger = {
+			scope:county = {
+				has_variable = trade_goods_type
+			}
+		}
+		localization_key = "LOC_COUNTY_TRADE_GOODS_NAME_[Scope.Var('trade_goods_type')]"
+	}
+	text = {
+		localization_key = "LOC_COUNTY_TRADE_GOODS_NAME_UNKNOWN"
+	}
+}
+
+holding_has_trade_building = {
+	type = holding
+	text = {
+		trigger = {
+			scope:holding = {
+				has_variable = has_trade_building
+			}
+		}
+		localization_key = "LOC_HOLDING_HAS_TRADE_BUILDING_YES"
+	}
+	text = {
+		localization_key = "LOC_HOLDING_HAS_TRADE_BUILDING_NO"
+	}
+}
+
+holding_get_trade_value = {
+	type = holding
+	text = {
+		trigger = {
+			scope:holding = {
+				has_variable = trade_value
+			}
+		}
+		localization_key = "LOC_HOLDING_TRADE_VALUE_VALUE"
+	}
+	text = {
+		localization_key = "LOC_HOLDING_TRADE_VALUE_ZERO"
+	}
+}
+
+character_has_trade_modifier = {
+	type = character
+	text = {
+		trigger = {
+			scope:character = {
+				has_variable = has_trade_modifier
+			}
+		}
+		localization_key = "LOC_CHARACTER_HAS_TRADE_MODIFIER_YES"
+	}
+	text = {
+		localization_key = "LOC_CHARACTER_HAS_TRADE_MODIFIER_NO"
+	}
+}
+
+character_get_trade_income = {
+	type = character
+	text = {
+		trigger = {
+			scope:character = {
+				has_variable = trade_income
+			}
+		}
+		localization_key = "LOC_CHARACTER_TRADE_INCOME_VALUE"
+	}
+	text = {
+		localization_key = "LOC_CHARACTER_TRADE_INCOME_ZERO"
+	}
+}

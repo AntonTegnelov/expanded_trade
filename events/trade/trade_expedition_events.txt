@@ -1,4 +1,4 @@
-namespace = trade_expedition
+﻿namespace = trade_expedition
 # Base event for a trade expedition
 trade_expedition.0001 = {
 	type = character_event

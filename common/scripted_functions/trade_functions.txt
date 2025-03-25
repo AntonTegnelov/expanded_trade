@@ -1,0 +1,89 @@
+﻿# Trade Functions
+# These scripted functions provide essential trade functionality
+# Checks if a holding has any trade buildings
+HasTradeBuilding = {
+	parameter = holding
+	value = {
+		scope:holding = {
+			OR = {
+				has_building = market_square
+				has_building = trading_post
+				has_building = caravanserai
+				has_building = merchant_guild_hall
+			}
+		}
+	}
+}
+
+# Gets the trade value of a holding
+GetTradeValue = {
+	parameter = holding
+	value = {
+		value = 0
+		if = {
+			limit = {
+				scope:holding = {
+					has_building = market_square
+				}
+			}
+			add = 2
+		}
+		if = {
+			limit = {
+				scope:holding = {
+					has_building = trading_post
+				}
+			}
+			add = 3
+		}
+		if = {
+			limit = {
+				scope:holding = {
+					has_building = caravanserai
+				}
+			}
+			add = 5
+		}
+		if = {
+			limit = {
+				scope:holding = {
+					has_building = merchant_guild_hall
+				}
+			}
+			add = 7
+		}
+		# Prosperity bonus
+		if = {
+			limit = {
+				scope:holding = {
+					has_county_flag = trade_prosperity_high
+				}
+			}
+			multiply = 1.5
+		}
+		else_if = {
+			limit = {
+				scope:holding = {
+					has_county_flag = trade_prosperity_medium
+				}
+			}
+			multiply = 1.25
+		}
+	}
+}
+
+# Checks if a county is on a trade route
+IsOnTradeRoute = {
+	parameter = county
+	value = {
+		scope:county = {
+			OR = {
+				has_county_flag = on_silk_road
+				has_county_flag = on_active_trade_route
+			}
+			NOT = {
+				has_county_flag = trade_route_disrupted
+			}
+		}
+	}
+}

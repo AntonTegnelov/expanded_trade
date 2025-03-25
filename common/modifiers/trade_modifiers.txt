@@ -1,74 +1,64 @@
-# Trade Modifiers
+﻿# Trade Modifiers
 # Modifiers related to the expanded trade system
-# County Modifiers
+# Province Modifiers
 # Base trade modifier for local prosperity
 county_trade_value = {
-	monthly_development_growth = 0.1
-	monthly_county_tax_modifier = 0.05
+	development_growth_factor = 0.1
+	tax_mult = 0.05
 	build_speed = 0.05
 	icon = prosperity
 }
 
-# Special modifier for counties on active trade routes
+# Special modifier for provinces on active trade routes
 active_trade_route = {
-	monthly_development_growth = 0.15
-	monthly_county_tax_modifier = 0.1
-	supply_limit = 0.5
-	build_speed = 0.1
-	icon = development
+	icon = county_modifier_wealth_positive
+	development_growth_factor = 0.2
+	tax_mult = 0.1
 }
 
-# Modifier for counties with trade buildings
+# Modifier for provinces with trade buildings
 trade_building_bonus = {
-	monthly_development_growth = 0.05
-	monthly_county_tax_modifier = 0.05
+	development_growth_factor = 0.05
+	tax_mult = 0.05
 	build_gold_cost = -0.05
 	icon = construction
 }
 
 # Modifier for disrupted trade routes
 disrupted_trade_route = {
-	monthly_development_growth = -0.1
-	monthly_county_tax_modifier = -0.1
-	build_speed = -0.05
-	icon = poverty
+	icon = county_modifier_wealth_negative
+	development_growth_factor = -0.1
+	tax_mult = -0.05
 }
 
 # Prosperity levels
 low_trade_prosperity = {
-	monthly_county_control_change_factor = 0.1
-	monthly_development_growth = 0.05
-	monthly_county_tax_modifier = 0.05
+	development_growth_factor = 0.05
 	supply_limit = 0.5
-	build_speed = 0.05
-	build_gold_cost = -0.02
-	icon = prosperity
+	tax_mult = 0.05
+	icon = county_modifier_wealth_positive
 }
 
 medium_trade_prosperity = {
-	monthly_county_control_change_factor = 0.2
-	monthly_development_growth = 0.1
-	monthly_county_tax_modifier = 0.1
+	development_growth_factor = 0.1
 	supply_limit = 1
-	build_speed = 0.1
-	build_gold_cost = -0.05
-	icon = prosperity
+	tax_mult = 0.1
+	county_opinion_add = 5
+	icon = county_modifier_wealth_positive
 }
 
 high_trade_prosperity = {
-	monthly_county_control_change_factor = 0.3
-	monthly_development_growth = 0.2
-	monthly_county_tax_modifier = 0.15
-	supply_limit = 1.5
-	build_speed = 0.15
-	build_gold_cost = -0.1
-	icon = prosperity
+	development_growth_factor = 0.2
+	supply_limit = 2
+	tax_mult = 0.15
+	county_opinion_add = 10
+	icon = county_modifier_wealth_positive
 }
 
 # Disruption modifiers
 plundered_trade_goods = {
-	monthly_development_growth = -0.2
-	monthly_county_tax_modifier = -0.2
+	development_growth_factor = -0.2
+	tax_mult = -0.2
 	build_speed = -0.1
 	build_gold_cost = 0.1
 	icon = poverty
@@ -76,29 +66,29 @@ plundered_trade_goods = {
 }
 
 forced_trade_taxation = {
-	monthly_county_tax_modifier = -0.1
+	tax_mult = -0.1
 	build_gold_cost = 0.05
 	icon = taxes
 	county_opinion_add = -5
 }
 
 foreign_trade_taxation = {
-	monthly_development_growth = -0.05
-	monthly_county_tax_modifier = -0.05
+	development_growth_factor = -0.05
+	tax_mult = -0.05
 	icon = taxes
 	county_opinion_add = -2
 }
 
 smuggling_crackdown = {
-	monthly_county_tax_modifier = -0.15
+	tax_mult = -0.15
 	development_growth_factor = -0.2
 	county_opinion_add = -15
 	icon = poverty
 }
 
 increased_trade_taxation = {
-	monthly_county_tax_modifier = -0.2
-	monthly_development_growth = -0.1
+	tax_mult = -0.2
+	development_growth_factor = -0.1
 	build_gold_cost = 0.1
 	icon = taxes
 	county_opinion_add = -10
@@ -106,8 +96,8 @@ increased_trade_taxation = {
 
 # Positive trade modifiers
 welcoming_trade_policy = {
-	monthly_county_control_change_factor = 0.1
-	monthly_development_growth = 0.05
+	monthly_county_control_growth_factor = 0.1
+	development_growth_factor = 0.05
 	build_speed = 0.05
 	build_gold_cost = -0.03
 	icon = money_bag
@@ -115,8 +105,8 @@ welcoming_trade_policy = {
 }
 
 permanent_trade_relations = {
-	monthly_county_tax_modifier = 0.1
-	monthly_development_growth = 0.1
+	tax_mult = 0.1
+	development_growth_factor = 0.1
 	build_speed = 0.1
 	build_gold_cost = -0.05
 	icon = money_bag
@@ -124,25 +114,23 @@ permanent_trade_relations = {
 }
 
 flourishing_trade_node = {
-	monthly_county_tax_modifier = 0.15
-	monthly_development_growth = 0.15
+	tax_mult = 0.15
+	development_growth_factor = 0.15
 	build_speed = 0.15
 	build_gold_cost = -0.1
 	icon = money_bag
 	county_opinion_add = 15
 }
 
+# Special modifier for silk road provinces
 silk_road_trade_center = {
-	monthly_county_tax_modifier = 0.2
-	monthly_development_growth = 0.2
-	build_speed = 0.2
-	build_gold_cost = -0.15
-	icon = money_bag
-	county_opinion_add = 20
+	icon = county_modifier_wealth_positive
+	development_growth_factor = 0.3
+	tax_mult = 0.15
 }
 
 overtaxed_merchants = {
-	monthly_county_tax_modifier = -0.05
+	tax_mult = -0.05
 	icon = taxes
 	county_opinion_add = -5
 }
@@ -150,57 +138,55 @@ overtaxed_merchants = {
 # Character Modifiers
 # Income bonus for rulers actively participating in trade
 trader_ruler = {
-	stewardship = 1
-	monthly_income_mult = 0.1
-	tax_mult = 0.05
-	icon = money_bag
+	icon = wealth_positive
+	monthly_income = 0.2
+	diplomacy = 1
 }
 
 # Bonus for rulers controlling key trade nodes
 trade_node_controller = {
-	stewardship = 2
-	monthly_income_mult = 0.15
-	monthly_prestige = 0.05
-	icon = money_bag
+	icon = wealth_positive
+	monthly_income = 0.5
+	stewardship = 1
+	tax_mult = 0.05
 }
 
 # Bonus for rulers with trade buildings in their realm
 trade_infrastructure = {
-	stewardship = 1
-	monthly_income_mult = 0.05
-	vassal_opinion = 2
-	icon = construction
+	icon = wealth_positive
+	monthly_income = 0.3
+	development_growth_factor = 0.1
 }
 
 trade_redirected = {
 	stewardship = 1
-	monthly_character_income = 0.05
+	monthly_income = 0.05
 	icon = money_bag
 }
 
 smuggling_network = {
 	intrigue = 1
-	monthly_character_income = 0.1
+	monthly_income = 0.1
 	icon = intrigue
 }
 
 trade_network_controller = {
 	stewardship = 2
-	monthly_character_income = 0.15
+	monthly_income = 0.15
 	monthly_prestige = 0.1
 	icon = money_bag
 }
 
 silk_road_controller = {
 	stewardship = 3
-	monthly_character_income = 0.25
+	monthly_income = 0.25
 	monthly_prestige = 0.2
 	icon = money_bag
 }
 
 merchant_guild_patron = {
 	stewardship = 2
-	monthly_character_income = 0.1
+	monthly_income = 0.1
 	vassal_opinion = 5
 	icon = money_bag
 }
@@ -208,7 +194,7 @@ merchant_guild_patron = {
 foreign_trade_connections = {
 	diplomacy = 1
 	stewardship = 1
-	monthly_character_income = 0.05
+	monthly_income = 0.05
 	monthly_prestige = 0.05
 	icon = diplomacy
 }
@@ -216,7 +202,7 @@ foreign_trade_connections = {
 trade_league_member = {
 	diplomacy = 2
 	stewardship = 2
-	monthly_character_income = 0.1
+	monthly_income = 0.1
 	monthly_prestige = 0.1
 	icon = diplomacy
 }
@@ -224,7 +210,7 @@ trade_league_member = {
 trade_league_leader = {
 	diplomacy = 3
 	stewardship = 3
-	monthly_character_income = 0.2
+	monthly_income = 0.2
 	monthly_prestige = 0.2
 	icon = crown
 }
@@ -232,233 +218,364 @@ trade_league_leader = {
 # Building Modifiers
 # Trade value added by buildings
 market_square_value = {
-	county_trade_value_add = 1
-	local_tax_modifier = 0.05
+	development_growth_factor = 1
+	tax_mult = 0.05
 	icon = money_bag
 }
 
 trading_post_value = {
-	county_trade_value_add = 2
-	local_tax_modifier = 0.1
+	development_growth_factor = 2
+	tax_mult = 0.1
 	icon = money_bag
 }
 
 # Route Modifiers
 # Trade route throughput for quality connections
 trade_route_throughput_low = {
-	county_trade_value_mult = 1.1
+	development_growth_factor = 0.1
 	icon = development
 }
 
 trade_route_throughput_medium = {
-	county_trade_value_mult = 1.2
+	development_growth_factor = 0.2
 	icon = development
 }
 
 trade_route_throughput_high = {
-	county_trade_value_mult = 1.3
+	development_growth_factor = 0.3
 	icon = development
 }
 
-# Trade focus
-trade_focus = {
-	stewardship = 5
-	monthly_lifestyle_xp_gain_mult = 0.2
-	monthly_character_income = 0.2
-	icon = money_bag
+# County modifiers for trade goods
+# Agricultural goods
+grain_producer = {
+	tax_mult = 0.05
+	development_growth_factor = 0.02
+	icon = grain
 }
 
-# Modifier for merchant advisors
-merchant_advisor = {
-	stewardship = 2
-	diplomacy = 1
-	monthly_lifestyle_xp_gain_mult = 0.1
-	monthly_prestige = 0.05
-	monthly_character_income = 0.1
-	court_grandeur_contribution_mult = 0.05
-	icon = money_bag
+livestock_producer = {
+	tax_mult = 0.05
+	development_growth_factor = 0.02
+	icon = cattle
 }
 
-# Modifier for foreign merchant advisors
-foreign_merchant_advisor = {
-	stewardship = 3
-	diplomacy = 2
-	monthly_lifestyle_xp_gain_mult = 0.15
-	monthly_prestige = 0.1
-	monthly_character_income = 0.15
-	court_grandeur_contribution_mult = 0.1
-	cultural_acceptance_mult = 0.1
-	icon = diplomat
+wine_producer = {
+	tax_mult = 0.05
+	development_growth_factor = 0.03
+	icon = fruit
 }
 
-# Cultural insight modifier from foreign contacts
-cultural_insight = {
-	diplomacy = 1
-	learning = 1
-	monthly_lifestyle_xp_gain_mult = 0.1
-	cultural_acceptance_mult = 0.2
-	monthly_prestige = 0.05
-	icon = knowledge
+honey_producer = {
+	monthly_county_control_growth_factor = 0.1
+	development_growth_factor = 0.02
+	icon = fruit
 }
 
-# Expedition modifiers
-trade_expedition_boost = {
-	monthly_county_tax_modifier = 0.15
-	monthly_development_growth = 0.15
-	supply_limit = 1
-	icon = money_bag
-	county_opinion_add = 10
+exotic_fruits_producer = {
+	development_growth_factor = 0.03
+	icon = fruit
 }
 
-improved_trade_flow = {
-	county_trade_value_add = 2
-	monthly_county_tax_modifier = 0.1
-	monthly_development_growth = 0.1
-	icon = development
-}
-
-temporary_trade_boost = {
-	county_trade_value_add = 1
-	monthly_income = 0.2
-	icon = gold
-}
-
-# Trade route security modifiers
-protected_trade_route = {
-	monthly_county_control_change_factor = 0.2
-	monthly_development_growth = 0.1
-	county_trade_value_add = 1
-	build_speed = 0.05
-	icon = protection
-	county_opinion_add = 5
-}
-
-improved_trade_infrastructure = {
-	monthly_development_growth = 0.15
-	county_trade_value_add = 2
-	build_speed = 0.1
-	build_gold_cost = -0.05
-	icon = development
-	county_opinion_add = 10
-}
-
-merchant_alliance = {
-	monthly_county_tax_modifier = 0.15
-	monthly_development_growth = 0.1
-	county_trade_value_add = 3
-	build_speed = 0.1
-	icon = money_bag
-	county_opinion_add = 15
-}
-
-promoting_luxury_goods = {
-	monthly_prestige = 0.1
-	stewardship = 1
-	diplomacy = 1
-	monthly_character_income = 0.15
-	court_grandeur_contribution_mult = 0.05
-	monthly_lifestyle_xp_gain_mult = 0.05
-	icon = money_bag
-}
-
-luxury_goods_premium = {
-	county_trade_value_add = 3
-	monthly_county_tax_modifier = 0.2
-	development_growth_factor = -0.1
-	icon = gold
-	county_opinion_add = -5
-}
-
-# County modifiers
-excessive_trade_taxation = {
-	county_trade_value_add = -1
-	county_tax_contribution_mult = -0.1
-	monthly_county_control_contribution = -0.2
-	icon = gold
-}
-
-rejected_foreign_merchants = {
-	county_trade_value_add = -2
-	county_tax_contribution_mult = -0.2
-	monthly_county_control_contribution = -0.1
-	icon = merchants
-}
-
-price_boom_modifier = {
-	county_trade_value_add = 2
-	county_tax_contribution_mult = 0.15
-	icon = gold
-}
-
-price_slump_modifier = {
-	county_trade_value_add = -1
-	county_tax_contribution_mult = -0.1
-	icon = gold
-}
-
-market_volatility_modifier = {
-	county_trade_value_add = 0
-	county_tax_contribution_mult = -0.05
-	icon = merchants
-}
-
-shrewd_investment_modifier = {
-	county_trade_value_add = 3
-	county_tax_contribution_mult = 0.2
-	monthly_development_growth_add = 0.05
-	icon = gold
-}
-
-modest_investment_modifier = {
-	county_trade_value_add = 1.5
-	county_tax_contribution_mult = 0.1
-	monthly_development_growth_add = 0.02
-	icon = gold
-}
-
-decreased_foreign_trade = {
-	county_trade_value_add = -1.5
-	monthly_development_growth_add = -0.03
-	icon = merchants
-}
-
-diplomatic_trade_solution = {
-	county_trade_value_add = 2
-	monthly_development_growth_add = 0.04
-	county_opinion_add = 5
-	icon = merchants
-}
-
-increased_foreign_trade = {
-	county_trade_value_add = 3
-	monthly_development_growth_add = 0.05
-	icon = merchants
-}
-
-# Exotic Goods Modifiers
-exotic_silk_goods = {
-	monthly_prestige = 0.1
-	diplomacy = 1
-	stewardship = 1
-	monthly_character_income = 0.1
-	court_grandeur_contribution_mult = 0.1
-	icon = silk
-}
-
-exotic_spice_goods = {
-	monthly_prestige = 0.1
-	stewardship = 1
-	learning = 1
-	monthly_character_income = 0.1
-	court_grandeur_contribution_mult = 0.1
+# Luxury goods
+spices_producer = {
+	tax_mult = 0.08
+	development_growth_factor = 0.05
 	icon = spices
 }
 
-exotic_jewelry_goods = {
-	monthly_prestige = 0.2
-	diplomacy = 2
-	monthly_character_income = 0.1
-	court_grandeur_contribution_mult = 0.15
-	attraction_opinion = 5
-	icon = jewelry
+silk_producer = {
+	tax_mult = 0.1
+	development_growth_factor = 0.05
+	icon = fabric
+}
+
+dyes_producer = {
+	tax_mult = 0.08
+	development_growth_factor = 0.04
+	icon = dyes
+}
+
+ivory_producer = {
+	tax_mult = 0.1
+	development_growth_factor = 0.03
+	icon = ivory
+}
+
+incense_producer = {
+	tax_mult = 0.07
+	development_growth_factor = 0.03
+	icon = spices
+}
+
+# Material goods
+timber_producer = {
+	development_growth_factor = 0.05
+	tax_mult = 0.05
+	icon = construction
+}
+
+furs_producer = {
+	development_growth_factor = 0.05
+	tax_mult = 0.08
+	icon = money_bag
+}
+
+gems_producer = {
+	development_growth_factor = 0.1
+	tax_mult = 0.15
+	icon = money_bag
+}
+
+amber_producer = {
+	development_growth_factor = 0.08
+	tax_mult = 0.12
+	icon = money_bag
+}
+
+metals_producer = {
+	development_growth_factor = 0.08
+	tax_mult = 0.1
+	icon = money_bag
+}
+
+salt_producer = {
+	development_growth_factor = 0.05
+	tax_mult = 0.08
+	icon = prestige_positive
+}
+
+paper_producer = {
+	development_growth_factor = 0.05
+	tax_mult = 0.08
+	icon = learning_positive
+}
+
+glass_producer = {
+	development_growth_factor = 0.08
+	tax_mult = 0.1
+	icon = prestige_positive
+}
+
+# Coastal trade goods
+fish_producer = {
+	development_growth_factor = 1
+	tax_mult = 0.05
+	icon = fish
+}
+
+naval_supplies_producer = {
+	development_growth_factor = 1
+	tax_mult = 0.05
+	icon = construction
+}
+
+# Market and trade hub modifiers
+market_city = {
+	tax_mult = 0.15
+	development_growth_factor = 0.1
+	icon = money_bag
+}
+
+trade_hub = {
+	tax_mult = 0.2
+	development_growth_factor = 0.15
+	icon = money_bag
+}
+
+merchant_republic = {
+	tax_mult = 0.2
+	development_growth_factor = 0.15
+	icon = money_bag
+}
+
+silk_road_terminal = {
+	tax_mult = 0.3
+	development_growth_factor = 0.2
+	cultural_acceptance_gain_mult = 0.1
+	icon = money_bag
+}
+
+# Cultural exchange through trade
+cultural_exchange = {
+	cultural_acceptance_gain_mult = 0.05
+	icon = learning_positive
+}
+
+# Infrastructure modifiers
+improved_roads = {
+	tax_mult = 0.05
+	development_growth_factor = 0.05
+	icon = construction
+}
+
+trade_harbor = {
+	tax_mult = 0.1
+	development_growth_factor = 0.1
+	icon = construction
+}
+
+trade_post = {
+	icon = construction
+}
+
+major_trade_post = {
+	monthly_county_control_growth_factor = 0.1
+	development_growth_factor = 0.05
+	icon = construction
+}
+
+caravan_rest_stop = {
+	development_growth_factor = 0.03
+	icon = construction
+}
+
+# Trade route modifiers
+regional_trade_route = {
+	tax_mult = 0.1
+	development_growth_factor = 0.1
+	icon = development
+}
+
+major_trade_route = {
+	tax_mult = 0.1
+	monthly_county_control_growth_factor = 0.1
+	icon = development
+}
+
+silk_road_branch = {
+	tax_mult = 0.15
+	monthly_county_control_growth_factor = 0.15
+	icon = development
+}
+
+silk_road_main = {
+	tax_mult = 0.2
+	icon = development
+}
+
+coastal_trade_route = {
+	tax_mult = 0.1
+	icon = development
+}
+
+river_trade_route = {
+	tax_mult = 0.1
+	icon = development
+}
+
+desert_trade_route = {
+	tax_mult = 0.1
+	development_growth_factor = 0.05
+	icon = development
+}
+
+steppe_trade_route = {
+	tax_mult = 0.1
+	development_growth_factor = 0.05
+	icon = development
+}
+
+mountain_trade_route = {
+	development_growth_factor = 0.05
+	icon = development
+}
+
+forest_trade_route = {
+	development_growth_factor = 0.05
+	icon = development
+}
+
+northern_trade_route = {
+	development_growth_factor = 0.1
+	icon = development
+}
+
+# Ruler relationship modifiers
+trade_alliance = {
+	monthly_income = 0.2
+	monthly_prestige = 0.1
+	icon = diplomacy
+}
+
+trade_partner = {
+	monthly_income = 0.1
+	monthly_prestige = 0.05
+	icon = diplomacy
+}
+
+trade_rival = {
+	monthly_income = 0.1
+	monthly_prestige = 0.05
+	icon = intrigue
+}
+
+# Trade Investment Modifiers
+shrewd_investment_modifier = {
+	tax_mult = 1.5
+	development_growth_factor = 0.15
+	county_opinion_add = 5
+	icon = money_bag
+}
+
+modest_investment_modifier = {
+	tax_mult = 0.75
+	development_growth_factor = 0.1
+	icon = money_bag
+}
+
+# Trade Diplomatic Modifiers
+diplomatic_trade_solution = {
+	tax_mult = 0.5
+	development_growth_factor = 0.1
+	county_opinion_add = 10
+	icon = diplomacy
+}
+
+decreased_foreign_trade = {
+	tax_mult = -0.5
+	development_growth_factor = -0.1
+	county_opinion_add = -5
+	icon = taxes
+}
+
+increased_foreign_trade = {
+	tax_mult = 1
+	development_growth_factor = 0.15
+	county_opinion_add = 10
+	icon = money_bag
+}
+
+# Market State Modifiers
+market_volatility_modifier = {
+	tax_mult = -0.5
+	development_growth_factor = -0.05
+	icon = taxes
+}
+
+excessive_trade_taxation = {
+	tax_mult = -0.75
+	development_growth_factor = -0.15
+	county_opinion_add = -10
+	icon = taxes
+}
+
+rejected_foreign_merchants = {
+	tax_mult = -1
+	development_growth_factor = -0.2
+	county_opinion_add = -15
+	icon = poverty
+}
+
+# Trade goods modifiers
+local_luxury_goods = {
+	tax_mult = 0.1
+	development_growth_factor = 0.1
+	icon = county_modifier_wealth_positive
+}
+
+local_common_goods = {
+	tax_mult = 0.05
+	development_growth_factor = 0.05
+	icon = county_modifier_wealth_positive
 }

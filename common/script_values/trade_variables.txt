@@ -1,260 +1,209 @@
-# Trade Variables
-# Essential state tracking variables for the trade system
-# Global Silk Road status - overall health of the trade network
-# 0 = completely disrupted, 10 = fully functioning
+﻿# Trade Variables
+# These script values are used for trade mechanics
+# Status of the silk road (0 = closed, 10 = fully open)
 silk_road_status = {
-	debug_log = "Calculating script value: silk_road_status"
-	# Base value is high - assume functioning trade
+	# Base value is fully operational
 	value = 10
-	debug_log = "Base value: 10"
-	# Reduce based on disrupted trade route segments
-	subtract = {
-		value = global_var:disrupted_silk_road_segments
+	# Subtract disrupted segments
+	if = {
+		limit = {
+			exists = global_var:disrupted_silk_road_segments
+		}
+		subtract = global_var:disrupted_silk_road_segments
 		multiply = 2
-		min = 0
-		max = 10
-		debug_log = "Subtracting disrupted segments: [global_var:disrupted_silk_road_segments] * 2"
 	}
-	# Ensure value stays within bounds
+	# Ensure value doesn't go below minimum
 	min = 0
-	max = 10
-	debug_log = "Final value: silk_road_status = [THIS.GetValue]"
 }
 
-# County trade prosperity level - measures local trade activity
-# Used for applying modifiers and determining benefits
-# Range: 0-10 (0 = no prosperity, 10 = maximum prosperity)
+# County trade prosperity level based on various factors
 county_trade_prosperity_level = {
-	debug_log = "Calculating script value: county_trade_prosperity_level"
 	# Base value from development
 	value = scope:county.development_level
 	multiply = 0.5
-	debug_log = "Base value from development: [scope:county.development_level] * 0.5"
-	# Bonus for being on active silk road
+	# Cap at 10 initially
+	min = 0
+	max = 10
+	# Bonus for being on active trade routes
 	if = {
 		limit = {
 			scope:county = {
-				has_county_flag = on_active_trade_route
-				NOT = {
-					has_county_flag = on_disrupted_trade_route
-				}
+				has_county_modifier = active_trade_route
 			}
 		}
-		debug_log = "Taking condition branch: Active trade route bonus"
 		add = 2
 	}
-	# Penalty for disrupted routes
+	# Penalty for disrupted trade
 	if = {
 		limit = {
 			scope:county = {
-				has_county_flag = on_disrupted_trade_route
+				has_county_modifier = disrupted_trade_route
 			}
 		}
-		debug_log = "Taking condition branch: Disrupted route penalty"
 		subtract = 3
 	}
-	# Bonus for trade buildings
+	# Bonus for having trade buildings
 	if = {
 		limit = {
 			scope:county = {
-				any_county_holding = {
-					OR = {
-						has_building = market_square
-						has_building = trading_post
-						has_building = caravanserai
-					}
+				OR = {
+					has_building = trading_post
+					has_building = market_square
+					has_building = guild_halls_01
+					has_building = caravanserai
 				}
 			}
 		}
-		debug_log = "Taking condition branch: Trade building bonus"
-		add = 1
+		add = 5
 	}
-	# Extra bonus for multiple trade buildings
+	# Additional bonus for having multiple trade buildings
 	if = {
 		limit = {
 			scope:county = {
-				any_county_holding = {
-					count >= 2
-					OR = {
-						has_building = market_square
-						has_building = trading_post
-						has_building = caravanserai
-					}
+				calc_true_if = {
+					amount >= 2
+					has_building = trading_post
+					has_building = market_square
+					has_building = guild_halls_01
+					has_building = caravanserai
 				}
 			}
 		}
-		debug_log = "Taking condition branch: Multiple trade buildings bonus"
-		add = 1
+		add = 2
 	}
 	# Penalty for low control
 	if = {
 		limit = {
 			scope:county.county_control < 50
 		}
-		debug_log = "Taking condition branch: Low control penalty"
 		subtract = {
 			value = 50
 			subtract = scope:county.county_control
 			divide = 10
-			debug_log = "Low control penalty calculation: (50 - [scope:county.county_control]) / 10"
 		}
 	}
-	# Ensure value stays within bounds
+	# Ensure final value is within range
 	min = 0
 	max = 10
-	debug_log = "Final value: county_trade_prosperity_level = [THIS.GetValue]"
 }
 
-# Character trade participation - measures involvement in trade
-# Used for determining character benefits from trade
-# Range: 0-10 (0 = no involvement, 10 = major trade power)
+# Character's participation in trade (higher = more trade income)
 character_trade_participation = {
-	debug_log = "Calculating script value: character_trade_participation"
-	# Base value from stewardship
+	# Base value from stewardship skill
 	value = stewardship
 	multiply = 0.5
-	debug_log = "Base value from stewardship: [stewardship] * 0.5"
-	# Bonus for ruling counties on trade routes
-	add = {
-		value = this.domain_county
-		multiply = {
-			value = 0
-			add = {
-				every_county = {
-					limit = {
-						holder = this
-						has_county_flag = on_active_trade_route
-					}
-					add = 1
-				}
-			}
-		}
-		divide = 2
-		debug_log = "Trade route counties bonus calculation: ([this.domain_county] * active_trade_route_counties) / 2"
-	}
-	# Bonus for trade buildings
+	# Bonus for rulers based on traits and skills
 	if = {
 		limit = {
-			any_held_title = {
-				tier = county
-				any_county_holding = {
-					OR = {
-						has_building = market_square
-						has_building = trading_post
-						has_building = caravanserai
-					}
-				}
-			}
+			is_ruler = yes
 		}
-		debug_log = "Taking condition branch: Trade building bonus"
-		add = 1
+		add = 5
 	}
-	# Bonus for merchant traits
+	# Bonus for trader trait
+	if = {
+		limit = {
+			has_trait = trader
+		}
+		add = 10
+	}
+	# Bonus for higher tier rulers who likely have more counties
+	if = {
+		limit = {
+			highest_held_title_tier = tier_kingdom
+		}
+		add = 8
+	}
+	else_if = {
+		limit = {
+			highest_held_title_tier = tier_duchy
+		}
+		add = 5
+	}
+	# Bonus for stewardship-related traits
 	if = {
 		limit = {
 			OR = {
 				has_trait = greedy
-				has_trait = gregarious
-				has_trait = administrator
+				has_trait = diligent
+				has_trait = ambitious
 			}
 		}
-		debug_log = "Taking condition branch: Merchant trait bonus"
-		add = 1
+		add = 5
 	}
-	# Ensure value stays within bounds
+	# Bonus for high stewardship
+	if = {
+		limit = {
+			stewardship >= 12
+		}
+		add = 5
+	}
+	# Ensure value doesn't go below minimum
 	min = 0
-	max = 10
-	debug_log = "Final value: character_trade_participation = [THIS.GetValue]"
 }
 
-# Trade route disruption risk - chance of disruption from war, etc.
-# Range: 0-100 (0 = no risk, 100 = certain disruption)
+# Risk of trade route disruption for a county
 trade_route_disruption_risk = {
-	debug_log = "Calculating script value: trade_route_disruption_risk"
-	# Base risk is low 
+	# Base risk is low
 	value = 5
-	debug_log = "Base risk value: 5"
-	# Increase for ongoing wars in the region
-	add = {
-		value = 0
-		if = {
-			limit = {
-				scope:county = {
-					county_has_any_war = yes
-				}
+	# Increased risk during wars
+	if = {
+		limit = {
+			scope:county.holder = {
+				is_at_war = yes
 			}
-			debug_log = "Taking condition branch: War risk increase"
-			add = 20
 		}
+		add = 5
 	}
-	# Increase for low county control
-	add = {
-		value = 100
-		subtract = scope:county.county_control
-		divide = 2
-		debug_log = "Low control risk increase: (100 - [scope:county.county_control]) / 2"
-	}
-	# Increase for hostility between realm and neighbors
-	add = {
-		value = 0
+	# Increased risk in low control counties
+	if = {
+		limit = {
+			scope:county.county_control < 100
+		}
 		add = {
-			every_neighboring_county = {
-				limit = {
-					holder.is_at_war_with = scope:county.holder
-				}
-				add = 5
-			}
+			value = 100
+			subtract = scope:county.county_control
+			divide = 2
 		}
-		debug_log = "Hostile neighbors risk increase: [THIS.GetValue]"
 	}
-	# Ensure value stays within bounds
+	# Increased risk with hostile neighbors
+	add = 5	# Fixed value instead of trying to count neighbors
+	# Ensure value stays within reasonable range
 	min = 0
 	max = 100
-	debug_log = "Final value: trade_route_disruption_risk = [THIS.GetValue]"
 }
 
-# Trade income multiplier - calculation for trade benefits
-# This modifies income from trade activities
+# Trade income multiplier for characters
 trade_income_mult = {
-	debug_log = "Calculating script value: trade_income_mult"
-	# Base value
+	# Base multiplier
 	value = 1
-	debug_log = "Base multiplier: 1"
-	# Bonus based on character's trade participation
+	# Add bonus from trade participation
 	add = {
 		value = character_trade_participation
-		divide = 20		# Convert 0-10 scale to 0-0.5 bonus
-		debug_log = "Trade participation bonus: [character_trade_participation] / 20"
+		divide = 20
 	}
 	# Bonus for high stewardship
 	if = {
 		limit = {
 			stewardship > 15
 		}
-		debug_log = "Taking condition branch: High stewardship bonus"
 		add = {
 			value = stewardship
 			subtract = 15
-			divide = 30			# Each point above 15 adds 0.033
-			debug_log = "High stewardship bonus calculation: ([stewardship] - 15) / 30"
+			divide = 30
 		}
 	}
-	# Bonus for merchant traits
+	# Bonus for greedy trait
 	if = {
 		limit = {
 			has_trait = greedy
 		}
-		debug_log = "Taking condition branch: Greedy trait bonus"
 		add = 0.1
 	}
+	# Bonus for gregarious trait
 	if = {
 		limit = {
 			has_trait = gregarious
 		}
-		debug_log = "Taking condition branch: Gregarious trait bonus"
 		add = 0.05
 	}
-	# Ensure minimum multiplier
-	min = 0.1
-	debug_log = "Final value: trade_income_mult = [THIS.GetValue]"
 }

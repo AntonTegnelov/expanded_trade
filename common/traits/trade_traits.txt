@@ -1,0 +1,15 @@
+﻿##############################
+# Trade Traits
+##############################
+# Trader - Trait for characters involved in trade
+trader = {
+	diplomacy = 1
+	stewardship = 2
+	monthly_income_mult = 0.1
+	diplomacy_per_stress_level = 1
+	ai_greed = 25
+	ai_boldness = 10
+	ai_sociability = 20
+	category = education
+	desc = trait_trader_desc
+}

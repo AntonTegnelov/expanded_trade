@@ -1,4 +1,4 @@
-# Trade Rules
+﻿# Trade Rules
 # Defines rules for how trade functions in the game
 # Maximum number of trade nodes per major river
 max_river_nodes = {

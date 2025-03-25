@@ -1,4 +1,4 @@
-types TradeTooltips {
+﻿types TradeTooltips {
     type trade_county_tooltip_extension = widget {
         name = "trade_county_tooltip_extension"
         
@@ -25,7 +25,7 @@ types TradeTooltips {
                 expand = {}
                 
                 text_single = {
-                    text = "[County.GetTradeProsparity|0]"
+                    text = "[County.GetTradeProsperity|0]"
                 }
             }
             

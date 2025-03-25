@@ -1,4 +1,4 @@
-l_english:
+﻿l_english:
  # Trade Caravan Arrival Event
  trade_events.0001.t:0 "Trade Caravan Arrives"
  trade_events.0001.desc:0 "A large caravan of merchants has arrived in your realm, following the ancient trade routes that connect distant lands. Their wagons are laden with goods both exotic and common, and the lead merchant approaches you with offers of trade."
@@ -63,4 +63,29 @@ l_english:
  ruled_against_merchants:0 "Ruled Against Merchants"
  diplomatic_resolution:0 "Diplomatic Resolution"
  favored_foreign_merchants:0 "Favored Foreign Merchants"
- ruled_for_merchants:0 "Ruled For Merchants" 
+ ruled_for_merchants:0 "Ruled For Merchants"
+
+ # Trade caravan events
+ trade_caravan_arrival_title:0 "Trade Caravan Arrives"
+ trade_caravan_arrival_desc:0 "A large trade caravan has arrived in [scope:trade_county.GetName], bringing goods and wealth to the region."
+ trade_caravan_arrival.a:0 "Good for business!"
+ trade_caravan_arrival_tooltip:0 "The county will receive increased trade income for 12 months"
+
+ # Price fluctuation events
+ trade_price_fluctuation_title:0 "Trade Good Prices Change"
+ trade_price_fluctuation_desc:0 "The market prices for trade goods in [scope:trade_county.GetName] have shifted."
+ trade_price_fluctuation.a:0 "Prices are rising"
+ trade_price_fluctuation.b:0 "Prices are falling"
+ trade_price_increase_tooltip:0 "Trade good prices will be higher for 6 months"
+ trade_price_decrease_tooltip:0 "Trade good prices will be lower for 6 months"
+
+ # Trade disruption events
+ trade_route_disrupted_title:0 "Trade Route Disrupted"
+ trade_route_disrupted_desc:0 "The trade route through [scope:disrupted_county.GetName] has been disrupted, severely impacting local commerce."
+ trade_route_disrupted.a:0 "This is troubling news"
+ trade_route_disrupted_tooltip:0 "Trade income will be reduced for 12 months"
+
+ trade_route_occupied_title:0 "Trade Route Occupied"
+ trade_route_occupied_desc:0 "Your forces have occupied [scope:occupied_county.GetName], disrupting the local trade route."
+ trade_route_occupied.a:0 "Strike at their wealth!"
+ trade_route_occupied_tooltip:0 "The trade route will be disrupted while under occupation" 

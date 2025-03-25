@@ -1,4 +1,4 @@
-trade_route = {
+﻿trade_route = {
 	id = "silk_road_main"
 	name = "silk_road_name"
 	debug_log = "Initializing Silk Road main route"

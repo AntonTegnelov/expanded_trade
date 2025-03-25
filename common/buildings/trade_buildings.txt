@@ -1,13 +1,12 @@
-##############################
-# Trade Buildings          #
+﻿##############################
+# Trade Buildings
 ##############################
 # Market Square - Basic economic building for city holdings
-market_square_01 = {
+market_square = {
 	construction_time = 200
+	cost_gold = 100
 	can_construct_potential = {
-		building_requirement_city = {
-			LEVEL = 1
-		}
+		has_building_or_higher = city_01
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -15,28 +14,23 @@ market_square_01 = {
 	is_enabled = {
 		can_build_trade_building_trigger = yes
 	}
-	cost_gold = 100
 	province_modifier = {
 		monthly_income = 0.5
 		tax_mult = 0.05
 	}
 	county_modifier = {
-		county_trade_value_add = 0.5
+		development_growth = 0.1
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 2
 	next_building = market_square_02
 }
 
 # Market Square level 2
 market_square_02 = {
 	construction_time = 300
+	cost_gold = 200
 	can_construct_potential = {
-		building_requirement_city = {
-			LEVEL = 2
-		}
+		has_building_or_higher = city_01
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -44,28 +38,23 @@ market_square_02 = {
 	is_enabled = {
 		can_build_trade_building_trigger = yes
 	}
-	cost_gold = 200
 	province_modifier = {
 		monthly_income = 0.8
 		tax_mult = 0.1
 	}
 	county_modifier = {
-		county_trade_value_add = 0.8
+		development_growth = 0.15
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 3
 	next_building = market_square_03
 }
 
 # Market Square level 3
 market_square_03 = {
 	construction_time = 450
+	cost_gold = 350
 	can_construct_potential = {
-		building_requirement_city = {
-			LEVEL = 3
-		}
+		has_building_or_higher = city_01
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -73,31 +62,24 @@ market_square_03 = {
 	is_enabled = {
 		can_build_trade_building_trigger = yes
 	}
-	cost_gold = 350
 	province_modifier = {
 		monthly_income = 1.2
 		tax_mult = 0.15
 	}
 	county_modifier = {
-		county_trade_value_add = 1.2
-		development_growth = 0.05
+		development_growth = 0.2
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
 }
 
-# Trading Post - Economic building for tribal and castle holdings on trade routes
-trading_post_01 = {
+# Trading Post - Economic building for tribal and castle holdings
+trading_post = {
 	construction_time = 300
+	cost_gold = 150
 	can_construct_potential = {
 		OR = {
-			building_requirement_tribal = {
-				LEVEL = 1
-			}
-			building_requirement_castle = {
-				LEVEL = 1
-			}
+			has_building_or_higher = tribe_01
+			has_building_or_higher = castle_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -106,31 +88,25 @@ trading_post_01 = {
 	is_enabled = {
 		can_build_trading_post_trigger = yes
 	}
-	cost_gold = 150
 	province_modifier = {
 		monthly_income = 0.2
+		tax_mult = 0.05
 	}
 	county_modifier = {
-		county_trade_value_add = 0.75
+		development_growth = 0.1
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 2
 	next_building = trading_post_02
 }
 
 # Trading Post level 2
 trading_post_02 = {
 	construction_time = 400
+	cost_gold = 250
 	can_construct_potential = {
 		OR = {
-			building_requirement_tribal = {
-				LEVEL = 2
-			}
-			building_requirement_castle = {
-				LEVEL = 2
-			}
+			has_building_or_higher = tribe_01
+			has_building_or_higher = castle_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -139,32 +115,25 @@ trading_post_02 = {
 	is_enabled = {
 		can_build_trading_post_trigger = yes
 	}
-	cost_gold = 250
 	province_modifier = {
 		monthly_income = 0.4
+		tax_mult = 0.1
 	}
 	county_modifier = {
-		county_trade_value_add = 1.2
-		development_growth_factor = 0.05
+		development_growth = 0.15
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 3
 	next_building = trading_post_03
 }
 
 # Trading Post level 3
 trading_post_03 = {
 	construction_time = 500
+	cost_gold = 400
 	can_construct_potential = {
 		OR = {
-			building_requirement_tribal = {
-				LEVEL = 3
-			}
-			building_requirement_castle = {
-				LEVEL = 3
-			}
+			has_building_or_higher = tribe_01
+			has_building_or_higher = castle_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -173,31 +142,25 @@ trading_post_03 = {
 	is_enabled = {
 		can_build_trading_post_trigger = yes
 	}
-	cost_gold = 400
 	province_modifier = {
 		monthly_income = 0.6
-		control_growth = 0.1
+		tax_mult = 0.15
 	}
 	county_modifier = {
-		county_trade_value_add = 1.8
-		development_growth_factor = 0.1
+		development_growth = 0.2
+		monthly_county_control_growth_add = 0.1
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
 }
 
-# Caravanserai - Advanced economic building for counties on major trade routes
-caravanserai_01 = {
+# Caravanserai - Advanced economic building for major trade nodes
+caravanserai = {
 	construction_time = 365
+	cost_gold = 200
 	can_construct_potential = {
 		OR = {
-			building_requirement_castle = {
-				LEVEL = 1
-			}
-			building_requirement_city = {
-				LEVEL = 1
-			}
+			has_building_or_higher = castle_01
+			has_building_or_higher = city_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -206,33 +169,26 @@ caravanserai_01 = {
 	is_enabled = {
 		can_build_caravanserai_trigger = yes
 	}
-	cost_gold = 200
 	province_modifier = {
 		monthly_income = 0.3
-		defender_advantage = 2
+		tax_mult = 0.1
 	}
 	county_modifier = {
-		county_trade_value_add = 1
-		development_growth_factor = 0.1
+		development_growth = 0.15
+		fort_level = 1
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 2
 	next_building = caravanserai_02
 }
 
 # Caravanserai level 2
 caravanserai_02 = {
 	construction_time = 500
+	cost_gold = 350
 	can_construct_potential = {
 		OR = {
-			building_requirement_castle = {
-				LEVEL = 2
-			}
-			building_requirement_city = {
-				LEVEL = 2
-			}
+			has_building_or_higher = castle_01
+			has_building_or_higher = city_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -241,35 +197,27 @@ caravanserai_02 = {
 	is_enabled = {
 		can_build_caravanserai_trigger = yes
 	}
-	cost_gold = 350
 	province_modifier = {
 		monthly_income = 0.6
-		defender_advantage = 4
-		hostile_raid_time = 0.2
+		tax_mult = 0.15
 	}
 	county_modifier = {
-		county_trade_value_add = 1.5
-		development_growth_factor = 0.2
-		travel_danger = -1
+		development_growth = 0.2
+		fort_level = 2
+		hostile_raid_time = 0.2
 	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
-	# Upgrade path to level 3
 	next_building = caravanserai_03
 }
 
 # Caravanserai level 3
 caravanserai_03 = {
 	construction_time = 700
+	cost_gold = 500
 	can_construct_potential = {
 		OR = {
-			building_requirement_castle = {
-				LEVEL = 3
-			}
-			building_requirement_city = {
-				LEVEL = 3
-			}
+			has_building_or_higher = castle_01
+			has_building_or_higher = city_01
 		}
 	}
 	can_construct_showing_failures_only = {
@@ -278,23 +226,14 @@ caravanserai_03 = {
 	is_enabled = {
 		can_build_caravanserai_trigger = yes
 	}
-	cost_gold = 500
 	province_modifier = {
-		monthly_income = 1
-		defender_advantage = 6
-		hostile_raid_time = 0.4
+		monthly_income = 0.9
+		tax_mult = 0.2
 	}
 	county_modifier = {
-		county_trade_value_add = 2
-		development_growth_factor = 0.3
-		development_growth = 0.1
-		travel_danger = -2
+		development_growth = 0.25
+		fort_level = 3
+		hostile_raid_time = 0.3
 	}
-	character_modifier = {
-		men_at_arms_maintenance = -0.05
-		mercenary_hire_cost_mult = -0.05
-	}
-	# Building flags for UI display
 	flag = economic
-	construction_category = economic
 }

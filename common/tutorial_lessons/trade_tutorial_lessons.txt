@@ -1,427 +1,240 @@
-# Trade Tutorial Lessons
+﻿# Trade Tutorial Lessons
 # These lessons guide players through the trade mechanics of the Expanded Trade mod
-# They use CK3's native tutorial system for proper integration
-# Introduction to Trade - Basic overview of the trade system
-trade_introduction_lesson = {
-	type = generic	# Uses standard lesson format
-	# Only show if player has counties on or near trade routes
-	trigger = {
-		exists = capital_province
-		capital_province.county = {
-			OR = {
-				has_county_flag = on_silk_road
-				any_neighboring_county = {
-					has_county_flag = on_silk_road
-				}
-			}
-		}
-		# Only show if the player hasn't completed this tutorial yet
-		NOT = {
-			has_character_flag = completed_trade_introduction
-		}
-	}
-	# Title shown in the tutorial window
-	header_info = {
-		title = "tutorial_lesson_trade_introduction_header"
-	}
-	# Initial step for introduction
-	step = {
-		header = "tutorial_lesson_trade_introduction_step1_header"
-		instruction = "tutorial_lesson_trade_introduction_step1_instruction"
-		highlighted_option = yes		# Highlight the "Next" button
-		button_text = "tutorial_button_continue"
-		# Highlight the trade map mode button
-		highlight_widget = {
-			widget = "map_modes_window_trade_map_mode"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for tutorial window
+trade_tutorial = {
+	chain = trade_basics_chain
+	delay = 0
+	# Introduction to Trade - Basic overview of the trade system
+	trade_introduction_step1 = {
+		text = "tutorial_lesson_trade_introduction_step1_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		# Set flag when this step is viewed
-		on_start = {
-			effect = {
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_introduction_step1
 				}
 			}
 		}
-		# When the player clicks Next, move to the next step with a visual transition
-		on_continue = {
-			transition = next_step
-			transition_animation = slide_right
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_routes_step
 		}
 	}
 	# Step explaining trade routes
-	step = {
-		header = "tutorial_lesson_trade_routes_header"
-		instruction = "tutorial_lesson_trade_routes_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_button_continue"
-		# Open trade map mode when this step starts and highlight the silk road
-		on_start = {
-			effect = {
-				# This will be replaced with proper effect when map mode is implemented
-				# For MVP, just provide guidance
+	trade_routes_step = {
+		text = "tutorial_lesson_trade_routes_instruction"
+		force_pause_game = yes
+		animation = center
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_routes_explanation
 				}
 			}
 		}
-		# Highlight the main trade route on the map
-		highlight_widget = {
-			widget = "map_silk_road_main"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_introduction_step1
 		}
-		# Configure animation for this step
-		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_continue = {
-			transition = next_step
-			transition_animation = slide_right
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_buildings_step
 		}
 	}
 	# Step explaining trade buildings
-	step = {
-		header = "tutorial_lesson_trade_buildings_header"
-		instruction = "tutorial_lesson_trade_buildings_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_lesson_complete_button"
-		# Highlight the building construction button
-		highlight_widget = {
-			widget = "holding_view_construct_building_button"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for final step
+	trade_buildings_step = {
+		text = "tutorial_lesson_trade_buildings_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_start = {
-			effect = {
+		highlight_widget = "holding_view_construct_building_button"
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_buildings_explanation
 				}
 			}
 		}
-		on_continue = {
-			effect = {
-				# Small reward for completing tutorial
-				add_gold = 25
-				# Mark tutorial as completed
-				set_character_flag = {
-					flag = completed_trade_introduction
-					days = -1					# Permanent flag
-				}
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_routes_step
+		}
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_complete"
+			target = trade_completion_step
+		}
+	}
+	# Final completion step
+	trade_completion_step = {
+		text = "tutorial_lesson_trade_completion_instruction"
+		force_pause_game = yes
+		animation = center
+		effect = {
+			add_gold = 25
+			set_character_flag = {
+				flag = completed_trade_introduction
+				days = -1
 			}
-			transition = complete
-			transition_animation = fade_out
 		}
 	}
 }
 
 # Trade Buildings Guide - Basic building mechanics
-trade_buildings_lesson = {
-	type = generic
-	# Only show for players with enough gold and counties on trade routes
-	trigger = {
-		gold > 100
-		any_held_title = {
-			tier = county
-			has_county_flag = on_silk_road
-		}
-		# Only show if the player has completed the introduction but not this tutorial
-		has_character_flag = completed_trade_introduction
-		NOT = {
-			has_character_flag = completed_trade_buildings_tutorial
-		}
-	}
-	header_info = {
-		title = "tutorial_lesson_trade_buildings_guide_header"
-	}
-	# First step explains building types
-	step = {
-		header = "tutorial_lesson_trade_buildings_types_header"
-		instruction = "tutorial_lesson_trade_buildings_types_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_button_continue"
-		# Highlight the construction menu in the holding view
-		highlight_widget = {
-			widget = "holding_view_buildings_tab"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for this step
+trade_buildings = {
+	chain = trade_basics_chain
+	delay = 0
+	# First step explaining building benefits
+	trade_buildings_intro_step = {
+		text = "tutorial_lesson_trade_buildings_benefits_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_start = {
-			effect = {
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
-					flag = viewed_trade_building_types
+					flag = viewed_trade_buildings_tutorial
 				}
 			}
 		}
-		on_continue = {
-			transition = next_step
-			transition_animation = slide_right
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_buildings_types_step
 		}
 	}
-	# Second step guides through building construction
-	step = {
-		header = "tutorial_lesson_trade_buildings_construction_header"
-		instruction = "tutorial_lesson_trade_buildings_construction_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_lesson_complete_button"
-		# Highlight the economic buildings category
-		highlight_widget = {
-			widget = "holding_view_construction_category_economic"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for final step
+	# Next step about building types
+	trade_buildings_types_step = {
+		text = "tutorial_lesson_trade_buildings_types_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
+		highlight_widget = "holding_view_buildings_tab"
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_buildings_intro_step
 		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_buildings_construction_step
 		}
-		on_start = {
-			effect = {
-				set_character_flag = {
-					flag = viewed_trade_building_construction
-				}
+	}
+	# Construction step
+	trade_buildings_construction_step = {
+		text = "tutorial_lesson_trade_buildings_construction_instruction"
+		force_pause_game = yes
+		animation = center
+		highlight_widget = "holding_view_construction_category_economic"
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_buildings_types_step
+		}
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_complete"
+			target = trade_buildings_completion_step
+		}
+	}
+	# Final buildings completion step
+	trade_buildings_completion_step = {
+		text = "tutorial_lesson_trade_buildings_completion_instruction"
+		force_pause_game = yes
+		animation = center
+		effect = {
+			add_gold = 25
+			set_character_flag = {
+				flag = completed_trade_buildings_tutorial
+				days = -1
 			}
-		}
-		on_continue = {
-			effect = {
-				# Small reward for completing tutorial
-				add_gold = 25
-				# Mark tutorial as completed
-				set_character_flag = {
-					flag = completed_trade_buildings_tutorial
-					days = -1					# Permanent flag
-				}
-			}
-			transition = complete
-			transition_animation = fade_out
 		}
 	}
 }
 
 # Trade Policies - Guide to policies and decisions
-trade_policies_lesson = {
-	type = generic
-	# Only show for rulers with a reasonable realm size
-	trigger = {
-		domain_size > 3
-		any_held_title = {
-			tier = county
-			has_county_flag = on_silk_road
-		}
-		# Only show if the player has completed the buildings tutorial but not this one
-		has_character_flag = completed_trade_buildings_tutorial
-		NOT = {
-			has_character_flag = completed_trade_policies_tutorial
-		}
-	}
-	header_info = {
-		title = "tutorial_lesson_trade_policies_header"
-	}
+trade_policies = {
+	chain = trade_basics_chain
+	delay = 0
 	# First step introduces policies
-	step = {
-		header = "tutorial_lesson_trade_policies_overview_header"
-		instruction = "tutorial_lesson_trade_policies_overview_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_button_continue"
-		# Highlight the decisions menu button
-		highlight_widget = {
-			widget = "top_bar_decisions_button"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for this step
+	trade_policies_overview_step = {
+		text = "tutorial_lesson_trade_policies_overview_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_start = {
-			effect = {
+		highlight_widget = "top_bar_decisions_button"
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_policies_overview
 				}
 			}
 		}
-		on_continue = {
-			transition = next_step
-			transition_animation = slide_right
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_council_tasks_step
 		}
 	}
-	# Second step explains council tasks
-	step = {
-		header = "tutorial_lesson_trade_council_tasks_header"
-		instruction = "tutorial_lesson_trade_council_tasks_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_button_continue"
-		# Highlight the council tab
-		highlight_widget = {
-			widget = "top_bar_council_button"
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for this step
+	# Step explaining council tasks
+	trade_council_tasks_step = {
+		text = "tutorial_lesson_trade_council_tasks_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_start = {
-			effect = {
+		highlight_widget = "top_bar_council_button"
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_council_tasks
 				}
 			}
 		}
-		on_continue = {
-			transition = next_step
-			transition_animation = slide_right
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_policies_overview_step
+		}
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_next"
+			target = trade_decisions_step
 		}
 	}
-	# Third step covers trade decisions
-	step = {
-		header = "tutorial_lesson_trade_decisions_header"
-		instruction = "tutorial_lesson_trade_decisions_instruction"
-		highlighted_option = yes
-		button_text = "tutorial_lesson_complete_button"
-		# Highlight the trade category in decisions menu
-		highlight_widget = {
-			widget = "decision_category_realm_tab"			# Assuming trade decisions are in the realm tab
-			should_animate_highlight = yes
-			highlight_offset = {
-				0
-				0
-			}
-			highlight_duration = 0.75
-		}
-		# Configure animation for final step
+	# Step covering trade decisions
+	trade_decisions_step = {
+		text = "tutorial_lesson_trade_decisions_instruction"
+		force_pause_game = yes
 		animation = center
-		# Use encapsulated states for better animation control
-		state = {
-			name = "appear_state"
-			animation = "tutorial_appear"
-			trigger_on = appear
-		}
-		state = {
-			name = "idle_state"
-			animation = "tutorial_idle"
-			trigger_on = idle
-		}
-		on_start = {
-			effect = {
+		highlight_widget = "decision_category_realm_tab"
+		effect = {
+			hidden_effect = {
 				set_character_flag = {
 					flag = viewed_trade_decisions
 				}
 			}
 		}
-		on_continue = {
-			effect = {
-				# Mark tutorial as completed
-				set_character_flag = {
-					flag = completed_trade_policies_tutorial
-					days = -1					# Permanent flag
-				}
+		gui_transition = {
+			button_id = "back"
+			button_text = "tutorial_lesson_button_back"
+			target = trade_council_tasks_step
+		}
+		gui_transition = {
+			button_id = "next"
+			button_text = "tutorial_lesson_button_complete"
+			target = trade_policies_completion_step
+		}
+	}
+	# Completion step
+	trade_policies_completion_step = {
+		text = "tutorial_lesson_trade_policies_completion_instruction"
+		force_pause_game = yes
+		animation = center
+		effect = {
+			set_character_flag = {
+				flag = completed_trade_policies_tutorial
+				days = -1
 			}
-			transition = complete
-			transition_animation = fade_out
 		}
 	}
 }

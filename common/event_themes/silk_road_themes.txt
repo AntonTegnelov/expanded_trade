@@ -1,4 +1,4 @@
-# Silk Road Event Themes
+﻿# Silk Road Event Themes
 # Exotic Goods Discovery Event Theme
 silk_road_merchant_theme = {
 	icon = {

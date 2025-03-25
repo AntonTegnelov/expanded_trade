@@ -1,3 +1,5 @@
+﻿# Trade Council Tasks
+# These tasks allow the steward to focus on trade
 task_court_trade_focus = {
 	position = councillor_steward
 	task_type = task_type_general
@@ -27,8 +29,8 @@ task_court_trade_focus = {
 			any_sub_realm_county = {
 				OR = {
 					is_on_active_trade_route_trigger = yes
-					has_building = building_market_square
-					has_building = building_trading_post
+					has_building = market_square
+					has_building = trading_post
 				}
 			}
 		}
@@ -39,8 +41,8 @@ task_court_trade_focus = {
 			any_sub_realm_county = {
 				OR = {
 					is_on_active_trade_route_trigger = yes
-					has_building = building_market_square
-					has_building = building_trading_post
+					has_building = market_square
+					has_building = trading_post
 				}
 			}
 		}
@@ -57,7 +59,6 @@ task_court_trade_focus = {
 	}
 	county_modifier = {
 		name = task_court_trade_focus_development_modifier
-		county_trade_value_add = 0.5
 		development_growth_factor = 0.05
 		scale = {
 			value = steward_skill_scale
@@ -65,7 +66,8 @@ task_court_trade_focus = {
 			max = 1.5
 		}
 	}
-	monthly_on_action = trade_council_steward_focus_on_action
+	# Register the monthly on_action for this task
+	monthly_on_action = steward_monthly_task
 	on_start_task = {
 		if = {
 			limit = {
@@ -119,7 +121,7 @@ task_court_trade_focus = {
 			add = 10
 			councillor_liege = {
 				any_sub_realm_county = {
-					has_county_modifier = trade_prosperity_high
+					has_high_trade_prosperity_trigger = yes
 				}
 			}
 		}

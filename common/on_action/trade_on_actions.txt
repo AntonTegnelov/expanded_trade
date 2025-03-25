@@ -1,212 +1,80 @@
-# Trade On Actions
-# These on_actions trigger events related to trade
-# Hook into the standard on_monthly_pulse to run our trade calculations
-on_monthly_pulse = {
-	debug_log = "On-action fired: on_monthly_pulse"
-	on_actions = {
-		on_monthly_trade_pulse
+﻿# Trade system on_actions
+# Run when a game starts or loads
+# Custom on_action for initializing the trade system
+on_game_started = {
+	effect = {
+		initialize_trade_system = yes
 	}
 }
 
-# Monthly pulse for trade calculations
-on_monthly_trade_pulse = {
-	debug_log = "On-action fired: on_monthly_trade_pulse"
-	# This is called by hooking into the on_monthly_pulse
+# Use existing on_actions to trigger our event
+on_game_start = {
+	events = {
+		trade_system_init.0001
+	}
+}
+
+on_game_start_after_lobby = {
+	events = {
+		trade_system_init.0001
+	}
+}
+
+# Adding a new on_action for county trade system initialization
+on_county_creation = {
 	effect = {
-		debug_log = "Executing effect from on-action: on_monthly_trade_pulse"
-		# Execute the simplified trade flow calculation only if we have trade routes
-		# This check improves performance for games without active trade
-		if = {
-			limit = {
-				any_title = {
-					tier = county
-					has_county_flag = on_silk_road
-				}
-			}
-			debug_log = "Executing effect: calculate_basic_trade_income_effect"
-			# Execute the simplified trade flow calculation
-			calculate_basic_trade_income_effect = yes
-			# Update county prosperity based on trade route status
-			# Only process counties on the Silk Road for better performance
-			every_title = {
-				limit = {
-					tier = county
-					has_county_flag = on_silk_road
-				}
-				debug_log = "Executing effect: apply_trade_prosperity_effect for [THIS.GetID]"
-				# Apply trade prosperity effects to counties on the Silk Road
-				apply_trade_prosperity_effect = yes
-				# Check for status changes - only if there are active or disrupted routes
-				# This significantly reduces unnecessary checks
-				if = {
-					limit = {
-						OR = {
-							has_county_flag = on_active_trade_route
-							has_county_flag = on_disrupted_trade_route
-							# Also check prosperity flags to catch prosperity changes
-							has_county_flag = trade_prosperity_low
-							has_county_flag = trade_prosperity_medium
-							has_county_flag = trade_prosperity_high
-						}
-					}
-					debug_log = "Starting event chain from on-action: trade_status_change for [THIS.GetID]"
-					# Check if the status has changed
-					on_action = trade_status_change
-				}
-			}
+		set_variable = {
+			name = on_silk_road
+			value = 0
+		}
+		set_variable = {
+			name = trade_node_major
+			value = 0
+		}
+		set_variable = {
+			name = on_active_trade_route
+			value = 0
+		}
+		set_variable = {
+			name = major_trade_node
+			value = 0
 		}
 	}
 }
 
-# This is triggered when a county is occupied
-# County scope
-on_county_occupied = {
-	debug_log = "On-action fired: on_county_occupied for [THIS.GetID]"
-	on_actions = {
-		trade_county_occupied
-	}
-}
-
-# Custom on_action for county occupation
-# County scope
-trade_county_occupied = {
-	debug_log = "On-action fired: trade_county_occupied for [THIS.GetID]"
+# Monthly on_action for the steward focus on trade task
+steward_monthly_task = {
 	effect = {
-		debug_log = "Executing effect from on-action: trade_county_occupied"
-		# Only check counties on trade routes
-		if = {
-			limit = {
-				has_county_flag = on_silk_road
+		# Apply gold bonus based on stewardship
+		scope:councillor = {
+			save_scope_as = steward
+		}
+		scope:councillor_liege = {
+			random_realm_county = {
+				limit = {
+					is_on_active_trade_route_trigger = yes
+				}
+				save_scope_as = trade_county
+				set_variable = {
+					name = trade_prosperity_level
+					add = 0.1
+				}
 			}
-			# Mark the trade route as disrupted if it was active
+		}
+		# Add trade bonus effects
+		scope:councillor_liege = {
 			if = {
 				limit = {
-					has_county_flag = on_active_trade_route
-				}
-				debug_log = "Executing effect: Disrupting trade route in [THIS.GetID]"
-				# Remove active flag
-				remove_county_flag = on_active_trade_route
-				# Add disrupted flag
-				set_county_flag = on_disrupted_trade_route
-				# Notify about disruption
-				on_action = trade_status_change
-			}
-		}
-	}
-	events = {
-		debug_log = "Starting event chain from on-action: silk_road_events.0003"
-		silk_road_events.0003		# Silk Road Disruption Event
-	}
-}
-
-# This is triggered when a holding building is constructed
-# Holding scope
-on_holding_building_constructed = {
-	debug_log = "On-action fired: on_holding_building_constructed for [THIS.GetID]"
-	on_actions = {
-		trade_building_constructed
-	}
-}
-
-# Custom on_action for building construction
-# Holding scope
-trade_building_constructed = {
-	debug_log = "On-action fired: trade_building_constructed for [THIS.GetID]"
-	effect = {
-		debug_log = "Executing effect from on-action: trade_building_constructed"
-		# Check if this is a trade building
-		if = {
-			limit = {
-				OR = {
-					has_building = market_square
-					has_building = trading_post
-					has_building = caravanserai
-				}
-			}
-			debug_log = "Executing effect: Updating trade status for trade building in [THIS.GetID]"
-			# Update trade status for the county
-			county = {
-				# If on a trade route, may activate it
-				if = {
-					limit = {
-						has_county_flag = on_silk_road
-						has_county_flag = on_disrupted_trade_route
-						NOT = {
-							has_county_flag = on_active_trade_route
-						}
+					scope:steward = {
+						stewardship >= high_skill_rating
 					}
-					debug_log = "Executing effect: Activating trade route in [THIS.GetID]"
-					# Remove disrupted flag
-					remove_county_flag = on_disrupted_trade_route
-					# Add active flag
-					set_county_flag = on_active_trade_route
-					# Notify about activation
-					on_action = trade_status_change
+				}
+				add_gold = {
+					value = 1
+					multiply = scope:steward.stewardship
+					divide = 20
 				}
 			}
 		}
-	}
-}
-
-# Triggered when a county changes status
-# County scope
-trade_status_change = {
-	debug_log = "On-action fired: trade_status_change for [THIS.GetID]"
-	random_events = {
-		# Add event references here when trade events are implemented
-		# Events for active routes becoming prosperous
-		100 = 0
-		# fallback = trade_fallback
-	}
-	events = {
-		debug_log = "Starting event chain from on-action: trade_events.0100"
-		# Status change notification events
-		id = trade_events.0100
-	}
-}
-
-# Custom on_action for trade events
-# Character scope
-trade_events_random = {
-	debug_log = "On-action fired: trade_events_random for [THIS.GetID]"
-	random_events = {
-		# Prosperity events
-		100 = trade_events.0201
-		# Caravan events
-		100 = trade_events.0202
-		# Merchant events
-		100 = trade_events.0203
-	}
-}
-
-# Monthly character pulse - trigger regular trade events
-on_monthly_character_pulse = {
-	debug_log = "On-action fired: on_monthly_character_pulse for [THIS.GetID]"
-	events = {
-		debug_log = "Starting event chain from on-action: trade_events.0001"
-		trade_events.0001		# Trade Caravan Arrival
-		debug_log = "Starting event chain from on-action: trade_events.0004"
-		trade_events.0004		# Merchant Dispute
-		debug_log = "Starting event chain from on-action: silk_road_events.0005"
-		silk_road_events.0005		# Cultural Exchange on the Silk Road
-		debug_log = "Starting event chain from on-action: silk_road_events.0007"
-		silk_road_events.0007		# Trade Route Security
-	}
-}
-
-# Monthly county pulse - trigger county-level trade events
-on_monthly_county_pulse = {
-	debug_log = "On-action fired: on_monthly_county_pulse for [THIS.GetID]"
-	events = {
-		debug_log = "Starting event chain from on-action: trade_events.0002"
-		trade_events.0002		# Local Goods Price Fluctuation
-	}
-}
-
-# Game start hook for tutorial events
-on_game_start_after_lobby = {
-	debug_log = "On-action fired: on_game_start_after_lobby"
-	events = {
-		# Removed trade_tutorial.001 (Introduction to Trade Tutorial)
 	}
 }

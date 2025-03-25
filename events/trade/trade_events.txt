@@ -1,4 +1,91 @@
-namespace = trade_events
+﻿namespace = trade_events
+# Trade caravan arrives at county
+province_event = {
+	id = trade.0001
+	title = trade_caravan_arrival_title
+	desc = trade_caravan_arrival_desc
+	theme = trade
+	trigger = {
+		scope:county = {
+			is_on_active_trade_route_trigger = yes
+			has_trade_good_trigger = yes
+		}
+	}
+	immediate = {
+		scope:county = {
+			save_scope_as = trade_county
+		}
+	}
+	option = {
+		name = trade_caravan_arrival.a
+		custom_tooltip = trade_caravan_arrival_tooltip
+		scope:trade_county = {
+			add_county_modifier = {
+				modifier = trade_caravan_boost
+				months = 12
+			}
+		}
+	}
+}
+
+# Local goods price fluctuation
+province_event = {
+	id = trade.0002
+	title = trade_price_fluctuation_title
+	desc = trade_price_fluctuation_desc
+	theme = trade
+	trigger = {
+		scope:county = {
+			has_trade_good_trigger = yes
+		}
+	}
+	immediate = {
+		scope:county = {
+			save_scope_as = trade_county
+			random_list = {
+				70 = {
+					save_temporary_scope_value_as = {
+						name = price_change
+						value = 1
+					}
+				}
+				30 = {
+					save_temporary_scope_value_as = {
+						name = price_change
+						value = -1
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = trade_price_fluctuation.a
+		custom_tooltip = trade_price_increase_tooltip
+		trigger = {
+			scope:price_change > 0
+		}
+		scope:trade_county = {
+			add_county_modifier = {
+				modifier = trade_good_price_high
+				months = 6
+			}
+		}
+	}
+	option = {
+		name = trade_price_fluctuation.b
+		custom_tooltip = trade_price_decrease_tooltip
+		trigger = {
+			scope:price_change < 0
+		}
+		scope:trade_county = {
+			add_county_modifier = {
+				modifier = trade_good_price_low
+				months = 6
+			}
+		}
+	}
+}
+
 # Trade Caravan Arrival Event
 # This event triggers for rulers who control counties on trade routes
 trade_events.0001 = {

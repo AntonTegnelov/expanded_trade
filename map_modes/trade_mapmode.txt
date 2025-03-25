@@ -1,0 +1,22 @@
+trade = {
+	name = "TRADE_MAP_MODE"
+	type = 1	# Administrative
+	texture = "gfx/interface/icons/map_mode/trade_map_mode.dds"
+	tooltip = "TRADE_MAP_MODE_TOOLTIP"
+	shortcut = map_mode_7
+	map_color = {
+		0.8
+		0.6
+		0
+	}
+	default_provinces = {
+		0.3
+		0.3
+		0.5
+	}
+	default_countries = {
+		0.4
+		0.4
+		0.6
+	}
+}

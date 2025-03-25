@@ -1,4 +1,4 @@
-namespace = trade_monthly_events
+﻿namespace = trade_monthly_events
 # Prosperity change event
 trade_monthly_events.0001 = {
 	debug_log = "Event triggered: trade_monthly_events.0001"

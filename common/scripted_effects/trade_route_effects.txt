@@ -1,4 +1,4 @@
-# Trade Route Effects
+﻿# Trade Route Effects
 # These scripted effects handle trade route validation and travel plan compatibility
 # Validates if two counties are properly connected for trade
 validate_trade_route_connection_effect = {
@@ -445,40 +445,45 @@ calculate_trade_prosperity_effect = {
 	# $COUNTY$ = County to calculate prosperity for
 	# Trade prosperity is based on development level and trade route status
 	$COUNTY$ = {
-		# Base value from development
-		set_variable = {
-			name = trade_prosperity_level
-			value = development_level
-		}
-		# Bonus if on active trade route
+		# Remove existing prosperity modifiers
+		remove_county_modifier = low_trade_prosperity
+		remove_county_modifier = medium_trade_prosperity
+		remove_county_modifier = high_trade_prosperity
+		# Calculate new prosperity level
 		if = {
 			limit = {
-				has_county_flag = on_active_trade_route
+				development_level >= 20
+				has_county_modifier = active_trade_route
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
 			}
-			change_variable = {
-				name = trade_prosperity_level
-				add = 2
+			add_county_modifier = {
+				modifier = high_trade_prosperity
+				years = 5
 			}
+			set_county_flag = trade_prosperity_high
 		}
-		# Penalty if trade route is disrupted
-		if = {
+		else_if = {
 			limit = {
-				has_county_flag = on_disrupted_trade_route
+				development_level >= 10
+				has_county_modifier = active_trade_route
+				NOT = {
+					has_county_flag = on_disrupted_trade_route
+				}
 			}
-			change_variable = {
-				name = trade_prosperity_level
-				subtract = 1
+			add_county_modifier = {
+				modifier = medium_trade_prosperity
+				years = 5
 			}
+			remove_county_flag = trade_prosperity_high
 		}
-		# Ensure prosperity level doesn't go negative
-		if = {
-			limit = {
-				var:trade_prosperity_level < 0
+		else = {
+			add_county_modifier = {
+				modifier = low_trade_prosperity
+				years = 5
 			}
-			set_variable = {
-				name = trade_prosperity_level
-				value = 0
-			}
+			remove_county_flag = trade_prosperity_high
 		}
 	}
 }
@@ -617,6 +622,159 @@ setup_trade_node_connections_effect = {
 					}
 					log = "[Trade System] Removed excess connection from [scope:current_node.GetID] to [$PREV$.GetID]"
 				}
+			}
+		}
+	}
+}
+
+# Setup a new trade route
+setup_trade_route_effect = {
+	# $COUNTY$ = County to set up trade route in
+	$COUNTY$ = {
+		set_county_flag = on_active_trade_route
+		remove_county_flag = on_disrupted_trade_route
+		add_county_modifier = {
+			modifier = active_trade_route
+			years = 10
+		}
+	}
+}
+
+# Disrupt a trade route
+disrupt_trade_route_effect = {
+	# $COUNTY$ = County to disrupt trade in
+	$COUNTY$ = {
+		remove_county_flag = on_active_trade_route
+		set_county_flag = on_disrupted_trade_route
+		add_county_modifier = {
+			modifier = trade_route_disrupted
+			years = 1
+		}
+	}
+}
+
+# Restore a disrupted trade route
+restore_trade_route_effect = {
+	# $COUNTY$ = County to restore trade in
+	$COUNTY$ = {
+		remove_county_flag = on_disrupted_trade_route
+		set_county_flag = on_active_trade_route
+		remove_county_modifier = trade_route_disrupted
+		add_county_modifier = {
+			modifier = active_trade_route
+			years = 10
+		}
+	}
+}
+
+# Apply trade income effects
+apply_trade_income_effect = {
+	# $COUNTY$ = County to apply income for
+	$COUNTY$ = {
+		save_temporary_scope_value_as = {
+			name = trade_income
+			value = 0
+		}
+		# Base income from trade route
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			change_variable = {
+				name = trade_income
+				add = 1
+			}
+		}
+		# Additional income from prosperity
+		if = {
+			limit = {
+				has_county_flag = trade_prosperity_high
+			}
+			change_variable = {
+				name = trade_income
+				add = 1
+			}
+		}
+		# Apply final income
+		holder = {
+			add_gold = scope:trade_income
+		}
+	}
+}
+
+# Setup trade node
+setup_trade_node_effect = {
+	# $COUNTY$ = County to set up node in
+	$COUNTY$ = {
+		set_county_flag = trade_node
+		add_county_modifier = {
+			modifier = flourishing_trade_node
+			years = 10
+		}
+	}
+}
+
+# Mark county as major trade node
+set_major_trade_node_effect = {
+	# $COUNTY$ = County to set as major node
+	$COUNTY$ = {
+		set_county_flag = major_trade_node
+		add_county_modifier = {
+			modifier = silk_road_trade_center
+			years = 10
+		}
+	}
+}
+
+# Apply trade route disruption from war
+apply_war_disruption_effect = {
+	# $COUNTY$ = County affected by war
+	$COUNTY$ = {
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+			}
+			disrupt_trade_route_effect = {
+				COUNTY = this
+			}
+			holder = {
+				trigger_event = {
+					id = trade_disruption.0001
+					days = 1
+				}
+			}
+		}
+	}
+}
+
+# Check and update trade route status
+update_trade_route_status_effect = {
+	# $COUNTY$ = County to update
+	$COUNTY$ = {
+		# Check if route should be disrupted
+		if = {
+			limit = {
+				has_county_flag = on_active_trade_route
+				OR = {
+					occupation_type = enemy
+					development_level < 5
+				}
+			}
+			disrupt_trade_route_effect = {
+				COUNTY = this
+			}
+		}
+		# Check if route can be restored
+		else_if = {
+			limit = {
+				has_county_flag = on_disrupted_trade_route
+				NOT = {
+					occupation_type = enemy
+				}
+				development_level >= 5
+			}
+			restore_trade_route_effect = {
+				COUNTY = this
 			}
 		}
 	}

@@ -5,9 +5,9 @@
 
  # Trade Window
  TRADE_WINDOW_TITLE:0 "Trade Overview"
- TRADE_TAB_ROUTES:0 "Routes"
- TRADE_TAB_GOODS:0 "Goods"
- TRADE_TAB_POLICIES:0 "Policies"
+ TRADE_TAB_ROUTES:0 "Trade Routes"
+ TRADE_TAB_GOODS:0 "Trade Goods"
+ TRADE_TAB_POLICIES:0 "Trade Policies"
 
  # Trade Routes Tab
  TRADE_ROUTES_INFO:0 "Active Trade Routes"
@@ -24,6 +24,8 @@
  # Trade Summary
  TRADE_INCOME_SUMMARY:0 "Monthly Trade Income"
  TRADE_INCOME_VALUE:0 "+[Player.GetMonthlyTradeIncome|2]"
+ TRADE_INCOME_VALUE_WITH_AMOUNT:0 "£gold£ [ROOT.Var('monthly_trade_income')|0]"
+ TRADE_INCOME_VALUE_NONE:0 "£gold£ 0"
 
  # Tooltips
  TRADE_COUNTY_INFO:0 "Trade Information"

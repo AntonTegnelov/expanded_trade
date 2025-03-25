@@ -1,4 +1,4 @@
-# Trade Goods
+﻿# Trade Goods
 # Basic set of goods for the trade system
 # These are divided into luxury and common categories
 ## Luxury Goods - High value, low volume

@@ -1,4 +1,4 @@
-# Trade Character Interactions
+﻿# Trade Character Interactions
 # Core interactions for merchant-related activities
 # Invite a merchant to your court to boost trade and gain an advisor
 invite_merchant_interaction = {

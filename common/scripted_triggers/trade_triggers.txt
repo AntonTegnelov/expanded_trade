@@ -1,140 +1,88 @@
-# Trade Triggers
+﻿# Trade Triggers
 # These scripted triggers provide essential checks for trade functionality
 # Checks if a county is on the Silk Road
 is_on_silk_road_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: is_on_silk_road_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "is_on_silk_road_trigger"
+		subject = this
+	}
 	# First check if this is a valid county
 	exists = this
-	is_county = yes
+	tier = tier_county
 	# County can be directly on the route or close enough to benefit
 	OR = {
-		# Direct Silk Road county (has the flag)
-		has_county_flag = on_silk_road
+		# Direct Silk Road county (has the modifier)
+		has_county_modifier = silk_road_trade_center
 		# County is within trading distance of a Silk Road node
 		any_neighboring_county = {
 			exists = this
-			has_county_flag = on_silk_road
-		}
-		# County has a silk road trade node
-		any_trade_node = {
-			OR = {
-				# Exact node matching
-				node_id = xian_node
-				node_id = dunhuang_node
-				node_id = kashgar_node
-				node_id = samarkand_node
-				node_id = bukhara_node
-				node_id = merv_node
-				node_id = nishapur_node
-				node_id = rayy_node
-				node_id = baghdad_node
-				node_id = mosul_node
-				node_id = aleppo_node
-				node_id = antioch_node
-				node_id = constantinople_node
-			}
+			has_county_modifier = silk_road_trade_center
 		}
 	}
-	debug_log = "Trigger result: is_on_silk_road_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a character owns a county that is directly on the Silk Road
 owns_county_on_silk_road_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: owns_county_on_silk_road_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "owns_county_on_silk_road_trigger"
+		subject = this
+	}
 	exists = this
 	is_alive = yes
-	any_county = {
-		exists = this
-		county_controller = root
+	any_held_title = {
+		tier = tier_county
 		is_on_silk_road_trigger = yes
 	}
-	debug_log = "Trigger result: owns_county_on_silk_road_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county is on a valid trade route
 is_on_valid_trade_route_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: is_on_valid_trade_route_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "is_on_valid_trade_route_trigger"
+		subject = this
+	}
 	# First check if this is a valid county
 	exists = this
-	is_county = yes
-	# Check if the county has the trade route flag
+	tier = tier_county
+	# Check if the county has a trade route modifier
 	OR = {
-		has_county_flag = on_active_trade_route
-		has_county_flag = on_disrupted_trade_route
+		has_county_modifier = active_trade_route
+		has_county_modifier = disrupted_trade_route
 	}
-	debug_log = "Trigger result: is_on_valid_trade_route_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county has a connection to another county via a trade route
 has_trade_route_connection_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: has_trade_route_connection_trigger for [THIS.GetID] to [$TARGET_COUNTY$.GetID]"
 	# First check if this is a valid county
 	exists = this
-	is_county = yes
-	# $TARGET_COUNTY$ = County to check connection with
+	tier = tier_county
+	# Check for trade modifiers
 	OR = {
-		# Direct connection via valid route
-		has_variable = trade_route_to_$TARGET_COUNTY$_valid
-		var:trade_route_to_$TARGET_COUNTY$_valid = yes
-		# Connection through another node
-		AND = {
-			is_on_valid_trade_route_trigger = yes
-			$TARGET_COUNTY$ = {
-				exists = this
-				is_county = yes
-				is_on_valid_trade_route_trigger = yes
-			}
-		}
+		has_county_modifier = active_trade_route
+		has_county_modifier = silk_road_trade_center
 	}
-	debug_log = "Trigger result: has_trade_route_connection_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county produces a specific trade good
 has_trade_good_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: has_trade_good_trigger for [THIS.GetID] good: $TRADE_GOOD$"
-	# $TRADE_GOOD$ = ID of the trade good to check for
-	# If a specific trade good is provided, check for that
+	# Check for county modifiers related to goods
 	OR = {
-		# County has the specific trade good flag
-		has_county_flag = produces_$TRADE_GOOD$
-		# County terrain matches production requirements
-		AND = {
-			# The check works with a scope to the county
-			$TRADE_GOOD$ = {
-				# Check if county terrain matches any of the production terrain types
-				any_in_list = {
-					variable = production_terrain
-					this = {
-						terrain = prev
-					}
-				}
-			}
-		}
+		has_county_modifier = local_luxury_goods
+		has_county_modifier = local_common_goods
 	}
-	debug_log = "Trigger result: has_trade_good_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county has a specified trade node
 has_trade_node_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: has_trade_node_trigger for [THIS.GetID] node: $NODE_ID$"
 	# $NODE_ID$ = ID of the trade node to check for
 	exists = $NODE_ID$
 	$NODE_ID$ = {
 		county = root
 	}
-	debug_log = "Trigger result: has_trade_node_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a province can be used as a trade route province based on terrain
 province_valid_for_trade_route_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: province_valid_for_trade_route_trigger for [THIS.GetID]"
 	# The following terrain types are suitable for land trade routes
 	OR = {
 		terrain = plains
@@ -147,92 +95,77 @@ province_valid_for_trade_route_trigger = {
 		terrain = steppe
 		terrain = oasis
 	}
-	debug_log = "Trigger result: province_valid_for_trade_route_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county has trade prosperity
 has_trade_prosperity_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: has_trade_prosperity_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "has_trade_prosperity_trigger"
+		subject = this
+	}
 	OR = {
 		has_county_modifier = low_trade_prosperity
 		has_county_modifier = medium_trade_prosperity
 		has_county_modifier = high_trade_prosperity
 	}
-	debug_log = "Trigger result: has_trade_prosperity_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county can build a trade building
 can_build_trade_building_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: can_build_trade_building_trigger for [THIS.GetID]"
-	# Check if the county is on a trade route
-	is_on_silk_road_trigger = yes
-	# Check if the holding is appropriate for trade buildings
-	OR = {
-		is_city_holding = yes
-		is_castle_holding = yes
+	custom_description = {
+		text = "can_build_trade_building_trigger"
+		subject = this
 	}
-	# Check if the holding has enough development
-	development_level >= 5
-	debug_log = "Trigger result: can_build_trade_building_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
+	# Check if county has prerequisites
+	OR = {
+		# County is on an active trade route
+		has_county_modifier = active_trade_route
+		# County is a silk road trade center  
+		has_county_modifier = silk_road_trade_center
+	}
 }
 
 # Checks if a county can build a trading post
 can_build_trading_post_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: can_build_trading_post_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "can_build_trading_post_trigger"
+		subject = this
+	}
 	# County must be on a trade route
 	is_on_silk_road_trigger = yes
 	# Check if the holding is appropriate for trading posts
 	OR = {
-		is_tribal_holding = yes
-		is_castle_holding = yes
+		has_holding_type = tribal_holding
+		has_holding_type = castle_holding
 	}
 	# Basic development requirement
 	development_level >= 3
-	debug_log = "Trigger result: can_build_trading_post_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county can build a caravanserai
 can_build_caravanserai_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: can_build_caravanserai_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "can_build_caravanserai_trigger"
+		subject = this
+	}
 	# County must be a key trade node
-	county = {
+	title_province = {
 		is_on_silk_road_trigger = yes
-		# Only key locations can have caravanserais
-		OR = {
-			any_trade_node = {
-				OR = {
-					# Key Silk Road nodes
-					node_id = samarkand_node
-					node_id = bukhara_node
-					node_id = merv_node
-					node_id = baghdad_node
-					node_id = mosul_node
-					node_id = aleppo_node
-					node_id = antioch_node
-					node_id = constantinople_node
-				}
-			}
-			# Or county is set as a trade_post_slot location
-			has_county_flag = trade_post_slot
-		}
 	}
 	# More significant development requirement
 	development_level >= 7
-	debug_log = "Trigger result: can_build_caravanserai_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a character is actively participating in trade
 is_trade_participant_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: is_trade_participant_trigger for [THIS.GetID]"
+	custom_description = {
+		text = "is_trade_participant_trigger"
+		subject = this
+	}
 	OR = {
 		# Character rules a county on a trade route
 		any_held_title = {
-			tier = county
+			tier = tier_county
 			is_on_silk_road_trigger = yes
 		}
 		# Character has a trade character modifier
@@ -240,82 +173,66 @@ is_trade_participant_trigger = {
 		has_character_modifier = trade_node_controller
 		has_character_modifier = trade_infrastructure
 	}
-	debug_log = "Trigger result: is_trade_participant_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a county is on an active trade route
 is_on_active_trade_route_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: is_on_active_trade_route_trigger for [THIS.GetID]"
-	OR = {
-		has_county_flag = on_silk_road
-		has_county_flag = on_active_trade_route
+	custom_description = {
+		text = "is_on_active_trade_route_trigger"
+		subject = this
 	}
+	has_county_modifier = active_trade_route
 	NOT = {
-		has_county_flag = trade_route_disrupted
+		has_county_modifier = disrupted_trade_route
 	}
-	debug_log = "Trigger result: is_on_active_trade_route_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Checks if a culture has trade-related traditions
 has_trade_tradition_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: has_trade_tradition_trigger for [THIS.GetID]"
 	# Culture scope
 	OR = {
-		# Major trade cultures
-		culture_group = culture_group:byzantine
-		culture_group = culture_group:arabic_group
-		culture_group = culture_group:chinese_group
-		culture_group = culture_group:turkic_group
-		culture_group = culture_group:persian_group
-		culture_group = culture_group:indian_group
-		culture_group = culture_group:byzantine
-		# Cultures with sea/river trade traditions
-		culture = culture:greek
-		culture = culture:italian
-		culture = culture:norse
-		culture = culture:egyptian
-		# Or any cultures with major merchants
-		has_cultural_parameter = major_trading_culture
+		# Major trade cultures with naval focus
+		has_cultural_tradition = tradition_seafaring
+		has_cultural_tradition = tradition_maritime_mercantilism
+		has_cultural_tradition = tradition_city_keepers
 	}
-	debug_log = "Trigger result: has_trade_tradition_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
 }
 
 # Check if character owns a county on a trade route
 owns_county_with_trade_route_trigger = {
-	debug_tooltip = yes
-	debug_log = "Evaluating trigger: owns_county_with_trade_route_trigger for [THIS.GetID]"
 	any_county = {
 		is_on_active_trade_route_trigger = yes
-	}
-	debug_log = "Trigger result: owns_county_with_trade_route_trigger = [THIS.MakeScope.Var('trigger_result').GetValue]"
-}
-
-# Check if county has a trade good
-has_trade_good_trigger = {
-	OR = {
-		has_luxury_goods_trigger = yes
-		has_common_goods_trigger = yes
 	}
 }
 
 # Check if county has high trade prosperity
 has_high_trade_prosperity_trigger = {
-	OR = {
-		has_county_modifier = trade_prosperity_high
-		has_county_modifier = trade_prosperity_very_high
-	}
+	exists = var:trade_prosperity_level
+	var:trade_prosperity_level >= high_trade_prosperity
 }
 
 # Check if county is a major trade node
 is_trade_node_major_trigger = {
 	OR = {
-		county = 1000		# Constantinople
-		county = 1110		# Baghdad
-		county = 1215		# Samarkand
-		county = 1445		# Chang'an
-		county = 907		# Alexandria
-		county = 828		# Venice
+		has_variable = major_trade_node
+		has_variable = trade_node_major
+	}
+}
+
+# Checks if a holding has a trade building
+has_trade_building_trigger = {
+	OR = {
+		has_building = market_square
+		has_building = trading_post
+		has_building = caravanserai
+		has_building = guild_halls_01
+	}
+}
+
+# Checks if a county is on a trade route
+is_on_trade_route_trigger = {
+	OR = {
+		has_variable = on_silk_road
+		has_variable = on_active_trade_route
 	}
 }

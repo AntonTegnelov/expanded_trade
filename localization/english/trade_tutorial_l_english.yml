@@ -1,0 +1,46 @@
+﻿l_english:
+ # Trade Tutorial Lessons - General Text
+ tutorial_lesson_trade_introduction_step1_instruction:0 "Welcome to the Expanded Trade system! This tutorial will teach you the basics of trade routes, buildings, and policies.\n\nTrade routes represent ancient and medieval trade networks that connected different regions. Counties on trade routes gain prosperity bonuses and access to special buildings."
+ tutorial_lesson_trade_routes_instruction:0 "Trade routes connect different regions of the world. The Silk Road is one of the most famous, stretching from China to the Mediterranean.\n\nCounties on trade routes have special modifiers. You can see these by checking the county details. A county on a trade route has more development growth and tax income potential."
+ tutorial_lesson_trade_buildings_instruction:0 "Counties on trade routes can build special trade buildings that provide unique bonuses.\n\nThese buildings can increase tax income, provide levies, or give special bonuses to your character. To build these, select a holding in a county on a trade route and look for the trade section in the building menu."
+ tutorial_lesson_trade_completion_instruction:0 "You now understand the basics of the trade system! Continue playing to discover more features and strategies.\n\nAs a reward for completing this tutorial, you've received 25 gold to help start building your trade empire."
+ 
+ # Trade Buildings Tutorial
+ tutorial_lesson_trade_buildings_benefits_instruction:0 "Trade buildings provide powerful economic benefits to your realm. They are more expensive than regular buildings but offer greater returns on investment.\n\nMost trade buildings require that the county is on a trade route. Some advanced buildings require specific cultural innovations or technologies."
+ tutorial_lesson_trade_buildings_types_instruction:0 "There are several types of trade buildings:\n\n- Markets increase tax income and development\n- Merchant Quarters provide special tax modifiers\n- Caravanserais increase control gain and cultural acceptance\n- Trade Posts extend your trade influence to neighboring counties"
+ tutorial_lesson_trade_buildings_construction_instruction:0 "To build trade buildings, select a holding in a county on a trade route, click the build button, and navigate to the Economic category.\n\nTrade buildings are shown with special icons. They typically cost more gold but provide greater benefits than standard buildings."
+ tutorial_lesson_trade_buildings_completion_instruction:0 "You now understand how to develop your trade infrastructure! Building a network of trade buildings will greatly enhance your realm's prosperity.\n\nAs a reward for completing this tutorial, you've received 25 gold to help construct your first trade building."
+ 
+ # Trade Policies Tutorial
+ tutorial_lesson_trade_policies_overview_instruction:0 "Trade policies allow you to customize how your realm interacts with the trade system. Different policies provide different benefits and costs.\n\nYou can set trade policies through decisions in the Decisions menu. These policies affect all counties in your realm that are on trade routes."
+ tutorial_lesson_trade_council_tasks_instruction:0 "Your council members can help you manage trade in your realm. The Steward has special tasks related to trade development.\n\nAssign your Steward to 'Develop County' in a county on a trade route to boost its trade value and development growth rate."
+ tutorial_lesson_trade_decisions_instruction:0 "Special trade decisions become available as your realm grows. These include establishing new trade connections, hosting trade fairs, and negotiating with merchant guilds.\n\nCheck your Decisions menu regularly for new trade opportunities as your technology and realm size increase."
+ tutorial_lesson_trade_policies_completion_instruction:0 "You now understand how to manage trade policies in your realm! Strategic use of trade policies and council tasks will help you maximize the benefits of the trade system.\n\nKeep an eye on neighboring realms - their trade policies may affect yours, creating opportunities for cooperation or conflict."
+ 
+ # Tutorial Button Text
+ tutorial_lesson_button_complete:0 "I Understand"
+ tutorial_button_continue:0 "Continue"
+ 
+ # Trade Tutorial Headers
+ tutorial_lesson_trade_introduction_header:0 "Introduction to Trade"
+ tutorial_lesson_trade_routes_header:0 "Trade Routes"
+ tutorial_lesson_trade_buildings_header:0 "Trade Buildings"
+ 
+ # Trade Buildings Tutorial
+ tutorial_lesson_trade_buildings_guide_header:0 "Trade Buildings Guide"
+ tutorial_lesson_trade_buildings_types_header:0 "Types of Trade Buildings"
+ tutorial_lesson_trade_buildings_construction_header:0 "Building Construction"
+ 
+ # Trade Policies Tutorial
+ tutorial_lesson_trade_policies_header:0 "Trade Policies"
+ tutorial_lesson_trade_policies_overview_header:0 "Trade Policy Overview"
+ tutorial_lesson_trade_council_tasks_header:0 "Council Trade Tasks"
+ tutorial_lesson_trade_decisions_header:0 "Trade Decisions"
+ 
+ # Side Effects & Descriptions
+ tutorial_lesson_trade_introduction_effect_desc:0 "Learn about the basics of the trade system and how it can benefit your realm."
+ task_court_trade_focus_effect_desc:0 "Your Steward will focus on improving trade throughout your realm, increasing income and development in counties connected to trade routes."
+ task_court_trade_focus_improved_income:0 "May increase your monthly income based on your Steward's skill."
+ task_court_trade_focus_merchant_complaint:0 "May occasionally lead to complaints from merchants if your Steward isn't skilled enough."
+ task_court_trade_focus_income_modifier:0 "Trade Focus Income"
+ task_court_trade_focus_development_modifier:0 "Trade Focus Development" 

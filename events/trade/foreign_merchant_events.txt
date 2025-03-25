@@ -1,4 +1,4 @@
-namespace = foreign_merchant
+﻿namespace = foreign_merchant
 # Initial foreign merchant event
 foreign_merchant.0001 = {
 	type = character_event

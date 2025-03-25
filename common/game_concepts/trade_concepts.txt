@@ -1,0 +1,7 @@
+﻿court_trade_focus = {
+	parent = court_focus
+	texture = "gfx/interface/icons/character_interactions/icon_focus_on_trade.dds"
+	alias = {
+		trade_focus
+	}
+}

@@ -1,4 +1,4 @@
-namespace = trade_decision_events
+﻿namespace = trade_decision_events
 # Invest in Trade Route follow-up event
 trade_decision_events.0001 = {
 	type = character_event

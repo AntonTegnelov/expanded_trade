@@ -1,0 +1,138 @@
+﻿# County Trade Functions
+county_is_on_trade_route = {
+	scope = county
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Logic to determine if county is on a trade route
+		# Will be implemented with actual trade route system
+	}
+}
+
+county_get_trade_prosperity = {
+	scope = county
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Return the prosperity value for this county
+		# Will be implemented with actual trade prosperity system
+	}
+}
+
+county_has_trade_goods = {
+	scope = county
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Logic to determine if county has trade goods
+		# Will be implemented with trade goods system
+	}
+}
+
+county_get_trade_goods_name = {
+	scope = county
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Return the name of trade goods for this county
+		# Will be implemented with trade goods system
+	}
+}
+
+# Holding Trade Functions
+holding_has_trade_building = {
+	scope = holding
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Logic to determine if holding has trade buildings
+		# Will be implemented with trade buildings system
+	}
+}
+
+holding_get_trade_value = {
+	scope = holding
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Return the trade value for this holding
+		# Will be implemented with trade value calculation
+	}
+}
+
+# Character Trade Functions
+character_has_trade_modifier = {
+	scope = character
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Logic to determine if character has trade modifiers
+		# Will be implemented with trade modifier system
+	}
+}
+
+character_get_trade_income = {
+	scope = character
+	is_shown = {
+		always = yes
+	}
+	effect = {
+		# Return the trade income for this character
+		# Will be implemented with trade income calculation
+	}
+}
+
+# Data Context for GUI
+trade_data_context = {
+	datacontext = {
+		name = County
+	}
+	datacontext = {
+		name = Holding
+	}
+	datacontext = {
+		name = Character
+	}
+	# County data
+	datafunction = {
+		name = IsOnTradeRoute
+		function = county_is_on_trade_route
+	}
+	datafunction = {
+		name = GetTradeProsperity
+		function = county_get_trade_prosperity
+	}
+	datafunction = {
+		name = HasTradeGoods
+		function = county_has_trade_goods
+	}
+	datafunction = {
+		name = GetTradeGoodsName
+		function = county_get_trade_goods_name
+	}
+	# Holding data
+	datafunction = {
+		name = HasTradeBuilding
+		function = holding_has_trade_building
+	}
+	datafunction = {
+		name = GetTradeValue
+		function = holding_get_trade_value
+	}
+	# Character data
+	datafunction = {
+		name = HasTradeModifier
+		function = character_has_trade_modifier
+	}
+	datafunction = {
+		name = GetTradeIncome
+		function = character_get_trade_income
+	}
+}

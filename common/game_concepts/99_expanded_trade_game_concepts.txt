@@ -1,0 +1,4 @@
+﻿court_trade_focus = {
+	parent = councillor_task
+	texture = "gfx/interface/icons/council_task_types/task_foreign_affairs.dds"
+}
